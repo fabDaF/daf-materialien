@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kollokationen &ndash; Leistung, Erfahrung, Bewertung</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 30px 25px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.5em; margin-bottom: 6px; }
+        .header .subtitle { font-size: 0.95em; opacity: 0.9; }
+        .header .level { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 12px; font-size: 0.8em; margin-top: 8px; }
+
+        /* Tab-Navigation */
+        .nav {
+            display: flex;
+            background: #f8f9ff;
+            border-bottom: 2px solid #e8e8e8;
+            overflow-x: auto;
+        }
+        .nav-btn {
+            flex: 1;
+            padding: 14px 16px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #888;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-btn:hover { color: #667eea; background: #f0f2ff; }
+        .nav-btn.active { color: #667eea; border-bottom-color: #667eea; background: white; }
+
+        .section { display: none; padding: 30px; }
+        .section.active { display: block; }
+
+        /* Einf&uuml;hrungstext */
+        .intro {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            font-size: 0.95em;
+            color: #333;
+        }
+        .intro p { margin-bottom: 12px; }
+        .intro p:last-child { margin-bottom: 0; }
+
+        /* Abschnitts-Titel */
+        .section-title {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #667eea;
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        /* Satzpaar-Karten */
+        .pair-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .pair-number {
+            grid-column: 1 / -1;
+            background: #f0f0f0;
+            padding: 6px 16px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #888;
+        }
+        .pair-left {
+            background: #fef8f0;
+            padding: 16px 20px;
+            border-right: 1px solid #f0e0d0;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        .pair-right {
+            background: #f0f8f0;
+            padding: 16px 20px;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        .pair-left .label {
+            display: inline-block;
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #c0a070;
+            margin-bottom: 6px;
+        }
+        .pair-right .label {
+            display: inline-block;
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #27ae60;
+            margin-bottom: 6px;
+        }
+        .pair-left .sentence { color: #666; }
+        .pair-right .sentence { color: #333; }
+        .pair-right .sentence strong { color: #27ae60; font-weight: 700; }
+        .pair-left .banal {
+            color: #c0a070;
+            font-weight: 600;
+            text-decoration: line-through;
+            text-decoration-color: rgba(192,160,112,0.4);
+        }
+
+        /* Analyse-Box */
+        .analyse {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 30px;
+        }
+        .analyse h3 { color: #667eea; font-size: 1.05em; margin-bottom: 14px; }
+        .analyse p { line-height: 1.7; font-size: 0.95em; color: #333; margin-bottom: 12px; }
+        .analyse p:last-child { margin-bottom: 0; }
+        .analyse-category {
+            background: white;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            border-left: 4px solid #667eea;
+        }
+        .analyse-category:last-of-type { margin-bottom: 0; }
+        .analyse-category h4 { font-size: 0.9em; color: #764ba2; margin-bottom: 8px; }
+        .analyse-category p { font-size: 0.9em; margin-bottom: 8px; }
+        .analyse-category .examples { font-size: 0.88em; color: #555; line-height: 1.8; }
+        .analyse-category .examples span.banal {
+            color: #c0a070;
+            text-decoration: line-through;
+            text-decoration-color: rgba(192,160,112,0.4);
+        }
+        .analyse-category .examples span.gut { color: #27ae60; font-weight: 600; }
+
+        /* Fazit-Box */
+        .fazit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            line-height: 1.7;
+        }
+        .fazit h3 { margin-bottom: 10px; font-size: 1.05em; }
+        .fazit p { font-size: 0.95em; opacity: 0.95; margin-bottom: 10px; }
+        .fazit p:last-child { margin-bottom: 0; }
+
+        /* Quelle */
+        .quelle {
+            margin-top: 24px;
+            padding: 12px 16px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            font-size: 0.8em;
+            color: #999;
+            line-height: 1.5;
+        }
+        .quelle strong { color: #777; }
+
+        /* L&uuml;ckentext-Bereich */
+        .wordbank {
+            background: #f8f9ff;
+            border: 2px solid #e0e4f0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+        .wordbank-title {
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .wordbank-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .wordbank-item {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .ex-item {
+            background: #f8f9ff;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            line-height: 2.2;
+            font-size: 0.95em;
+        }
+        .ex-item .context {
+            font-size: 0.8em;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+        .nowrap-group {
+            display: inline-flex;
+            align-items: baseline;
+            white-space: nowrap;
+            gap: 0;
+        }
+
+        input.blank {
+            border: none;
+            border-bottom: 2px solid #667eea;
+            background: #fff;
+            padding: 4px 8px;
+            font-family: inherit;
+            font-size: 0.95em;
+            outline: none;
+            transition: all 0.2s;
+        }
+        input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+        input.blank.s { min-width: 50px; width: 50px; }
+        input.blank.m { min-width: 90px; width: 90px; }
+        input.blank.l { min-width: 150px; width: 150px; }
+        input.blank.xl { min-width: 200px; width: 200px; }
+        input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+        input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+        .correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-solution { background: #667eea; color: white; }
+        .btn-solution:hover { background: #5a6fd6; }
+        .btn-reset { background: #f0f0f0; color: #666; }
+        .btn-reset:hover { background: #e0e0e0; }
+
+        /* Timer */
+        .timer { font-size: 0.85em; text-align: center; margin-bottom: 16px; color: #888; }
+        .timer.running { color: #667eea; font-weight: 600; }
+        .timer.completed { color: #27ae60; font-weight: 600; }
+
+        /* Footer */
+        .author-footer { margin-top: 40px; padding: 16px 20px; text-align: center; font-size: 0.8em; color: #888; border-top: 1px solid #e0e0e0; }
+        .author-footer a { color: #667eea; text-decoration: none; font-weight: 500; }
+        .author-footer a:hover { text-decoration: underline; color: #764ba2; }
+        .author-footer .author-name { font-weight: 600; color: #555; }
+
+        /* Ketten */
+        .kette-card {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .kette-nomen {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #5a3e85;
+            margin-bottom: 14px;
+        }
+        .kette-phasen {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+        .kette-phase {
+            flex: 1;
+            min-width: 120px;
+            background: white;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .kette-phase-label {
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .kette-arrow {
+            display: flex;
+            align-items: center;
+            color: #667eea;
+            font-size: 1.4em;
+            font-weight: 700;
+            padding: 0 2px;
+        }
+        .kette-phase select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #d0d4f0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9em;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+            -webkit-appearance: auto;
+        }
+        .kette-phase select:focus { border-color: #667eea; }
+        .kette-phase select.correct { border-color: #27ae60; background: #e8f8f0; }
+        .kette-phase select.wrong { border-color: #e74c3c; background: #fdeaea; }
+        .kette-correction { color: #27ae60; font-weight: 600; font-size: 0.82em; margin-top: 4px; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .pair-card { grid-template-columns: 1fr; }
+            .pair-left { border-right: none; border-bottom: 1px solid #f0e0d0; }
+            body { padding: 10px; }
+            .section { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.2em; }
+            .nav-btn { font-size: 0.75em; padding: 10px 8px; }
+            .kette-phasen { flex-direction: column; }
+            .kette-arrow { transform: rotate(90deg); justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kollokationen</h1>
+            <div class="subtitle">Leistung, Erfahrung, Bewertung</div>
+            <div class="level">Niveau B1+</div>
+        </div>
+
+        <div class="nav">
+            <div class="nav-btn active" onclick="showSection(0)">📖 Einf&uuml;hrung</div>
+            <div class="nav-btn" onclick="showSection(1)">✏️ Das richtige Verb</div>
+            <div class="nav-btn" onclick="showSection(2)">✏️ Das richtige Adjektiv</div>
+            <div class="nav-btn" onclick="showSection(3)">🔗 Kollokationsketten</div>
+        </div>
+
+        <!-- ==================== TAB 0: Bewusstmachung ==================== -->
+        <div class="section active" id="sec-0">
+
+            <div class="intro">
+                <p>Wenn wir Deutsch lernen, denken wir oft, dass wir W&ouml;rter frei kombinieren k&ouml;nnen &ndash; dass wir jedes Mal einen Satz neu zusammenbauen, Wort f&uuml;r Wort. Grammatisch funktioniert das meistens. Aber Muttersprachler machen das nicht so.</p>
+                <p>Muttersprachler verwenden <strong>fertige Bausteine</strong> &ndash; Wortkombinationen, die so oft zusammen auftreten, dass sie als Einheit gespeichert sind. Diese Bausteine hei&szlig;en <strong>Kollokationen</strong>.</p>
+                <p>Vergleiche die folgenden Satzpaare. Links steht die grammatisch korrekte, aber banale Version. Rechts steht, was ein Muttersprachler tats&auml;chlich sagen w&uuml;rde.</p>
+            </div>
+
+            <div class="section-title">Die Satzpaare</div>
+
+            <div class="pair-card">
+                <div class="pair-number">1</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Ihr ist ein <span class="banal">gro&szlig;er</span> Fehler <span class="banal">passiert</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Ihr ist ein <strong>schwerer</strong> Fehler <strong>unterlaufen</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">2</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Er hat schnell eine Entscheidung <span class="banal">gemacht</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Er hat schnell eine Entscheidung <strong>getroffen</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">3</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Sie <span class="banal">hat</span> viel Erfahrung.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Sie <strong>verf&uuml;gt &uuml;ber</strong> langj&auml;hrige Erfahrung.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">4</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Ich habe die Pr&uuml;fung <span class="banal">gemacht</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Ich habe die Pr&uuml;fung <strong>abgelegt</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">5</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Das <span class="banal">hat</span> eine <span class="banal">gute</span> Wirkung.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Das <strong>entfaltet</strong> eine <strong>nachhaltige</strong> Wirkung.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">6</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Er hat mir einen guten Rat <span class="banal">gesagt</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Er hat mir einen <strong>wertvollen</strong> Rat <strong>erteilt</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">7</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Sie hat ein <span class="banal">gutes</span> Ergebnis <span class="banal">bekommen</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Sie hat ein <strong>hervorragendes</strong> Ergebnis <strong>erzielt</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">8</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Das Interesse ist <span class="banal">mehr geworden</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Das Interesse ist <strong>gestiegen</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">9</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Die Zeitung hat <span class="banal">starke</span> Kritik <span class="banal">geschrieben</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Die Zeitung hat <strong>scharfe</strong> Kritik <strong>ge&uuml;bt</strong>.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Was macht den Unterschied?</div>
+
+            <div class="analyse">
+                <p>Wenn du die Paare vergleichst, siehst du drei wichtige Muster:</p>
+
+                <div class="analyse-category">
+                    <h4>1. Das Verb &ndash; pr&auml;ziser statt banal</h4>
+                    <p>Die linken S&auml;tze benutzen immer dieselben Allerweltsverben: <em>machen</em>, <em>haben</em>, <em>bekommen</em>, <em>sagen</em>. Die rechten S&auml;tze verwenden Verben, die genau zum Nomen passen.</p>
+                    <div class="examples">
+                        eine Entscheidung <span class="banal">machen</span> &rarr; eine Entscheidung <span class="gut">treffen</span><br>
+                        eine Pr&uuml;fung <span class="banal">machen</span> &rarr; eine Pr&uuml;fung <span class="gut">ablegen</span><br>
+                        ein Ergebnis <span class="banal">bekommen</span> &rarr; ein Ergebnis <span class="gut">erzielen</span><br>
+                        einen Rat <span class="banal">sagen</span> &rarr; einen Rat <span class="gut">erteilen</span><br>
+                        Kritik <span class="banal">schreiben</span> &rarr; Kritik <span class="gut">&uuml;ben</span><br>
+                        Wirkung <span class="banal">haben</span> &rarr; Wirkung <span class="gut">entfalten</span>
+                    </div>
+                </div>
+
+                <div class="analyse-category">
+                    <h4>2. Das Adjektiv &ndash; treffender statt vage</h4>
+                    <p>Die linken S&auml;tze greifen zu <em>gro&szlig;</em>, <em>gut</em>, <em>stark</em> &ndash; Adjektive, die zu fast allem passen, aber nichts genau beschreiben. Die rechten S&auml;tze verwenden Adjektive, die wie ein Schl&uuml;ssel zum Schloss passen.</p>
+                    <div class="examples">
+                        ein <span class="banal">gro&szlig;er</span> Fehler &rarr; ein <span class="gut">schwerer</span> Fehler<br>
+                        ein <span class="banal">guter</span> Rat &rarr; ein <span class="gut">wertvoller</span> Rat<br>
+                        ein <span class="banal">gutes</span> Ergebnis &rarr; ein <span class="gut">hervorragendes</span> Ergebnis<br>
+                        <span class="banal">starke</span> Kritik &rarr; <span class="gut">scharfe</span> Kritik<br>
+                        eine <span class="banal">gute</span> Wirkung &rarr; eine <span class="gut">nachhaltige</span> Wirkung
+                    </div>
+                </div>
+
+                <div class="analyse-category">
+                    <h4>3. Die Kette &ndash; ein Nomen, viele Phasen</h4>
+                    <p>Aber es gibt noch mehr: Jedes Nomen tr&auml;gt ein ganzes <strong>Universum an Verben</strong> mit sich &ndash; nicht nur ein einziges &bdquo;richtiges&ldquo; Verb, sondern eine ganze Reihe, die verschiedene Phasen oder Stadien beschreiben.</p>
+                    <div class="examples">
+                        <strong>die Entscheidung:</strong> <span class="gut">anstehen</span> &rarr; <span class="gut">treffen</span> &rarr; <span class="gut">begr&uuml;nden</span> &rarr; <span class="gut">&uuml;berdenken</span> &rarr; <span class="gut">revidieren</span><br>
+                        <em style="color:#888; font-size:0.9em;">(Planung &rarr; Handlung &rarr; Erkl&auml;rung &rarr; Reflexion &rarr; Korrektur)</em><br><br>
+                        <strong>die Kritik:</strong> <span class="gut">&auml;u&szlig;ern</span> &rarr; <span class="gut">vorbringen</span> &rarr; <span class="gut">zur&uuml;ckweisen</span><br>
+                        <em style="color:#888; font-size:0.9em;">(Formulierung &rarr; Pr&auml;sentation &rarr; Reaktion)</em><br><br>
+                        <strong>das Ergebnis:</strong> <span class="gut">erzielen</span> &rarr; <span class="gut">vorlegen</span> &rarr; <span class="gut">auswerten</span><br>
+                        <em style="color:#888; font-size:0.9em;">(Leistung &rarr; Pr&auml;sentation &rarr; Analyse)</em>
+                    </div>
+                    <p style="margin-top: 12px;">Jedes dieser Verben ist eine eigene Kollokation &ndash; und zusammen bilden sie eine <strong>Kollokationskette</strong>. In Tab 4 &uuml;bst du diese Ketten.</p>
+                </div>
+            </div>
+
+            <div class="fazit">
+                <h3>Was bedeutet das f&uuml;r dich?</h3>
+                <p>Diese Kombinationen sind keine Zuf&auml;lle und keine Erfindungen. Es sind <strong>feste Muster</strong>, die in der deutschen Sprache existieren &ndash; best&auml;tigt durch die Analyse von Millionen von S&auml;tzen.</p>
+                <p>Du musst diese Muster nicht erfinden. Du musst sie <strong>lernen</strong> &ndash; so wie Vokabeln, aber als Paare und als Ketten. Wer Kollokationen kennt, klingt nicht nur korrekter, sondern nat&uuml;rlicher, pr&auml;ziser und kompetenter.</p>
+                <p>In den n&auml;chsten Tabs &uuml;bst du alle drei Muster: zuerst die <strong>Verben</strong>, dann die <strong>Adjektive</strong>, und schlie&szlig;lich die <strong>Kollokationsketten</strong>.</p>
+            </div>
+
+            <div class="quelle">
+                <strong>Quellen:</strong> Alle Kollokationen in dieser Lektion sind belegt im <em>W&ouml;rterbuch der Kollokationen im Deutschen</em> (Uwe Quasthoff, De Gruyter 2011), basierend auf der Analyse von &uuml;ber 50 Millionen S&auml;tzen des Projekts Deutscher Wortschatz der Universit&auml;t Leipzig. Die Auswahl der Nomen orientiert sich an <em>A Frequency Dictionary of German &ndash; Core Vocabulary for Learners</em> (Erwin Tschirner &amp; Jupp M&ouml;hring, 2. Auflage, Routledge).
+            </div>
+        </div>
+
+        <!-- ==================== TAB 1: Das richtige Verb ==================== -->
+        <div class="section" id="sec-1">
+
+            <div class="section-title">Das richtige Verb einsetzen</div>
+
+            <div class="intro" style="margin-bottom: 20px;">
+                <p>Erg&auml;nze das passende Verb. Verwende die <strong>konjugierte Form</strong>, die in den Satz passt. Die Wortbank zeigt die Infinitive.</p>
+            </div>
+
+            <div class="wordbank">
+                <div class="wordbank-title">Wortbank</div>
+                <div class="wordbank-items">
+                    <div class="wordbank-item">treffen</div>
+                    <div class="wordbank-item">ablegen</div>
+                    <div class="wordbank-item">erzielen</div>
+                    <div class="wordbank-item">erteilen</div>
+                    <div class="wordbank-item">&uuml;ben</div>
+                    <div class="wordbank-item">entfalten</div>
+                    <div class="wordbank-item">unterlaufen</div>
+                    <div class="wordbank-item">steigen</div>
+                </div>
+            </div>
+
+            <div class="timer" id="verb-timer"></div>
+
+            <div id="verbContainer"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-solution" onclick="showVerbLoesung()">L&ouml;sungen anzeigen</button>
+                <button class="btn btn-reset" onclick="resetVerb()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: Das richtige Adjektiv ==================== -->
+        <div class="section" id="sec-2">
+
+            <div class="section-title">Das richtige Adjektiv einsetzen</div>
+
+            <div class="intro" style="margin-bottom: 20px;">
+                <p>Erg&auml;nze das passende Adjektiv. Achte auf die <strong>richtige Endung</strong> (Deklination).</p>
+            </div>
+
+            <div class="wordbank">
+                <div class="wordbank-title">Wortbank</div>
+                <div class="wordbank-items">
+                    <div class="wordbank-item">schwer</div>
+                    <div class="wordbank-item">langj&auml;hrig</div>
+                    <div class="wordbank-item">nachhaltig</div>
+                    <div class="wordbank-item">hervorragend</div>
+                    <div class="wordbank-item">scharf</div>
+                    <div class="wordbank-item">wertvoll</div>
+                </div>
+            </div>
+
+            <div class="timer" id="adj-timer"></div>
+
+            <div id="adjContainer"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-solution" onclick="showAdjLoesung()">L&ouml;sungen anzeigen</button>
+                <button class="btn btn-reset" onclick="resetAdj()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: Kollokationsketten ==================== -->
+        <div class="section" id="sec-3">
+
+            <div class="section-title">Kollokationsketten &ndash; Verben in der richtigen Reihenfolge</div>
+
+            <div class="intro" style="margin-bottom: 20px;">
+                <p>Jedes Nomen hat ein ganzes <strong>Universum an Verben</strong>, die verschiedene Phasen beschreiben. W&auml;hle f&uuml;r jede Phase das passende Verb aus der Liste.</p>
+            </div>
+
+            <div class="timer" id="kette-timer"></div>
+
+            <div id="ketteContainer"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-solution" onclick="showKetteLoesung()">L&ouml;sungen anzeigen</button>
+                <button class="btn btn-reset" onclick="resetKette()">Neu starten</button>
+            </div>
+        </div>
+
+        <div class="author-footer">
+            <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+            <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+        </div>
+    </div>
+
+    <script>
+        // ==================== Tab Navigation ====================
+        function showSection(idx) {
+            document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+            document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+        }
+
+        // ==================== Timer ====================
+        var TIMER_PREFIX = 'kollokationen-leistung';
+        var timers = {};
+
+        function startTimer(key) {
+            if (!timers[key]) {
+                timers[key] = { start: Date.now(), running: true };
+                updateTimerDisplay(key);
+            }
+        }
+
+        function stopTimer(key) {
+            if (timers[key]) {
+                timers[key].running = false;
+            }
+        }
+
+        function updateTimerDisplay(key) {
+            var timerEl = document.getElementById(key + '-timer');
+            if (!timerEl) return;
+            if (!timers[key]) return;
+            var elapsed = Math.floor((Date.now() - timers[key].start) / 1000);
+            var mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            var secs = String(elapsed % 60).padStart(2, '0');
+            var timeStr = mins + ':' + secs;
+            timerEl.textContent = timers[key].running ? '\u23F1\uFE0F Zeit: ' + timeStr : '\u2713 Fertig! Zeit: ' + timeStr;
+            timerEl.className = 'timer ' + (timers[key].running ? 'running' : 'completed');
+            if (timers[key].running) {
+                setTimeout(function() { updateTimerDisplay(key); }, 1000);
+            }
+        }
+
+        // ==================== Verb-L&uuml;ckentext ====================
+        var VERB_DATA = [
+            {
+                id: 1,
+                context: "Im B\u00fcro \u2013 eine wichtige Besprechung",
+                segments: [
+                    {t: "Der Chef hat eine wichtige Entscheidung "},
+                    {b: "getroffen", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 2,
+                context: "An der Universit\u00e4t \u2013 Pr\u00fcfungszeit",
+                segments: [
+                    {t: "Letzten Freitag hat sie die m\u00fcndliche Pr\u00fcfung "},
+                    {b: "abgelegt", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 3,
+                context: "In der Forschung \u2013 ein neues Experiment",
+                segments: [
+                    {t: "Das Team hat ein bemerkenswertes Ergebnis "},
+                    {b: "erzielt", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 4,
+                context: "In der Schule \u2013 Elternsprechtag",
+                segments: [
+                    {t: "Die Lehrerin hat den Eltern einen hilfreichen Rat "},
+                    {b: "erteilt", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 5,
+                context: "In der Zeitung \u2013 eine Rezension",
+                segments: [
+                    {t: "Der Journalist hat an dem neuen Gesetz Kritik "},
+                    {b: "ge\u00fcbt", s: "m"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 6,
+                context: "In der Medizin \u2013 eine neue Therapie",
+                segments: [
+                    {t: "Das Medikament "},
+                    {b: "entfaltet", s: "l"},
+                    {t: " seine Wirkung erst nach zwei Wochen."}
+                ]
+            },
+            {
+                id: 7,
+                context: "Im Alltag \u2013 ein Missgeschick",
+                segments: [
+                    {t: "Beim Ausf\u00fcllen des Formulars ist ihr ein peinlicher Fehler "},
+                    {b: "unterlaufen", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 8,
+                context: "In der Wirtschaft \u2013 ein positiver Trend",
+                segments: [
+                    {t: "Das Interesse an erneuerbaren Energien ist in den letzten Jahren deutlich "},
+                    {b: "gestiegen", s: "l"},
+                    {t: "."}
+                ]
+            }
+        ];
+
+        function renderVerb() {
+            var container = document.getElementById('verbContainer');
+            container.innerHTML = '';
+            VERB_DATA.forEach(function(ex) {
+                var div = document.createElement('div');
+                div.className = 'ex-item';
+
+                var ctx = document.createElement('div');
+                ctx.className = 'context';
+                ctx.textContent = ex.context;
+                div.appendChild(ctx);
+
+                var sentence = document.createElement('div');
+                sentence.className = 'ex-sentence';
+
+                var skipNext = false;
+                ex.segments.forEach(function(seg, si) {
+                    if (skipNext) { skipNext = false; return; }
+                    if (seg.t !== undefined) {
+                        // Check if next segment is a blank (for nowrap-group)
+                        var nextSeg = ex.segments[si + 1];
+                        if (nextSeg && nextSeg.b !== undefined && seg.t.length > 0 && !seg.t.endsWith(' ')) {
+                            var group = document.createElement('span');
+                            group.className = 'nowrap-group';
+                            var txt = document.createElement('span');
+                            txt.textContent = seg.t;
+                            group.appendChild(txt);
+                            var inp = makeBlank(nextSeg, ex.id, 'verb');
+                            group.appendChild(inp);
+                            sentence.appendChild(group);
+                            skipNext = true;
+                        } else {
+                            var txt2 = document.createElement('span');
+                            txt2.textContent = seg.t;
+                            sentence.appendChild(txt2);
+                        }
+                    } else if (seg.b !== undefined) {
+                        var inp2 = makeBlank(seg, ex.id, 'verb');
+                        sentence.appendChild(inp2);
+                    }
+                });
+
+                div.appendChild(sentence);
+                container.appendChild(div);
+            });
+        }
+
+        // ==================== Adjektiv-L&uuml;ckentext ====================
+        var ADJ_DATA = [
+            {
+                id: 1,
+                context: "Im B\u00fcro \u2013 nach einer Besprechung",
+                segments: [
+                    {t: "Dem neuen Mitarbeiter ist ein "},
+                    {b: "schwerer", s: "l"},
+                    {t: " Fehler unterlaufen."}
+                ]
+            },
+            {
+                id: 2,
+                context: "Im Bewerbungsgespr\u00e4ch \u2013 Qualifikationen",
+                segments: [
+                    {t: "Sie verf\u00fcgt \u00fcber "},
+                    {b: "langj\u00e4hrige", s: "l"},
+                    {t: " Erfahrung in der Projektleitung."}
+                ]
+            },
+            {
+                id: 3,
+                context: "In der Medizin \u2013 Therapieerfolg",
+                segments: [
+                    {t: "Die neue Behandlungsmethode entfaltet eine "},
+                    {b: "nachhaltige", s: "l"},
+                    {t: " Wirkung."}
+                ]
+            },
+            {
+                id: 4,
+                context: "An der Universit\u00e4t \u2013 Forschung",
+                segments: [
+                    {t: "Die Doktorandin hat ein "},
+                    {b: "hervorragendes", s: "xl"},
+                    {t: " Ergebnis erzielt."}
+                ]
+            },
+            {
+                id: 5,
+                context: "In der Politik \u2013 Reaktionen",
+                segments: [
+                    {t: "Die Opposition hat "},
+                    {b: "scharfe", s: "l"},
+                    {t: " Kritik an dem Gesetzentwurf ge\u00fcbt."}
+                ]
+            },
+            {
+                id: 6,
+                context: "Unter Freunden \u2013 ein guter Tipp",
+                segments: [
+                    {t: "Mein Onkel hat mir einen "},
+                    {b: "wertvollen", s: "l"},
+                    {t: " Rat erteilt."}
+                ]
+            }
+        ];
+
+        function renderAdj() {
+            var container = document.getElementById('adjContainer');
+            container.innerHTML = '';
+            ADJ_DATA.forEach(function(ex) {
+                var div = document.createElement('div');
+                div.className = 'ex-item';
+
+                var ctx = document.createElement('div');
+                ctx.className = 'context';
+                ctx.textContent = ex.context;
+                div.appendChild(ctx);
+
+                var sentence = document.createElement('div');
+                sentence.className = 'ex-sentence';
+
+                var skipNext = false;
+                ex.segments.forEach(function(seg, si) {
+                    if (skipNext) { skipNext = false; return; }
+                    if (seg.t !== undefined) {
+                        var nextSeg = ex.segments[si + 1];
+                        if (nextSeg && nextSeg.b !== undefined && seg.t.length > 0 && !seg.t.endsWith(' ')) {
+                            var group = document.createElement('span');
+                            group.className = 'nowrap-group';
+                            var txt = document.createElement('span');
+                            txt.textContent = seg.t;
+                            group.appendChild(txt);
+                            var inp = makeBlank(nextSeg, ex.id, 'adj');
+                            group.appendChild(inp);
+                            sentence.appendChild(group);
+                            skipNext = true;
+                        } else {
+                            var txt2 = document.createElement('span');
+                            txt2.textContent = seg.t;
+                            sentence.appendChild(txt2);
+                        }
+                    } else if (seg.b !== undefined) {
+                        var inp2 = makeBlank(seg, ex.id, 'adj');
+                        sentence.appendChild(inp2);
+                    }
+                });
+
+                div.appendChild(sentence);
+                container.appendChild(div);
+            });
+        }
+
+        // ==================== Shared functions ====================
+        function makeBlank(seg, exId, type) {
+            var inp = document.createElement('input');
+            inp.type = 'text';
+            inp.className = 'blank ' + seg.s;
+            inp.dataset.answer = seg.b;
+            inp.dataset.exId = exId;
+            inp.dataset.type = type;
+            inp.oninput = function() {
+                startTimer(type);
+                liveCheck(this);
+                checkAllBlanks(type);
+            };
+            return inp;
+        }
+
+        function liveCheck(inp) {
+            var user = inp.value;
+            var answer = inp.dataset.answer;
+            inp.classList.remove('correct', 'wrong');
+            if (user.length === 0) return;
+            if (user === answer) { inp.classList.add('correct'); }
+            else if (answer.indexOf(user) === 0) { /* prefix ok, keep typing */ }
+            else { inp.classList.add('wrong'); }
+        }
+
+        function checkAllBlanks(type) {
+            var inputs = document.querySelectorAll('input.blank[data-type="' + type + '"]');
+            var allCorrect = inputs.length > 0;
+            inputs.forEach(function(inp) {
+                if (!inp.classList.contains('correct')) allCorrect = false;
+            });
+            if (allCorrect) stopTimer(type);
+        }
+
+        function showLoesung(type) {
+            stopTimer(type);
+            document.querySelectorAll('input.blank[data-type="' + type + '"]').forEach(function(inp) {
+                var next = inp.nextElementSibling;
+                if (next && next.classList.contains('correction-hint')) next.remove();
+                var user = inp.value.trim();
+                var answer = inp.dataset.answer;
+                if (user === answer) {
+                    inp.classList.remove('wrong');
+                    inp.classList.add('correct');
+                } else {
+                    inp.classList.add('wrong');
+                    var hint = document.createElement('span');
+                    hint.className = 'correction-hint';
+                    hint.textContent = answer;
+                    inp.insertAdjacentElement('afterend', hint);
+                }
+            });
+        }
+
+        function resetBlanks(type) {
+            document.querySelectorAll('input.blank[data-type="' + type + '"]').forEach(function(inp) {
+                inp.value = '';
+                inp.classList.remove('correct', 'wrong');
+                var next = inp.nextElementSibling;
+                if (next && next.classList.contains('correction-hint')) next.remove();
+            });
+            if (timers[type]) {
+                timers[type] = null;
+                var timerEl = document.getElementById(type + '-timer');
+                if (timerEl) { timerEl.textContent = ''; timerEl.className = 'timer'; }
+            }
+        }
+
+        function showVerbLoesung() { showLoesung('verb'); }
+        function showAdjLoesung() { showLoesung('adj'); }
+        function resetVerb() { resetBlanks('verb'); renderVerb(); }
+        function resetAdj() { resetBlanks('adj'); renderAdj(); }
+
+        // ==================== Kollokationsketten ====================
+        var KETTE_DATA = [
+            {
+                nomen: "die Entscheidung",
+                phasen: [
+                    { label: "Planung", answer: "anstehen" },
+                    { label: "Handlung", answer: "treffen" },
+                    { label: "Erkl\u00e4rung", answer: "begr\u00fcnden" },
+                    { label: "Reflexion", answer: "\u00fcberdenken" },
+                    { label: "Korrektur", answer: "revidieren" }
+                ],
+                pool: ["anstehen", "treffen", "begr\u00fcnden", "\u00fcberdenken", "revidieren", "erzielen", "vorbringen"]
+            },
+            {
+                nomen: "die Kritik",
+                phasen: [
+                    { label: "Formulierung", answer: "\u00e4u\u00dfern" },
+                    { label: "Pr\u00e4sentation", answer: "vorbringen" },
+                    { label: "Reaktion", answer: "zur\u00fccknehmen" }
+                ],
+                pool: ["\u00e4u\u00dfern", "vorbringen", "zur\u00fccknehmen", "treffen", "revidieren"]
+            },
+            {
+                nomen: "das Ergebnis",
+                phasen: [
+                    { label: "Leistung", answer: "erzielen" },
+                    { label: "Pr\u00e4sentation", answer: "vorlegen" },
+                    { label: "Analyse", answer: "auswerten" }
+                ],
+                pool: ["erzielen", "vorlegen", "auswerten", "begr\u00fcnden", "anstehen"]
+            },
+            {
+                nomen: "die Wirkung",
+                phasen: [
+                    { label: "Beginn", answer: "entfalten" },
+                    { label: "Dauer", answer: "anhalten" },
+                    { label: "Ende", answer: "nachlassen" }
+                ],
+                pool: ["entfalten", "anhalten", "nachlassen", "erzielen", "\u00e4u\u00dfern"]
+            },
+            {
+                nomen: "das Interesse",
+                phasen: [
+                    { label: "Entstehung", answer: "wecken" },
+                    { label: "Zunahme", answer: "steigern" },
+                    { label: "R\u00fcckgang", answer: "verlieren" }
+                ],
+                pool: ["wecken", "steigern", "verlieren", "treffen", "vorlegen"]
+            },
+            {
+                nomen: "die Pr\u00fcfung",
+                phasen: [
+                    { label: "Vorbereitung", answer: "vorbereiten" },
+                    { label: "Durchf\u00fchrung", answer: "ablegen" },
+                    { label: "Erfolg", answer: "bestehen" }
+                ],
+                pool: ["vorbereiten", "ablegen", "bestehen", "wecken", "\u00fcberdenken"]
+            },
+            {
+                nomen: "der Rat",
+                phasen: [
+                    { label: "Erteilung", answer: "erteilen" },
+                    { label: "Annahme", answer: "befolgen" },
+                    { label: "Wirkung", answer: "auszahlen" }
+                ],
+                pool: ["erteilen", "befolgen", "auszahlen", "ablegen", "verlieren"]
+            },
+            {
+                nomen: "der Fehler",
+                phasen: [
+                    { label: "Entstehung", answer: "unterlaufen" },
+                    { label: "Entdeckung", answer: "erkennen" },
+                    { label: "Korrektur", answer: "korrigieren" }
+                ],
+                pool: ["unterlaufen", "erkennen", "korrigieren", "befolgen", "bestehen"]
+            },
+            {
+                nomen: "das Versprechen",
+                phasen: [
+                    { label: "Anfang", answer: "abgeben" },
+                    { label: "Treue", answer: "einhalten" },
+                    { label: "Scheitern", answer: "brechen" }
+                ],
+                pool: ["abgeben", "einhalten", "brechen", "erteilen", "korrigieren"]
+            }
+        ];
+
+        function shuffleArray(arr) {
+            var a = arr.slice();
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+            }
+            return a;
+        }
+
+        function renderKette() {
+            var container = document.getElementById('ketteContainer');
+            container.innerHTML = '';
+            KETTE_DATA.forEach(function(item, ki) {
+                var card = document.createElement('div');
+                card.className = 'kette-card';
+
+                var nomen = document.createElement('div');
+                nomen.className = 'kette-nomen';
+                nomen.textContent = (ki + 1) + '. ' + item.nomen;
+                card.appendChild(nomen);
+
+                var phasenRow = document.createElement('div');
+                phasenRow.className = 'kette-phasen';
+
+                var shuffled = shuffleArray(item.pool);
+
+                item.phasen.forEach(function(phase, pi) {
+                    if (pi > 0) {
+                        var arrow = document.createElement('div');
+                        arrow.className = 'kette-arrow';
+                        arrow.innerHTML = '&rarr;';
+                        phasenRow.appendChild(arrow);
+                    }
+
+                    var phaseDiv = document.createElement('div');
+                    phaseDiv.className = 'kette-phase';
+
+                    var label = document.createElement('div');
+                    label.className = 'kette-phase-label';
+                    label.textContent = phase.label;
+                    phaseDiv.appendChild(label);
+
+                    var sel = document.createElement('select');
+                    sel.dataset.answer = phase.answer;
+                    sel.dataset.type = 'kette';
+
+                    var defOpt = document.createElement('option');
+                    defOpt.value = '';
+                    defOpt.textContent = '-- w\u00e4hlen --';
+                    sel.appendChild(defOpt);
+
+                    shuffled.forEach(function(v) {
+                        var opt = document.createElement('option');
+                        opt.value = v;
+                        opt.textContent = v;
+                        sel.appendChild(opt);
+                    });
+
+                    sel.onchange = function() {
+                        startTimer('kette');
+                        checkSelect(this);
+                        checkAllSelects();
+                    };
+                    phaseDiv.appendChild(sel);
+                    phasenRow.appendChild(phaseDiv);
+                });
+
+                card.appendChild(phasenRow);
+                container.appendChild(card);
+            });
+        }
+
+        function checkSelect(sel) {
+            sel.classList.remove('correct', 'wrong');
+            if (!sel.value) return;
+            if (sel.value === sel.dataset.answer) { sel.classList.add('correct'); }
+            else { sel.classList.add('wrong'); }
+        }
+
+        function checkAllSelects() {
+            var sels = document.querySelectorAll('.kette-phase select');
+            var allCorrect = sels.length > 0;
+            sels.forEach(function(s) {
+                if (!s.classList.contains('correct')) allCorrect = false;
+            });
+            if (allCorrect) stopTimer('kette');
+        }
+
+        function showKetteLoesung() {
+            stopTimer('kette');
+            document.querySelectorAll('.kette-phase select').forEach(function(sel) {
+                var existing = sel.parentElement.querySelector('.kette-correction');
+                if (existing) existing.remove();
+                if (sel.value === sel.dataset.answer) {
+                    sel.classList.remove('wrong');
+                    sel.classList.add('correct');
+                } else {
+                    sel.classList.add('wrong');
+                    var hint = document.createElement('div');
+                    hint.className = 'kette-correction';
+                    hint.textContent = sel.dataset.answer;
+                    sel.insertAdjacentElement('afterend', hint);
+                }
+            });
+        }
+
+        function resetKette() {
+            if (timers['kette']) {
+                timers['kette'] = null;
+                var timerEl = document.getElementById('kette-timer');
+                if (timerEl) { timerEl.textContent = ''; timerEl.className = 'timer'; }
+            }
+            renderKette();
+        }
+
+        // ==================== Init ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderVerb();
+            renderAdj();
+            renderKette();
+        });
+    </script>
+</body>
+</html>

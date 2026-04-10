@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kollokationen &ndash; Beziehungen &amp; Gef&uuml;hle</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);
+            color: white;
+            padding: 30px 30px 25px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.5em; margin-bottom: 6px; }
+        .header .subtitle { font-size: 0.95em; opacity: 0.9; }
+        .header .level { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 12px; font-size: 0.8em; margin-top: 8px; }
+
+        /* Tab-Navigation */
+        .nav {
+            display: flex;
+            background: #fdf4f3;
+            border-bottom: 2px solid #e8e8e8;
+            overflow-x: auto;
+        }
+        .nav-btn {
+            flex: 1;
+            padding: 14px 16px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #888;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-btn:hover { color: #c0392b; background: #f8e6e4; }
+        .nav-btn.active { color: #c0392b; border-bottom-color: #c0392b; background: white; }
+
+        /* Sections */
+        .section { display: none; padding: 30px; }
+        .section.active { display: block; }
+        .section-title { font-size: 1.2em; font-weight: 700; color: #c0392b; margin-bottom: 20px; }
+
+        /* Pair Cards */
+        .pair-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e8e8e8;
+            position: relative;
+        }
+        .pair-number {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            font-size: 0.7em;
+            font-weight: 700;
+            color: #bbb;
+        }
+        .pair-left, .pair-right { padding: 16px 20px; }
+        .pair-left {
+            background: #fef8f6;
+            border-right: 1px solid #f0e0d8;
+        }
+        .pair-right { background: #fdf4f3; }
+        .pair-left .label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #c0392b; margin-bottom: 6px; }
+        .pair-right .label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #27ae60; margin-bottom: 6px; }
+        .pair-left .sentence { color: #666; font-size: 0.95em; line-height: 1.5; }
+        .pair-right .sentence { color: #333; font-size: 0.95em; line-height: 1.5; }
+        .pair-left .sentence .banal { color: #c0392b; text-decoration: line-through; text-decoration-color: rgba(192,57,43,0.4); }
+        .pair-right .sentence .gut { color: #27ae60; font-weight: 600; }
+
+        /* Analyse */
+        .analyse {
+            background: #fdf4f3;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+        .analyse > p { margin-bottom: 16px; color: #555; font-size: 0.95em; line-height: 1.6; }
+        .analyse-category {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            border-left: 4px solid #c0392b;
+        }
+        .analyse-category h4 { color: #922b21; margin-bottom: 8px; font-size: 1em; }
+        .analyse-category p { color: #555; font-size: 0.9em; line-height: 1.5; margin-bottom: 8px; }
+        .analyse-category .examples { font-size: 0.9em; line-height: 2; color: #444; padding: 8px 0; }
+        .analyse-category .examples .banal { color: #c0392b; text-decoration: line-through; }
+        .analyse-category .examples .gut { color: #27ae60; font-weight: 600; }
+
+        /* Fazit */
+        .fazit {
+            background: linear-gradient(135deg, #fdf4f3, #f8e6e4);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            border-left: 4px solid #c0392b;
+        }
+        .fazit h3 { color: #922b21; margin-bottom: 10px; font-size: 1.05em; }
+        .fazit p { color: #444; font-size: 0.92em; line-height: 1.6; margin-bottom: 8px; }
+
+        /* Quelle */
+        .quelle {
+            margin-top: 20px;
+            padding: 14px 18px;
+            background: #fafafa;
+            border-radius: 8px;
+            font-size: 0.78em;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        /* Intro */
+        .intro {
+            background: #fdf4f3;
+            border-radius: 10px;
+            padding: 16px 20px;
+            border-left: 4px solid #c0392b;
+        }
+        .intro p { color: #555; font-size: 0.92em; line-height: 1.5; }
+
+        /* Wordbank */
+        .wordbank {
+            background: #fdf4f3;
+            border: 1px solid #e0bbb8;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+        }
+        .wordbank-title { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #c0392b; margin-bottom: 8px; }
+        .wordbank-items { display: flex; flex-wrap: wrap; gap: 6px; }
+        .wordbank-item {
+            background: white;
+            border: 1px solid #e0bbb8;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.88em;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Timer */
+        .timer {
+            text-align: center;
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .timer.running { background: #fff8e1; color: #f39c12; }
+        .timer.completed { background: #e8f8f0; color: #27ae60; }
+
+        /* Exercise Items */
+        .ex-item {
+            background: #fef9f8;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-left: 4px solid #c0392b;
+        }
+        .context {
+            font-size: 0.78em;
+            font-weight: 600;
+            color: #c0392b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .ex-sentence { font-size: 0.95em; line-height: 1.8; color: #333; }
+        .nowrap-group { white-space: nowrap; }
+
+        /* Blanks */
+        .blank {
+            border: none;
+            border-bottom: 2px solid #c0392b;
+            background: transparent;
+            font-family: inherit;
+            font-size: 0.95em;
+            color: #333;
+            padding: 2px 4px;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .blank:focus { border-bottom-color: #922b21; background: #fdf4f3; }
+        .blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; color: #27ae60; font-weight: 600; }
+        .blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+        .blank.s { width: 50px; }
+        .blank.m { width: 90px; }
+        .blank.l { width: 150px; }
+        .blank.xl { width: 200px; }
+        .correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 6px; }
+
+        /* Buttons */
+        .btn-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-solution { background: #c0392b; color: white; }
+        .btn-solution:hover { background: #922b21; }
+        .btn-reset { background: #ecf0f1; color: #555; }
+        .btn-reset:hover { background: #d5dbdb; }
+
+        /* Author Footer */
+        .author-footer { margin-top: 40px; padding: 16px 20px; text-align: center; font-size: 0.8em; color: #888; border-top: 1px solid #e0e0e0; }
+        .author-footer a { color: #c0392b; text-decoration: none; font-weight: 500; }
+        .author-footer a:hover { text-decoration: underline; color: #922b21; }
+        .author-footer .author-name { font-weight: 600; color: #555; }
+
+        /* Ketten */
+        .kette-card {
+            background: #fdf4f3;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c0392b;
+        }
+        .kette-nomen {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #922b21;
+            margin-bottom: 14px;
+        }
+        .kette-phasen {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+        .kette-phase {
+            flex: 1;
+            min-width: 120px;
+            background: white;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .kette-phase-label {
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .kette-arrow {
+            display: flex;
+            align-items: center;
+            color: #c0392b;
+            font-size: 1.4em;
+            font-weight: 700;
+            padding: 0 2px;
+        }
+        .kette-phase select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #e0bbb8;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9em;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+            -webkit-appearance: auto;
+        }
+        .kette-phase select:focus { border-color: #c0392b; }
+        .kette-phase select.correct { border-color: #27ae60; background: #e8f8f0; }
+        .kette-phase select.wrong { border-color: #e74c3c; background: #fdeaea; }
+        .kette-correction { color: #27ae60; font-weight: 600; font-size: 0.82em; margin-top: 4px; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .pair-card { grid-template-columns: 1fr; }
+            .pair-left { border-right: none; border-bottom: 1px solid #f0e0d0; }
+            body { padding: 10px; }
+            .section { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.2em; }
+            .nav-btn { font-size: 0.75em; padding: 10px 8px; }
+            .kette-phasen { flex-direction: column; }
+            .kette-arrow { transform: rotate(90deg); justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kollokationen: Beziehungen &amp; Gef&uuml;hle</h1>
+            <div class="subtitle">Nat&uuml;rlicher formulieren &ndash; Lektion 5</div>
+            <div class="level">B1+ / B2</div>
+        </div>
+
+        <div class="nav">
+            <div class="nav-btn active" onclick="showSection(0)">&zwj;&#x1F4D6; Einf&uuml;hrung</div>
+            <div class="nav-btn" onclick="showSection(1)">&zwj;&#x270F;&#xFE0F; Das richtige Verb</div>
+            <div class="nav-btn" onclick="showSection(2)">&zwj;&#x270F;&#xFE0F; Das richtige Adjektiv</div>
+            <div class="nav-btn" onclick="showSection(3)">&zwj;&#x1F517; Kollokationsketten</div>
+        </div>
+
+        <!-- ==================== TAB 0: Bewusstmachung ==================== -->
+        <div class="section active" id="sec-0">
+
+            <div class="section-title">Banal oder nat&uuml;rlich? Vergleiche die Satzpaare!</div>
+
+            <div class="pair-card">
+                <div class="pair-number">1</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Er hat ihr seine Liebe <span class="banal">gesagt</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Er hat ihr seine Liebe <strong>gestanden</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">2</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Die Nachricht hat gro&szlig;e Angst <span class="banal">gemacht</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Die Nachricht hat <strong>panische</strong> Angst <strong>gest&uuml;rmt</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">3</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Sie konnte ihre Gef&uuml;hle nicht <span class="banal">sagen</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Sie konnte ihre Gef&uuml;hle nicht <strong>ausdr&uuml;cken</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">4</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Die guten Nachrichten haben viel Hoffnung <span class="banal">gegeben</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Die guten Nachrichten haben neue Hoffnung <strong>geweckt</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">5</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Sie <span class="banal">haben</span> eine gute Freundschaft.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Sie <strong>pflegen</strong> eine <strong>innige</strong> Freundschaft.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">6</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Die beiden haben eine gute Beziehung <span class="banal">gemacht</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Die beiden haben eine <strong>stabile</strong> Beziehung <strong>aufgebaut</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">7</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Er hat gro&szlig;en Respekt <span class="banal">bekommen</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Er hat sich <strong>tiefen</strong> Respekt <strong>erworben</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">8</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Sie konnte ihre gro&szlig;e Wut nicht <span class="banal">kontrollieren</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Sie konnte ihre <strong>rasende</strong> Wut nicht <strong>beherrschen</strong>.</div>
+                </div>
+            </div>
+
+            <div class="pair-card">
+                <div class="pair-number">9</div>
+                <div class="pair-left">
+                    <div class="label">banal</div>
+                    <div class="sentence">Das Thema hat seine gro&szlig;e Leidenschaft <span class="banal">gemacht</span>.</div>
+                </div>
+                <div class="pair-right">
+                    <div class="label">nat&uuml;rlich</div>
+                    <div class="sentence">Das Thema hat seine <strong>gl&uuml;hende</strong> Leidenschaft <strong>entfacht</strong>.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Was macht den Unterschied?</div>
+
+            <div class="analyse">
+                <p>Wenn du die Paare vergleichst, siehst du drei wichtige Muster:</p>
+
+                <div class="analyse-category">
+                    <h4>1. Das Verb &ndash; pr&auml;ziser statt banal</h4>
+                    <p>Die linken S&auml;tze benutzen immer dieselben Allerweltsverben: <em>sagen</em>, <em>machen</em>, <em>geben</em>, <em>kontrollieren</em>. Die rechten S&auml;tze verwenden Verben, die genau zum Nomen passen.</p>
+                    <div class="examples">
+                        seine Liebe <span class="banal">sagen</span> &rarr; seine Liebe <span class="gut">gestehen</span><br>
+                        Angst <span class="banal">machen</span> &rarr; Angst <span class="gut">sch&uuml;ren</span><br>
+                        Gef&uuml;hle <span class="banal">sagen</span> &rarr; Gef&uuml;hle <span class="gut">ausdr&uuml;cken</span><br>
+                        Hoffnung <span class="banal">geben</span> &rarr; Hoffnung <span class="gut">wecken</span><br>
+                        Freundschaft <span class="banal">haben</span> &rarr; Freundschaft <span class="gut">pflegen</span><br>
+                        Beziehung <span class="banal">machen</span> &rarr; Beziehung <span class="gut">aufbauen</span><br>
+                        Respekt <span class="banal">bekommen</span> &rarr; Respekt <span class="gut">erwerben</span><br>
+                        Wut <span class="banal">kontrollieren</span> &rarr; Wut <span class="gut">beherrschen</span><br>
+                        Leidenschaft <span class="banal">machen</span> &rarr; Leidenschaft <span class="gut">entfachen</span>
+                    </div>
+                </div>
+
+                <div class="analyse-category">
+                    <h4>2. Das Adjektiv &ndash; treffender statt vage</h4>
+                    <p>Die linken S&auml;tze greifen zu <em>gro&szlig;</em>, <em>gute</em> &ndash; Adjektive, die zu fast allem passen, aber nichts genau beschreiben. Die rechten S&auml;tze verwenden Adjektive, die wie ein Schl&uuml;ssel zum Schloss passen.</p>
+                    <div class="examples">
+                        gro&szlig;e Angst &rarr; <span class="gut">panische</span> Angst<br>
+                        gute Freundschaft &rarr; <span class="gut">innige</span> Freundschaft<br>
+                        gute Beziehung &rarr; <span class="gut">stabile</span> Beziehung<br>
+                        gro&szlig;er Respekt &rarr; <span class="gut">tiefer</span> Respekt<br>
+                        gro&szlig;e Wut &rarr; <span class="gut">rasende</span> Wut<br>
+                        gro&szlig;e Leidenschaft &rarr; <span class="gut">gl&uuml;hende</span> Leidenschaft
+                    </div>
+                </div>
+
+                <div class="analyse-category">
+                    <h4>3. Die Kette &ndash; ein Nomen, viele Phasen</h4>
+                    <p>Aber es gibt noch mehr: Jedes Nomen tr&auml;gt ein ganzes <strong>Universum an Verben</strong> mit sich &ndash; nicht nur ein einziges &bdquo;richtiges&ldquo; Verb, sondern eine ganze Reihe, die verschiedene Phasen oder Stadien beschreiben.</p>
+                    <div class="examples">
+                        <strong>die Liebe:</strong> <span class="gut">entbrennen</span> &rarr; <span class="gut">gestehen</span> &rarr; <span class="gut">erwidern</span> &rarr; <span class="gut">erkalten</span><br>
+                        <em style="color:#888; font-size:0.9em;">(Entstehung &rarr; Offenbarung &rarr; Erwiederung &rarr; Abk&uuml;hlung)</em><br><br>
+                        <strong>die Hoffnung:</strong> <span class="gut">aufkeimen</span> &rarr; <span class="gut">sch&uuml;ren</span> &rarr; <span class="gut">d&auml;mpfen</span> &rarr; <span class="gut">begraben</span><br>
+                        <em style="color:#888; font-size:0.9em;">(Entstehung &rarr; Verst&auml;rkung &rarr; Abschw&auml;chung &rarr; Ende)</em><br><br>
+                        <strong>die Beziehung:</strong> <span class="gut">aufbauen</span> &rarr; <span class="gut">vertiefen</span> &rarr; <span class="gut">belasten</span> &rarr; <span class="gut">beenden</span><br>
+                        <em style="color:#888; font-size:0.9em;">(Aufbau &rarr; Vertiefung &rarr; Krise &rarr; Ende)</em>
+                    </div>
+                    <p style="margin-top: 12px;">Jedes dieser Verben ist eine eigene Kollokation &ndash; und zusammen bilden sie eine <strong>Kollokationskette</strong>. In Tab 4 &uuml;bst du diese Ketten.</p>
+                </div>
+            </div>
+
+            <div class="fazit">
+                <h3>Was bedeutet das f&uuml;r dich?</h3>
+                <p>Diese Kombinationen sind keine Zuf&auml;lle und keine Erfindungen. Es sind <strong>feste Muster</strong>, die in der deutschen Sprache existieren &ndash; best&auml;tigt durch die Analyse von Millionen von S&auml;tzen.</p>
+                <p>Du musst diese Muster nicht erfinden. Du musst sie <strong>lernen</strong> &ndash; so wie Vokabeln, aber als Paare und als Ketten. Wer Kollokationen kennt, klingt nicht nur korrekter, sondern nat&uuml;rlicher, pr&auml;ziser und kompetenter.</p>
+                <p>In den n&auml;chsten Tabs &uuml;bst du alle drei Muster: zuerst die <strong>Verben</strong>, dann die <strong>Adjektive</strong>, und schlie&szlig;lich die <strong>Kollokationsketten</strong>.</p>
+            </div>
+
+            <div class="quelle">
+                <strong>Quellen:</strong> Alle Kollokationen in dieser Lektion sind belegt im <em>W&ouml;rterbuch der Kollokationen im Deutschen</em> (Uwe Quasthoff, De Gruyter 2011), basierend auf der Analyse von &uuml;ber 50 Millionen S&auml;tzen des Projekts Deutscher Wortschatz der Universit&auml;t Leipzig. Die Auswahl der Nomen orientiert sich an <em>A Frequency Dictionary of German &ndash; Core Vocabulary for Learners</em> (Erwin Tschirner &amp; Jupp M&ouml;hring, 2. Auflage, Routledge).
+            </div>
+        </div>
+
+        <!-- ==================== TAB 1: Das richtige Verb ==================== -->
+        <div class="section" id="sec-1">
+
+            <div class="section-title">Das richtige Verb einsetzen</div>
+
+            <div class="intro" style="margin-bottom: 20px;">
+                <p>Erg&auml;nze das passende Verb. Verwende die <strong>konjugierte Form</strong>, die in den Satz passt. Die Wortbank zeigt die Infinitive.</p>
+            </div>
+
+            <div class="wordbank">
+                <div class="wordbank-title">Wortbank</div>
+                <div class="wordbank-items">
+                    <div class="wordbank-item">gestehen</div>
+                    <div class="wordbank-item">sch&uuml;ren</div>
+                    <div class="wordbank-item">ausdr&uuml;cken</div>
+                    <div class="wordbank-item">wecken</div>
+                    <div class="wordbank-item">pflegen</div>
+                    <div class="wordbank-item">aufbauen</div>
+                    <div class="wordbank-item">erwerben</div>
+                    <div class="wordbank-item">beherrschen</div>
+                    <div class="wordbank-item">entfachen</div>
+                </div>
+            </div>
+
+            <div class="timer" id="verb-timer"></div>
+
+            <div id="verbContainer"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-solution" onclick="showVerbLoesung()">L&ouml;sungen anzeigen</button>
+                <button class="btn btn-reset" onclick="resetVerb()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: Das richtige Adjektiv ==================== -->
+        <div class="section" id="sec-2">
+
+            <div class="section-title">Das richtige Adjektiv einsetzen</div>
+
+            <div class="intro" style="margin-bottom: 20px;">
+                <p>Erg&auml;nze das passende Adjektiv. Achte auf die <strong>richtige Endung</strong> (Deklination).</p>
+            </div>
+
+            <div class="wordbank">
+                <div class="wordbank-title">Wortbank</div>
+                <div class="wordbank-items">
+                    <div class="wordbank-item">bedingungslos</div>
+                    <div class="wordbank-item">panisch</div>
+                    <div class="wordbank-item">&uuml;berw&auml;ltigend</div>
+                    <div class="wordbank-item">zaghaft</div>
+                    <div class="wordbank-item">innig</div>
+                    <div class="wordbank-item">harmonisch</div>
+                    <div class="wordbank-item">rasend</div>
+                </div>
+            </div>
+
+            <div class="timer" id="adj-timer"></div>
+
+            <div id="adjContainer"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-solution" onclick="showAdjLoesung()">L&ouml;sungen anzeigen</button>
+                <button class="btn btn-reset" onclick="resetAdj()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: Kollokationsketten ==================== -->
+        <div class="section" id="sec-3">
+
+            <div class="section-title">Kollokationsketten &ndash; Verben in der richtigen Reihenfolge</div>
+
+            <div class="intro" style="margin-bottom: 20px;">
+                <p>Jedes Nomen hat ein ganzes <strong>Universum an Verben</strong>, die verschiedene Phasen beschreiben. W&auml;hle f&uuml;r jede Phase das passende Verb aus der Liste.</p>
+            </div>
+
+            <div class="timer" id="kette-timer"></div>
+
+            <div id="ketteContainer"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-solution" onclick="showKetteLoesung()">L&ouml;sungen anzeigen</button>
+                <button class="btn btn-reset" onclick="resetKette()">Neu starten</button>
+            </div>
+        </div>
+
+        <div class="author-footer">
+            <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+            <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+        </div>
+    </div>
+
+    <script>
+        // ==================== Tab Navigation ====================
+        function showSection(idx) {
+            document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+            document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+        }
+
+        // ==================== Timer ====================
+        var TIMER_PREFIX = 'kollokationen-beziehungen';
+        var timers = {};
+
+        function startTimer(key) {
+            if (!timers[key]) {
+                timers[key] = { start: Date.now(), running: true };
+                updateTimerDisplay(key);
+            }
+        }
+
+        function stopTimer(key) {
+            if (timers[key]) {
+                timers[key].running = false;
+            }
+        }
+
+        function updateTimerDisplay(key) {
+            var timerEl = document.getElementById(key + '-timer');
+            if (!timerEl) return;
+            if (!timers[key]) return;
+            var elapsed = Math.floor((Date.now() - timers[key].start) / 1000);
+            var mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            var secs = String(elapsed % 60).padStart(2, '0');
+            var timeStr = mins + ':' + secs;
+            timerEl.textContent = timers[key].running ? '\u23F1\uFE0F Zeit: ' + timeStr : '\u2713 Fertig! Zeit: ' + timeStr;
+            timerEl.className = 'timer ' + (timers[key].running ? 'running' : 'completed');
+            if (timers[key].running) {
+                setTimeout(function() { updateTimerDisplay(key); }, 1000);
+            }
+        }
+
+        // ==================== Verb-L\u00fcckentext ====================
+        var VERB_DATA = [
+            {
+                id: 1,
+                context: "Unter Freunden \u2013 ein Gest\u00e4ndnis",
+                segments: [
+                    {t: "Nach langem Z\u00f6gern hat er ihr endlich seine Liebe "},
+                    {b: "gestanden", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 2,
+                context: "In den Medien \u2013 Panikmache",
+                segments: [
+                    {t: "Die rei\u00dferischen Berichte haben die Angst in der Bev\u00f6lkerung "},
+                    {b: "gest\u00fcrmt", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 3,
+                context: "Im Tagebuch \u2013 Selbstreflexion",
+                segments: [
+                    {t: "In ihrem Brief hat sie ihre Gef\u00fchle offen "},
+                    {b: "ausgedr\u00fcckt", s: "xl"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 4,
+                context: "Im Krankenhaus \u2013 gute Nachrichten",
+                segments: [
+                    {t: "Die erfolgreiche Operation hat bei der Familie neue Hoffnung "},
+                    {b: "geweckt", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 5,
+                context: "Unter Nachbarn \u2013 gute Nachbarschaft",
+                segments: [
+                    {t: "Trotz der Entfernung haben die beiden ihre Freundschaft \u00fcber Jahre "},
+                    {b: "gepflegt", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 6,
+                context: "In der Paartherapie \u2013 Neuanfang",
+                segments: [
+                    {t: "Nach der Krise haben sie ihre Beziehung langsam wieder "},
+                    {b: "aufgebaut", s: "xl"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 7,
+                context: "Im Sportverein \u2013 Anerkennung",
+                segments: [
+                    {t: "Durch seinen fairen Spielstil hat er sich den Respekt der Mannschaft "},
+                    {b: "erworben", s: "l"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 8,
+                context: "Beim Streit \u2013 Selbstbeherrschung",
+                segments: [
+                    {t: "Obwohl sie sehr w\u00fctend war, konnte sie ihre Wut "},
+                    {b: "beherrscht", s: "xl"},
+                    {t: "."}
+                ]
+            },
+            {
+                id: 9,
+                context: "Im Konzertsaal \u2013 Begeisterung",
+                segments: [
+                    {t: "Die mitrei\u00dfende Musik hat die Leidenschaft des Publikums "},
+                    {b: "entfacht", s: "l"},
+                    {t: "."}
+                ]
+            }
+        ];
+
+        function renderVerb() {
+            var container = document.getElementById('verbContainer');
+            container.innerHTML = '';
+            VERB_DATA.forEach(function(ex) {
+                var div = document.createElement('div');
+                div.className = 'ex-item';
+
+                var ctx = document.createElement('div');
+                ctx.className = 'context';
+                ctx.textContent = ex.context;
+                div.appendChild(ctx);
+
+                var sentence = document.createElement('div');
+                sentence.className = 'ex-sentence';
+
+                var skipNext = false;
+                ex.segments.forEach(function(seg, si) {
+                    if (skipNext) { skipNext = false; return; }
+                    if (seg.t !== undefined) {
+                        var nextSeg = ex.segments[si + 1];
+                        if (nextSeg && nextSeg.b !== undefined && seg.t.length > 0 && !seg.t.endsWith(' ')) {
+                            var group = document.createElement('span');
+                            group.className = 'nowrap-group';
+                            var txt = document.createElement('span');
+                            txt.textContent = seg.t;
+                            group.appendChild(txt);
+                            var inp = makeBlank(nextSeg, ex.id, 'verb');
+                            group.appendChild(inp);
+                            sentence.appendChild(group);
+                            skipNext = true;
+                        } else {
+                            var txt2 = document.createElement('span');
+                            txt2.textContent = seg.t;
+                            sentence.appendChild(txt2);
+                        }
+                    } else if (seg.b !== undefined) {
+                        var inp2 = makeBlank(seg, ex.id, 'verb');
+                        sentence.appendChild(inp2);
+                    }
+                });
+
+                div.appendChild(sentence);
+                container.appendChild(div);
+            });
+        }
+
+        // ==================== Adjektiv-L\u00fcckentext ====================
+        var ADJ_DATA = [
+            {
+                id: 1,
+                context: "In der Literatur \u2013 gro\u00dfe Gef\u00fchle",
+                segments: [
+                    {t: "Romeo empfand eine "},
+                    {b: "bedingungslose", s: "xl"},
+                    {t: " Liebe f\u00fcr Julia."}
+                ]
+            },
+            {
+                id: 2,
+                context: "Vor der Pr\u00fcfung \u2013 Nervosit\u00e4t",
+                segments: [
+                    {t: "Kurz vor der Pr\u00fcfung \u00fcberkam ihn eine "},
+                    {b: "panische", s: "l"},
+                    {t: " Angst."}
+                ]
+            },
+            {
+                id: 3,
+                context: "Nach dem Konzert \u2013 Begeisterung",
+                segments: [
+                    {t: "Nach dem Konzert hatte sie ein "},
+                    {b: "\u00fcberw\u00e4ltigendes", s: "xl"},
+                    {t: " Gef\u00fchl der Freude."}
+                ]
+            },
+            {
+                id: 4,
+                context: "Nach langer Krankheit \u2013 Genesung",
+                segments: [
+                    {t: "Die ersten Fortschritte weckten eine "},
+                    {b: "zaghafte", s: "l"},
+                    {t: " Hoffnung."}
+                ]
+            },
+            {
+                id: 5,
+                context: "Bei der Goldenen Hochzeit \u2013 R\u00fcckblick",
+                segments: [
+                    {t: "\u00dcber 50 Jahre verband die beiden eine "},
+                    {b: "innige", s: "l"},
+                    {t: " Freundschaft."}
+                ]
+            },
+            {
+                id: 6,
+                context: "Im Paarberatungsbuch \u2013 Ratgeber",
+                segments: [
+                    {t: "Gegenseitiger Respekt ist die Basis f\u00fcr eine "},
+                    {b: "harmonische", s: "xl"},
+                    {t: " Beziehung."}
+                ]
+            },
+            {
+                id: 7,
+                context: "Im Streit \u2013 Kontrollverlust",
+                segments: [
+                    {t: "Eine "},
+                    {b: "rasende", s: "l"},
+                    {t: " Wut packte ihn, als er die Nachricht las."}
+                ]
+            }
+        ];
+
+        function renderAdj() {
+            var container = document.getElementById('adjContainer');
+            container.innerHTML = '';
+            ADJ_DATA.forEach(function(ex) {
+                var div = document.createElement('div');
+                div.className = 'ex-item';
+
+                var ctx = document.createElement('div');
+                ctx.className = 'context';
+                ctx.textContent = ex.context;
+                div.appendChild(ctx);
+
+                var sentence = document.createElement('div');
+                sentence.className = 'ex-sentence';
+
+                var skipNext = false;
+                ex.segments.forEach(function(seg, si) {
+                    if (skipNext) { skipNext = false; return; }
+                    if (seg.t !== undefined) {
+                        var nextSeg = ex.segments[si + 1];
+                        if (nextSeg && nextSeg.b !== undefined && seg.t.length > 0 && !seg.t.endsWith(' ')) {
+                            var group = document.createElement('span');
+                            group.className = 'nowrap-group';
+                            var txt = document.createElement('span');
+                            txt.textContent = seg.t;
+                            group.appendChild(txt);
+                            var inp = makeBlank(nextSeg, ex.id, 'adj');
+                            group.appendChild(inp);
+                            sentence.appendChild(group);
+                            skipNext = true;
+                        } else {
+                            var txt2 = document.createElement('span');
+                            txt2.textContent = seg.t;
+                            sentence.appendChild(txt2);
+                        }
+                    } else if (seg.b !== undefined) {
+                        var inp2 = makeBlank(seg, ex.id, 'adj');
+                        sentence.appendChild(inp2);
+                    }
+                });
+
+                div.appendChild(sentence);
+                container.appendChild(div);
+            });
+        }
+
+        // ==================== Kollokationsketten ====================
+        var KETTE_DATA = [
+            {
+                nomen: "die Liebe",
+                phasen: [
+                    { label: "Entstehung", answer: "entbrennen" },
+                    { label: "Offenbarung", answer: "gestehen" },
+                    { label: "Erwiederung", answer: "erwidern" },
+                    { label: "Abk\u00fchlung", answer: "erkalten" }
+                ],
+                pool: ["entbrennen", "gestehen", "erwidern", "erkalten", "aufkeimen", "zerstreuen"]
+            },
+            {
+                nomen: "die Angst",
+                phasen: [
+                    { label: "Entstehung", answer: "aufkommen" },
+                    { label: "Verst\u00e4rkung", answer: "sch\u00fcren" },
+                    { label: "Bew\u00e4ltigung", answer: "\u00fcberwinden" },
+                    { label: "Aufl\u00f6sung", answer: "zerstreuen" }
+                ],
+                pool: ["aufkommen", "sch\u00fcren", "\u00fcberwinden", "zerstreuen", "entfachen", "begraben"]
+            },
+            {
+                nomen: "das Gef\u00fchl",
+                phasen: [
+                    { label: "Entstehung", answer: "aufkommen" },
+                    { label: "Erleben", answer: "empfinden" },
+                    { label: "Mitteilung", answer: "ausdr\u00fccken" },
+                    { label: "Unterdr\u00fccking", answer: "verdr\u00e4ngen" }
+                ],
+                pool: ["aufkommen", "empfinden", "ausdr\u00fccken", "verdr\u00e4ngen", "pflegen", "erwerben"]
+            },
+            {
+                nomen: "die Hoffnung",
+                phasen: [
+                    { label: "Entstehung", answer: "aufkeimen" },
+                    { label: "Verst\u00e4rkung", answer: "sch\u00fcren" },
+                    { label: "Abschw\u00e4chung", answer: "d\u00e4mpfen" },
+                    { label: "Ende", answer: "begraben" }
+                ],
+                pool: ["aufkeimen", "sch\u00fcren", "d\u00e4mpfen", "begraben", "erwidern", "entladen"]
+            },
+            {
+                nomen: "die Freundschaft",
+                phasen: [
+                    { label: "Anfang", answer: "kn\u00fcpfen" },
+                    { label: "Erhalt", answer: "pflegen" },
+                    { label: "Vertiefung", answer: "vertiefen" },
+                    { label: "Ende", answer: "zerbrechen" }
+                ],
+                pool: ["kn\u00fcpfen", "pflegen", "vertiefen", "zerbrechen", "gestehen", "aufkommen"]
+            },
+            {
+                nomen: "die Beziehung",
+                phasen: [
+                    { label: "Aufbau", answer: "aufbauen" },
+                    { label: "Vertiefung", answer: "vertiefen" },
+                    { label: "Krise", answer: "belasten" },
+                    { label: "Ende", answer: "beenden" }
+                ],
+                pool: ["aufbauen", "vertiefen", "belasten", "beenden", "sch\u00fcren", "kn\u00fcpfen"]
+            },
+            {
+                nomen: "der Respekt",
+                phasen: [
+                    { label: "Aufbau", answer: "erwerben" },
+                    { label: "Anerkennung", answer: "gewinnen" },
+                    { label: "Ausdruck", answer: "zollen" },
+                    { label: "Verlust", answer: "verlieren" }
+                ],
+                pool: ["erwerben", "gewinnen", "zollen", "verlieren", "pflegen", "d\u00e4mpfen"]
+            },
+            {
+                nomen: "die Wut",
+                phasen: [
+                    { label: "Aufbau", answer: "aufstauen" },
+                    { label: "Ausbruch", answer: "entladen" },
+                    { label: "Kontrolle", answer: "beherrschen" },
+                    { label: "Befreiung", answer: "loswerden" }
+                ],
+                pool: ["aufstauen", "entladen", "beherrschen", "loswerden", "erkalten", "empfinden"]
+            },
+            {
+                nomen: "die Leidenschaft",
+                phasen: [
+                    { label: "Entflammung", answer: "entfachen" },
+                    { label: "Ausleben", answer: "ausleben" },
+                    { label: "Erhalt", answer: "pflegen" },
+                    { label: "Ende", answer: "enden" }
+                ],
+                pool: ["entfachen", "ausleben", "pflegen", "enden", "zerbrechen", "\u00fcberwinden"]
+            }
+        ];
+
+        function shuffleArray(arr) {
+            var a = arr.slice();
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+            }
+            return a;
+        }
+
+        function renderKette() {
+            var container = document.getElementById('ketteContainer');
+            container.innerHTML = '';
+            KETTE_DATA.forEach(function(item, ki) {
+                var card = document.createElement('div');
+                card.className = 'kette-card';
+
+                var nomen = document.createElement('div');
+                nomen.className = 'kette-nomen';
+                nomen.textContent = (ki + 1) + '. ' + item.nomen;
+                card.appendChild(nomen);
+
+                var phasenRow = document.createElement('div');
+                phasenRow.className = 'kette-phasen';
+
+                var shuffled = shuffleArray(item.pool);
+
+                item.phasen.forEach(function(phase, pi) {
+                    if (pi > 0) {
+                        var arrow = document.createElement('div');
+                        arrow.className = 'kette-arrow';
+                        arrow.innerHTML = '&rarr;';
+                        phasenRow.appendChild(arrow);
+                    }
+
+                    var phaseDiv = document.createElement('div');
+                    phaseDiv.className = 'kette-phase';
+
+                    var label = document.createElement('div');
+                    label.className = 'kette-phase-label';
+                    label.textContent = phase.label;
+                    phaseDiv.appendChild(label);
+
+                    var sel = document.createElement('select');
+                    sel.dataset.answer = phase.answer;
+                    sel.dataset.type = 'kette';
+
+                    var defOpt = document.createElement('option');
+                    defOpt.value = '';
+                    defOpt.textContent = '-- w\u00e4hlen --';
+                    sel.appendChild(defOpt);
+
+                    shuffled.forEach(function(v) {
+                        var opt = document.createElement('option');
+                        opt.value = v;
+                        opt.textContent = v;
+                        sel.appendChild(opt);
+                    });
+
+                    sel.onchange = function() {
+                        startTimer('kette');
+                        checkSelect(this);
+                        checkAllSelects();
+                    };
+                    phaseDiv.appendChild(sel);
+                    phasenRow.appendChild(phaseDiv);
+                });
+
+                card.appendChild(phasenRow);
+                container.appendChild(card);
+            });
+        }
+
+        function checkSelect(sel) {
+            sel.classList.remove('correct', 'wrong');
+            if (!sel.value) return;
+            if (sel.value === sel.dataset.answer) { sel.classList.add('correct'); }
+            else { sel.classList.add('wrong'); }
+        }
+
+        function checkAllSelects() {
+            var sels = document.querySelectorAll('.kette-phase select');
+            var allCorrect = sels.length > 0;
+            sels.forEach(function(s) {
+                if (!s.classList.contains('correct')) allCorrect = false;
+            });
+            if (allCorrect) stopTimer('kette');
+        }
+
+        function showKetteLoesung() {
+            stopTimer('kette');
+            document.querySelectorAll('.kette-phase select').forEach(function(sel) {
+                var existing = sel.parentElement.querySelector('.kette-correction');
+                if (existing) existing.remove();
+                if (sel.value === sel.dataset.answer) {
+                    sel.classList.remove('wrong');
+                    sel.classList.add('correct');
+                } else {
+                    sel.classList.add('wrong');
+                    var hint = document.createElement('div');
+                    hint.className = 'kette-correction';
+                    hint.textContent = sel.dataset.answer;
+                    sel.insertAdjacentElement('afterend', hint);
+                }
+            });
+        }
+
+        function resetKette() {
+            if (timers['kette']) {
+                timers['kette'] = null;
+                var timerEl = document.getElementById('kette-timer');
+                if (timerEl) { timerEl.textContent = ''; timerEl.className = 'timer'; }
+            }
+            renderKette();
+        }
+
+        // ==================== Shared functions ====================
+        function makeBlank(seg, exId, type) {
+            var inp = document.createElement('input');
+            inp.type = 'text';
+            inp.className = 'blank ' + seg.s;
+            inp.dataset.answer = seg.b;
+            inp.dataset.exId = exId;
+            inp.dataset.type = type;
+            inp.oninput = function() {
+                startTimer(type);
+                liveCheck(this);
+                checkAllBlanks(type);
+            };
+            return inp;
+        }
+
+        function liveCheck(inp) {
+            var user = inp.value;
+            var answer = inp.dataset.answer;
+            inp.classList.remove('correct', 'wrong');
+            if (user.length === 0) return;
+            if (user === answer) { inp.classList.add('correct'); }
+            else if (answer.indexOf(user) === 0) { /* prefix ok, keep typing */ }
+            else { inp.classList.add('wrong'); }
+        }
+
+        function checkAllBlanks(type) {
+            var inputs = document.querySelectorAll('input.blank[data-type="' + type + '"]');
+            var allCorrect = inputs.length > 0;
+            inputs.forEach(function(inp) {
+                if (!inp.classList.contains('correct')) allCorrect = false;
+            });
+            if (allCorrect) stopTimer(type);
+        }
+
+        function showLoesung(type) {
+            stopTimer(type);
+            document.querySelectorAll('input.blank[data-type="' + type + '"]').forEach(function(inp) {
+                var next = inp.nextElementSibling;
+                if (next && next.classList.contains('correction-hint')) next.remove();
+                var user = inp.value.trim();
+                var answer = inp.dataset.answer;
+                if (user === answer) {
+                    inp.classList.remove('wrong');
+                    inp.classList.add('correct');
+                } else {
+                    inp.classList.add('wrong');
+                    var hint = document.createElement('span');
+                    hint.className = 'correction-hint';
+                    hint.textContent = answer;
+                    inp.insertAdjacentElement('afterend', hint);
+                }
+            });
+        }
+
+        function resetBlanks(type) {
+            document.querySelectorAll('input.blank[data-type="' + type + '"]').forEach(function(inp) {
+                inp.value = '';
+                inp.classList.remove('correct', 'wrong');
+                var next = inp.nextElementSibling;
+                if (next && next.classList.contains('correction-hint')) next.remove();
+            });
+            if (timers[type]) {
+                timers[type] = null;
+                var timerEl = document.getElementById(type + '-timer');
+                if (timerEl) { timerEl.textContent = ''; timerEl.className = 'timer'; }
+            }
+        }
+
+        function showVerbLoesung() { showLoesung('verb'); }
+        function showAdjLoesung() { showLoesung('adj'); }
+        function resetVerb() { resetBlanks('verb'); renderVerb(); }
+        function resetAdj() { resetBlanks('adj'); renderAdj(); }
+
+        // ==================== Init ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderVerb();
+            renderAdj();
+            renderKette();
+        });
+    </script>
+</body>
+</html>

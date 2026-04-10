@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verben mit Vokalwechsel – Komplettübung</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container {
+            max-width: 950px; margin: 0 auto; background: white;
+            border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); padding: 40px;
+        }
+        h1 { text-align: center; color: #667eea; margin-bottom: 6px; font-size: 2.3rem; }
+        .main-subtitle { text-align: center; color: #666; margin-bottom: 25px; font-size: 1.1rem; }
+
+        /* Navigation */
+        .nav { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .nav-btn {
+            background: #e9ecef; color: #495057; border: 2px solid transparent; padding: 10px 20px;
+            font-size: 1rem; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.2s;
+        }
+        .nav-btn:hover { background: #dee2e6; }
+        .nav-btn.active { background: #667eea; color: white; border-color: #667eea; }
+
+        /* Sections */
+        .section { display: none; }
+        .section.active { display: block; }
+        .section-title {
+            color: #667eea; font-size: 1.4rem; font-weight: 700;
+            margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #667eea;
+        }
+        .section-subtitle { color: #666; margin-bottom: 20px; font-size: 1.05rem; }
+
+        /* Help box */
+        .help-box {
+            background: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 25px;
+        }
+        .help-box h3 { color: #667eea; font-size: 1.2rem; margin-bottom: 10px; }
+        .help-line { font-size: 1.02rem; margin-bottom: 5px; }
+        .verb-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-top: 8px;
+        }
+        .verb-item { padding: 8px 12px; background: white; border-radius: 6px; font-size: 0.95rem; }
+        .verb-item strong { color: #764ba2; }
+
+        /* Exercises */
+        .exercise {
+            background: #f8f9fa; border-radius: 8px; padding: 18px;
+            margin-bottom: 12px; transition: all 0.3s ease;
+        }
+        .exercise:hover { box-shadow: 0 4px 12px rgba(102,126,234,0.15); }
+        .ex-num { font-weight: bold; color: #667eea; font-size: 1.05rem; margin-bottom: 10px; }
+        .exercise-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+        }
+        .exercise-number { font-weight: bold; color: #667eea; font-size: 1.05rem; }
+        .verb-badge {
+            background: #667eea; color: white; padding: 4px 12px;
+            border-radius: 20px; font-size: 0.9rem; font-weight: 500;
+        }
+
+        /* Sentence (fill-in) */
+        .sentence {
+            line-height: 2; font-size: 1.1rem; display: flex;
+            flex-wrap: wrap; align-items: baseline; gap: 4px;
+        }
+        .sentence span, .word-row span { white-space: pre; }
+        .nowrap-group {
+            display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0;
+        }
+        .nowrap-group span { white-space: pre; }
+        .word-row {
+            display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px;
+            font-size: 1.1rem; line-height: 2.2;
+        }
+
+        /* Inputs */
+        input.blank {
+            border: none; border-bottom: 2px solid #667eea; background: transparent;
+            font-size: 1.1rem; padding: 2px 8px; min-width: 60px;
+            transition: all 0.3s ease; font-family: inherit;
+        }
+        input.blank:focus { outline: none; border-bottom-color: #764ba2; background: rgba(102,126,234,0.05); }
+        input.blank.s { min-width: 50px; }
+        input.blank.m { min-width: 100px; }
+        input.blank.l { min-width: 160px; }
+        input.blank.correct { border-bottom-color: #28a745; background: rgba(40,167,69,0.1); }
+        input.blank.incorrect { border-bottom-color: #dc3545; background: rgba(220,53,69,0.1); }
+        .solution { display: none; color: #28a745; font-weight: 600; margin-left: 6px; }
+        .solution.show { display: inline; }
+
+        /* Chips (drag & drop) */
+        .chip {
+            background: #667eea; color: white; padding: 8px 16px;
+            border-radius: 20px; font-size: 1.05rem; font-weight: 500;
+            cursor: grab; user-select: none; transition: all 0.2s ease;
+        }
+        .chip:active { cursor: grabbing; opacity: 0.8; transform: scale(1.05); }
+        .chip.correct { background: #28a745; }
+        .chip.incorrect { background: #dc3545; }
+        .chip.selected { outline: 3px solid #764ba2; outline-offset: 2px; }
+
+        /* Drag zones */
+        .drop-row {
+            display: flex; flex-wrap: wrap; gap: 8px; min-height: 48px;
+            padding: 10px; background: white; border: 2px dashed #ccc;
+            border-radius: 8px; margin-bottom: 10px; align-items: center;
+        }
+        .drop-row.drag-over { border-color: #667eea; background: rgba(102,126,234,0.05); }
+        .chip-bank {
+            display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px;
+        }
+
+        /* Categories (Zuordnung) */
+        .categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 25px; }
+        .category {
+            background: #f8f9fa; border-radius: 8px; padding: 12px; min-height: 160px;
+            border: 2px dashed #ccc; transition: all 0.3s ease;
+        }
+        .category.drag-over { border-color: #667eea; background: rgba(102,126,234,0.05); }
+        .category h3 {
+            text-align: center; color: white; background: #667eea;
+            padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 1.1rem;
+        }
+        .category .drop-zone { display: flex; flex-direction: column; gap: 8px; min-height: 80px; }
+
+        .hint-row { color: #999; font-size: 0.85rem; font-style: italic; margin-top: 4px; display: none; }
+        .hint-row.show { display: block; }
+
+        /* Buttons */
+        .button-container {
+            display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;
+        }
+        button {
+            background: #667eea; color: white; border: none; padding: 12px 28px;
+            font-size: 1.05rem; border-radius: 8px; cursor: pointer;
+            transition: all 0.3s ease; font-weight: 600;
+        }
+        button:hover { background: #764ba2; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+        button:active { transform: translateY(0); }
+        button.secondary { background: #6c757d; }
+        button.secondary:hover { background: #5a6268; }
+
+        /* Results */
+        .result-message {
+            text-align: center; margin-top: 20px; padding: 18px;
+            border-radius: 8px; font-size: 1.15rem; font-weight: 600; display: none;
+        }
+        .result-message.show { display: block; }
+        .result-message.success { background: rgba(40,167,69,0.1); color: #28a745; border: 2px solid #28a745; }
+        .result-message.partial { background: rgba(255,193,7,0.1); color: #856404; border: 2px solid #ffc107; }
+
+        @media (max-width: 700px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+            .categories { grid-template-columns: 1fr; }
+            input.blank { font-size: 1rem; }
+            .sentence, .word-row { font-size: 1rem; }
+        }
+    </style>
+<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770497048259&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADJMClpwAAARIAEACG2cklXT%252BDRZmhfNr%252B%252FvzR%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260116004.08%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770497048259&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+<div class="container">
+    <h1>🎓 Verben mit Vokalwechsel</h1>
+    <p class="main-subtitle">Komplettübung – Niveau A1</p>
+
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)">📝 Wortschatz</div>
+        <div class="nav-btn" onclick="showSection(1)">🔀 Zuordnung</div>
+        <div class="nav-btn" onclick="showSection(2)">✏️ Konjugation</div>
+        <div class="nav-btn" onclick="showSection(3)">🧩 Satzbau</div>
+    </div>
+
+    <!-- ===== SECTION 0: WORTSCHATZ ===== -->
+    <div class="section active" id="sec-0">
+        <h2 class="section-title">Wortschatzkontrolle</h2>
+        <p class="section-subtitle">Übersetze ins Deutsche. Bei Nomen: Artikel + Wort + Plural.</p>
+        <div id="wortschatz-ex"></div>
+        <div class="button-container">
+            <button onclick="checkWortschatz()">✓ Lösung prüfen</button>
+            <button class="secondary" onclick="showSolWortschatz()">👁 Lösungen</button>
+            <button class="secondary" onclick="resetWortschatz()">🔄 Neu</button>
+        </div>
+        <div id="wortschatz-result" class="result-message"></div>
+    </div>
+
+    <!-- ===== SECTION 1: ZUORDNUNG ===== -->
+    <div class="section" id="sec-1">
+        <h2 class="section-title">Verben zuordnen</h2>
+        <p class="section-subtitle">Ziehe die Verben in die richtige Kategorie.</p>
+        <div class="chip-bank" id="zuord-bank"></div>
+        <div style="height:15px"></div>
+        <div class="categories">
+            <div class="category" data-cat="a-ae"><h3>a → ä</h3><div class="drop-zone" id="zone-a-ae"></div></div>
+            <div class="category" data-cat="e-ie"><h3>e → ie</h3><div class="drop-zone" id="zone-e-ie"></div></div>
+            <div class="category" data-cat="e-i"><h3>e → i</h3><div class="drop-zone" id="zone-e-i"></div></div>
+        </div>
+        <div class="button-container">
+            <button onclick="checkZuord()">✓ Lösung prüfen</button>
+            <button class="secondary" onclick="showSolZuord()">👁 Lösungen</button>
+            <button class="secondary" onclick="resetZuord()">🔄 Neu</button>
+        </div>
+        <div id="zuord-result" class="result-message"></div>
+    </div>
+
+    <!-- ===== SECTION 2: KONJUGATION ===== -->
+    <div class="section" id="sec-2">
+        <h2 class="section-title">Konjugation</h2>
+        <p class="section-subtitle">Schreibe die richtige du-Form.</p>
+        <div class="help-box">
+            <h3>📚 Hilfe: Die drei Vokalwechsel</h3>
+            <div class="verb-grid">
+                <div class="verb-item"><strong>a → ä</strong> (du/er): fahren → fährst</div>
+                <div class="verb-item"><strong>e → i</strong> (du/er): geben → gibst</div>
+                <div class="verb-item"><strong>e → ie</strong> (du/er): lesen → liest</div>
+            </div>
+        </div>
+        <div id="konj-ex"></div>
+        <div class="button-container">
+            <button onclick="checkKonj()">✓ Lösung prüfen</button>
+            <button class="secondary" onclick="showSolKonj()">👁 Lösungen</button>
+            <button class="secondary" onclick="resetKonj()">🔄 Neu</button>
+        </div>
+        <div id="konj-result" class="result-message"></div>
+    </div>
+
+    <!-- ===== SECTION 3: SATZBAU ===== -->
+    <div class="section" id="sec-3">
+        <h2 class="section-title">Satzbau</h2>
+        <p class="section-subtitle">Ordne die Satzglieder in die richtige Reihenfolge.</p>
+        <div class="help-box">
+            <h3>📚 Hilfe: Satzbau</h3>
+            <div class="help-line">🔹 Das <strong>Verb</strong> steht immer auf <strong>Position 2</strong>.</div>
+            <div class="help-line">🔹 <strong>Zeit vor Ort</strong> – Wann? kommt vor Wohin?/Wo?</div>
+            <div class="help-line">🔹 Standard: <strong>Subjekt – Verb – Zeit – Ort</strong></div>
+            <div class="help-line">🔹 Auch möglich: <strong>Zeit – Verb – Subjekt – Ort</strong></div>
+        </div>
+        <div id="satzbau-ex"></div>
+        <div class="button-container">
+            <button onclick="checkSatzbau()">✓ Lösung prüfen</button>
+            <button class="secondary" onclick="showSolSatzbau()">👁 Lösungen</button>
+            <button class="secondary" onclick="resetSatzbau()">🔄 Neu</button>
+        </div>
+        <div id="satzbau-result" class="result-message"></div>
+    </div>
+</div>
+
+<script>
+// ========== NAVIGATION ==========
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach((s, i) => s.classList.toggle('active', i === idx));
+    document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ========== HELPERS ==========
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    if (a.length > 1 && a.every((v, i) => v === arr[i])) return shuffle(arr);
+    return a;
+}
+function mkSpan(text) { return Object.assign(document.createElement('span'), { textContent: text }); }
+function mkSol(text) {
+    const s = document.createElement('span'); s.className = 'solution'; s.textContent = `✓ ${text}`; return s;
+}
+function showResult(id, correct, total) {
+    const r = document.getElementById(id); r.classList.add('show');
+    if (correct === total) {
+        r.className = 'result-message show success';
+        r.textContent = `🎉 Perfekt! Alle ${total} Antworten richtig!`;
+    } else {
+        r.className = 'result-message show partial';
+        r.textContent = `📊 ${correct} von ${total} richtig. Versuche es noch einmal!`;
+    }
+}
+
+// ========== SECTION 0: WORTSCHATZ ==========
+const WORTSCHATZ = [
+    { id:1, type:"n", en:"businesswoman", artikel:"die", de:"Geschäftsfrau", plural:"Geschäftsfrauen" },
+    { id:2, type:"v", en:"to speak", de:"sprechen" },
+    { id:3, type:"n", en:"e-mail", artikel:"die", de:"E-Mail", plural:"E-Mails" },
+    { id:4, type:"a", en:"important", de:"wichtig" },
+    { id:5, type:"v", en:"to recommend", de:"empfehlen" },
+    { id:6, type:"n", en:"colleague", artikel:"der", de:"Kollege", plural:"Kollegen" },
+    { id:7, type:"v", en:"to help", de:"helfen" },
+    { id:8, type:"a", en:"heavy, difficult", de:"schwer" },
+    { id:9, type:"n", en:"job, profession", artikel:"der", de:"Beruf", plural:"Berufe" },
+    { id:10, type:"v", en:"to teach", de:"unterrichten" },
+    { id:11, type:"v", en:"to wash", de:"waschen" },
+    { id:12, type:"a", en:"regular", de:"regelmäßig" },
+    { id:13, type:"n", en:"work", artikel:"die", de:"Arbeit", plural:"Arbeiten" },
+    { id:14, type:"v", en:"to eat", de:"essen" },
+    { id:15, type:"v", en:"to sleep", de:"schlafen" },
+];
+let wsAnswers = {};
+
+function mkInput(store, exId, bIdx, answer, size) {
+    const input = document.createElement('input');
+    input.type = 'text'; input.className = `blank ${size}`;
+    input.dataset.exerciseId = exId; input.dataset.blankIdx = bIdx; input.dataset.answer = answer;
+    input.value = store[`${exId}-${bIdx}`] || '';
+    input.addEventListener('input', (e) => { store[`${exId}-${bIdx}`] = e.target.value; });
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const sec = input.closest('.section');
+            const all = sec.querySelectorAll('input.blank');
+            const idx = Array.from(all).indexOf(input);
+            if (idx < all.length - 1) all[idx + 1].focus();
+        }
+    });
+    return input;
+}
+
+function renderWortschatz() {
+    const c = document.getElementById('wortschatz-ex'); c.innerHTML = '';
+    WORTSCHATZ.forEach((w, i) => {
+        const div = document.createElement('div'); div.className = 'exercise';
+        const num = document.createElement('div'); num.className = 'ex-num';
+        num.textContent = `${i + 1}. ${w.en}`; div.appendChild(num);
+        const row = document.createElement('div'); row.className = 'word-row';
+        if (w.type === 'n') {
+            row.appendChild(mkInput(wsAnswers, w.id, 0, w.artikel, 's'));
+            row.appendChild(mkSol(w.artikel));
+            row.appendChild(mkSpan(` `));
+            row.appendChild(mkInput(wsAnswers, w.id, 1, w.de, 'm'));
+            row.appendChild(mkSol(w.de));
+            row.appendChild(mkSpan(`, Pl.: `));
+            row.appendChild(mkInput(wsAnswers, w.id, 2, w.plural, 'm'));
+            row.appendChild(mkSol(w.plural));
+        } else {
+            row.appendChild(mkInput(wsAnswers, w.id, 0, w.de, 'm'));
+            row.appendChild(mkSol(w.de));
+        }
+        div.appendChild(row); c.appendChild(div);
+    });
+}
+
+function checkInputs(sectionId, resultId) {
+    const sec = document.getElementById(sectionId);
+    const inputs = sec.querySelectorAll('input.blank');
+    let correct = 0, total = 0;
+    inputs.forEach(input => {
+        const ua = input.value.trim().toLowerCase();
+        const ca = input.dataset.answer.toLowerCase();
+        total++; input.classList.remove('correct', 'incorrect');
+        if (ua === ca) { input.classList.add('correct'); correct++; }
+        else if (ua !== '') { input.classList.add('incorrect'); }
+    });
+    showResult(resultId, correct, total);
+}
+function showSolInputs(sectionId) {
+    const sec = document.getElementById(sectionId);
+    sec.querySelectorAll('.solution').forEach(s => s.classList.add('show'));
+    sec.querySelectorAll('input.blank').forEach(i => { i.value = i.dataset.answer; });
+}
+function resetInputs(sectionId, resultId, store, renderFn) {
+    for (const k in store) delete store[k];
+    renderFn();
+    document.getElementById(resultId).classList.remove('show');
+}
+
+function checkWortschatz() { checkInputs('sec-0', 'wortschatz-result'); }
+function showSolWortschatz() { showSolInputs('sec-0'); }
+function resetWortschatz() { resetInputs('sec-0', 'wortschatz-result', wsAnswers, renderWortschatz); }
+
+// ========== SECTION 1: ZUORDNUNG ==========
+const ZUORD_VERBS = [
+    { word: "fahren", cat: "a-ae" }, { word: "waschen", cat: "a-ae" }, { word: "schlafen", cat: "a-ae" },
+    { word: "lesen", cat: "e-ie" }, { word: "sehen", cat: "e-ie" },
+    { word: "geben", cat: "e-i" }, { word: "sprechen", cat: "e-i" }, { word: "helfen", cat: "e-i" }, { word: "nehmen", cat: "e-i" }
+];
+let zuordDragged = null;
+
+function createZuordChip(v) {
+    const chip = document.createElement('div');
+    chip.className = 'chip'; chip.textContent = v.word; chip.dataset.cat = v.cat; chip.draggable = true;
+    chip.addEventListener('dragstart', (e) => {
+        zuordDragged = chip; e.dataTransfer.effectAllowed = 'move';
+        setTimeout(() => chip.style.opacity = '0.4', 0);
+    });
+    chip.addEventListener('dragend', () => {
+        chip.style.opacity = '1'; zuordDragged = null;
+        document.querySelectorAll('.category').forEach(c => c.classList.remove('drag-over'));
+    });
+    chip.addEventListener('touchstart', () => { zuordDragged = chip; chip.style.opacity = '0.6'; }, { passive: true });
+    return chip;
+}
+
+function setupZuord() {
+    document.querySelectorAll('.category').forEach(cat => {
+        cat.addEventListener('dragover', (e) => { e.preventDefault(); cat.classList.add('drag-over'); });
+        cat.addEventListener('dragleave', () => cat.classList.remove('drag-over'));
+        cat.addEventListener('drop', (e) => {
+            e.preventDefault(); cat.classList.remove('drag-over');
+            if (zuordDragged) { cat.querySelector('.drop-zone').appendChild(zuordDragged); clearZuordResult(); }
+        });
+        cat.addEventListener('touchend', () => {
+            if (zuordDragged) { cat.querySelector('.drop-zone').appendChild(zuordDragged); zuordDragged.style.opacity = '1'; zuordDragged = null; clearZuordResult(); }
+        });
+    });
+    const bank = document.getElementById('zuord-bank');
+    bank.addEventListener('dragover', (e) => e.preventDefault());
+    bank.addEventListener('drop', (e) => { e.preventDefault(); if (zuordDragged) { bank.appendChild(zuordDragged); clearZuordResult(); } });
+    bank.addEventListener('touchend', () => { if (zuordDragged) { bank.appendChild(zuordDragged); zuordDragged.style.opacity = '1'; zuordDragged = null; } });
+}
+
+function clearZuordResult() {
+    document.querySelectorAll('#sec-1 .chip').forEach(c => c.classList.remove('correct', 'incorrect'));
+    document.getElementById('zuord-result').classList.remove('show');
+}
+
+function resetZuord() {
+    const bank = document.getElementById('zuord-bank'); bank.innerHTML = '';
+    document.querySelectorAll('.drop-zone').forEach(z => z.innerHTML = '');
+    shuffle([...ZUORD_VERBS]).forEach(v => bank.appendChild(createZuordChip(v)));
+    clearZuordResult();
+}
+
+function checkZuord() {
+    let correct = 0;
+    const chips = document.querySelectorAll('.drop-zone .chip');
+    chips.forEach(c => {
+        c.classList.remove('correct', 'incorrect');
+        const zone = c.closest('.category');
+        if (zone && zone.dataset.cat === c.dataset.cat) { c.classList.add('correct'); correct++; }
+        else { c.classList.add('incorrect'); }
+    });
+    const placed = chips.length;
+    const r = document.getElementById('zuord-result'); r.classList.add('show');
+    if (correct === ZUORD_VERBS.length && placed === ZUORD_VERBS.length) {
+        r.className = 'result-message show success'; r.textContent = `🎉 Perfekt! Alle ${ZUORD_VERBS.length} Verben richtig!`;
+    } else {
+        r.className = 'result-message show partial';
+        r.textContent = placed < ZUORD_VERBS.length
+            ? `📊 ${correct} von ${ZUORD_VERBS.length} richtig. Noch ${ZUORD_VERBS.length - placed} nicht zugeordnet.`
+            : `📊 ${correct} von ${ZUORD_VERBS.length} richtig.`;
+    }
+}
+
+function showSolZuord() {
+    ZUORD_VERBS.forEach(v => {
+        const chip = [...document.querySelectorAll('#sec-1 .chip')].find(c => c.textContent === v.word);
+        if (chip) { document.getElementById('zone-' + v.cat).appendChild(chip); chip.classList.remove('incorrect'); chip.classList.add('correct'); }
+    });
+    const r = document.getElementById('zuord-result'); r.className = 'result-message show success'; r.textContent = '✅ Richtige Zuordnung.';
+}
+
+// ========== SECTION 2: KONJUGATION ==========
+const KONJ = [
+    { id:20, verb: "schlafen", segments: [{t: "Ich schlafe. → Du "}, {b: "schläfst", s: "m"}, {t: "."}] },
+    { id:21, verb: "essen", segments: [{t: "Wir essen Pizza. → Du "}, {b: "isst", s: "s"}, {t: " Pizza."}] },
+    { id:22, verb: "nehmen", segments: [{t: "Ich nehme einen Kaffee. → Du "}, {b: "nimmst", s: "m"}, {t: " einen Kaffee."}] },
+    { id:23, verb: "sehen", segments: [{t: "Die Kinder sehen die Katze. → Du "}, {b: "siehst", s: "m"}, {t: " die Katze."}] },
+    { id:24, verb: "geben", segments: [{t: "Die Lehrer geben Feedback. → Du "}, {b: "gibst", s: "m"}, {t: " Feedback."}] },
+    { id:25, verb: "waschen", segments: [{t: "ich wasche, du "}, {b: "wäschst", s: "m"}] },
+    { id:26, verb: "fahren", segments: [{t: "ich fahre, du "}, {b: "fährst", s: "m"}] },
+    { id:27, verb: "tragen", segments: [{t: "ich trage, du "}, {b: "trägst", s: "m"}] },
+    { id:28, verb: "sprechen", segments: [{t: "ich spreche, du "}, {b: "sprichst", s: "m"}] },
+    { id:29, verb: "empfehlen", segments: [{t: "ich empfehle, du "}, {b: "empfiehlst", s: "l"}] },
+    { id:30, verb: "lesen", segments: [{t: "ich lese, du "}, {b: "liest", s: "s"}] },
+    { id:31, verb: "sehen", segments: [{t: "ich sehe, du "}, {b: "siehst", s: "m"}] },
+];
+let konjAnswers = {};
+
+function renderKonj() {
+    const c = document.getElementById('konj-ex'); c.innerHTML = '';
+    KONJ.forEach((ex, exIdx) => {
+        const div = document.createElement('div'); div.className = 'exercise';
+        const header = document.createElement('div'); header.className = 'exercise-header';
+        header.innerHTML = `<span class="exercise-number">${exIdx + 1}.</span><span class="verb-badge">${ex.verb}</span>`;
+        div.appendChild(header);
+        const sentenceDiv = document.createElement('div'); sentenceDiv.className = 'sentence';
+        let blankIdx = 0, pendingFragment = null;
+        ex.segments.forEach((seg, segIdx) => {
+            if (seg.t !== undefined) {
+                const text = seg.t; const next = ex.segments[segIdx + 1];
+                const hasFrag = text.length > 0 && !text.endsWith(' ') && next && next.b !== undefined;
+                if (hasFrag) {
+                    const lsi = text.lastIndexOf(' ');
+                    if (lsi >= 0) { sentenceDiv.appendChild(mkSpan(text.substring(0, lsi + 1))); pendingFragment = text.substring(lsi + 1); }
+                    else pendingFragment = text;
+                } else sentenceDiv.appendChild(mkSpan(text));
+            }
+            if (seg.b !== undefined) {
+                const ci = blankIdx;
+                const input = mkInput(konjAnswers, ex.id, ci, seg.b, seg.s);
+                const sol = mkSol(seg.b);
+                if (pendingFragment) {
+                    const g = document.createElement('span'); g.className = 'nowrap-group';
+                    g.appendChild(mkSpan(pendingFragment)); g.appendChild(input); g.appendChild(sol);
+                    sentenceDiv.appendChild(g); pendingFragment = null;
+                } else { sentenceDiv.appendChild(input); sentenceDiv.appendChild(sol); }
+                blankIdx++;
+            }
+        });
+        div.appendChild(sentenceDiv); c.appendChild(div);
+    });
+}
+
+function checkKonj() { checkInputs('sec-2', 'konj-result'); }
+function showSolKonj() { showSolInputs('sec-2'); }
+function resetKonj() { resetInputs('sec-2', 'konj-result', konjAnswers, renderKonj); }
+
+// ========== SECTION 3: SATZBAU ==========
+const SATZBAU = [
+    { id:40, parts:["die Geschäftsfrau", "spricht", "mit dem Kollegen", "am Telefon"],
+      valid:[["die Geschäftsfrau", "spricht", "am Telefon", "mit dem Kollegen"],
+             ["am Telefon", "spricht", "die Geschäftsfrau", "mit dem Kollegen"]]},
+    { id:41, parts:["der Taxifahrer", "fährt", "jeden Tag", "nach Berlin"],
+      valid:[["der Taxifahrer", "fährt", "jeden Tag", "nach Berlin"],
+             ["jeden Tag", "fährt", "der Taxifahrer", "nach Berlin"]]},
+    { id:42, parts:["die Lehrerin", "gibt", "den Schülern", "Feedback"],
+      valid:[["die Lehrerin", "gibt", "den Schülern", "Feedback"]]},
+    { id:43, parts:["mein Bruder", "isst", "am liebsten", "Pizza"],
+      valid:[["mein Bruder", "isst", "am liebsten", "Pizza"]]},
+    { id:44, parts:["der Assistent", "liest", "die E-Mails", "am Morgen"],
+      valid:[["der Assistent", "liest", "die E-Mails", "am Morgen"],
+             ["am Morgen", "liest", "der Assistent", "die E-Mails"]]},
+    { id:45, parts:["meine Schwester", "schläft", "am Wochenende", "bis 11 Uhr"],
+      valid:[["meine Schwester", "schläft", "am Wochenende", "bis 11 Uhr"],
+             ["am Wochenende", "schläft", "meine Schwester", "bis 11 Uhr"]]},
+];
+let sbSelected = null;
+
+function createSbChip(text, exId) {
+    const chip = document.createElement('div');
+    chip.className = 'chip'; chip.textContent = text; chip.dataset.orig = text; chip.dataset.exId = exId; chip.draggable = true;
+    chip.addEventListener('dragstart', (e) => {
+        sbSelected = chip; e.dataTransfer.setData('text/plain', '');
+        setTimeout(() => chip.style.opacity = '0.4', 0);
+    });
+    chip.addEventListener('dragend', () => { chip.style.opacity = '1'; sbSelected = null; document.querySelectorAll('#sec-3 .drop-row').forEach(r => r.classList.remove('drag-over')); });
+    chip.addEventListener('click', () => {
+        if (sbSelected === chip) { chip.classList.remove('selected'); sbSelected = null; }
+        else if (sbSelected && sbSelected.dataset.exId === chip.dataset.exId && chip.closest('.drop-row')) {
+            chip.closest('.drop-row').insertBefore(sbSelected, chip);
+            sbSelected.classList.remove('selected'); updateSbCaps(sbSelected.dataset.exId); sbSelected = null; clearSbResult();
+        } else {
+            if (sbSelected) sbSelected.classList.remove('selected');
+            sbSelected = chip; chip.classList.add('selected');
+        }
+    });
+    return chip;
+}
+
+function updateSbCaps(exId) {
+    const row = document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank = document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.chip'), ...bank.querySelectorAll('.chip')].forEach(c => { if (c.dataset.orig) c.textContent = c.dataset.orig; });
+    const first = row.querySelector('.chip');
+    if (first && first.textContent !== '.') first.textContent = first.textContent.charAt(0).toUpperCase() + first.textContent.slice(1);
+}
+
+function clearSbResult() {
+    document.querySelectorAll('#sec-3 .chip').forEach(c => c.classList.remove('correct', 'incorrect'));
+    document.getElementById('satzbau-result').classList.remove('show');
+}
+
+function renderSatzbau() {
+    const c = document.getElementById('satzbau-ex'); c.innerHTML = '';
+    SATZBAU.forEach((s, i) => {
+        const div = document.createElement('div'); div.className = 'exercise';
+        const num = document.createElement('div'); num.className = 'ex-num'; num.textContent = `${i + 1}.`; div.appendChild(num);
+        const dropRow = document.createElement('div'); dropRow.className = 'drop-row'; dropRow.dataset.sbId = s.id;
+        dropRow.addEventListener('dragover', (e) => { e.preventDefault(); dropRow.classList.add('drag-over'); });
+        dropRow.addEventListener('dragleave', () => dropRow.classList.remove('drag-over'));
+        dropRow.addEventListener('drop', (e) => {
+            e.preventDefault(); dropRow.classList.remove('drag-over');
+            if (sbSelected && sbSelected.dataset.exId == s.id) {
+                const chips = [...dropRow.querySelectorAll('.chip')]; const dot = dropRow.querySelector('.fixed-dot');
+                let inserted = false;
+                for (const ch of chips) { if (ch === sbSelected) continue; const rect = ch.getBoundingClientRect(); if (e.clientX < rect.left + rect.width / 2) { dropRow.insertBefore(sbSelected, ch); inserted = true; break; } }
+                if (!inserted) dropRow.insertBefore(sbSelected, dot);
+                updateSbCaps(s.id); clearSbResult();
+            }
+        });
+        dropRow.addEventListener('click', (e) => {
+            if (sbSelected && sbSelected.dataset.exId == s.id && (e.target === dropRow || e.target.classList.contains('fixed-dot'))) {
+                dropRow.insertBefore(sbSelected, dropRow.querySelector('.fixed-dot'));
+                sbSelected.classList.remove('selected'); sbSelected = null; updateSbCaps(s.id); clearSbResult();
+            }
+        });
+        const dot = document.createElement('span'); dot.className = 'fixed-dot';
+        dot.style.cssText = 'font-size:1.3rem; font-weight:700; color:#333; padding:0 4px;'; dot.textContent = '.';
+        dropRow.appendChild(dot); div.appendChild(dropRow);
+
+        const bank = document.createElement('div'); bank.className = 'chip-bank'; bank.dataset.sbId = s.id;
+        bank.addEventListener('dragover', (e) => e.preventDefault());
+        bank.addEventListener('drop', (e) => { e.preventDefault(); if (sbSelected && sbSelected.dataset.exId == s.id) { bank.appendChild(sbSelected); updateSbCaps(s.id); clearSbResult(); } });
+        bank.addEventListener('click', (e) => {
+            if (sbSelected && sbSelected.dataset.exId == s.id && e.target === bank) { bank.appendChild(sbSelected); sbSelected.classList.remove('selected'); sbSelected = null; updateSbCaps(s.id); clearSbResult(); }
+        });
+        shuffle(s.parts).forEach(p => bank.appendChild(createSbChip(p, s.id)));
+        div.appendChild(bank);
+
+        const hint = document.createElement('div'); hint.className = 'hint-row'; hint.dataset.sbId = s.id;
+        const ht = s.valid[0].join(' ') + '.'; hint.textContent = ht.charAt(0).toUpperCase() + ht.slice(1);
+        div.appendChild(hint); c.appendChild(div);
+    });
+}
+
+function checkSatzbau() {
+    let correct = 0;
+    SATZBAU.forEach(s => {
+        const row = document.querySelector(`.drop-row[data-sb-id="${s.id}"]`);
+        const chips = row.querySelectorAll('.chip');
+        const userOrder = [...chips].map(c => c.dataset.orig);
+        const isCorrect = s.valid.some(v => v.length === userOrder.length && v.every((p, i) => p === userOrder[i]));
+        chips.forEach(c => { c.classList.remove('correct', 'incorrect'); c.classList.add(isCorrect ? 'correct' : 'incorrect'); });
+        if (isCorrect) correct++;
+    });
+    showResult('satzbau-result', correct, SATZBAU.length);
+}
+
+function showSolSatzbau() {
+    SATZBAU.forEach(s => {
+        const row = document.querySelector(`.drop-row[data-sb-id="${s.id}"]`);
+        const bank = document.querySelector(`.chip-bank[data-sb-id="${s.id}"]`);
+        const allChips = [...row.querySelectorAll('.chip'), ...bank.querySelectorAll('.chip')];
+        const dot = row.querySelector('.fixed-dot'); row.innerHTML = '';
+        s.valid[0].forEach(p => { const ch = allChips.find(c => c.dataset.orig === p); if (ch) { ch.classList.remove('incorrect'); ch.classList.add('correct'); row.appendChild(ch); } });
+        if (dot) row.appendChild(dot); updateSbCaps(s.id);
+        document.querySelector(`.hint-row[data-sb-id="${s.id}"]`).classList.add('show');
+    });
+    const r = document.getElementById('satzbau-result'); r.className = 'result-message show success'; r.textContent = '✅ Richtige Reihenfolge.';
+}
+
+function resetSatzbau() { sbSelected = null; renderSatzbau(); document.getElementById('satzbau-result').classList.remove('show'); }
+
+// ========== INIT ==========
+renderWortschatz();
+setupZuord(); resetZuord();
+renderKonj();
+renderSatzbau();
+</script>
+</body>
+</html>

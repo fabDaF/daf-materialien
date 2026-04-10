@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjektivdeklination – Familie & Kleidung</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+
+.container { max-width: 800px; margin: 0 auto; padding: 16px; }
+
+h1 { text-align: center; font-size: 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2);
+     -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 12px 0 4px; }
+.subtitle { text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 16px; }
+
+/* Navigation */
+.nav { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.nav-btn { flex: 1; min-width: 120px; padding: 10px 8px; text-align: center; background: #e8e8e8;
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+           transition: all 0.2s; border-bottom: 3px solid transparent; }
+.nav-btn:hover { background: #d8d8f8; }
+.nav-btn.active { background: #fff; border-bottom: 3px solid #667eea; color: #667eea; }
+
+.section { display: none; background: #fff; border-radius: 0 0 12px 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.section.active { display: block; }
+
+/* Buttons */
+.btn-row { display: flex; gap: 6px; }
+.btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+       cursor: pointer; transition: all 0.2s; }
+.btn-check { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.btn-check:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+.btn-show { background: #f0f0f0; color: #555; }
+.btn-show:hover { background: #e0e0e0; }
+.btn-reset { background: #fff; color: #888; border: 1px solid #ddd; }
+.btn-reset:hover { background: #f8f8f8; }
+
+.score { text-align: center; margin-top: 12px; font-weight: 600; color: #667eea; font-size: 1rem; }
+
+/* Help box */
+.help-toggle { background: none; border: 1px solid #667eea; color: #667eea; border-radius: 6px;
+               padding: 4px 12px; font-size: 0.8rem; cursor: pointer; margin-bottom: 12px; }
+.help-toggle:hover { background: #667eea; color: #fff; }
+.help-box { display: none; background: #f8f7ff; border-left: 3px solid #667eea; padding: 12px 16px;
+            margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 0.85rem; line-height: 1.6; }
+.help-box.open { display: block; }
+.help-box p { margin-bottom: 6px; }
+
+/* ==================== TAB 1: ZUORDNUNG ==================== */
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; background: #f8f7ff;
+             border-radius: 8px; min-height: 50px; margin-bottom: 16px; justify-content: center; }
+.chip { padding: 8px 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
+        border-radius: 20px; cursor: grab; font-size: 0.9rem; user-select: none; transition: all 0.2s; }
+.chip:active { cursor: grabbing; transform: scale(1.05); }
+.chip.correct { background: linear-gradient(135deg, #2ecc71, #27ae60) !important; }
+.chip.wrong { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; }
+
+.categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 600px) { .categories { grid-template-columns: repeat(2, 1fr); } }
+.category { text-align: center; }
+.category h3 { font-size: 0.95rem; color: #667eea; margin-bottom: 6px; padding: 6px;
+               background: #f0eeff; border-radius: 6px; }
+.drop-zone { min-height: 80px; border: 2px dashed #d0d0e0; border-radius: 8px; padding: 8px;
+             display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; transition: all 0.2s; }
+.drop-zone.over { border-color: #667eea; background: #f0eeff; }
+
+/* ==================== TAB 2: LÜCKENÜBUNG ==================== */
+.exercise { background: #f8f7ff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+            line-height: 2.2; font-size: 1rem; }
+.exercise .num { font-weight: 700; color: #764ba2; margin-right: 6px; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+input.blank { border: none; border-bottom: 2px solid #667eea; background: transparent; text-align: center;
+              font-size: 0.95rem; font-family: inherit; outline: none; padding: 2px 4px; transition: all 0.3s; }
+input.blank:focus { border-bottom-color: #764ba2; background: #f0eeff; }
+input.blank.s { min-width: 40px; width: 45px; }
+input.blank.m { min-width: 80px; width: 90px; }
+input.blank.l { min-width: 140px; width: 150px; }
+input.blank.correct { border-bottom-color: #2ecc71; background: #eafaf1; color: #27ae60; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
+.sol { display: none; color: #27ae60; font-weight: 600; font-size: 0.85rem; margin-left: 2px; }
+
+/* ==================== TAB 3: SATZBAU ==================== */
+.sb-exercise { margin-bottom: 18px; }
+.sb-exercise .sb-label { font-weight: 600; color: #764ba2; margin-bottom: 6px; font-size: 0.95rem; }
+.sb-bank { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; background: #f8f7ff;
+           border-radius: 8px; min-height: 44px; margin-bottom: 6px; }
+.sb-row { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; background: #fff;
+          border: 2px dashed #d0d0e0; border-radius: 8px; min-height: 44px; align-items: center; transition: all 0.2s; }
+.sb-row.over { border-color: #667eea; background: #f0eeff; }
+.sb-chip { padding: 6px 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
+           border-radius: 16px; cursor: grab; font-size: 0.9rem; user-select: none; transition: all 0.15s; }
+.sb-chip:active { cursor: grabbing; transform: scale(1.05); }
+.sb-chip.selected { outline: 2px solid #ffd700; outline-offset: 2px; }
+.sb-chip.correct { background: linear-gradient(135deg, #2ecc71, #27ae60) !important; }
+.sb-chip.wrong { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; }
+.fixed-dot { font-weight: 700; font-size: 1.1rem; color: #333; padding-left: 2px; }
+
+/* ==================== TAB 4: WORTSCHATZ ==================== */
+.ws-item { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; padding: 10px 14px;
+           background: #f8f7ff; border-radius: 8px; margin-bottom: 8px; font-size: 0.95rem; }
+.ws-en { font-weight: 600; color: #764ba2; min-width: 120px; }
+.ws-arrow { color: #999; }
+input.ws-input { border: none; border-bottom: 2px solid #667eea; background: transparent;
+                 font-size: 0.9rem; font-family: inherit; outline: none; padding: 2px 6px; text-align: center; }
+input.ws-input:focus { border-bottom-color: #764ba2; background: #f0eeff; }
+input.ws-input.s { min-width: 45px; width: 50px; }
+input.ws-input.m { min-width: 90px; width: 110px; }
+input.ws-input.correct { border-bottom-color: #2ecc71; background: #eafaf1; color: #27ae60; }
+input.ws-input.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
+.ws-sol { display: none; color: #27ae60; font-weight: 600; font-size: 0.8rem; margin-left: 2px; }
+.ws-sep { color: #999; }
+</style>
+<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770799448917&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADJxV%252BTgAAARIAEACEXnRcUnLzTq%252BH%252FFsuBHsh%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260130003.06%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770799448917&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+<div class="container">
+<h1>Adjektivdeklination</h1>
+<p class="subtitle">Familie, Verwandtschaft & Kleidung – Nominativ mit Possessivpronomen</p>
+
+<div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)">📝 Wortschatz</div>
+    <div class="nav-btn" onclick="showSection(1)">🔀 Zuordnung</div>
+    <div class="nav-btn" onclick="showSection(2)">✏️ Deklination</div>
+    <div class="nav-btn" onclick="showSection(3)">🧩 Satzbau</div>
+</div>
+
+<!-- ==================== TAB 4: WORTSCHATZ ==================== -->
+<div class="section active" id="sec-0">
+    <button class="help-toggle" onclick="toggleHelp(0)">💡 Hilfe</button>
+    <div class="help-box" id="help-0">
+        <p>🔹 Übersetze die Wörter von <strong>Englisch → Deutsch</strong>.</p>
+        <p>🔹 Bei Nomen: Schreibe den <strong>Artikel</strong>, das <strong>deutsche Wort</strong> und den <strong>Plural</strong>.</p>
+        <p>🔹 Denke daran: Nomen immer mit Artikel lernen!</p>
+    </div>
+    <div id="ws-container"></div>
+    <div class="btn-row">
+        <button class="btn btn-check" onclick="checkWortschatz()">✔ Prüfen</button>
+        <button class="btn btn-show" onclick="showWortschatz()">👁 Lösungen</button>
+        <button class="btn btn-reset" onclick="resetWortschatz()">↻ Neu starten</button>
+    </div>
+    <div class="score" id="score-ws"></div>
+</div>
+
+<!-- ==================== TAB 1: ZUORDNUNG ==================== -->
+<div class="section" id="sec-1">
+    <button class="help-toggle" onclick="toggleHelp(1)">💡 Hilfe</button>
+    <div class="help-box" id="help-1">
+        <p>🔹 Sortiere die Nomen in die richtige Spalte: <strong>der</strong> (maskulin), <strong>die</strong> (feminin), <strong>das</strong> (neutrum) oder <strong>die</strong> (Plural).</p>
+        <p>🔹 Klicke auf ein Wort und dann auf die Kategorie – oder ziehe es direkt.</p>
+        <p>🔹 Du brauchst den Artikel, um die Adjektivendung richtig zu bilden!</p>
+    </div>
+    <div class="chip-bank" id="zu-bank"></div>
+    <div class="categories">
+        <div class="category" data-cat="m"><h3>der</h3><div class="drop-zone" id="dz-m"></div></div>
+        <div class="category" data-cat="f"><h3>die</h3><div class="drop-zone" id="dz-f"></div></div>
+        <div class="category" data-cat="n"><h3>das</h3><div class="drop-zone" id="dz-n"></div></div>
+        <div class="category" data-cat="pl"><h3>die (Pl.)</h3><div class="drop-zone" id="dz-pl"></div></div>
+    </div>
+    <div class="btn-row">
+        <button class="btn btn-check" onclick="checkZuordnung()">✔ Prüfen</button>
+        <button class="btn btn-show" onclick="showZuordnung()">👁 Lösungen</button>
+        <button class="btn btn-reset" onclick="resetZuordnung()">↻ Neu starten</button>
+    </div>
+    <div class="score" id="score-zu"></div>
+</div>
+
+<!-- ==================== TAB 2: LÜCKENÜBUNG ==================== -->
+<div class="section" id="sec-2">
+    <button class="help-toggle" onclick="toggleHelp(2)">💡 Hilfe</button>
+    <div class="help-box" id="help-2">
+        <p>🔹 Ergänze die Endungen von <strong>mei___</strong> und dem <strong>Adjektiv</strong>.</p>
+        <p>🔹 <strong>Maskulin:</strong> mei<em>n</em> alt<em>er</em> Vater</p>
+        <p>🔹 <strong>Feminin:</strong> mei<em>ne</em> lieb<em>e</em> Mutter</p>
+        <p>🔹 <strong>Neutrum:</strong> mei<em>n</em> neu<em>es</em> Auto</p>
+        <p>🔹 <strong>Plural:</strong> mei<em>ne</em> laut<em>en</em> Schwestern</p>
+    </div>
+    <div id="luecke-container"></div>
+    <div class="btn-row">
+        <button class="btn btn-check" onclick="checkLuecke()">✔ Prüfen</button>
+        <button class="btn btn-show" onclick="showLuecke()">👁 Lösungen</button>
+        <button class="btn btn-reset" onclick="resetLuecke()">↻ Neu starten</button>
+    </div>
+    <div class="score" id="score-lu"></div>
+</div>
+
+<!-- ==================== TAB 3: SATZBAU ==================== -->
+<div class="section" id="sec-3">
+    <button class="help-toggle" onclick="toggleHelp(3)">💡 Hilfe</button>
+    <div class="help-box" id="help-3">
+        <p>🔹 Bringe die Satzteile in die richtige Reihenfolge.</p>
+        <p>🔹 Das Verb steht immer auf <strong>Position 2</strong>.</p>
+        <p>🔹 <strong>Zeit vor Ort</strong> – Wann? kommt vor Wo?/Wohin?</p>
+        <p>🔹 Klicke auf einen Chip, dann auf die Antwortzeile – oder ziehe ihn direkt.</p>
+        <p>🔹 Innerhalb der Antwortzeile: Klicke auf einen Chip, dann auf einen anderen → er wird davor eingefügt.</p>
+    </div>
+    <div id="satzbau-container"></div>
+    <div class="btn-row">
+        <button class="btn btn-check" onclick="checkSatzbau()">✔ Prüfen</button>
+        <button class="btn btn-show" onclick="showSatzbau()">👁 Lösungen</button>
+        <button class="btn btn-reset" onclick="resetSatzbau()">↻ Neu starten</button>
+    </div>
+    <div class="score" id="score-sb"></div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ==================== NAVIGATION ====================
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach((s, i) => s.classList.toggle('active', i === idx));
+    document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+
+function toggleHelp(idx) {
+    const box = document.getElementById('help-' + idx);
+    box.classList.toggle('open');
+}
+
+// ==================== UTILITY ====================
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+// ==================== TAB 1: ZUORDNUNG DATA ====================
+const ZU_DATA = [
+    // Familie
+    { word: "Vater", cat: "m" },
+    { word: "Bruder", cat: "m" },
+    { word: "Onkel", cat: "m" },
+    { word: "Großvater", cat: "m" },
+    { word: "Mutter", cat: "f" },
+    { word: "Schwester", cat: "f" },
+    { word: "Tante", cat: "f" },
+    { word: "Großmutter", cat: "f" },
+    { word: "Kind", cat: "n" },
+    { word: "Auto", cat: "n" },
+    { word: "Eltern", cat: "pl" },
+    { word: "Geschwister", cat: "pl" },
+    // Kleidung
+    { word: "Pullover", cat: "m" },
+    { word: "Mantel", cat: "m" },
+    { word: "Rock", cat: "m" },
+    { word: "Jacke", cat: "f" },
+    { word: "Hose", cat: "f" },
+    { word: "Bluse", cat: "f" },
+    { word: "Kleid", cat: "n" },
+    { word: "Hemd", cat: "n" },
+    { word: "T-Shirt", cat: "n" },
+    { word: "Schuhe", cat: "pl" },
+    { word: "Handschuhe", cat: "pl" },
+    { word: "Socken", cat: "pl" }
+];
+
+let zuSelected = null;
+
+function initZuordnung() {
+    const bank = document.getElementById('zu-bank');
+    bank.innerHTML = '';
+    document.querySelectorAll('.drop-zone').forEach(dz => dz.innerHTML = '');
+    document.getElementById('score-zu').textContent = '';
+    zuSelected = null;
+
+    shuffle(ZU_DATA).forEach((item, i) => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.textContent = item.word;
+        chip.dataset.cat = item.cat;
+        chip.dataset.idx = i;
+        chip.draggable = true;
+
+        chip.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('text/plain', i);
+            chip.style.opacity = '0.5';
+        });
+        chip.addEventListener('dragend', () => chip.style.opacity = '1');
+
+        chip.addEventListener('click', () => {
+            if (zuSelected === chip) {
+                chip.style.outline = '';
+                zuSelected = null;
+            } else {
+                if (zuSelected) zuSelected.style.outline = '';
+                zuSelected = chip;
+                chip.style.outline = '2px solid #ffd700';
+            }
+        });
+
+        bank.appendChild(chip);
+    });
+
+    document.querySelectorAll('.drop-zone').forEach(dz => {
+        dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+        dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+        dz.addEventListener('drop', e => {
+            e.preventDefault();
+            dz.classList.remove('over');
+            const idx = e.dataTransfer.getData('text/plain');
+            const chip = document.querySelector(`.chip[data-idx="${idx}"]`);
+            if (chip) {
+                chip.classList.remove('correct', 'wrong');
+                dz.appendChild(chip);
+            }
+        });
+        dz.addEventListener('click', () => {
+            if (zuSelected) {
+                zuSelected.classList.remove('correct', 'wrong');
+                dz.appendChild(zuSelected);
+                zuSelected.style.outline = '';
+                zuSelected = null;
+            }
+        });
+    });
+
+    // Allow returning chips to bank
+    bank.addEventListener('dragover', e => e.preventDefault());
+    bank.addEventListener('drop', e => {
+        e.preventDefault();
+        const idx = e.dataTransfer.getData('text/plain');
+        const chip = document.querySelector(`.chip[data-idx="${idx}"]`);
+        if (chip) {
+            chip.classList.remove('correct', 'wrong');
+            bank.appendChild(chip);
+        }
+    });
+    bank.addEventListener('click', e => {
+        if (zuSelected && e.target === bank) {
+            zuSelected.classList.remove('correct', 'wrong');
+            bank.appendChild(zuSelected);
+            zuSelected.style.outline = '';
+            zuSelected = null;
+        }
+    });
+}
+
+function checkZuordnung() {
+    let correct = 0, total = 0;
+    document.querySelectorAll('.drop-zone .chip').forEach(chip => {
+        total++;
+        const zone = chip.closest('.category');
+        const isCorrect = chip.dataset.cat === zone.dataset.cat;
+        chip.classList.toggle('correct', isCorrect);
+        chip.classList.toggle('wrong', !isCorrect);
+        if (isCorrect) correct++;
+    });
+    // Count chips still in bank as unanswered
+    const inBank = document.querySelectorAll('#zu-bank .chip').length;
+    total += inBank;
+    document.getElementById('score-zu').textContent = total > 0 ? `${correct} von ${ZU_DATA.length} richtig` : '';
+}
+
+function showZuordnung() {
+    document.querySelectorAll('.chip').forEach(chip => {
+        const targetZone = document.querySelector(`.category[data-cat="${chip.dataset.cat}"] .drop-zone`);
+        chip.classList.add('correct');
+        chip.classList.remove('wrong');
+        targetZone.appendChild(chip);
+    });
+    document.getElementById('score-zu').textContent = `${ZU_DATA.length} von ${ZU_DATA.length} richtig`;
+}
+
+function resetZuordnung() { initZuordnung(); }
+
+// ==================== TAB 2: LÜCKENÜBUNG DATA ====================
+const LUECKE_DATA = [
+    // Maskulin (mei+n / Adj+er)
+    { id: 1, segments: [
+        {t: "Das ist mei"}, {b: "n", s: "s"}, {t: " alt"}, {b: "er", s: "s"}, {t: " Vater."}
+    ]},
+    { id: 2, segments: [
+        {t: "Das ist mei"}, {b: "n", s: "s"}, {t: " grün"}, {b: "er", s: "s"}, {t: " Pullover."}
+    ]},
+    { id: 3, segments: [
+        {t: "Das ist mei"}, {b: "n", s: "s"}, {t: " klein"}, {b: "er", s: "s"}, {t: " Bruder."}
+    ]},
+    // Feminin (mei+ne / Adj+e)
+    { id: 4, segments: [
+        {t: "Das ist mei"}, {b: "ne", s: "s"}, {t: " lieb"}, {b: "e", s: "s"}, {t: " Mutter."}
+    ]},
+    { id: 5, segments: [
+        {t: "Das ist mei"}, {b: "ne", s: "s"}, {t: " neu"}, {b: "e", s: "s"}, {t: " Jacke."}
+    ]},
+    { id: 6, segments: [
+        {t: "Das ist mei"}, {b: "ne", s: "s"}, {t: " elegant"}, {b: "e", s: "s"}, {t: " Bluse."}
+    ]},
+    // Neutrum (mei+n / Adj+es)
+    { id: 7, segments: [
+        {t: "Das ist mei"}, {b: "n", s: "s"}, {t: " neu"}, {b: "es", s: "s"}, {t: " Auto."}
+    ]},
+    { id: 8, segments: [
+        {t: "Das ist mei"}, {b: "n", s: "s"}, {t: " kariert"}, {b: "es", s: "s"}, {t: " Hemd."}
+    ]},
+    { id: 9, segments: [
+        {t: "Das ist mei"}, {b: "n", s: "s"}, {t: " lang"}, {b: "es", s: "s"}, {t: " Kleid."}
+    ]},
+    // Plural (mei+ne / Adj+en)
+    { id: 10, segments: [
+        {t: "Das sind mei"}, {b: "ne", s: "s"}, {t: " laut"}, {b: "en", s: "s"}, {t: " Schwestern."}
+    ]},
+    { id: 11, segments: [
+        {t: "Das sind mei"}, {b: "ne", s: "s"}, {t: " schwarz"}, {b: "en", s: "s"}, {t: " Schuhe."}
+    ]},
+    { id: 12, segments: [
+        {t: "Das sind mei"}, {b: "ne", s: "s"}, {t: " alt"}, {b: "en", s: "s"}, {t: " Großeltern."}
+    ]}
+];
+
+function initLuecke() {
+    const container = document.getElementById('luecke-container');
+    container.innerHTML = '';
+    document.getElementById('score-lu').textContent = '';
+
+    LUECKE_DATA.forEach((ex, exIdx) => {
+        const div = document.createElement('div');
+        div.className = 'exercise';
+        div.dataset.id = ex.id;
+
+        const numSpan = document.createElement('span');
+        numSpan.className = 'num';
+        numSpan.textContent = ex.id + '.';
+        div.appendChild(numSpan);
+
+        let blankIdx = 0;
+        let prevWasFragment = false;
+        let groupDiv = null;
+
+        ex.segments.forEach((seg, sIdx) => {
+            if (seg.t !== undefined) {
+                // Text segment
+                const endsWithoutSpace = seg.t.length > 0 && !seg.t.endsWith(' ') && seg.t !== '.' && sIdx < ex.segments.length - 1;
+                const nextIsBlank = sIdx + 1 < ex.segments.length && ex.segments[sIdx + 1].b !== undefined;
+
+                if (endsWithoutSpace && nextIsBlank) {
+                    // Start nowrap group
+                    groupDiv = document.createElement('span');
+                    groupDiv.className = 'nowrap-group';
+                    const span = document.createElement('span');
+                    span.textContent = seg.t;
+                    groupDiv.appendChild(span);
+                    prevWasFragment = true;
+                } else {
+                    const span = document.createElement('span');
+                    span.textContent = seg.t;
+                    div.appendChild(span);
+                    prevWasFragment = false;
+                    groupDiv = null;
+                }
+            } else if (seg.b !== undefined) {
+                const currentBlankIdx = blankIdx;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'blank ' + seg.s;
+                input.dataset.answer = seg.b;
+                input.dataset.exId = ex.id;
+                input.dataset.blankIdx = currentBlankIdx;
+                input.autocomplete = 'off';
+                input.spellcheck = false;
+
+
+                const sol = document.createElement('span');
+                sol.className = 'sol';
+                sol.dataset.exId = ex.id;
+                sol.dataset.blankIdx = currentBlankIdx;
+                sol.textContent = seg.b;
+
+                if (prevWasFragment && groupDiv) {
+                    groupDiv.appendChild(input);
+                    groupDiv.appendChild(sol);
+                    div.appendChild(groupDiv);
+                    groupDiv = null;
+                    prevWasFragment = false;
+                } else {
+                    div.appendChild(input);
+                    div.appendChild(sol);
+                }
+                blankIdx++;
+            }
+        });
+
+        container.appendChild(div);
+    });
+}
+
+function checkLuecke() {
+    let correct = 0, total = 0;
+    document.querySelectorAll('#luecke-container input.blank').forEach(inp => {
+        total++;
+        const expected = inp.dataset.answer;
+        const userVal = inp.value.trim();
+        const isCorrect = userVal.toLowerCase() === expected.toLowerCase();
+        inp.classList.toggle('correct', isCorrect);
+        inp.classList.toggle('wrong', !isCorrect);
+        if (isCorrect) correct++;
+    });
+    document.getElementById('score-lu').textContent = `${correct} von ${total} richtig`;
+}
+
+function showLuecke() {
+    let total = 0;
+    document.querySelectorAll('#luecke-container input.blank').forEach(inp => {
+        total++;
+        inp.value = inp.dataset.answer;
+        inp.classList.add('correct');
+        inp.classList.remove('wrong');
+        inp.disabled = true;
+    });
+    document.querySelectorAll('#luecke-container .sol').forEach(s => s.style.display = 'none');
+    document.getElementById('score-lu').textContent = `${total} von ${total} richtig`;
+}
+
+function resetLuecke() { initLuecke(); }
+
+// ==================== TAB 3: SATZBAU DATA ====================
+const SATZBAU_DATA = [
+    {
+        id: 1,
+        parts: ["mein alter Vater", "ist", "sehr nett"],
+        valid: [["mein alter Vater", "ist", "sehr nett"]]
+    },
+    {
+        id: 2,
+        parts: ["ich", "trage", "heute", "meine neue Jacke"],
+        valid: [
+            ["ich", "trage", "heute", "meine neue Jacke"],
+            ["heute", "trage", "ich", "meine neue Jacke"]
+        ]
+    },
+    {
+        id: 3,
+        parts: ["mein kariertes Hemd", "ist", "sehr schön"],
+        valid: [["mein kariertes Hemd", "ist", "sehr schön"]]
+    },
+    {
+        id: 4,
+        parts: ["meine kleine Schwester", "kauft", "morgen", "einen warmen Mantel"],
+        valid: [
+            ["meine kleine Schwester", "kauft", "morgen", "einen warmen Mantel"],
+            ["morgen", "kauft", "meine kleine Schwester", "einen warmen Mantel"]
+        ]
+    },
+    {
+        id: 5,
+        parts: ["meine schwarzen Schuhe", "sind", "sehr elegant"],
+        valid: [["meine schwarzen Schuhe", "sind", "sehr elegant"]]
+    },
+    {
+        id: 6,
+        parts: ["mein großer Bruder", "trägt", "immer", "seinen grünen Pullover"],
+        valid: [
+            ["mein großer Bruder", "trägt", "immer", "seinen grünen Pullover"],
+            ["immer", "trägt", "mein großer Bruder", "seinen grünen Pullover"]
+        ]
+    }
+];
+
+let sbSelected = null;
+
+function initSatzbau() {
+    const container = document.getElementById('satzbau-container');
+    container.innerHTML = '';
+    document.getElementById('score-sb').textContent = '';
+    sbSelected = null;
+
+    SATZBAU_DATA.forEach(ex => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'sb-exercise';
+
+        const label = document.createElement('div');
+        label.className = 'sb-label';
+        label.textContent = `Satz ${ex.id}`;
+        wrapper.appendChild(label);
+
+        const bank = document.createElement('div');
+        bank.className = 'sb-bank';
+        bank.dataset.sbId = ex.id;
+
+        const row = document.createElement('div');
+        row.className = 'sb-row';
+        row.dataset.sbId = ex.id;
+
+        const dot = document.createElement('span');
+        dot.className = 'fixed-dot';
+        dot.textContent = '.';
+        row.appendChild(dot);
+
+        // Create chips in shuffled order
+        shuffle(ex.parts).forEach(part => {
+            const chip = document.createElement('div');
+            chip.className = 'sb-chip';
+            chip.textContent = part;
+            chip.dataset.orig = part;
+            chip.dataset.sbId = ex.id;
+            chip.draggable = true;
+
+            chip.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', part);
+                e.dataTransfer.setData('sb-id', ex.id);
+                chip.style.opacity = '0.5';
+            });
+            chip.addEventListener('dragend', () => chip.style.opacity = '1');
+
+            chip.addEventListener('click', () => handleSbClick(chip, ex.id));
+
+            bank.appendChild(chip);
+        });
+
+        // Drop on row
+        row.addEventListener('dragover', e => { e.preventDefault(); row.classList.add('over'); });
+        row.addEventListener('dragleave', () => row.classList.remove('over'));
+        row.addEventListener('drop', e => {
+            e.preventDefault();
+            row.classList.remove('over');
+            const partText = e.dataTransfer.getData('text/plain');
+            const srcId = e.dataTransfer.getData('sb-id');
+            if (String(srcId) !== String(ex.id)) return;
+            const chip = [...document.querySelectorAll(`.sb-chip[data-sb-id="${ex.id}"]`)]
+                .find(c => c.dataset.orig === partText);
+            if (!chip) return;
+            chip.classList.remove('correct', 'wrong');
+
+            // Insert at position based on mouse
+            const chips = [...row.querySelectorAll('.sb-chip')];
+            let inserted = false;
+            for (const ch of chips) {
+                if (ch === chip) continue;
+                const rect = ch.getBoundingClientRect();
+                if (e.clientX < rect.left + rect.width / 2) {
+                    row.insertBefore(chip, ch);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) row.insertBefore(chip, dot);
+            updateCaps(ex.id);
+        });
+
+        // Drop on bank (return)
+        bank.addEventListener('dragover', e => e.preventDefault());
+        bank.addEventListener('drop', e => {
+            e.preventDefault();
+            const partText = e.dataTransfer.getData('text/plain');
+            const srcId = e.dataTransfer.getData('sb-id');
+            if (String(srcId) !== String(ex.id)) return;
+            const chip = [...document.querySelectorAll(`.sb-chip[data-sb-id="${ex.id}"]`)]
+                .find(c => c.dataset.orig === partText);
+            if (chip) {
+                chip.classList.remove('correct', 'wrong');
+                bank.appendChild(chip);
+                updateCaps(ex.id);
+            }
+        });
+
+        wrapper.appendChild(bank);
+        wrapper.appendChild(row);
+        container.appendChild(wrapper);
+    });
+}
+
+function handleSbClick(chip, exId) {
+    const row = document.querySelector(`.sb-row[data-sb-id="${exId}"]`);
+    const bank = document.querySelector(`.sb-bank[data-sb-id="${exId}"]`);
+    const dot = row.querySelector('.fixed-dot');
+    const isInRow = chip.parentElement === row;
+    const isInBank = chip.parentElement === bank;
+
+    if (sbSelected === chip) {
+        chip.classList.remove('selected');
+        sbSelected = null;
+        return;
+    }
+
+    if (sbSelected && sbSelected.dataset.sbId === String(exId)) {
+        const selInRow = sbSelected.parentElement === row;
+        // If selected is in row and click is on another in row → reorder
+        if (selInRow && isInRow) {
+            row.insertBefore(sbSelected, chip);
+            sbSelected.classList.remove('selected');
+            sbSelected = null;
+            updateCaps(exId);
+            return;
+        }
+        sbSelected.classList.remove('selected');
+        sbSelected = null;
+    }
+
+    if (isInBank) {
+        // Move to row
+        chip.classList.remove('correct', 'wrong');
+        row.insertBefore(chip, dot);
+        updateCaps(exId);
+    } else if (isInRow) {
+        // Select for reorder or return to bank
+        sbSelected = chip;
+        chip.classList.add('selected');
+
+        // Double-click-like: if clicking same chip again, return to bank
+        const returnHandler = () => {
+            if (sbSelected === chip) {
+                chip.classList.remove('selected', 'correct', 'wrong');
+                bank.appendChild(chip);
+                sbSelected = null;
+                updateCaps(exId);
+            }
+            bank.removeEventListener('click', returnHandler);
+        };
+        bank.addEventListener('click', returnHandler);
+    }
+}
+
+function updateCaps(exId) {
+    const row = document.querySelector(`.sb-row[data-sb-id="${exId}"]`);
+    const bank = document.querySelector(`.sb-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.sb-chip'), ...bank.querySelectorAll('.sb-chip')].forEach(c => {
+        if (c.dataset.orig) c.textContent = c.dataset.orig;
+    });
+    const first = row.querySelector('.sb-chip');
+    if (first && first.textContent !== '.') {
+        first.textContent = first.textContent.charAt(0).toUpperCase() + first.textContent.slice(1);
+    }
+}
+
+function checkSatzbau() {
+    let correct = 0;
+    SATZBAU_DATA.forEach(ex => {
+        const row = document.querySelector(`.sb-row[data-sb-id="${ex.id}"]`);
+        const chips = [...row.querySelectorAll('.sb-chip')];
+        const userOrder = chips.map(c => c.dataset.orig);
+        const isValid = ex.valid.some(v =>
+            v.length === userOrder.length && v.every((p, i) => p === userOrder[i])
+        );
+        chips.forEach(c => {
+            c.classList.toggle('correct', isValid);
+            c.classList.toggle('wrong', !isValid);
+        });
+        if (isValid) correct++;
+    });
+    document.getElementById('score-sb').textContent = `${correct} von ${SATZBAU_DATA.length} richtig`;
+}
+
+function showSatzbau() {
+    SATZBAU_DATA.forEach(ex => {
+        const row = document.querySelector(`.sb-row[data-sb-id="${ex.id}"]`);
+        const bank = document.querySelector(`.sb-bank[data-sb-id="${ex.id}"]`);
+        const dot = row.querySelector('.fixed-dot');
+        // Move all chips to bank first
+        [...row.querySelectorAll('.sb-chip')].forEach(c => bank.appendChild(c));
+        // Place in correct order
+        ex.valid[0].forEach(part => {
+            const chip = [...bank.querySelectorAll('.sb-chip')].find(c => c.dataset.orig === part);
+            if (chip) {
+                chip.classList.add('correct');
+                chip.classList.remove('wrong');
+                row.insertBefore(chip, dot);
+            }
+        });
+        updateCaps(ex.id);
+    });
+    document.getElementById('score-sb').textContent = `${SATZBAU_DATA.length} von ${SATZBAU_DATA.length} richtig`;
+}
+
+function resetSatzbau() { initSatzbau(); }
+
+// ==================== TAB 4: WORTSCHATZ DATA ====================
+const WS_DATA = [
+    { id: 1, type: "n", en: "father", artikel: "der", de: "Vater", plural: "Väter" },
+    { id: 2, type: "n", en: "dress", artikel: "das", de: "Kleid", plural: "Kleider" },
+    { id: 3, type: "n", en: "sister", artikel: "die", de: "Schwester", plural: "Schwestern" },
+    { id: 4, type: "n", en: "shirt", artikel: "das", de: "Hemd", plural: "Hemden" },
+    { id: 5, type: "n", en: "jacket", artikel: "die", de: "Jacke", plural: "Jacken" },
+    { id: 6, type: "n", en: "brother", artikel: "der", de: "Bruder", plural: "Brüder" },
+    { id: 7, type: "n", en: "skirt", artikel: "der", de: "Rock", plural: "Röcke" },
+    { id: 8, type: "n", en: "grandmother", artikel: "die", de: "Großmutter", plural: "Großmütter" },
+    { id: 9, type: "n", en: "coat", artikel: "der", de: "Mantel", plural: "Mäntel" },
+    { id: 10, type: "n", en: "child", artikel: "das", de: "Kind", plural: "Kinder" },
+    { id: 11, type: "n", en: "blouse", artikel: "die", de: "Bluse", plural: "Blusen" },
+    { id: 12, type: "n", en: "sweater / pullover", artikel: "der", de: "Pullover", plural: "Pullover" },
+    { id: 13, type: "a", en: "old", de: "alt" },
+    { id: 14, type: "a", en: "new", de: "neu" },
+    { id: 15, type: "a", en: "warm", de: "warm" },
+    { id: 16, type: "a", en: "elegant", de: "elegant" },
+    { id: 17, type: "v", en: "to wear / to carry", de: "tragen" },
+    { id: 18, type: "v", en: "to buy", de: "kaufen" }
+];
+
+function initWortschatz() {
+    const container = document.getElementById('ws-container');
+    container.innerHTML = '';
+    document.getElementById('score-ws').textContent = '';
+
+    WS_DATA.forEach(w => {
+        const div = document.createElement('div');
+        div.className = 'ws-item';
+        div.dataset.id = w.id;
+
+        const en = document.createElement('span');
+        en.className = 'ws-en';
+        en.textContent = w.en;
+        div.appendChild(en);
+
+        const arrow = document.createElement('span');
+        arrow.className = 'ws-arrow';
+        arrow.textContent = ' → ';
+        div.appendChild(arrow);
+
+        if (w.type === 'n') {
+            // Artikel
+            const artInput = mkWsInput(w.id, 0, w.artikel, 's');
+            div.appendChild(artInput);
+            div.appendChild(mkWsSol(w.artikel));
+
+            div.appendChild(mkWsSpan(' '));
+
+            // Deutsches Wort
+            const deInput = mkWsInput(w.id, 1, w.de, 'm');
+            div.appendChild(deInput);
+            div.appendChild(mkWsSol(w.de));
+
+            div.appendChild(mkWsSpan(', Pl.: '));
+
+            // Plural
+            const plInput = mkWsInput(w.id, 2, w.plural, 'm');
+            div.appendChild(plInput);
+            div.appendChild(mkWsSol(w.plural));
+        } else {
+            const deInput = mkWsInput(w.id, 0, w.de, 'm');
+            div.appendChild(deInput);
+            div.appendChild(mkWsSol(w.de));
+        }
+
+        container.appendChild(div);
+    });
+}
+
+function mkWsInput(id, idx, answer, size) {
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'ws-input ' + size;
+    inp.dataset.wsId = id;
+    inp.dataset.wsIdx = idx;
+    inp.dataset.answer = answer;
+    inp.autocomplete = 'off';
+    inp.spellcheck = false;
+    return inp;
+}
+
+function mkWsSol(text) {
+    const span = document.createElement('span');
+    span.className = 'ws-sol';
+    span.textContent = text;
+    return span;
+}
+
+function mkWsSpan(text) {
+    const span = document.createElement('span');
+    span.className = 'ws-sep';
+    span.textContent = text;
+    return span;
+}
+
+function checkWortschatz() {
+    let correct = 0, total = 0;
+    document.querySelectorAll('.ws-input').forEach(inp => {
+        total++;
+        const expected = inp.dataset.answer;
+        const userVal = inp.value.trim();
+        const isCorrect = userVal.toLowerCase() === expected.toLowerCase();
+        inp.classList.toggle('correct', isCorrect);
+        inp.classList.toggle('wrong', !isCorrect && userVal !== '');
+        if (isCorrect) correct++;
+    });
+    document.getElementById('score-ws').textContent = `${correct} von ${total} richtig`;
+}
+
+function showWortschatz() {
+    let total = 0;
+    document.querySelectorAll('.ws-input').forEach(inp => {
+        total++;
+        inp.value = inp.dataset.answer;
+        inp.classList.add('correct');
+        inp.classList.remove('wrong');
+        inp.disabled = true;
+    });
+    document.getElementById('score-ws').textContent = `${total} von ${total} richtig`;
+}
+
+function resetWortschatz() { initWortschatz(); }
+
+// ==================== INIT ====================
+initZuordnung();
+initLuecke();
+initSatzbau();
+initWortschatz();
+</script>
+</body>
+</html>

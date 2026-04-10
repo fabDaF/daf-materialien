@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kapitel 1: Insulinresistenz – was ist das? (Teil 3)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
+.container{max-width: 1000px;margin:0 auto;background:#fff;border-radius: 12px;overflow: hidden; box-shadow:0 10px 40px rgba(0,0,0,.2)}
+h1{text-align:center;color:#333;font-size:1.4em;margin-bottom:4px}
+.subtitle{text-align:center;color:#666;font-size:.95em;margin-bottom:18px}
+
+/* Nav */
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+
+
+
+.section{display:none}.section.active{display:block}
+
+/* Vorentlastung */
+.vocab-card{background:#f8f9ff;border-left:4px solid #667eea;padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.vocab-term{font-weight:700;color:#333;font-size:1.05em}
+.vocab-def{color:#555;margin-top:4px;font-size:.95em}
+.vocab-example{color:#777;font-style:italic;margin-top:4px;font-size:.9em}
+
+/* Originaltext */
+.text-block{background:#f8f9ff;border-radius:12px;padding:20px 24px;line-height:1.8;color:#333;font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
+.text-block p{margin-bottom:14px;text-align:justify}
+.text-block em{font-style:italic}
+.text-author{text-align:right;font-weight:700;margin-top:20px;color:#555}
+.text-block h3{font-family:'Segoe UI',sans-serif;color:#444;margin:24px 0 12px;font-size:1.1em;border-bottom:1px solid #ddd;padding-bottom:6px}
+
+/* Info-Box */
+.info-box{background:#fff3cd;border-radius:10px;padding:16px 20px;margin:18px 0;font-family:'Segoe UI',sans-serif;font-size:.9em;color:#856404;border-left:4px solid #f39c12}
+.info-box strong{color:#7d6608}
+.info-box p{margin-bottom:8px;text-align:justify}
+
+/* Chart */
+.chart-container{background:#f0f1f5;border-radius:10px;padding:16px;margin:18px 0}
+.chart-title{font-family:'Segoe UI',sans-serif;text-align:center;font-size:.9em;color:#555;margin-bottom:12px;font-weight:600}
+.chart-source{font-family:'Segoe UI',sans-serif;text-align:center;font-size:.75em;color:#888;margin-top:8px}
+
+/* Genus */
+.chip-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:12px;background:#f8f9ff;border-radius:10px;margin-bottom:16px;border:2px dashed #ddd}
+.chip{padding:8px 16px;border-radius:20px;cursor:grab;font-size:.95em;user-select:none;transition:.2s;background:#667eea;color:#fff}
+.chip.correct{background:#27ae60!important;color:#fff!important}
+.chip.wrong{background:#e74c3c!important;color:#fff!important}
+.chip.selected{outline:3px solid #333;outline-offset:2px}
+.chip.punct{min-width:32px;padding:8px 10px;font-size:1.2em;font-weight:700;text-align:center}
+.drop-row .chip.punct{margin-left:-4px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.category{background:#f8f9ff;border-radius:10px;padding:10px;min-height:100px;border:2px solid #e0e0e0;transition:.2s}
+.category.over{border-color:#667eea;background:rgba(102,126,234,.1)}
+.category h3{text-align:center;font-size:.95em;color:#555;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #e0e0e0}
+.drop-zone{min-height:50px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+
+/* Lückentext */
+.exercise{background:#f8f9ff;border-radius:10px;padding:14px 18px;margin-bottom:12px;line-height:2;font-size:.98em}
+.nowrap-group{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
+input.blank{border:none;border-bottom:2px solid #667eea;background:transparent;text-align:center;font-size:.95em;padding:2px 4px;color:#333;outline:none;transition:.2s}
+input.blank:focus{border-bottom-color:#764ba2}
+input.blank.correct{border-bottom-color:#27ae60;color:#27ae60;background:#e8f8f0}
+input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c;background:#fdeaea}
+.correction-hint{color:#27ae60;font-weight:600;font-size:0.85em;margin-left:4px;white-space:nowrap}
+input.blank.s{min-width:50px;width:50px}
+input.blank.m{min-width:90px;width:90px}
+input.blank.l{min-width:150px;width:150px}
+input.blank.xl{min-width:200px;width:200px}
+.solution-text{display:none;color:#27ae60;font-weight:700;font-size:.85em;margin-left:2px}
+
+/* MC */
+.mc-question{background:#f8f9ff;border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.mc-q{font-weight:600;margin-bottom:10px;color:#333}
+.mc-opts{display:flex;flex-direction:column;gap:6px}
+.mc-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
+.mc-opt:hover{border-color:#667eea;background:#f8f9ff}
+.mc-opt.selected{border-color:#667eea;background:rgba(102,126,234,.15)}
+.mc-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.1)}
+.mc-opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.1)}
+
+/* Satzbau */
+.sb-exercise{background:#f8f9ff;border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.sb-label{font-weight:600;color:#555;margin-bottom:8px;font-size:.9em}
+.drop-row{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:10px;background:#fff;border:2px dashed #ccc;border-radius:8px;margin-bottom:6px;align-items:center;transition:.2s}
+.drop-row.over{border-color:#667eea;background:rgba(102,126,234,.1)}
+.fixed-dot{font-size:1.1em;font-weight:700;color:#333;padding:0 4px}
+.sb-result{font-weight:700;margin-top:4px;font-size:.9em;min-height:1.2em}
+.sb-result.correct{color:#27ae60}
+.sb-result.wrong{color:#e74c3c}
+
+/* Buttons */
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;color:#fff;transition:.2s}
+.btn-check{background:#667eea}.btn-check:hover{background:#5a6fd6}
+.btn-show{background:#f39c12}.btn-show:hover{background:#e67e22}
+.btn-reset{background:#95a5a6}.btn-reset:hover{background:#7f8c8d}
+
+/* Score */
+.score{text-align:center;font-weight:700;margin-top:14px;font-size:1.1em;color:#333;min-height:1.4em}
+
+/* Help box */
+.help-box{background:#fff3cd;border-radius:8px;padding:12px;margin-bottom:16px;font-size:.9em;color:#856404}
+
+@media(max-width:600px){
+    .categories{grid-template-columns:repeat(2,1fr)}
+}
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ebff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 700; }
+@media (max-width: 600px) {
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; font-size: 0.78em; padding: 10px 4px; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Kapitel 1: Insulinresistenz – was ist das?</h1>
+<p class="subtitle">Dr. Benjamin Bikman – Interaktive Übungen (Teil 3)</p>
+
+<div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)">📖 Vorentlastung</div>
+    <div class="nav-btn" onclick="showSection(1)">📄 Originaltext</div>
+    <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+    <div class="nav-btn" onclick="showSection(3)">✏️ Lückentext</div>
+    <div class="nav-btn" onclick="showSection(4)">❓ Multiple-Choice</div>
+    <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+</div>
+
+<!-- ============ TEIL 1: VORENTLASTUNG (10) ============ -->
+<div class="section active" id="sec-0">
+<h2 style="margin-bottom:14px;color:#333">📖 Wichtige Begriffe</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Lernen Sie diese Wörter, bevor Sie den Originaltext lesen.</p>
+
+<div class="vocab-card">
+    <div class="vocab-term">die Insulinresistenz (kein Pl.)</div>
+    <div class="vocab-def">Ein Zustand, bei dem die Zellen des Körpers nicht mehr richtig auf Insulin reagieren. Das Insulin „funktioniert" nicht mehr.</div>
+    <div class="vocab-example">„Insulinresistenz ist nicht zwangsläufig ein hyperglykämischer Zustand."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">der Blutglukosespiegel, -</div>
+    <div class="vocab-def">Die Menge an Zucker (Glukose) im Blut. Ärzte messen diesen Wert, um Diabetes zu erkennen. Synonym: Blutzuckerspiegel.</div>
+    <div class="vocab-example">„Schließlich können wir einen Typ-2-Diabetes anhand des Blutglukosespiegels feststellen."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">der Prädiabetes (kein Pl.)</div>
+    <div class="vocab-def">Ein Zustand zwischen „gesund" und „Diabetes": Der Blutzucker ist erhöht, aber noch nicht hoch genug für die Diagnose Diabetes.</div>
+    <div class="vocab-example">„Warum nicht auch die als ›Prädiabetes‹ bezeichnete Insulinresistenz?"</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">hyperglykämisch (Adj.)</div>
+    <div class="vocab-def">Mit zu viel Zucker im Blut. Griechisch: hyper = zu viel, glykäm = Zucker im Blut. Gegenteil: hypoglykämisch.</div>
+    <div class="vocab-example">„Eine Insulinresistenz ist nicht zwangsläufig ein hyperglykämischer Zustand."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Hyperinsulinämie (kein Pl.)</div>
+    <div class="vocab-def">Zu viel Insulin im Blut. Hyper = zu viel, Insulin = das Hormon, -ämie = im Blut. Der Körper produziert mehr Insulin als normal.</div>
+    <div class="vocab-example">„Die Insulinresistenz ist zweitens ein hyperinsulinämischer Zustand."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">der Konsenswert, -e</div>
+    <div class="vocab-def">Ein Wert, auf den sich alle (oder die meisten) Fachleute geeinigt haben. Von Konsens = Übereinstimmung.</div>
+    <div class="vocab-example">„Das Problem besteht darin, einen Konsenswert zu finden, ab wann ›zu viel‹ Insulin im Blut ist."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">das Standardrepertoire, -s</div>
+    <div class="vocab-def">Die Tests und Methoden, die ein Arzt normalerweise verwendet. Standard = üblich, Repertoire = Sammlung von Fähigkeiten.</div>
+    <div class="vocab-example">„Der Test gehört bei den meisten Ärzten nicht zum Standardrepertoire."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Vorhersage, -n</div>
+    <div class="vocab-def">Eine Aussage darüber, was in der Zukunft passieren wird. Synonym: Prognose.</div>
+    <div class="vocab-example">„Insulin ermöglicht viel bessere Vorhersagen über einen Typ-2-Diabetes."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">prognostizieren (V.)</div>
+    <div class="vocab-def">Vorhersagen, was in der Zukunft passieren wird. Fachsprachliches Synonym für „vorhersagen".</div>
+    <div class="vocab-example">„Das Problem lässt sich bis zu zwanzig Jahre früher prognostizieren."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die familiäre Vorbelastung, -en</div>
+    <div class="vocab-def">Wenn eine Krankheit in der Familie häufig vorkommt. Familiär = in der Familie, Vorbelastung = erhöhtes Risiko durch Vererbung.</div>
+    <div class="vocab-example">„Ihre Nachbarin hat keine familiäre Vorbelastung für Diabetes; sie hat eine familiäre Vorbelastung für Insulinresistenz."</div>
+</div>
+
+</div>
+
+<!-- ============ TEIL 2: ORIGINALTEXT ============ -->
+<div class="section" id="sec-1">
+<h2 style="margin-bottom:14px;color:#333">📄 Originaltext</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Lesen Sie nun den Originaltext. Sie können jederzeit zur Vorentlastung zurückwechseln.</p>
+
+<div class="text-block">
+
+<h3>Insulinresistenz – die Definition</h3>
+
+<p>Die genaue Definition der Insulinresistenz, so wie sie in diesem Buch durchgehend verwendet wird, lautet: <em>Insulinresistenz ist ein Zustand, in dem eine normale Menge Insulin eine unterdurchschnittliche Reaktion in den Zielzellen oder -organen hervorruft.</em> Im Wesentlichen kommuniziert Insulin mit den Zellen des Körpers, in der Fachsprache: Es „gibt ein Signal" – und die Zelle reagiert. Wenn diese Reaktion schwächer ist, als sie sein sollte, bezeichnen wir die Zelle als „insulinresistent" – sie „widersteht" den Signalen des Insulins.</p>
+
+<p>Bei Insulinresistenz reagieren die Muskeln nur noch etwa halb so empfindlich auf Insulin, wie sie eigentlich sollten – und für gewöhnlich werden sie als eines der ersten Gewebe insulinresistent.</p>
+
+<div class="info-box">
+<p><strong>📌 MODY: Diabetes der Jugend</strong></p>
+<p>MODY steht für Maturity-Onset Diabetes of the Young (Altersdiabetes der Jugend). MODY kommt selten vor, betrifft aber junge Menschen – in der Regel wird er vor dem 25. Lebensjahr diagnostiziert. Im Gegensatz zum Typ-2-Diabetes ist MODY eine Erkrankung, die auf einem Gendefekt beruht, weshalb bei MODY ein defektes Gen von einem der Elternteile des Betroffenen vererbt wird. Da die Insulinresistenz bei der Entstehung von MODY keine bedeutende Rolle spielt, unterscheidet er sich grundlegend von Typ-2-Diabetes.</p>
+</div>
+
+<h3>Weshalb zu viele auf die Glukose statt auf das Insulin schauen</h3>
+
+<p>All dies ist interessant, erklärt aber immer noch nicht, warum die Insulinresistenz bei so vielen Menschen unerkannt bleibt. Schließlich können wir einen Typ-2-Diabetes anhand des Blutglukosespiegels feststellen – warum nicht auch die (als „Prädiabetes" bezeichnete) Insulinresistenz? Wir scheitern, weil eine <em>Insulinresistenz nicht zwangsläufig ein hyperglykämischer Zustand ist.</em> Die Betroffenen können insulinresistent sein und trotzdem einen normalen Blutglukosespiegel haben. Aber welcher Wert wird bei einer Insulinresistenz <em>abweichen</em>? Richtig, das Insulin. Wenn Sie insulinresistent sind, wird Ihr Insulinspiegel höher sein als normal. Das Problem besteht natürlich darin, einen Konsenswert zu finden, ab wann „zu viel" Insulin im Blut ist, und tatsächlich eine medizinische Messung des Insulinspiegels zu bekommen. Der Test gehört bei den meisten Ärzten nicht zum Standardrepertoire.</p>
+
+<p>Aus diesem Grund ist es möglich, dass jemand zwar immer insulinresistenter wird, aber sein Insulin noch so gut wirkt, dass sich die Blutglukose im normalen Bereich bewegt. Diese Entwicklung kann sich über Jahre, ja sogar Jahrzehnte hinziehen. Allerdings betrachten wir normalerweise eher die Glukose als das Problem. Dass jemand in Schwierigkeiten steckt, erkennen wir deshalb erst, wenn er so insulinresistent ist, dass sein Insulin den Blutglukosespiegel nicht mehr kontrollieren kann – unabhängig davon, wie viel sein Körper davon produziert. Wir entdecken die Erkrankung erst an diesem Punkt und womöglich viele Jahre nach Problembeginn.</p>
+
+<!-- Diagramm: Insulin vs. Glukose -->
+<div class="chart-container">
+<div class="chart-title">Insulinresistenz → Typ-2-Diabetes: Insulin vs. Glukose</div>
+<div style="display:flex;gap:24px;justify-content:center;align-items:flex-end;height:200px;padding:20px 0">
+    <div style="text-align:center">
+        <div style="font-family:'Segoe UI',sans-serif;font-size:.85em;font-weight:600;color:#555;margin-bottom:8px">Insulinresistenz</div>
+        <div style="display:flex;gap:8px;align-items:flex-end;height:160px">
+            <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:40px;height:140px;background:#b0bec5;border-radius:4px 4px 0 0"></div>
+                <div style="font-family:'Segoe UI',sans-serif;font-size:.7em;color:#666;margin-top:4px">Insulin</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:40px;height:50px;background:#667eea;border-radius:4px 4px 0 0"></div>
+                <div style="font-family:'Segoe UI',sans-serif;font-size:.7em;color:#666;margin-top:4px">Glukose</div>
+            </div>
+        </div>
+        <div style="font-family:'Segoe UI',sans-serif;font-size:.75em;color:#888;margin-top:4px">Insulin ↑ hoch, Glukose → normal</div>
+    </div>
+    <div style="font-family:'Segoe UI',sans-serif;font-size:1.5em;color:#999;align-self:center">→</div>
+    <div style="text-align:center">
+        <div style="font-family:'Segoe UI',sans-serif;font-size:.85em;font-weight:600;color:#555;margin-bottom:8px">Typ-2-Diabetes</div>
+        <div style="display:flex;gap:8px;align-items:flex-end;height:160px">
+            <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:40px;height:140px;background:#b0bec5;border-radius:4px 4px 0 0"></div>
+                <div style="font-family:'Segoe UI',sans-serif;font-size:.7em;color:#666;margin-top:4px">Insulin</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:40px;height:130px;background:#667eea;border-radius:4px 4px 0 0"></div>
+                <div style="font-family:'Segoe UI',sans-serif;font-size:.7em;color:#666;margin-top:4px">Glukose</div>
+            </div>
+        </div>
+        <div style="font-family:'Segoe UI',sans-serif;font-size:.75em;color:#888;margin-top:4px">Insulin ↑ hoch, Glukose ↑ hoch</div>
+    </div>
+</div>
+<div class="chart-source">Quelle: Benjamin Bikman, Warum wir krank werden, S. 18</div>
+</div>
+
+<p>Letztlich haben Geschichte und Wissenschaft eine ungünstige Entwicklung genommen. Das, was mich am meisten frustriert, ist auch der Grund, weshalb die Insulinresistenz bei so vielen Menschen unerkannt bleibt: Wir gehen die Sache falsch an. Wäre das Insulinmolekül einfacher zu messen gewesen als die Glukose, hätten wir Typ-1- und Typ-2-Diabetes vielleicht nicht zusammengewürfelt und ein System eingeführt, um die Krankheit viel früher festzustellen – weil wir uns den maßgeblicheren Indikator angesehen hätten, das Insulin. Nach all dem überrascht es nicht, dass das Insulin viel bessere Vorhersagen über einen Typ-2-Diabetes ermöglicht und das Problem bis zu zwanzig Jahre früher prognostizieren kann.</p>
+
+<p>Bevor wir fortfahren, sollten wir einige Punkte klären.</p>
+
+<p>Wie erwähnt erhöht eine Insulinresistenz erstens das Risiko, an Typ-2-Diabetes zu erkranken. Das ist korrekt, doch dieser Zusammenhang bedarf der weiteren Klärung. Typ-2-Diabetes <em>ist</em> Insulinresistenz, die so weit fortgeschritten ist, dass der Körper den Anstieg des Blutglukosespiegels über den kritischen Wert von 126 mg/dl nicht mehr verhindern kann. Dies ist seit beinahe hundert Jahren bekannt. Der deutsche Wissenschaftler Wilhelm Falta machte im Jahr 1931 erstmals darauf aufmerksam. Man könnte auch sagen, dass Sie jedes Mal, wenn Sie jemanden über Schwierigkeiten in Verbindung mit Diabetes reden hören, stattdessen einfach „Insulinresistenz" einsetzen können, und sofort ist die Aussage präziser. Ihre Nachbarin beispielsweise hat keine familiäre Vorbelastung für Diabetes; sie hat eine familiäre Vorbelastung für Insulinresistenz.</p>
+
+<p>Die Insulinresistenz ist zweitens ein hyperinsulinämischer Zustand. Das heißt, ein insulinresistenter Mensch hat mehr Insulin im Blut als normal. (Dieser besondere Umstand wird später von großer Bedeutung sein, wenn wir schildern, welche bedauerlichen Folgen es hat, länger in diesem Zustand zu verbleiben.)</p>
+
+<p>Zur Erinnerung: Die Insulinresistenz selbst wird Sie nicht umbringen. Sie ist lediglich ein verlässliches Mittel, das sie schnell soweit bringen kann, indem sie andere lebensbedrohliche Erkrankungen verursacht. Das bedeutet, dass sich mehrere, scheinbar zusammenhangslose Gesundheitsprobleme einstellen werden, die sich alle dadurch verbessern ließen, dass man bei ihrer gemeinsamen Wurzel ansetzt.</p>
+
+<p>In der Tat hat die Insulinresistenz bei erschreckend vielen ernsten chronischen Erkrankungen die Hand im Spiel – unter anderem bei Problemen mit dem Kopf, dem Herzen, den Blutgefäßen und den Fortpflanzungsorganen. Eine unbehandelte Insulinresistenz ist keineswegs nur lästig, sondern eine ernstzunehmende Erkrankung. Die meisten Menschen mit Insulinresistenz sterben letztendlich an Herzerkrankungen oder anderen kardiovaskulären Komplikationen; andere erkranken an Alzheimer, Brust- oder Prostatakrebs oder unzähligen weiteren tödlichen Krankheiten.</p>
+
+<p>Um würdigen zu können, wie wichtig Insulin für die Gesundheit ist, müssen wir verstehen, auf welche Weise eine Insulinresistenz diese Krankheiten verursacht. Deshalb werden wir uns in den nächsten Kapiteln ansehen, welche Aufgaben das Insulin im Körper erfüllt und wodurch eine Insulinresistenz andere Erkrankungen hervorruft. Bitte anschnallen – es wird turbulent!</p>
+
+<p class="text-author">Dr. Benjamin Bikman</p>
+</div>
+</div>
+
+<!-- ============ TEIL 3: GENUS (15) ============ -->
+<div class="section" id="sec-2">
+<h2 style="margin-bottom:14px;color:#333">🔤 Genus-Übung</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Ziehen Sie die Nomen in die richtige Kategorie – oder tippen Sie auf ein Wort und dann auf die Kategorie.</p>
+
+<div class="chip-bank" id="genus-bank"></div>
+<div class="categories">
+    <div class="category" data-cat="der"><h3>der</h3><div class="drop-zone"></div></div>
+    <div class="category" data-cat="die"><h3>die</h3><div class="drop-zone"></div></div>
+    <div class="category" data-cat="das"><h3>das</h3><div class="drop-zone"></div></div>
+    <div class="category" data-cat="pl"><h3>Plural (die)</h3><div class="drop-zone"></div></div>
+</div>
+<div class="score" id="genus-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkGenus()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showGenus()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetGenus()">↺ Neu starten</button>
+</div>
+</div>
+
+<!-- ============ TEIL 4: LÜCKENTEXT (10) ============ -->
+<div class="section" id="sec-3">
+<h2 style="margin-bottom:14px;color:#333">✏️ Lückentext</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Ergänzen Sie die fehlenden Wörter aus dem Text.</p>
+<div id="luecken-container"></div>
+<div class="score" id="luecken-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkLuecken()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showLuecken()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetLuecken()">↺ Neu starten</button>
+</div>
+</div>
+
+<!-- ============ TEIL 5: MULTIPLE-CHOICE (10) ============ -->
+<div class="section" id="sec-4">
+<h2 style="margin-bottom:14px;color:#333">❓ Multiple-Choice</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Wählen Sie die richtige Antwort.</p>
+<div id="mc-container"></div>
+<div class="score" id="mc-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkMC()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showMC()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetMC()">↺ Neu starten</button>
+</div>
+</div>
+
+<!-- ============ TEIL 6: SATZBAU (10) ============ -->
+<div class="section" id="sec-5">
+<h2 style="margin-bottom:14px;color:#333">🧩 Satzbau</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Ordnen Sie die Satzteile in die richtige Reihenfolge. ⚠️ Kommas müssen selbst gesetzt werden!</p>
+<div class="help-box">
+🔹 Das Verb steht immer auf Position 2.<br>
+🔹 Zeit vor Ort – „Wann?" kommt vor „Wo?"/„Wohin?"<br>
+🔹 Standard: Subjekt – Verb – Zeit – Ort<br>
+🔹 Auch möglich: Anderes Satzglied auf Position 1 – dann tauschen Subjekt und dieses Satzglied den Platz (Inversion). Das Verb bleibt auf Position 2.
+</div>
+<div id="sb-container"></div>
+<div class="score" id="sb-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkSB()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showSB()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetSB()">↺ Neu starten</button>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ====== NAV ======
+function showSection(idx){
+    document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+// ====== GENUS (15) ======
+const GENUS_DATA=[
+    {word:"Blutglukosespiegel",cat:"der"},
+    {word:"Konsenswert",cat:"der"},
+    {word:"Prädiabetes",cat:"der"},
+    {word:"Zustand",cat:"der"},
+    {word:"Gendefekt",cat:"der"},
+    {word:"Insulinresistenz",cat:"die"},
+    {word:"Vorhersage",cat:"die"},
+    {word:"Vorbelastung",cat:"die"},
+    {word:"Hyperinsulinämie",cat:"die"},
+    {word:"Erkrankung",cat:"die"},
+    {word:"Standardrepertoire",cat:"das"},
+    {word:"Insulinmolekül",cat:"das"},
+    {word:"Gewebe",cat:"das"},
+    {word:"Blutgefäße",cat:"pl"},
+    {word:"Fortpflanzungsorgane",cat:"pl"}
+];
+
+let genusSelected=null;
+function initGenus(){
+    const bank=document.getElementById('genus-bank');
+    bank.innerHTML='';
+    const shuffled=[...GENUS_DATA].sort(()=>Math.random()-.5);
+    shuffled.forEach((item,i)=>{
+        const chip=document.createElement('div');
+        chip.className='chip';chip.textContent=item.word;
+        chip.dataset.cat=item.cat;chip.dataset.word=item.word;
+        chip.draggable=true;
+        chip.addEventListener('dragstart',e=>{e.dataTransfer.setData('text',i);genusSelected=chip});
+        chip.addEventListener('click',()=>{
+            if(genusSelected===chip){genusSelected.classList.remove('selected');genusSelected=null;return}
+            if(genusSelected){genusSelected.classList.remove('selected')}
+            genusSelected=chip;chip.classList.add('selected');
+        });
+        bank.appendChild(chip);
+    });
+    document.querySelectorAll('#sec-2 .category').forEach(cat=>{
+        const dz=cat.querySelector('.drop-zone');
+        cat.addEventListener('dragover',e=>{e.preventDefault();cat.classList.add('over')});
+        cat.addEventListener('dragleave',()=>cat.classList.remove('over'));
+        cat.addEventListener('drop',e=>{
+            e.preventDefault();cat.classList.remove('over');
+            if(genusSelected){dz.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null}
+        });
+        cat.addEventListener('click',()=>{
+            if(genusSelected&&genusSelected.parentElement!==dz){
+                dz.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null;
+            }
+        });
+    });
+    bank.addEventListener('click',e=>{
+        if(e.target===bank&&genusSelected){bank.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null}
+    });
+    bank.addEventListener('dragover',e=>e.preventDefault());
+    bank.addEventListener('drop',e=>{
+        e.preventDefault();if(genusSelected){bank.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null}
+    });
+    document.getElementById('genus-score').textContent='';
+}
+function checkGenus(){
+    let correct=0;
+    document.querySelectorAll('#sec-2 .chip').forEach(c=>{
+        const parent=c.closest('.category');
+        c.classList.remove('correct','wrong');
+        if(parent){
+            if(parent.dataset.cat===c.dataset.cat){c.classList.add('correct');correct++}
+            else c.classList.add('wrong');
+        }
+    });
+    document.getElementById('genus-score').textContent=`${correct} von ${GENUS_DATA.length} richtig`;
+}
+function showGenus(){
+    document.querySelectorAll('#sec-2 .chip').forEach(c=>{
+        c.classList.remove('correct','wrong','selected');
+        const target=document.querySelector(`#sec-2 .category[data-cat="${c.dataset.cat}"] .drop-zone`);
+        target.appendChild(c);c.classList.add('correct');
+    });
+    document.getElementById('genus-score').textContent='Lösungen angezeigt';
+}
+function resetGenus(){genusSelected=null;document.querySelectorAll('#sec-2 .chip').forEach(c=>c.classList.remove('correct','wrong','selected'));initGenus()}
+initGenus();
+
+// ====== LÜCKENTEXT (10) ======
+const LUECKEN=[
+    {id:1,segments:[
+        {t:"Insulinresistenz ist ein Zustand, in dem eine normale Menge Insulin eine "},
+        {b:"unterdurchschnittliche",s:"xl"},
+        {t:" Reaktion in den Zielzellen hervorruft."}
+    ]},
+    {id:2,segments:[
+        {t:"Eine Insulinresistenz ist nicht zwangsläufig ein "},
+        {b:"hyperglykämischer",s:"xl"},
+        {t:" Zustand."}
+    ]},
+    {id:3,segments:[
+        {t:"Die Betroffenen können insulinresistent sein und trotzdem einen normalen "},
+        {b:"Blutglukosespiegel",s:"xl"},
+        {t:" haben."}
+    ]},
+    {id:4,segments:[
+        {t:"Der Test gehört bei den meisten Ärzten nicht zum "},
+        {b:"Standardrepertoire",s:"xl"},
+        {t:"."}
+    ]},
+    {id:5,segments:[
+        {t:"Insulin ermöglicht viel bessere "},
+        {b:"Vorhersagen",s:"l"},
+        {t:" über einen Typ-2-Diabetes und kann das Problem bis zu zwanzig Jahre früher "},
+        {b:"prognostizieren",s:"l"},
+        {t:"."}
+    ]},
+    {id:6,segments:[
+        {t:"Typ-2-Diabetes "},
+        {b:"ist",s:"s"},
+        {t:" Insulinresistenz, die so weit "},
+        {b:"fortgeschritten",s:"l"},
+        {t:" ist, dass der Körper den Anstieg des Blutglukosespiegels nicht mehr verhindern kann."}
+    ]},
+    {id:7,segments:[
+        {t:"Der deutsche Wissenschaftler Wilhelm Falta machte im Jahr "},
+        {b:"1931",s:"s"},
+        {t:" erstmals darauf "},
+        {b:"aufmerksam",s:"l"},
+        {t:"."}
+    ]},
+    {id:8,segments:[
+        {t:"Die Insulinresistenz ist zweitens ein "},
+        {b:"hyperinsulinämischer",s:"xl"},
+        {t:" Zustand."}
+    ]},
+    {id:9,segments:[
+        {t:"Eine unbehandelte Insulinresistenz ist keineswegs nur "},
+        {b:"lästig",s:"m"},
+        {t:", sondern eine ernstzunehmende "},
+        {b:"Erkrankung",s:"l"},
+        {t:"."}
+    ]},
+    {id:10,segments:[
+        {t:"Die meisten Menschen mit Insulinresistenz sterben letztendlich an "},
+        {b:"Herzerkrankungen",s:"xl"},
+        {t:" oder anderen kardiovaskulären "},
+        {b:"Komplikationen",s:"l"},
+        {t:"."}
+    ]}
+];
+
+function renderLuecken(){
+    const container=document.getElementById('luecken-container');
+    container.innerHTML='';
+    LUECKEN.forEach(ex=>{
+        const div=document.createElement('div');div.className='exercise';div.dataset.id=ex.id;
+        let skipNext=false;
+        ex.segments.forEach((seg,si)=>{
+            if(skipNext){skipNext=false;return}
+            if(seg.t!==undefined){
+                const next=ex.segments[si+1];
+                const isFragment=seg.t.length>0&&!seg.t.endsWith(' ')&&next&&next.b!==undefined;
+                if(isFragment){
+                    const group=document.createElement('span');group.className='nowrap-group';
+                    group.appendChild(document.createTextNode(seg.t));
+                    const inp=document.createElement('input');
+                    inp.type='text';inp.className=`blank ${next.s}`;
+                    inp.dataset.answer=next.b;
+                    group.appendChild(inp);
+                    const sol=document.createElement('span');sol.className='solution-text';sol.textContent=next.b;
+                    group.appendChild(sol);
+                    div.appendChild(group);
+                    skipNext=true;
+                } else {
+                    div.appendChild(document.createTextNode(seg.t));
+                }
+            } else if(seg.b!==undefined){
+                const inp=document.createElement('input');
+                inp.type='text';inp.className=`blank ${seg.s}`;
+                inp.dataset.answer=seg.b;
+                div.appendChild(inp);
+                const sol=document.createElement('span');sol.className='solution-text';sol.textContent=seg.b;
+                div.appendChild(sol);
+            }
+        });
+        container.appendChild(div);
+    });
+}
+function checkLuecken(){
+    let correct=0,total=0;
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        total++;inp.classList.remove('correct','wrong');
+        if(inp.value.trim()===inp.dataset.answer){
+            inp.classList.add('correct');correct++;
+        } else if(inp.value.trim()!==''){inp.classList.add('wrong')}
+    });
+    document.getElementById('luecken-score').textContent=`${correct} von ${total} richtig`;
+}
+function showLuecken(){
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        const user=inp.value.trim();
+        const answer=inp.dataset.answer.toLowerCase();
+        const next=inp.nextElementSibling;
+        if(next&&next.classList.contains('correction-hint')) next.remove();
+        if(user===answer){
+            inp.classList.remove('wrong');inp.classList.add('correct');
+        } else {
+            inp.classList.add('wrong');
+            const hint=document.createElement('span');
+            hint.className='correction-hint';
+            hint.textContent=inp.dataset.answer;
+            inp.insertAdjacentElement('afterend',hint);
+        }
+    });
+    document.getElementById('luecken-score').textContent='Lösungen angezeigt';
+}
+function resetLuecken(){
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        inp.value='';inp.classList.remove('correct','wrong');
+        const next=inp.nextElementSibling;
+        if(next&&next.classList.contains('correction-hint')) next.remove();
+    });
+    document.getElementById('luecken-score').textContent='';
+}
+renderLuecken();
+
+// ====== MULTIPLE-CHOICE (10) ======
+const MC_DATA=[
+    {q:"Was ist die genaue Definition der Insulinresistenz laut Text?",
+     opts:["Wenn der Körper kein Insulin mehr produziert","Wenn eine normale Menge Insulin eine unterdurchschnittliche Reaktion hervorruft","Wenn der Blutzucker dauerhaft über 126 mg/dl liegt","Wenn die Bauchspeicheldrüse zu wenig Insulin bildet"],correct:1},
+    {q:"Warum bleibt die Insulinresistenz bei so vielen Menschen unerkannt?",
+     opts:["Weil es keine Tests dafür gibt","Weil die Symptome zu schmerzhaft sind","Weil sie nicht zwangsläufig den Blutglukosespiegel erhöht","Weil die Betroffenen nicht zum Arzt gehen"],correct:2},
+    {q:"Welcher Wert weicht bei einer Insulinresistenz als erstes ab?",
+     opts:["Der Blutdruck","Der Cholesterinspiegel","Der Blutglukosespiegel","Der Insulinspiegel"],correct:3},
+    {q:"Was ist MODY?",
+     opts:["Eine Form von Typ-2-Diabetes bei Erwachsenen","Ein Gendefekt-basierter Diabetes bei jungen Menschen","Ein anderes Wort für Insulinresistenz","Eine Wohlstandskrankheit bei Kindern"],correct:1},
+    {q:"Was ist der Unterschied zwischen Insulinresistenz und Typ-2-Diabetes laut Text?",
+     opts:["Es sind zwei völlig verschiedene Krankheiten","Typ-2-Diabetes ist fortgeschrittene Insulinresistenz mit Blutglukose über 126 mg/dl","Insulinresistenz betrifft nur Kinder, Typ-2-Diabetes nur Erwachsene","Typ-2-Diabetes hat nichts mit Insulin zu tun"],correct:1},
+    {q:"Welcher deutsche Wissenschaftler erkannte schon 1931 den Zusammenhang?",
+     opts:["Robert Koch","Albert Einstein","Wilhelm Falta","Rudolf Virchow"],correct:2},
+    {q:"Was bedeutet ‚hyperinsulinämisch'?",
+     opts:["Zu wenig Insulin im Blut","Zu viel Zucker im Blut","Zu viel Insulin im Blut","Normaler Insulinspiegel"],correct:2},
+    {q:"Wie lange kann sich die Entwicklung zur Insulinresistenz hinziehen?",
+     opts:["Einige Wochen","Einige Monate","Jahre bis Jahrzehnte","Nur wenige Tage"],correct:2},
+    {q:"Woran sterben die meisten Menschen mit Insulinresistenz laut Text?",
+     opts:["An Leberversagen","An Herzerkrankungen oder kardiovaskulären Komplikationen","An Typ-1-Diabetes","An Lungenerkrankungen"],correct:1},
+    {q:"Warum wäre es besser gewesen, Insulin statt Glukose zu messen?",
+     opts:["Insulin ist billiger zu messen","Insulin ermöglicht bis zu 20 Jahre frühere Vorhersagen","Glukose ist gar nicht messbar","Insulin ist leichter im Labor zu analysieren"],correct:1}
+];
+
+function renderMC(){
+    const container=document.getElementById('mc-container');
+    container.innerHTML='';
+    MC_DATA.forEach((item,qi)=>{
+        const div=document.createElement('div');div.className='mc-question';div.dataset.qi=qi;
+        div.innerHTML=`<div class="mc-q">${qi+1}. ${item.q}</div><div class="mc-opts"></div>`;
+        const optsDiv=div.querySelector('.mc-opts');
+        item.opts.forEach((opt,oi)=>{
+            const o=document.createElement('div');o.className='mc-opt';o.textContent=opt;
+            o.dataset.qi=qi;o.dataset.oi=oi;
+            o.addEventListener('click',()=>{
+                div.querySelectorAll('.mc-opt').forEach(x=>x.classList.remove('selected'));
+                o.classList.add('selected');
+            });
+            optsDiv.appendChild(o);
+        });
+        container.appendChild(div);
+    });
+}
+function checkMC(){
+    let correct=0;
+    MC_DATA.forEach((item,qi)=>{
+        const sel=document.querySelector(`.mc-question[data-qi="${qi}"] .mc-opt.selected`);
+        document.querySelectorAll(`.mc-question[data-qi="${qi}"] .mc-opt`).forEach(o=>o.classList.remove('correct','wrong'));
+        if(sel){
+            if(parseInt(sel.dataset.oi)===item.correct){sel.classList.add('correct');correct++}
+            else{sel.classList.add('wrong');document.querySelectorAll(`.mc-question[data-qi="${qi}"] .mc-opt`)[item.correct].classList.add('correct')}
+        }
+    });
+    document.getElementById('mc-score').textContent=`${correct} von ${MC_DATA.length} richtig`;
+}
+function showMC(){
+    MC_DATA.forEach((item,qi)=>{
+        document.querySelectorAll(`.mc-question[data-qi="${qi}"] .mc-opt`).forEach((o,oi)=>{
+            o.classList.remove('selected','wrong');
+            o.classList.toggle('correct',oi===item.correct);
+        });
+    });
+    document.getElementById('mc-score').textContent='Lösungen angezeigt';
+}
+function resetMC(){
+    document.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('selected','correct','wrong'));
+    document.getElementById('mc-score').textContent='';
+}
+renderMC();
+
+// ====== SATZBAU (10) ======
+const SATZBAU=[
+    {id:1,
+     parts:["Insulinresistenz","ist","ein Zustand",",","in dem eine normale Menge Insulin","eine unterdurchschnittliche Reaktion hervorruft"],
+     valid:[
+         ["Insulinresistenz","ist","ein Zustand",",","in dem eine normale Menge Insulin","eine unterdurchschnittliche Reaktion hervorruft"]
+     ]},
+    {id:2,
+     parts:["bei Insulinresistenz","reagieren","die Muskeln","nur noch etwa halb so empfindlich auf Insulin"],
+     valid:[
+         ["bei Insulinresistenz","reagieren","die Muskeln","nur noch etwa halb so empfindlich auf Insulin"],
+         ["die Muskeln","reagieren","bei Insulinresistenz","nur noch etwa halb so empfindlich auf Insulin"]
+     ]},
+    {id:3,
+     parts:["die Betroffenen","können","insulinresistent sein","und trotzdem","einen normalen Blutglukosespiegel haben"],
+     valid:[
+         ["die Betroffenen","können","insulinresistent sein","und trotzdem","einen normalen Blutglukosespiegel haben"]
+     ]},
+    {id:4,
+     parts:["der Test","gehört","bei den meisten Ärzten","nicht zum Standardrepertoire"],
+     valid:[
+         ["der Test","gehört","bei den meisten Ärzten","nicht zum Standardrepertoire"],
+         ["bei den meisten Ärzten","gehört","der Test","nicht zum Standardrepertoire"]
+     ]},
+    {id:5,
+     parts:["diese Entwicklung","kann","sich","über Jahre","hinziehen"],
+     valid:[
+         ["diese Entwicklung","kann","sich","über Jahre","hinziehen"],
+         ["über Jahre","kann","sich","diese Entwicklung","hinziehen"]
+     ]},
+    {id:6,
+     parts:["Insulin","ermöglicht","viel bessere Vorhersagen","über einen Typ-2-Diabetes"],
+     valid:[
+         ["Insulin","ermöglicht","viel bessere Vorhersagen","über einen Typ-2-Diabetes"]
+     ]},
+    {id:7,
+     parts:["der deutsche Wissenschaftler Wilhelm Falta","machte","im Jahr 1931","erstmals darauf aufmerksam"],
+     valid:[
+         ["der deutsche Wissenschaftler Wilhelm Falta","machte","im Jahr 1931","erstmals darauf aufmerksam"],
+         ["im Jahr 1931","machte","der deutsche Wissenschaftler Wilhelm Falta","erstmals darauf aufmerksam"]
+     ]},
+    {id:8,
+     parts:["ein insulinresistenter Mensch","hat","mehr Insulin im Blut","als normal"],
+     valid:[
+         ["ein insulinresistenter Mensch","hat","mehr Insulin im Blut","als normal"]
+     ]},
+    {id:9,
+     parts:["die Insulinresistenz selbst","wird","Sie","nicht umbringen"],
+     valid:[
+         ["die Insulinresistenz selbst","wird","Sie","nicht umbringen"]
+     ]},
+    {id:10,
+     parts:["wir","werden","uns in den nächsten Kapiteln ansehen",",","welche Aufgaben das Insulin im Körper erfüllt"],
+     valid:[
+         ["wir","werden","uns in den nächsten Kapiteln ansehen",",","welche Aufgaben das Insulin im Körper erfüllt"],
+         ["in den nächsten Kapiteln","werden","wir uns ansehen",",","welche Aufgaben das Insulin im Körper erfüllt"]
+     ]}
+];
+
+let sbSelected=null;
+function initSB(){
+    const container=document.getElementById('sb-container');
+    container.innerHTML='';
+    SATZBAU.forEach(ex=>{
+        const div=document.createElement('div');div.className='sb-exercise';
+        div.innerHTML=`<div class="sb-label">Satz ${ex.id}:</div>`;
+        const row=document.createElement('div');row.className='drop-row';row.dataset.sbId=ex.id;
+        const dot=document.createElement('span');dot.className='fixed-dot';dot.textContent='.';
+        row.appendChild(dot);
+        div.appendChild(row);
+        const bank=document.createElement('div');bank.className='chip-bank';bank.dataset.sbId=ex.id;
+        const shuffled=[...ex.parts].sort(()=>Math.random()-.5);
+        shuffled.forEach(p=>{
+            const chip=document.createElement('div');chip.className='chip';
+            if(p===','||p===';'||p===':') chip.classList.add('punct');
+            chip.textContent=p;chip.dataset.orig=p;chip.draggable=true;
+            chip.addEventListener('click',()=>handleSBClick(chip,ex.id));
+            chip.addEventListener('dragstart',e=>{sbSelected=chip;e.dataTransfer.setData('text','sb')});
+            bank.appendChild(chip);
+        });
+        div.appendChild(bank);
+        const result=document.createElement('div');result.className='sb-result';result.id=`sb-result-${ex.id}`;
+        div.appendChild(result);
+        row.addEventListener('dragover',e=>{e.preventDefault();row.classList.add('over')});
+        row.addEventListener('dragleave',()=>row.classList.remove('over'));
+        row.addEventListener('drop',e=>{
+            e.preventDefault();row.classList.remove('over');
+            if(sbSelected){
+                const chips=[...row.querySelectorAll('.chip')];
+                let inserted=false;
+                for(const ch of chips){
+                    if(ch===sbSelected)continue;
+                    const rect=ch.getBoundingClientRect();
+                    if(e.clientX<rect.left+rect.width/2){row.insertBefore(sbSelected,ch);inserted=true;break}
+                }
+                if(!inserted)row.insertBefore(sbSelected,dot);
+                updateCaps(ex.id);sbSelected=null;
+            }
+        });
+        bank.addEventListener('dragover',e=>e.preventDefault());
+        bank.addEventListener('drop',e=>{
+            e.preventDefault();
+            if(sbSelected){bank.appendChild(sbSelected);updateCaps(ex.id);sbSelected=null}
+        });
+        container.appendChild(div);
+    });
+}
+function handleSBClick(chip,exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    const dot=row.querySelector('.fixed-dot');
+    if(chip.parentElement===bank){
+        if(sbSelected&&sbSelected!==chip&&sbSelected.parentElement===row){
+            row.insertBefore(chip,sbSelected);sbSelected.classList.remove('selected');sbSelected=null;
+        } else {
+            row.insertBefore(chip,dot);
+        }
+    } else if(chip.parentElement===row){
+        if(sbSelected===chip){chip.classList.remove('selected');sbSelected=null;bank.appendChild(chip)}
+        else{
+            if(sbSelected)sbSelected.classList.remove('selected');
+            sbSelected=chip;chip.classList.add('selected');
+        }
+    }
+    updateCaps(exId);
+}
+function updateCaps(exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')].forEach(c=>{
+        if(c.dataset.orig)c.textContent=c.dataset.orig;
+    });
+    const first=row.querySelector('.chip');
+    if(first&&first.textContent!=='.'&&!first.classList.contains('punct'))
+        first.textContent=first.textContent.charAt(0).toUpperCase()+first.textContent.slice(1);
+}
+function checkSB(){
+    let correct=0;
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const chips=[...row.querySelectorAll('.chip')];
+        const answer=chips.map(c=>c.dataset.orig);
+        const isCorrect=ex.valid.some(v=>v.length===answer.length&&v.every((p,i)=>p===answer[i]));
+        const result=document.getElementById(`sb-result-${ex.id}`);
+        result.className='sb-result '+(isCorrect?'correct':'wrong');
+        result.textContent=isCorrect?'✓ Richtig!':'✗ Nicht korrekt';
+        if(isCorrect)correct++;
+    });
+    document.getElementById('sb-score').textContent=`${correct} von ${SATZBAU.length} richtig`;
+}
+function showSB(){
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const bank=document.querySelector(`.chip-bank[data-sb-id="${ex.id}"]`);
+        const dot=row.querySelector('.fixed-dot');
+        const allChips=[...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')];
+        allChips.forEach(c=>bank.appendChild(c));
+        ex.valid[0].forEach(part=>{
+            const chip=allChips.find(c=>c.dataset.orig===part);
+            if(chip){row.insertBefore(chip,dot);chip.classList.add('correct')}
+        });
+        updateCaps(ex.id);
+        const result=document.getElementById(`sb-result-${ex.id}`);
+        result.className='sb-result correct';result.textContent='Lösung angezeigt';
+    });
+    document.getElementById('sb-score').textContent='Lösungen angezeigt';
+}
+function resetSB(){
+    sbSelected=null;
+    document.querySelectorAll('#sec-5 .chip').forEach(c=>{c.classList.remove('correct','wrong','selected')});
+    document.querySelectorAll('#sec-5 .sb-result').forEach(r=>{r.className='sb-result';r.textContent=''});
+    document.getElementById('sb-score').textContent='';
+    initSB();
+}
+initSB();
+</script>
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

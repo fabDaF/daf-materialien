@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warum wir krank werden – Geleitwort</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+.container{max-width: 1000px;margin:0 auto;background:#fff;border-radius: 12px;overflow: hidden; box-shadow:0 8px 32px rgba(0,0,0,.2)}
+h1{text-align:center;color:#333;font-size:1.5em;margin-bottom:4px}
+.subtitle{text-align:center;color:#666;margin-bottom:20px;font-size:.95em}
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+
+
+
+.section{display:none}
+.section.active{display:block}
+h2{margin-bottom:14px;color:#333}
+.intro{margin-bottom:14px;color:#555;font-size:.95em}
+
+/* Vorentlastung */
+.vocab-card{background:#f8f9ff;border-left:4px solid #667eea;padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.vocab-term{font-weight:700;color:#333;font-size:1.05em}
+.vocab-def{color:#555;margin-top:4px;font-size:.95em}
+.vocab-example{color:#777;font-style:italic;margin-top:4px;font-size:.9em}
+
+/* Genus Drag & Drop */
+.chip-bank{min-height:50px;padding:10px;background:#f0f0f0;border-radius:8px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{padding:8px 16px;border-radius:20px;background:#667eea;color:#fff;cursor:grab;user-select:none;font-size:.95em;transition:.2s}
+.chip:active{cursor:grabbing;transform:scale(1.05)}
+.chip.correct{background:#27ae60!important}
+.chip.wrong{background:#e74c3c!important}
+.chip.selected{outline:3px solid #333;outline-offset:2px}
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.category{background:#f8f9ff;border-radius:8px;padding:12px;text-align:center;min-height:100px}
+.category h3{color:#667eea;margin-bottom:8px;font-size:1em}
+.drop-zone{min-height:50px;border:2px dashed #ccc;border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;transition:.2s}
+.drop-zone.over{border-color:#667eea;background:rgba(102,126,234,.1)}
+
+/* Lückentext */
+.exercise-card{background:#f8f9ff;border-radius:12px;padding:16px;margin-bottom:12px}
+.sentence{font-size:1.05em;line-height:2.2;color:#333}
+.nowrap-group{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
+input.blank{border:none;border-bottom:2px solid #667eea;background:transparent;text-align:center;font-size:1em;padding:2px 4px;outline:none;transition:.3s}
+input.blank:focus{border-bottom-color:#764ba2}
+input.blank.s{min-width:50px;width:50px}
+input.blank.m{min-width:90px;width:90px}
+input.blank.l{min-width:150px;width:150px}
+input.blank.xl{min-width:200px;width:200px}
+input.blank.correct{border-bottom-color:#27ae60;color:#27ae60}
+input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
+.sol{display:none;color:#27ae60;font-weight:700;font-size:.9em}
+
+/* Multiple Choice */
+.mc-question{font-weight:600;color:#333;margin-bottom:10px;font-size:1.05em}
+.mc-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.mc-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
+.mc-opt:hover{border-color:#667eea;background:#f8f9ff}
+.mc-opt.selected{border-color:#667eea;background:rgba(102,126,234,.15)}
+.mc-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.1)}
+.mc-opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.1)}
+
+/* Satzbau */
+.drop-row{min-height:50px;border:2px dashed #ccc;border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center;transition:.2s}
+.drop-row.over{border-color:#667eea;background:rgba(102,126,234,.1)}
+.fixed-dot{font-size:1.1em;font-weight:700;color:#333;padding:0 4px}
+.sb-result{font-weight:700;margin-top:4px;font-size:.9em;min-height:1.2em}
+.sb-result.correct{color:#27ae60}
+.sb-result.wrong{color:#e74c3c}
+
+/* Buttons */
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;color:#fff;transition:.2s}
+.btn-check{background:#667eea}.btn-check:hover{background:#5a6fd6}
+.btn-show{background:#f39c12}.btn-show:hover{background:#e67e22}
+.btn-reset{background:#95a5a6}.btn-reset:hover{background:#7f8c8d}
+
+/* Score */
+.score{text-align:center;font-weight:700;margin-top:14px;font-size:1.1em;color:#333;min-height:1.4em}
+
+/* Help box */
+.help-box{background:#fff3cd;border-radius:8px;padding:12px;margin-bottom:16px;font-size:.9em;color:#856404;line-height:1.6}
+
+/* Originaltext */
+.text-block{background:#f8f9ff;border-radius:12px;padding:20px 24px;line-height:1.8;color:#333;font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
+.text-block p{margin-bottom:14px;text-align:justify}
+.text-block em{font-style:italic}
+.text-author{text-align:right;font-weight:700;margin-top:20px;color:#555}
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ebff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 700; }
+@media (max-width: 600px) {
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; font-size: 0.78em; padding: 10px 4px; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Warum wir krank werden</h1>
+<p class="subtitle">Geleitwort von Dr. Jason Fung – Interaktive Übungen</p>
+
+<div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)">📖 Vorentlastung</div>
+    <div class="nav-btn" onclick="showSection(1)">📄 Originaltext</div>
+    <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+    <div class="nav-btn" onclick="showSection(3)">✏️ Lückentext</div>
+    <div class="nav-btn" onclick="showSection(4)">❓ Multiple-Choice</div>
+    <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+</div>
+
+<!-- ============ TEIL 1: VORENTLASTUNG ============ -->
+<div class="section active" id="sec-0">
+<h2>📖 Wichtige Begriffe</h2>
+<p class="intro">Lernen Sie diese Wörter, bevor Sie den Originaltext lesen.</p>
+
+<div class="vocab-card">
+    <div class="vocab-term">die Insulinresistenz (kein Plural)</div>
+    <div class="vocab-def">Der Körper reagiert nicht mehr richtig auf das Hormon Insulin. Zucker bleibt im Blut.</div>
+    <div class="vocab-example">„Insulinresistenz ist eine Grundursache für viele chronische Krankheiten."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Hyperinsulinämie (kein Plural)</div>
+    <div class="vocab-def">Zu viel Insulin im Blut. Das Gegenteil von „zu wenig Insulin".</div>
+    <div class="vocab-example">„Insulinresistenz und Hyperinsulinämie – wie die beiden Seiten einer Medaille."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Stoffwechselerkrankung, -en</div>
+    <div class="vocab-def">Eine Krankheit, bei der die chemischen Prozesse im Körper nicht richtig funktionieren. (Stoffwechsel = Metabolismus)</div>
+    <div class="vocab-example">„Die häufigsten Todesursachen stehen mit chronischen Stoffwechselerkrankungen in Verbindung."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Todesursache, -n</div>
+    <div class="vocab-def">Der Grund, warum ein Mensch gestorben ist.</div>
+    <div class="vocab-example">„Herzerkrankungen sind eine der häufigsten Todesursachen."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">der Nephrologe, -n</div>
+    <div class="vocab-def">Ein Arzt, der auf Nieren-Krankheiten spezialisiert ist. (griechisch: nephros = Niere)</div>
+    <div class="vocab-example">„Als Nephrologe bin ich auf Nierenerkrankungen spezialisiert."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Bauchspeicheldrüse, -n</div>
+    <div class="vocab-def">Ein Organ im Bauch. Es produziert Insulin und hilft bei der Verdauung. (lat. Pankreas)</div>
+    <div class="vocab-example">„Ben nennt Insulin das ‚bescheidene Hormon der Bauchspeicheldrüse'."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">das Intervallfasten (kein Plural)</div>
+    <div class="vocab-def">Man isst nur in bestimmten Zeitfenstern und fastet dazwischen. (z. B. 16 Stunden nichts essen, 8 Stunden essen)</div>
+    <div class="vocab-example">„Ich sprach über den klinischen Nutzen des Intervallfastens bei Fettleibigkeit."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Fettleibigkeit (kein Plural)</div>
+    <div class="vocab-def">Starkes Übergewicht. Medizinisch: Adipositas.</div>
+    <div class="vocab-example">„Wenn wir den Anstieg von Fettleibigkeit, Diabetes und Alzheimer bremsen wollen …"</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Ernährung (kein Plural)</div>
+    <div class="vocab-def">Alles, was man isst und trinkt – und wie man es tut.</div>
+    <div class="vocab-example">„Die Lösung liegt in unserer Ernährung und unserer Lebensführung."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Lebensführung (kein Plural)</div>
+    <div class="vocab-def">Wie man lebt: Gewohnheiten, Alltag, Bewegung, Schlaf.</div>
+    <div class="vocab-example">„Einfache Veränderungen der Ernährung und der Lebensführung können helfen."</div>
+</div>
+</div>
+
+<!-- ============ TEIL 0: ORIGINALTEXT ============ -->
+<div class="section" id="sec-1">
+<h2>📄 Geleitwort</h2>
+<p class="intro">Lesen Sie nun den Originaltext. Sie können jederzeit zur Vorentlastung zurückwechseln.</p>
+<div class="text-block">
+
+<p>In den letzten hundert Jahren hat die Medizin erhebliche Fortschritte gemacht. Im Jahr 1900 starben die meisten Menschen an Lungeninfektionen (Lungenentzündung oder Grippe), Tuberkulose sowie Infektionen des Magen-Darm-Trakts. Hätten Sie im Jahr 1900 die Frage gestellt: »Was macht uns krank?«, hätte die Antwort in der überwältigenden Mehrzahl der Fälle gelautet: »Infektionskrankheiten.« Inzwischen ist das anders. Dank der besseren allgemeinen und persönlichen Hygiene sowie Wundermitteln wie Antibiotika und antiviralen Medikamenten sterben inzwischen deutlich weniger Menschen an Infektionen.</p>
+
+<p>Heute bekommen wir auf die Frage: »Was macht uns krank?« eine ganz andere Antwort. Die beiden führenden sowie fünf der sieben häufigsten Todesursachen (Herzerkrankungen, Krebs, zerebrovaskuläre Erkrankungen, Alzheimererkrankung und Diabetes) stehen mit chronischen Stoffwechselerkrankungen in Verbindung. Seit ein paar Jahrzehnten nehmen diese Erkrankungen allgemein zu. Was ist der Grund dafür? Wie Sie sehen werden, ist dieser Anstieg weitgehend auf eine Grundursache zurückzuführen: Insulinresistenz und Hyperinsulinämie (zu viel Insulin im Blut). Moment mal, sind das nicht zwei Grundursachen? Nein, es ist ein und dieselbe – wie die beiden Seiten einer Medaille. Der Unterschied ergibt sich lediglich durch die Art und Weise der Betrachtung.</p>
+
+<p>Als Nephrologe bin ich auf Nierenerkrankungen spezialisiert, und die häufigste Ursache von Nierenerkrankungen ist Typ-2-Diabetes. In nur dreißig Jahren hat sich die Zahl der Menschen mit diagnostiziertem Diabetes vervierfacht, und die verheerenden Folgen sehe ich mit eigenen Augen. Es geht dabei nicht nur um Nierenerkrankungen. Patienten mit Typ-2-Diabetes haben auch ein deutlich höheres Risiko für Herzerkrankungen, Schlaganfall, Krebs, Erblindung, Nervenschäden, Amputationen und chronische Infektionen.</p>
+
+<p>Alle chronischen Erkrankungen werden von verschiedenen Ursachen und Faktoren beeinflusst, und Typ-2-Diabetes – der urtypische Zustand der Hyperinsulinämie und Insulinresistenz – gehört bekanntermaßen zu den wichtigsten. Da es uns nicht gelingt, die wahren Ursachen von Diabetes zu verstehen, ist auch unser Diagnose- und Behandlungsansatz grundverkehrt. Patienten erhalten die entsprechende Diagnose erst, wenn ihr Blutzuckerspiegel entgleist. Doch die Ursachen dieser Erkrankung – ein zu hohes Körpergewicht und eine zunehmende Insulinresistenz – bestehen schon lange vorher. Wie Benjamin Bikman im vorliegenden Buch erklärt, müssen wir den Blick auf das Insulin richten. Der Erkrankung Diabetes geht eine Insulinresistenz voran, die in viele weitere Krankheiten hineinspielt. Dieses Buch zeigt den Zusammenhang zwischen Insulinresistenz und Problemen mit dem Gehirn, dem Herzen, den Blutgefäßen, den inneren Organen und vielem mehr. Es zeichnet ein erschreckendes Bild davon, weshalb chronische Erkrankungen auf dem Vormarsch sind, und zeigt, was wir dagegen tun können. Und es behandelt ein Thema, bei dem Ben mit seinem Fachwissen als Professor und Wissenschaftler (und Autor) glänzen kann.</p>
+
+<p>Ich lernte Dr. Ben Bikman auf einer internationalen Ernährungskonferenz kennen, auf der wir beide Vorträge hielten. Ich sprach über den klinischen Nutzen des Intervallfastens bei Fettleibigkeit und Typ-2-Diabetes, beides Grunderkrankungen einer Hyperinsulinämie. Ben sprach über die grundlegenden molekularen Vorgänge im Hinblick auf das Insulin und über dessen Einfluss auf Gesundheit und Krankheit. Er untersuchte das, was ich in der Praxis beobachtete, mit wissenschaftlichen Mitteln im Labor, und ich war beeindruckt von seiner Erklärung für viele der metabolischen Vorteile, die ich bei meinen Patientinnen und Patienten sah. Ben ist ebenso sachkundig wie wortgewandt – eine seltene Mischung. Er weiß natürlich alles, was es über Insulin zu wissen gibt; aber er kann dieses Wissen auch einem Laienpublikum vermitteln, indem er es einfach und verständlich darstellt. Ich habe seither noch weitere Vorträge von ihm gehört und war hinterher stets begeistert darüber, dass ich wieder etwas Neues erfahren hatte. Sein Verstand arbeitet blitzschnell, und er dringt direkt zum Kern des Problems vor, ohne sich zu verzetteln. Mit diesem neuen Buch macht er sein Wissen nun auch der Öffentlichkeit zugänglich.</p>
+
+<p>Wie Ben bin ich Autor, und meine bisherigen Bücher beschäftigen sich mit der Frage, warum wir zunehmen und welcher Zusammenhang zwischen dem Zunehmen und Typ-2-Diabetes steht. Meine Bücher <em>Die Schlankformel</em> und <em>Diabetes rückgängig machen</em> werfen ein Schlaglicht auf die Bedeutung des Insulins und auf das, was geschieht, wenn wir zu viel davon haben. Im vorliegenden Buch widmet sich Ben einer ähnlichen Frage, allerdings auf einer breiteren Ebene, indem er das Insulin als Ursache für die Entstehung chronischer Erkrankungen identifiziert. Die Bandbreite ist enorm – doch überraschenderweise geht sehr vieles auf das, wie Ben es nennt, »bescheidene Hormon der Bauchspeicheldrüse« zurück. Er hat unzählige Forschungen zu einem klaren Porträt dieses Hormons und seiner weitreichenden Wirkungen auf den ganzen Körper zusammengetragen – wenn wir bei guter Gesundheit sind und wenn wir krank werden.</p>
+
+<p>Wie sich herausstellt, nimmt Insulin eine Schlüsselstellung bei vielen Erkrankungen ein, die inzwischen bemerkenswert häufig vorkommen – vom Migränekopfschmerz bis hin zu Fettlebererkrankung, Bluthochdruck und Demenz. Ben verweist auf wissenschaftliche Studien, die diese (und weitere) vermeintlich unterschiedlichen Gesundheitsprobleme mit Insulinresistenz in Verbindung bringen. Und wie so viele weitere gesundheitliche Störungen trifft man die Insulinresistenz nur allzu häufig an. Eine neuere Studie legt nahe, dass nicht weniger als 85 Prozent der erwachsenen US-Amerikaner insulinresistent sein könnten, und in vielen anderen Ländern dürfte es ähnlich oder schlimmer aussehen.</p>
+
+<p>Das vorliegende Buch ist nicht nur eine Warnung, um auf dieses gängige und doch weitgehend unbekannte Leiden aufmerksam zu machen; es bietet sehr viel mehr. Eine unbehandelte Insulinresistenz kann schwerwiegende Folgen haben, aber sie muss uns nicht ein Leben lang begleiten. Es gibt einfache, wissenschaftlich gesicherte Methoden, um diese Entwicklung rückgängig zu machen oder die Entstehung von Insulinresistenz zu verhindern. Keine dieser Methoden verlangt, dass wir noch mehr Medikamente nehmen, uns noch mehr Operationen unterziehen müssen oder noch mehr medizinische Implantate bekommen. Die Lösung liegt vielmehr in unserer Ernährung und unserer Lebensführung.</p>
+
+<p>Das Buch hat mehr zu bieten als eine weitere Mahnung, dass wir Kalorien sparen und mit dem Joggen anfangen sollen. Ben geht weit über diesen erfolglosen Ansatz hinaus, der auf der Anzahl der Kalorien basiert und verlangt, dass wir »weniger essen« und uns »mehr bewegen«; er führt uns zu einer differenzierteren physiologischen Perspektive auf der Grundlage des Insulins. Bens solide Strategie konzentriert sich auf einfache, aber wirkungsvolle Veränderungen der Ernährung und der Lebensführung, um den Insulinspiegel wieder auf ein gesundes Maß zu senken. Während einige der vorgelegten Beweise das schulmedizinische Vorgehen stützen, zeigt er auch, dass eine Insulinresistenz vor allem das Ergebnis unserer tagtäglichen Entscheidungen ist. Das macht unseren Lebensstil zum Übeltäter, aber – dank einiger hilfreicher und unkonventioneller Einsichten – auch zum Heilmittel.</p>
+
+<p>Womöglich ist die Insulinresistenz tatsächlich »die Epidemie, von der Sie noch nie gehört haben«. Doch wenn wir den Anstieg von Fettleibigkeit, Diabetes, Alzheimer und weiteren Krankheiten bremsen wollen, müssen wir uns das Insulin genauer ansehen … und erkennen, dass wir den Schlüssel zur Gesundheit bereits in den Händen halten.</p>
+
+<p class="text-author">Dr. Jason Fung</p>
+
+</div>
+</div>
+
+<!-- ============ TEIL 2: GENUS ============ -->
+<div class="section" id="sec-2">
+<h2>🔤 Genus-Übung</h2>
+<p class="intro">Ziehen Sie die Nomen in das richtige Feld – oder tippen Sie auf ein Wort und dann auf das Feld.</p>
+
+<div class="chip-bank" id="genus-bank"></div>
+<div class="categories" id="genus-cats">
+    <div class="category" data-cat="der"><h3>der</h3><div class="drop-zone" data-cat="der"></div></div>
+    <div class="category" data-cat="die"><h3>die</h3><div class="drop-zone" data-cat="die"></div></div>
+    <div class="category" data-cat="das"><h3>das</h3><div class="drop-zone" data-cat="das"></div></div>
+    <div class="category" data-cat="pl"><h3>Plural (die)</h3><div class="drop-zone" data-cat="pl"></div></div>
+</div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkGenus()">✓ Prüfen</button>
+    <button class="btn btn-show" onclick="showGenus()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetGenus()">↺ Neu starten</button>
+</div>
+<div class="score" id="genus-score"></div>
+</div>
+
+<!-- ============ TEIL 3: LÜCKENTEXT ============ -->
+<div class="section" id="sec-3">
+<h2>✏️ Lückentext</h2>
+<p class="intro">Ergänzen Sie die fehlenden Wörter aus dem Geleitwort.</p>
+
+<div id="luecken-container"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkLuecken()">✓ Prüfen</button>
+    <button class="btn btn-show" onclick="showLuecken()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetLuecken()">↺ Neu starten</button>
+</div>
+<div class="score" id="luecken-score"></div>
+</div>
+
+<!-- ============ TEIL 4: MULTIPLE CHOICE ============ -->
+<div class="section" id="sec-4">
+<h2>❓ Multiple-Choice</h2>
+<p class="intro">Wählen Sie die richtige Antwort.</p>
+
+<div id="mc-container"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkMC()">✓ Prüfen</button>
+    <button class="btn btn-show" onclick="showMC()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetMC()">↺ Neu starten</button>
+</div>
+<div class="score" id="mc-score"></div>
+</div>
+
+<!-- ============ TEIL 5: SATZBAU ============ -->
+<div class="section" id="sec-5">
+<h2>🧩 Satzbau</h2>
+<p class="intro">Bringen Sie die Satzteile in die richtige Reihenfolge.</p>
+<div class="help-box">
+    🔹 Das Verb steht immer auf <strong>Position 2</strong>.<br>
+    🔹 <strong>Zeit vor Ort</strong> – „Wann?" kommt vor „Wo?"/„Wohin?"<br>
+    🔹 Standard: Subjekt – Verb – Zeit – Ort<br>
+    🔹 Auch möglich: <strong>Zeit auf Position 1</strong> – dann tauschen Subjekt und Zeitangabe den Platz (Inversion). Das Verb bleibt auf Position 2.
+</div>
+
+<div id="sb-container"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkSB()">✓ Prüfen</button>
+    <button class="btn btn-show" onclick="showSB()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetSB()">↺ Neu starten</button>
+</div>
+<div class="score" id="sb-score"></div>
+</div>
+
+</div>
+
+<script>
+/* ===== NAV ===== */
+function showSection(idx){
+    document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+/* ===== TEIL 2: GENUS ===== */
+const GENUS_DATA=[
+    {word:"Fortschritt",cat:"der"},
+    {word:"Nephrologe",cat:"der"},
+    {word:"Diabetes",cat:"der"},
+    {word:"Anstieg",cat:"der"},
+    {word:"Medizin",cat:"die"},
+    {word:"Bauchspeicheldrüse",cat:"die"},
+    {word:"Ernährung",cat:"die"},
+    {word:"Antibiotikum",cat:"das"},
+    {word:"Heilmittel",cat:"das"},
+    {word:"Insulin",cat:"das"},
+    {word:"Hormon",cat:"das"},
+    {word:"Todesursachen",cat:"pl"},
+    {word:"Erkrankungen",cat:"pl"},
+    {word:"Blutgefäße",cat:"pl"}
+];
+
+function initGenus(){
+    const bank=document.getElementById('genus-bank');
+    bank.innerHTML='';
+    shuffle([...GENUS_DATA]).forEach(d=>{
+        const c=document.createElement('div');
+        c.className='chip';c.textContent=d.word;c.dataset.cat=d.cat;c.dataset.word=d.word;
+        c.draggable=true;
+        c.addEventListener('dragstart',e=>e.dataTransfer.setData('text',d.word));
+        c.addEventListener('click',function(){
+            if(this.classList.contains('selected')){this.classList.remove('selected');return}
+            document.querySelectorAll('#sec-2 .chip').forEach(x=>x.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+        bank.appendChild(c);
+    });
+    document.querySelectorAll('#genus-cats .drop-zone').forEach(dz=>{
+        dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over')});
+        dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+        dz.addEventListener('drop',e=>{
+            e.preventDefault();dz.classList.remove('over');
+            const w=e.dataTransfer.getData('text');
+            const chip=findChip(w);if(chip)dz.appendChild(chip);
+        });
+        dz.addEventListener('click',function(){
+            const sel=document.querySelector('#sec-2 .chip.selected');
+            if(sel){this.appendChild(sel);sel.classList.remove('selected')}
+        });
+    });
+    const bankEl=document.getElementById('genus-bank');
+    bankEl.addEventListener('dragover',e=>e.preventDefault());
+    bankEl.addEventListener('drop',e=>{
+        e.preventDefault();
+        const w=e.dataTransfer.getData('text');
+        const chip=findChip(w);if(chip){chip.classList.remove('correct','wrong');bankEl.appendChild(chip)}
+    });
+    bankEl.addEventListener('click',function(e){
+        if(e.target===this||e.target===bankEl){
+            const sel=document.querySelector('#sec-2 .chip.selected');
+            if(sel){sel.classList.remove('selected','correct','wrong');this.appendChild(sel)}
+        }
+    });
+}
+function findChip(w){return[...document.querySelectorAll('#sec-2 .chip')].find(c=>c.dataset.word===w)}
+function checkGenus(){
+    let ok=0,total=GENUS_DATA.length;
+    document.querySelectorAll('#genus-cats .drop-zone .chip').forEach(c=>{
+        const inCat=c.closest('.drop-zone').dataset.cat;
+        if(c.dataset.cat===inCat){c.className='chip correct';ok++}
+        else{c.className='chip wrong'}
+    });
+    // Chips still in bank count as unanswered
+    document.getElementById('genus-score').textContent=`${ok} von ${total} richtig`;
+}
+function showGenus(){
+    // Clear all zones
+    const bank=document.getElementById('genus-bank');
+    document.querySelectorAll('#sec-2 .chip').forEach(c=>{c.className='chip';bank.appendChild(c)});
+    GENUS_DATA.forEach(d=>{
+        const chip=findChip(d.word);
+        const zone=document.querySelector(`.drop-zone[data-cat="${d.cat}"]`);
+        if(chip&&zone){zone.appendChild(chip);chip.className='chip correct'}
+    });
+}
+function resetGenus(){
+    document.getElementById('genus-score').textContent='';
+    initGenus();
+}
+
+/* ===== TEIL 3: LÜCKENTEXT ===== */
+const LUECKEN=[
+    {
+        id:1,
+        segments:[
+            {t:"In den letzten hundert Jahren hat die Medizin "},
+            {b:"erhebliche",s:"l"},
+            {t:" Fortschritte gemacht."}
+        ]
+    },
+    {
+        id:2,
+        segments:[
+            {t:"Im Jahr 1900 hätte die Antwort auf die Frage »Was macht uns krank?« in der Mehrzahl der Fälle "},
+            {b:"Infektionskrankheiten",s:"xl"},
+            {t:" gelautet."}
+        ]
+    },
+    {
+        id:3,
+        segments:[
+            {t:"Dieser Anstieg ist weitgehend auf eine "},
+            {b:"Grundursache",s:"l"},
+            {t:" zurückzuführen: Insulinresistenz und Hyperinsulinämie."}
+        ]
+    },
+    {
+        id:4,
+        segments:[
+            {t:"Als "},
+            {b:"Nephrologe",s:"l"},
+            {t:" bin ich auf "},
+            {b:"Nierenerkrankungen",s:"xl"},
+            {t:" spezialisiert."}
+        ]
+    },
+    {
+        id:5,
+        segments:[
+            {t:"Patienten erhalten die entsprechende Diagnose erst, wenn ihr "},
+            {b:"Blutzuckerspiegel",s:"xl"},
+            {t:" entgleist."}
+        ]
+    },
+    {
+        id:6,
+        segments:[
+            {t:"Die Lösung liegt in unserer "},
+            {b:"Ernährung",s:"l"},
+            {t:" und unserer "},
+            {b:"Lebensführung",s:"l"},
+            {t:"."}
+        ]
+    },
+    {
+        id:7,
+        segments:[
+            {t:"Eine "},
+            {b:"unbehandelte",s:"l"},
+            {t:" Insulinresistenz kann "},
+            {b:"schwerwiegende",s:"l"},
+            {t:" Folgen haben."}
+        ]
+    }
+];
+
+function renderLuecken(){
+    const con=document.getElementById('luecken-container');con.innerHTML='';
+    LUECKEN.forEach(ex=>{
+        const card=document.createElement('div');card.className='exercise-card';
+        const sent=document.createElement('div');sent.className='sentence';
+        let blankIdx=0;
+        for(let i=0;i<ex.segments.length;i++){
+            const seg=ex.segments[i];
+            if(seg.t!==undefined){
+                const next=ex.segments[i+1];
+                if(next&&next.b!==undefined&&!seg.t.endsWith(' ')&&seg.t.length>0){
+                    const group=document.createElement('span');group.className='nowrap-group';
+                    group.appendChild(document.createTextNode(seg.t));
+                    const currentIdx=blankIdx;
+                    const inp=document.createElement('input');
+                    inp.type='text';inp.className=`blank ${next.s}`;
+                    inp.dataset.answer=next.b;inp.dataset.exId=ex.id;inp.dataset.idx=currentIdx;
+                    group.appendChild(inp);
+                    const sol=document.createElement('span');sol.className='sol';sol.textContent=next.b;
+                    group.appendChild(sol);
+                    sent.appendChild(group);
+                    blankIdx++;i++;
+                } else {
+                    sent.appendChild(document.createTextNode(seg.t));
+                }
+            } else if(seg.b!==undefined){
+                const currentIdx=blankIdx;
+                const inp=document.createElement('input');
+                inp.type='text';inp.className=`blank ${seg.s}`;
+                inp.dataset.answer=seg.b;inp.dataset.exId=ex.id;inp.dataset.idx=currentIdx;
+                sent.appendChild(inp);
+                const sol=document.createElement('span');sol.className='sol';sol.textContent=seg.b;
+                sent.appendChild(sol);
+                blankIdx++;
+            }
+        }
+        card.appendChild(sent);con.appendChild(card);
+    });
+}
+function checkLuecken(){
+    let ok=0,total=0;
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        total++;
+        const correct=inp.value.trim()===inp.dataset.answer;
+        inp.classList.remove('correct','wrong');
+        inp.classList.add(correct?'correct':'wrong');
+        if(correct)ok++;
+    });
+    document.getElementById('luecken-score').textContent=`${ok} von ${total} richtig`;
+}
+function showLuecken(){
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        inp.classList.remove('wrong');inp.classList.add('correct');inp.value=inp.dataset.answer;
+    });
+    document.getElementById('luecken-score').textContent='';
+}
+function resetLuecken(){
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        inp.value='';inp.classList.remove('correct','wrong');
+    });
+    document.getElementById('luecken-score').textContent='';
+}
+
+/* ===== TEIL 4: MULTIPLE CHOICE ===== */
+const MC_DATA=[
+    {
+        q:"Was war im Jahr 1900 die häufigste Krankheitsursache?",
+        opts:["Herzerkrankungen","Infektionskrankheiten","Diabetes","Krebs"],
+        correct:1
+    },
+    {
+        q:"Was ist laut dem Text die Grundursache für viele chronische Erkrankungen?",
+        opts:["Zu wenig Bewegung","Genetische Faktoren","Insulinresistenz und Hyperinsulinämie","Luftverschmutzung"],
+        correct:2
+    },
+    {
+        q:"Auf welches Fachgebiet ist Dr. Jason Fung spezialisiert?",
+        opts:["Kardiologie (Herz)","Onkologie (Krebs)","Nephrologie (Nieren)","Neurologie (Gehirn)"],
+        correct:2
+    },
+    {
+        q:"Wie viel Prozent der erwachsenen US-Amerikaner könnten laut einer Studie insulinresistent sein?",
+        opts:["etwa 50 Prozent","etwa 65 Prozent","etwa 75 Prozent","nicht weniger als 85 Prozent"],
+        correct:3
+    },
+    {
+        q:"Was empfiehlt das Buch zur Bekämpfung der Insulinresistenz?",
+        opts:["Mehr Medikamente und Operationen","Veränderungen der Ernährung und Lebensführung","Mehr Kalorien sparen und joggen","Regelmäßige Arztbesuche und Implantate"],
+        correct:1
+    }
+];
+
+function renderMC(){
+    const con=document.getElementById('mc-container');con.innerHTML='';
+    MC_DATA.forEach((mc,qi)=>{
+        const card=document.createElement('div');card.className='exercise-card';
+        const q=document.createElement('div');q.className='mc-question';q.textContent=`${qi+1}. ${mc.q}`;
+        card.appendChild(q);
+        const opts=document.createElement('div');opts.className='mc-options';opts.dataset.qi=qi;
+        mc.opts.forEach((o,oi)=>{
+            const opt=document.createElement('div');opt.className='mc-opt';opt.textContent=o;opt.dataset.oi=oi;
+            opt.addEventListener('click',function(){
+                opts.querySelectorAll('.mc-opt').forEach(x=>x.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+            opts.appendChild(opt);
+        });
+        card.appendChild(opts);con.appendChild(card);
+    });
+}
+function checkMC(){
+    let ok=0;
+    MC_DATA.forEach((mc,qi)=>{
+        const opts=document.querySelector(`.mc-options[data-qi="${qi}"]`);
+        const sel=opts.querySelector('.mc-opt.selected');
+        opts.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('correct','wrong'));
+        if(sel){
+            const oi=parseInt(sel.dataset.oi);
+            if(oi===mc.correct){sel.classList.add('correct');ok++}
+            else{sel.classList.add('wrong');opts.children[mc.correct].classList.add('correct')}
+        } else {opts.children[mc.correct].classList.add('correct')}
+    });
+    document.getElementById('mc-score').textContent=`${ok} von ${MC_DATA.length} richtig`;
+}
+function showMC(){
+    MC_DATA.forEach((mc,qi)=>{
+        const opts=document.querySelector(`.mc-options[data-qi="${qi}"]`);
+        opts.querySelectorAll('.mc-opt').forEach((o,i)=>{
+            o.classList.remove('selected','wrong');
+            o.classList.toggle('correct',i===mc.correct);
+        });
+    });
+    document.getElementById('mc-score').textContent='';
+}
+function resetMC(){
+    document.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('selected','correct','wrong'));
+    document.getElementById('mc-score').textContent='';
+}
+
+/* ===== TEIL 5: SATZBAU ===== */
+const SATZBAU=[
+    {
+        id:1,
+        parts:["die Medizin","hat","in den letzten hundert Jahren","erhebliche Fortschritte","gemacht"],
+        valid:[
+            ["die Medizin","hat","in den letzten hundert Jahren","erhebliche Fortschritte","gemacht"],
+            ["in den letzten hundert Jahren","hat","die Medizin","erhebliche Fortschritte","gemacht"]
+        ]
+    },
+    {
+        id:2,
+        parts:["dank der besseren Hygiene","sterben","inzwischen","deutlich weniger Menschen","an Infektionen"],
+        valid:[
+            ["dank der besseren Hygiene","sterben","inzwischen","deutlich weniger Menschen","an Infektionen"],
+            ["inzwischen","sterben","dank der besseren Hygiene","deutlich weniger Menschen","an Infektionen"],
+            ["deutlich weniger Menschen","sterben","inzwischen","dank der besseren Hygiene","an Infektionen"]
+        ]
+    },
+    {
+        id:3,
+        parts:["die Zahl der Menschen mit Diabetes","hat sich","in nur dreißig Jahren","vervierfacht","und die verheerenden Folgen","sehe ich","mit eigenen Augen"],
+        valid:[
+            ["die Zahl der Menschen mit Diabetes","hat sich","in nur dreißig Jahren","vervierfacht","und die verheerenden Folgen","sehe ich","mit eigenen Augen"],
+            ["in nur dreißig Jahren","hat sich","die Zahl der Menschen mit Diabetes","vervierfacht","und die verheerenden Folgen","sehe ich","mit eigenen Augen"]
+        ]
+    },
+    {
+        id:4,
+        parts:["ich","lernte","Dr. Ben Bikman","auf einer internationalen Ernährungskonferenz","kennen"],
+        valid:[
+            ["ich","lernte","Dr. Ben Bikman","auf einer internationalen Ernährungskonferenz","kennen"],
+            ["auf einer internationalen Ernährungskonferenz","lernte","ich","Dr. Ben Bikman","kennen"]
+        ]
+    },
+    {
+        id:5,
+        parts:["es","gibt","einfache, wissenschaftlich gesicherte Methoden","um diese Entwicklung","rückgängig zu machen","oder die Entstehung von Insulinresistenz","zu verhindern"],
+        valid:[
+            ["es","gibt","einfache, wissenschaftlich gesicherte Methoden","um diese Entwicklung","rückgängig zu machen","oder die Entstehung von Insulinresistenz","zu verhindern"]
+        ]
+    }
+];
+
+let sbSelected=null;
+function renderSB(){
+    const con=document.getElementById('sb-container');con.innerHTML='';sbSelected=null;
+    SATZBAU.forEach(ex=>{
+        const card=document.createElement('div');card.className='exercise-card';
+        const bank=document.createElement('div');bank.className='chip-bank';bank.dataset.sbId=ex.id;
+        const row=document.createElement('div');row.className='drop-row';row.dataset.sbId=ex.id;
+        const dot=document.createElement('span');dot.className='fixed-dot';dot.textContent='.';
+        row.appendChild(dot);
+        const result=document.createElement('div');result.className='sb-result';result.dataset.sbId=ex.id;
+
+        shuffle([...ex.parts]).forEach(p=>{
+            const chip=mkSBChip(p,ex.id);
+            bank.appendChild(chip);
+        });
+
+        row.addEventListener('dragover',e=>e.preventDefault());
+        row.addEventListener('drop',e=>{
+            e.preventDefault();
+            const orig=e.dataTransfer.getData('text/plain');
+            const chip=[...document.querySelectorAll(`[data-sb-id="${ex.id}"] .chip`)].find(c=>c.dataset.orig===orig);
+            if(!chip)return;
+            const dotel=row.querySelector('.fixed-dot');
+            const chips=[...row.querySelectorAll('.chip')];
+            let inserted=false;
+            for(const ch of chips){
+                if(ch===chip)continue;
+                const rect=ch.getBoundingClientRect();
+                if(e.clientX<rect.left+rect.width/2){row.insertBefore(chip,ch);inserted=true;break}
+            }
+            if(!inserted)row.insertBefore(chip,dotel);
+            updateCaps(ex.id);
+        });
+        bank.addEventListener('dragover',e=>e.preventDefault());
+        bank.addEventListener('drop',e=>{
+            e.preventDefault();
+            const orig=e.dataTransfer.getData('text/plain');
+            const chip=[...document.querySelectorAll(`[data-sb-id="${ex.id}"] .chip`)].find(c=>c.dataset.orig===orig);
+            if(chip){bank.appendChild(chip);updateCaps(ex.id)}
+        });
+        bank.addEventListener('click',function(e){
+            if(sbSelected&&sbSelected.closest('.drop-row')&&sbSelected.closest('.exercise-card')===card){
+                this.appendChild(sbSelected);sbSelected.classList.remove('selected');sbSelected=null;
+                updateCaps(ex.id);
+            }
+        });
+
+        card.appendChild(bank);card.appendChild(row);card.appendChild(result);con.appendChild(card);
+    });
+}
+function mkSBChip(p,exId){
+    const chip=document.createElement('div');chip.className='chip';
+    chip.textContent=p;chip.dataset.orig=p;chip.draggable=true;
+    chip.addEventListener('dragstart',e=>e.dataTransfer.setData('text/plain',p));
+    chip.addEventListener('click',function(){handleSBClick(this,exId)});
+    return chip;
+}
+function handleSBClick(chip,exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    const card=chip.closest('.exercise-card');
+    // Deselect chips from other exercises
+    if(sbSelected&&sbSelected.closest('.exercise-card')!==card){
+        sbSelected.classList.remove('selected');sbSelected=null;
+    }
+    if(chip.parentElement===bank){
+        row.insertBefore(chip,row.querySelector('.fixed-dot'));
+        updateCaps(exId);
+    } else if(chip.parentElement===row){
+        if(sbSelected===chip){chip.classList.remove('selected');sbSelected=null;return}
+        if(sbSelected&&sbSelected.parentElement===row){
+            row.insertBefore(sbSelected,chip);sbSelected.classList.remove('selected');sbSelected=null;
+            updateCaps(exId);
+        } else {
+            document.querySelectorAll('#sec-5 .chip.selected').forEach(c=>c.classList.remove('selected'));
+            chip.classList.add('selected');sbSelected=chip;
+        }
+    }
+}
+function updateCaps(exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')].forEach(c=>{
+        if(c.dataset.orig)c.textContent=c.dataset.orig;
+    });
+    const first=row.querySelector('.chip');
+    if(first&&first.textContent!=='.'){
+        first.textContent=first.textContent.charAt(0).toUpperCase()+first.textContent.slice(1);
+    }
+}
+function checkSB(){
+    let ok=0;
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const chips=[...row.querySelectorAll('.chip')];
+        const answer=chips.map(c=>c.dataset.orig);
+        const correct=ex.valid.some(v=>v.length===answer.length&&v.every((w,i)=>w===answer[i]));
+        const res=document.querySelector(`.sb-result[data-sb-id="${ex.id}"]`);
+        res.textContent=correct?'✓ Richtig!':'✗ Nicht ganz richtig.';
+        res.className='sb-result '+(correct?'correct':'wrong');
+        if(correct)ok++;
+    });
+    document.getElementById('sb-score').textContent=`${ok} von ${SATZBAU.length} richtig`;
+}
+function showSB(){
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const bank=document.querySelector(`.chip-bank[data-sb-id="${ex.id}"]`);
+        [...row.querySelectorAll('.chip')].forEach(c=>bank.appendChild(c));
+        const dot=row.querySelector('.fixed-dot');
+        ex.valid[0].forEach(w=>{
+            const chip=[...bank.querySelectorAll('.chip')].find(c=>c.dataset.orig===w);
+            if(chip)row.insertBefore(chip,dot);
+        });
+        updateCaps(ex.id);
+        const res=document.querySelector(`.sb-result[data-sb-id="${ex.id}"]`);
+        res.textContent='✓ Lösung';res.className='sb-result correct';
+    });
+}
+function resetSB(){
+    document.getElementById('sb-score').textContent='';
+    renderSB();
+}
+
+/* ===== INIT ===== */
+initGenus();renderLuecken();renderMC();renderSB();
+</script>
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

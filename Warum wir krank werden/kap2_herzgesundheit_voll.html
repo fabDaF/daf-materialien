@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kapitel 2: Die Herzgesundheit</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#c0392b 0%,#8e44ad 100%);min-height:100vh;padding:20px}
+.container{max-width: 1000px;margin:0 auto;background:#fff;border-radius: 12px;overflow: hidden; box-shadow:0 10px 40px rgba(0,0,0,.2)}
+h1{text-align:center;color:#333;font-size:1.4em;margin-bottom:4px}
+.subtitle{text-align:center;color:#666;font-size:.95em;margin-bottom:18px}
+
+/* Nav */
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+
+
+
+.section{display:none}.section.active{display:block}
+
+/* Vorentlastung */
+.vocab-card{background:#fdf2f2;border-left:4px solid #c0392b;padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.vocab-term{font-weight:700;color:#333;font-size:1.05em}
+.vocab-def{color:#555;margin-top:4px;font-size:.95em}
+.vocab-example{color:#777;font-style:italic;margin-top:4px;font-size:.9em}
+
+/* Originaltext */
+.text-block{background:#fdf2f2;border-radius:12px;padding:20px 24px;line-height:1.8;color:#333;font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
+.text-block p{margin-bottom:14px;text-align:justify}
+.text-block em{font-style:italic}
+.text-author{text-align:right;font-weight:700;margin-top:20px;color:#555}
+.text-block h3{font-family:'Segoe UI',sans-serif;color:#444;margin:24px 0 12px;font-size:1.1em;border-bottom:1px solid #ddd;padding-bottom:6px}
+
+/* Info-Box */
+.info-box{background:#fff3cd;border-radius:10px;padding:16px 20px;margin:18px 0;font-family:'Segoe UI',sans-serif;font-size:.9em;color:#856404;border-left:4px solid #f39c12}
+.info-box strong{color:#7d6608}
+.info-box p{margin-bottom:8px;text-align:justify}
+
+/* Mechanism cards */
+.mech-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0;font-family:'Segoe UI',sans-serif}
+.mech-card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px 12px;font-size:.85em}
+.mech-card strong{color:#c0392b}
+
+/* Genus */
+.chip-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:12px;background:#fdf2f2;border-radius:10px;margin-bottom:16px;border:2px dashed #ddd}
+.chip{padding:8px 16px;border-radius:20px;cursor:grab;font-size:.95em;user-select:none;transition:.2s;background:#c0392b;color:#fff}
+.chip.correct{background:#27ae60!important;color:#fff!important}
+.chip.wrong{background:#e74c3c!important;color:#fff!important}
+.chip.selected{outline:3px solid #333;outline-offset:2px}
+.chip.punct{min-width:32px;padding:8px 10px;font-size:1.2em;font-weight:700;text-align:center}
+.drop-row .chip.punct{margin-left:-4px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.category{background:#fdf2f2;border-radius:10px;padding:10px;min-height:100px;border:2px solid #e0e0e0;transition:.2s}
+.category.over{border-color:#c0392b;background:rgba(192,57,43,.1)}
+.category h3{text-align:center;font-size:.95em;color:#555;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #e0e0e0}
+.drop-zone{min-height:50px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+
+/* Lückentext */
+.exercise{background:#fdf2f2;border-radius:10px;padding:14px 18px;margin-bottom:12px;line-height:2;font-size:.98em}
+.nowrap-group{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
+input.blank{border:none;border-bottom:2px solid #c0392b;background:transparent;text-align:center;font-size:.95em;padding:2px 4px;color:#333;outline:none;transition:.2s}
+input.blank:focus{border-bottom-color:#8e44ad}
+input.blank.correct{border-bottom-color:#27ae60;color:#27ae60;background:#e8f8f0}
+input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c;background:#fdeaea}
+.correction-hint{color:#27ae60;font-weight:600;font-size:0.85em;margin-left:4px;white-space:nowrap}
+input.blank.s{min-width:50px;width:50px}
+input.blank.m{min-width:90px;width:90px}
+input.blank.l{min-width:150px;width:150px}
+input.blank.xl{min-width:200px;width:200px}
+.solution-text{display:none;color:#27ae60;font-weight:700;font-size:.85em;margin-left:2px}
+
+/* MC */
+.mc-question{background:#fdf2f2;border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.mc-q{font-weight:600;margin-bottom:10px;color:#333}
+.mc-opts{display:flex;flex-direction:column;gap:6px}
+.mc-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
+.mc-opt:hover{border-color:#c0392b;background:#fdf2f2}
+.mc-opt.selected{border-color:#c0392b;background:rgba(192,57,43,.15)}
+.mc-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.1)}
+.mc-opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.1)}
+
+/* Satzbau */
+.sb-exercise{background:#fdf2f2;border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.sb-label{font-weight:600;color:#555;margin-bottom:8px;font-size:.9em}
+.drop-row{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:10px;background:#fff;border:2px dashed #ccc;border-radius:8px;margin-bottom:6px;align-items:center;transition:.2s}
+.drop-row.over{border-color:#c0392b;background:rgba(192,57,43,.1)}
+.fixed-dot{font-size:1.1em;font-weight:700;color:#333;padding:0 4px}
+.sb-result{font-weight:700;margin-top:4px;font-size:.9em;min-height:1.2em}
+.sb-result.correct{color:#27ae60}
+.sb-result.wrong{color:#e74c3c}
+
+/* Buttons */
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;color:#fff;transition:.2s}
+.btn-check{background:#c0392b}.btn-check:hover{background:#a93226}
+.btn-show{background:#f39c12}.btn-show:hover{background:#e67e22}
+.btn-reset{background:#95a5a6}.btn-reset:hover{background:#7f8c8d}
+
+/* Score */
+.score{text-align:center;font-weight:700;margin-top:14px;font-size:1.1em;color:#333;min-height:1.4em}
+
+/* Help box */
+.help-box{background:#fff3cd;border-radius:8px;padding:12px;margin-bottom:16px;font-size:.9em;color:#856404}
+
+/* Kürzungshinweis */
+.cut-note{background:#e8f4fd;border-radius:8px;padding:10px 14px;margin:12px 0;font-family:'Segoe UI',sans-serif;font-size:.85em;color:#2c3e50;border-left:3px solid #3498db}
+
+@media(max-width:600px){
+    .categories{grid-template-columns:repeat(2,1fr)}
+    .mech-grid{grid-template-columns:1fr}
+}
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ebff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 700; }
+@media (max-width: 600px) {
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; font-size: 0.78em; padding: 10px 4px; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Kapitel 2: Die Herzgesundheit</h1>
+<p class="subtitle">Dr. Benjamin Bikman – Interaktive Übungen</p>
+
+<div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)">📖 Vorentlastung</div>
+    <div class="nav-btn" onclick="showSection(1)">📄 Originaltext</div>
+    <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+    <div class="nav-btn" onclick="showSection(3)">✏️ Lückentext</div>
+    <div class="nav-btn" onclick="showSection(4)">❓ Multiple-Choice</div>
+    <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+</div>
+
+<!-- ============ TEIL 1: VORENTLASTUNG (10) ============ -->
+<div class="section active" id="sec-0">
+<h2 style="margin-bottom:14px;color:#333">📖 Wichtige Begriffe</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Lernen Sie diese Wörter, bevor Sie den Originaltext lesen.</p>
+
+<div class="vocab-card">
+    <div class="vocab-term">die Herzerkrankung, -en</div>
+    <div class="vocab-def">Eine Krankheit des Herzens oder der Blutgefäße. Synonym: Herz-Kreislauf-Erkrankung, kardiovaskuläre Erkrankung.</div>
+    <div class="vocab-example">„Herzerkrankungen sind die weltweit führende Todesursache."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">der Bluthochdruck (kein Pl.)</div>
+    <div class="vocab-def">Wenn das Blut mit zu viel Druck durch die Adern fließt. Medizinisch: Hypertonie. Gegenteil: Hypotonie (niedriger Blutdruck).</div>
+    <div class="vocab-example">„Der Zusammenhang zwischen Insulinresistenz und Bluthochdruck ist sehr stark."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">das Stickstoffmonoxid (kein Pl.)</div>
+    <div class="vocab-def">Ein Gas (NO), das die Blutgefäße weiter macht. Es senkt den Blutdruck. Insulin hilft normalerweise, NO zu produzieren.</div>
+    <div class="vocab-example">„Insulin fördert die Freisetzung von Stickstoffmonoxid, das die Blutgefäße erweitert."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">das Endothel, -e</div>
+    <div class="vocab-def">Die dünne Zellschicht an der Innenseite der Blutgefäße. Sie kontrolliert, was ins Blut hinein- und herausgeht.</div>
+    <div class="vocab-example">„Insulin lässt die Endothelzellen wachsen, wodurch die Blutgefäße dicker werden."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Atherosklerose (kein Pl.)</div>
+    <div class="vocab-def">Verhärtung und Verengung der Arterien durch Ablagerungen (Plaques) aus Fett und Cholesterin. Umgangssprachlich: „Arterienverkalkung".</div>
+    <div class="vocab-example">„Atherosklerose ist ein wichtiger Risikofaktor für Herzinfarkt und Schlaganfall."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">das Cholesterin (kein Pl.)</div>
+    <div class="vocab-def">Eine fettähnliche Substanz im Blut. Wird in LDL (oft „schlecht" genannt) und HDL (oft „gut" genannt) transportiert.</div>
+    <div class="vocab-example">„Cholesterin muss erst oxidieren, bevor es die Blutgefäße schädigen kann."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Kardiomyopathie, -n</div>
+    <div class="vocab-def">Eine Erkrankung des Herzmuskels. Das Herz wird schwächer und kann das Blut nicht mehr richtig pumpen. Griech.: kardia = Herz, myo = Muskel, pathie = Krankheit.</div>
+    <div class="vocab-example">„Bei einer Kardiomyopathie reicht die Kraft der Herzmuskeln nicht mehr aus."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">das Lipoprotein, -e</div>
+    <div class="vocab-def">Ein Partikel aus Fett und Protein, das Cholesterin im Blut transportiert. Wichtige Typen: LDL (Low Density) und HDL (High Density).</div>
+    <div class="vocab-example">„Die kleinen, dichten LDL-Partikel (Muster B) sind gefährlicher als die großen (Muster A)."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">der oxidative Stress (kein Pl.)</div>
+    <div class="vocab-def">Ein Zustand, bei dem schädliche Moleküle (freie Radikale) die Zellen angreifen. Oxidation = chemische Reaktion mit Sauerstoff.</div>
+    <div class="vocab-example">„Der oxidative Stress ist eine Variable, die Insulinresistenz allem Anschein nach erhöht."</div>
+</div>
+<div class="vocab-card">
+    <div class="vocab-term">die Schaumzelle, -n</div>
+    <div class="vocab-def">Eine weiße Blutzelle (Makrophage), die so viel oxidiertes Fett aufgenommen hat, dass sie „schaumig" aussieht. Schaumzellen bilden den Kern der atherosklerotischen Plaques.</div>
+    <div class="vocab-example">„Die Mischung aus Schaumzellen und Lipiden bildet den Kern der atherosklerotischen Plaque."</div>
+</div>
+
+</div>
+
+<!-- ============ TEIL 2: ORIGINALTEXT ============ -->
+<div class="section" id="sec-1">
+<h2 style="margin-bottom:14px;color:#333">📄 Originaltext</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Lesen Sie nun den Originaltext. Einige Passagen wurden gekürzt (markiert mit ✂️), um den Fokus auf die Kernaussagen zu legen.</p>
+
+<div class="text-block">
+
+<p>Herzerkrankungen sind die weltweit führende Todesursache, sowohl für Frauen als auch für Männer. Die Insulinresistenz ist ein wichtiges Puzzlestück bei der Lösung des Problems, aber sie ist bemerkenswert unterrepräsentiert in unseren Bemühungen, die Prävention und Behandlung von Herzerkrankungen zu verbessern.</p>
+
+<h3>Bluthochdruck</h3>
+
+<p>Der Zusammenhang zwischen Insulinresistenz und Bluthochdruck ist so stark, dass Forscher empfehlen, bei allen Bluthochdruckpatienten auch eine Insulinresistenz zu untersuchen. Bisher hat sich kein einheitliches Bild davon ergeben, wie die Insulinresistenz den Blutdruck erhöht, aber es lassen sich mindestens vier Mechanismen beschreiben.</p>
+
+<p><em>Erstens:</em> Insulin fördert die Speicherung von Natrium (Kochsalz). Insulin veranlasst die Nieren, mehr Natrium festzuhalten, und wo das Natrium hingeht, folgt das Wasser. Dies erhöht das Volumen des Blutes und damit den Blutdruck.</p>
+
+<p><em>Zweitens:</em> Insulin lässt die Zellen der Blutgefäße (Endothel) wachsen. Stellen Sie sich einen Gartenschlauch vor. Wenn seine Wände dicker werden, verkleinert sich der Innendurchmesser. So wie der Druck in dem Schlauch steigt, wenn man den Durchmesser reduziert, so steigt der Blutdruck, wenn Insulin das Wachstum der Endothelzellen fördert.</p>
+
+<p><em>Drittens:</em> Insulin fördert normalerweise die Freisetzung von Stickstoffmonoxid (NO), einem wichtigen Gas, das die Blutgefäße erweitert und den Blutdruck senkt. Bei Insulinresistenz kann Insulin diese positive Aufgabe nicht mehr erfüllen. Die Blutgefäße bleiben enger und steifer als sie es sein sollten.</p>
+
+<p><em>Viertens:</em> Insulin aktiviert einen Teil des Nervensystems – das sympathische Nervensystem –, der das Herz schneller schlagen und die Blutgefäße sich verengen lässt. Zu viel Insulin stimuliert dieses System übermäßig und treibt den Blutdruck weiter in die Höhe.</p>
+
+<!-- 4 Mechanismen als Übersicht -->
+<div class="mech-grid">
+    <div class="mech-card"><strong>1. Natrium:</strong> Nieren halten mehr Salz fest → mehr Wasser im Blut → höheres Volumen → höherer Druck</div>
+    <div class="mech-card"><strong>2. Endothel:</strong> Gefäßwände werden dicker → Innendurchmesser kleiner → wie ein engerer Gartenschlauch</div>
+    <div class="mech-card"><strong>3. Stickstoffmonoxid:</strong> IR blockiert NO-Produktion → Gefäße können sich nicht weiten → bleiben eng und steif</div>
+    <div class="mech-card"><strong>4. Sympathikus:</strong> Zu viel Insulin stimuliert Nervensystem → Herz schlägt schneller → Gefäße verengen sich</div>
+</div>
+
+<h3>Ungesunde Veränderungen der Lipide</h3>
+
+<p>Es ist kein Geheimnis, dass veränderte Blutfette, insbesondere das Cholesterin, das Risiko für Herzerkrankungen erhöhen. Doch das wahre Risiko ist etwas komplizierter als ein einfacher Cholesterinwert. Cholesterin wird im Blut in kleinen Partikeln transportiert, den sogenannten Lipoproteinen. Die bekanntesten sind LDL (Low Density Lipoprotein, zu Deutsch: Lipoprotein niederer Dichte) und HDL (High Density Lipoprotein, Lipoprotein hoher Dichte).</p>
+
+<p>Was viele nicht wissen: Es gibt verschiedene Größen von LDL-Partikeln, und die Größe macht einen entscheidenden Unterschied. <em>Muster A</em> besteht aus großen, leichten LDL-Partikeln – man könnte sie als „Wasserbälle" bezeichnen: sie sind groß und prallen an den Gefäßwänden ab. <em>Muster B</em> dagegen besteht aus kleinen, dichten LDL-Partikeln – wie „Golfbälle": sie sind klein genug, um in die Gefäßwand einzudringen und dort Schäden anzurichten. Bei Insulinresistenz verschiebt sich das LDL-Muster von A (harmlos) zu B (gefährlich).</p>
+
+<p>Insulinresistenz beeinflusst Blutfette auf verschiedene Weisen: Sie erhöht die Triglyzeride (Blutfette) und senkt das „gute" HDL-Cholesterin. Ein einfacher Indikator für Insulinresistenz ist deshalb das Verhältnis von Triglyzeriden zu HDL: Liegt das Ergebnis über 3 (in US-Einheiten), ist die Wahrscheinlichkeit einer Insulinresistenz hoch. Ist es kleiner als 1,5, ist eine Insulinresistenz unwahrscheinlich.</p>
+
+<h3>Atherosklerose</h3>
+
+<p>Der Prozess der Atherosklerose beginnt damit, dass Cholesterin und Fette in die Gefäßwand eindringen. Dies allein ist noch nicht gefährlich – die Endothelzellen, welche die Blutgefäße auskleiden, <em>brauchen</em> auch Cholesterin und Fette, um funktionsfähig zu bleiben. Trotzdem kann es passieren, dass die Fette nicht lange harmlos bleiben.</p>
+
+<p>Die Situation kippt bei starkem oxidativem Stress, wenn die Fette und das Cholesterin oxidieren. In diesem Fall umfließen weiße Blutkörperchen – sogenannte Makrophagen – das oxidierte Fett, um die Oxidation weiterer Zellteile zu verhindern. Nach und nach füllen sich die Makrophagen mit oxidiertem Fett oder Cholesterin. Wegen ihres schaumigen Aussehens unter dem Mikroskop werden die lipidgefüllten Zellen als „Schaumzellen" bezeichnet. Die Neuankömmlinge verwandeln sich im Laufe der Zeit ebenfalls in Schaumzellen und verschlimmern dadurch das Problem. Diese Mischung aus Schaumzellen und Lipiden bildet schließlich den Kern der atherosklerotischen Plaque.</p>
+
+<p>Insulinresistenz ist ein wichtiger Atherosklerosefaktor. Man vermutet, sie begünstigt die beiden wichtigsten Variablen, die an dieser Krankheit beteiligt sein sollen. Die erste kennen wir bereits: Die Rolle des Insulins bei der Erhöhung des LDL-Musters B, das problematische Fette wie die Linolsäure transportieren kann. Die zweite Variable ist der oxidative Stress, den eine Insulinresistenz allem Anschein nach erhöht.</p>
+
+<h3>Entzündungsprozesse</h3>
+
+<p>Erstaunlicherweise entfaltet Insulin bei insulinempfindlichen Personen (mit normalem Insulinspiegel) eine entzündungshemmende Wirkung, während es bei insulinresistenten Personen (mit hohem Insulinspiegel) Entzündungsprozesse aktiviert.</p>
+
+<p>Dass die Insulinresistenz zu den Entzündungsursachen zählt, macht sie auch zum Ausgangspunkt für Herzerkrankungen. Eine Insulinresistenz erhöht erstens den Blutdruck und damit die Wahrscheinlichkeit einer Schädigung der Blutgefäße. Sie sorgt zweitens für die vermehrte Ablagerung von Lipiden in den Gefäßwänden. Und sie verstärkt zu guter Letzt Entzündungsprozesse und begünstigt damit die weitere Ansammlung von Makrophagen in den Blutgefäßen, wo sie immer mehr oxidierte Lipide aufnehmen und sich in Schaumzellen verwandeln. Jeder einzelne dieser Prozesse wird von der Insulinresistenz begünstigt, und sie gipfeln in der Bildung von atherosklerotischen Plaques.</p>
+
+<h3>Erkrankungen des Herzmuskels (Kardiomyopathie)</h3>
+
+<p>Bei einer Kardiomyopathie reicht die Kraft der Herzmuskeln irgendwann nicht mehr aus, um das Blut durch die unzähligen Gefäße des Körpers zu pumpen. Es gibt drei Haupttypen:</p>
+
+<div class="mech-grid">
+    <div class="mech-card"><strong>Dilatativ:</strong> Das Herz „bläht sich auf" – es dehnt sich aus und wird dadurch dünner und schwächer.</div>
+    <div class="mech-card"><strong>Hypertoph:</strong> Der Herzmuskel ist verdickt, und das Herz kann sich nicht mehr ausreichend füllen.</div>
+    <div class="mech-card"><strong>Restriktiv:</strong> Der Herzmuskel ist vernarbt und verhärtet.</div>
+</div>
+
+<p>Von diesen drei Haupttypen steht die dilatative Kardiomyopathie am stärksten mit Insulinresistenz in Verbindung. Glukose ist der wichtigste Brennstoff der Herzmuskelzellen. Bei einer dilatativen Kardiomyopathie vergrößert sich der Herzmuskel (Myokard), er dehnt sich aus und wird dadurch dünner. Gleichzeitig beeinträchtigt die Insulinresistenz seine Fähigkeit, Glukose aufzunehmen und zu verbrennen.</p>
+
+<p>Wahrscheinlich regt der chronisch erhöhte Insulinspiegel das Wachstum des Herzmuskels an, bis er irgendwann so dick wird, dass sich die Herzkammern nicht mehr mit Blut füllen können.</p>
+
+<h3>Fazit</h3>
+
+<p>Eines ist inzwischen hoffentlich klar: Obwohl wir oft anderen Faktoren die Schuld geben, ist die Insulinresistenz die wichtigste Variable bei Herzerkrankungen. Deshalb <em>müssen</em> wir sie bei allen erfolgreichen Bemühungen, ein hohes Herzerkrankungsrisiko zu senken, berücksichtigen. Wenn wir die zentrale Bedeutung der Insulinresistenz einräumen, setzen wir bei den eigentlichen Ursachen und nicht nur bei den Symptomen an. So sehr man bei den weltweiten Bemühungen zur Eindämmung von Herzerkrankungen auch bestrebt ist, die Insulinresistenz zu ignorieren: Je länger wir so weitermachen, desto größer wird das Problem.</p>
+
+<p class="text-author">Dr. Benjamin Bikman</p>
+</div>
+</div>
+
+<!-- ============ TEIL 3: GENUS (15) ============ -->
+<div class="section" id="sec-2">
+<h2 style="margin-bottom:14px;color:#333">🔤 Genus-Übung</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Ziehen Sie die Nomen in die richtige Kategorie – oder tippen Sie auf ein Wort und dann auf die Kategorie.</p>
+
+<div class="chip-bank" id="genus-bank"></div>
+<div class="categories">
+    <div class="category" data-cat="der"><h3>der</h3><div class="drop-zone"></div></div>
+    <div class="category" data-cat="die"><h3>die</h3><div class="drop-zone"></div></div>
+    <div class="category" data-cat="das"><h3>das</h3><div class="drop-zone"></div></div>
+    <div class="category" data-cat="pl"><h3>Plural (die)</h3><div class="drop-zone"></div></div>
+</div>
+<div class="score" id="genus-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkGenus()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showGenus()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetGenus()">↺ Neu starten</button>
+</div>
+</div>
+
+<!-- ============ TEIL 4: LÜCKENTEXT (10) ============ -->
+<div class="section" id="sec-3">
+<h2 style="margin-bottom:14px;color:#333">✏️ Lückentext</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Ergänzen Sie die fehlenden Wörter aus dem Text.</p>
+<div id="luecken-container"></div>
+<div class="score" id="luecken-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkLuecken()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showLuecken()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetLuecken()">↺ Neu starten</button>
+</div>
+</div>
+
+<!-- ============ TEIL 5: MULTIPLE-CHOICE (10) ============ -->
+<div class="section" id="sec-4">
+<h2 style="margin-bottom:14px;color:#333">❓ Multiple-Choice</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Wählen Sie die richtige Antwort.</p>
+<div id="mc-container"></div>
+<div class="score" id="mc-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkMC()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showMC()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetMC()">↺ Neu starten</button>
+</div>
+</div>
+
+<!-- ============ TEIL 6: SATZBAU (10) ============ -->
+<div class="section" id="sec-5">
+<h2 style="margin-bottom:14px;color:#333">🧩 Satzbau</h2>
+<p style="margin-bottom:14px;color:#555;font-size:.95em">Ordnen Sie die Satzteile in die richtige Reihenfolge. ⚠️ Kommas müssen selbst gesetzt werden!</p>
+<div class="help-box">
+🔹 Das Verb steht immer auf Position 2.<br>
+🔹 Zeit vor Ort – „Wann?" kommt vor „Wo?"/„Wohin?"<br>
+🔹 Standard: Subjekt – Verb – Zeit – Ort<br>
+🔹 Auch möglich: Anderes Satzglied auf Position 1 – dann tauschen Subjekt und dieses Satzglied den Platz (Inversion). Das Verb bleibt auf Position 2.
+</div>
+<div id="sb-container"></div>
+<div class="score" id="sb-score"></div>
+<div class="btn-row">
+    <button class="btn btn-check" onclick="checkSB()">✔ Prüfen</button>
+    <button class="btn btn-show" onclick="showSB()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetSB()">↺ Neu starten</button>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ====== NAV ======
+function showSection(idx){
+    document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+// ====== GENUS (15) ======
+const GENUS_DATA=[
+    {word:"Bluthochdruck",cat:"der"},
+    {word:"Herzmuskel",cat:"der"},
+    {word:"Blutdruck",cat:"der"},
+    {word:"Herzinfarkt",cat:"der"},
+    {word:"Herzerkrankung",cat:"die"},
+    {word:"Atherosklerose",cat:"die"},
+    {word:"Kardiomyopathie",cat:"die"},
+    {word:"Schaumzelle",cat:"die"},
+    {word:"Gefäßwand",cat:"die"},
+    {word:"Stickstoffmonoxid",cat:"das"},
+    {word:"Endothel",cat:"das"},
+    {word:"Cholesterin",cat:"das"},
+    {word:"Lipoprotein",cat:"das"},
+    {word:"Blutgefäße",cat:"pl"},
+    {word:"Triglyzeride",cat:"pl"}
+];
+
+let genusSelected=null;
+function initGenus(){
+    const bank=document.getElementById('genus-bank');
+    bank.innerHTML='';
+    const shuffled=[...GENUS_DATA].sort(()=>Math.random()-.5);
+    shuffled.forEach((item,i)=>{
+        const chip=document.createElement('div');
+        chip.className='chip';chip.textContent=item.word;
+        chip.dataset.cat=item.cat;chip.dataset.word=item.word;
+        chip.draggable=true;
+        chip.addEventListener('dragstart',e=>{e.dataTransfer.setData('text',i);genusSelected=chip});
+        chip.addEventListener('click',()=>{
+            if(genusSelected===chip){genusSelected.classList.remove('selected');genusSelected=null;return}
+            if(genusSelected){genusSelected.classList.remove('selected')}
+            genusSelected=chip;chip.classList.add('selected');
+        });
+        bank.appendChild(chip);
+    });
+    document.querySelectorAll('#sec-2 .category').forEach(cat=>{
+        const dz=cat.querySelector('.drop-zone');
+        cat.addEventListener('dragover',e=>{e.preventDefault();cat.classList.add('over')});
+        cat.addEventListener('dragleave',()=>cat.classList.remove('over'));
+        cat.addEventListener('drop',e=>{
+            e.preventDefault();cat.classList.remove('over');
+            if(genusSelected){dz.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null}
+        });
+        cat.addEventListener('click',()=>{
+            if(genusSelected&&genusSelected.parentElement!==dz){
+                dz.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null;
+            }
+        });
+    });
+    bank.addEventListener('click',e=>{
+        if(e.target===bank&&genusSelected){bank.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null}
+    });
+    bank.addEventListener('dragover',e=>e.preventDefault());
+    bank.addEventListener('drop',e=>{
+        e.preventDefault();if(genusSelected){bank.appendChild(genusSelected);genusSelected.classList.remove('selected');genusSelected=null}
+    });
+    document.getElementById('genus-score').textContent='';
+}
+function checkGenus(){
+    let correct=0;
+    document.querySelectorAll('#sec-2 .chip').forEach(c=>{
+        const parent=c.closest('.category');
+        c.classList.remove('correct','wrong');
+        if(parent){
+            if(parent.dataset.cat===c.dataset.cat){c.classList.add('correct');correct++}
+            else c.classList.add('wrong');
+        }
+    });
+    document.getElementById('genus-score').textContent=`${correct} von ${GENUS_DATA.length} richtig`;
+}
+function showGenus(){
+    document.querySelectorAll('#sec-2 .chip').forEach(c=>{
+        c.classList.remove('correct','wrong','selected');
+        const target=document.querySelector(`#sec-2 .category[data-cat="${c.dataset.cat}"] .drop-zone`);
+        target.appendChild(c);c.classList.add('correct');
+    });
+    document.getElementById('genus-score').textContent='Lösungen angezeigt';
+}
+function resetGenus(){genusSelected=null;document.querySelectorAll('#sec-2 .chip').forEach(c=>c.classList.remove('correct','wrong','selected'));initGenus()}
+initGenus();
+
+// ====== LÜCKENTEXT (10) ======
+const LUECKEN=[
+    {id:1,segments:[
+        {t:"Herzerkrankungen sind die weltweit führende "},
+        {b:"Todesursache",s:"l"},
+        {t:"."}
+    ]},
+    {id:2,segments:[
+        {t:"Insulin veranlasst die Nieren, mehr "},
+        {b:"Natrium",s:"m"},
+        {t:" festzuhalten, und wo das Natrium hingeht, folgt das "},
+        {b:"Wasser",s:"m"},
+        {t:"."}
+    ]},
+    {id:3,segments:[
+        {t:"Insulin fördert die Freisetzung von "},
+        {b:"Stickstoffmonoxid",s:"xl"},
+        {t:", das die Blutgefäße "},
+        {b:"erweitert",s:"m"},
+        {t:"."}
+    ]},
+    {id:4,segments:[
+        {t:"Bei Insulinresistenz verschiebt sich das LDL-Muster von A (harmlos) zu "},
+        {b:"B",s:"s"},
+        {t:" (gefährlich)."}
+    ]},
+    {id:5,segments:[
+        {t:"Die lipidgefüllten Zellen werden als \u201E"},
+        {b:"Schaumzellen",s:"l"},
+        {t:"\u201C bezeichnet."}
+    ]},
+    {id:6,segments:[
+        {t:"Insulinresistenz ist ein wichtiger "},
+        {b:"Atherosklerosefaktor",s:"xl"},
+        {t:"."}
+    ]},
+    {id:7,segments:[
+        {t:"Insulin entfaltet bei insulinempfindlichen Personen eine "},
+        {b:"entzündungshemmende",s:"xl"},
+        {t:" Wirkung."}
+    ]},
+    {id:8,segments:[
+        {t:"Bei einer dilatativen Kardiomyopathie vergrößert sich der "},
+        {b:"Herzmuskel",s:"l"},
+        {t:", er dehnt sich aus und wird dadurch "},
+        {b:"dünner",s:"m"},
+        {t:"."}
+    ]},
+    {id:9,segments:[
+        {t:"Ein einfacher Indikator für Insulinresistenz ist das Verhältnis von "},
+        {b:"Triglyzeriden",s:"l"},
+        {t:" zu "},
+        {b:"HDL",s:"s"},
+        {t:"."}
+    ]},
+    {id:10,segments:[
+        {t:"Die Insulinresistenz ist die wichtigste "},
+        {b:"Variable",s:"m"},
+        {t:" bei Herzerkrankungen."}
+    ]}
+];
+
+function renderLuecken(){
+    const container=document.getElementById('luecken-container');
+    container.innerHTML='';
+    LUECKEN.forEach(ex=>{
+        const div=document.createElement('div');div.className='exercise';div.dataset.id=ex.id;
+        let skipNext=false;
+        ex.segments.forEach((seg,si)=>{
+            if(skipNext){skipNext=false;return}
+            if(seg.t!==undefined){
+                const next=ex.segments[si+1];
+                const isFragment=seg.t.length>0&&!seg.t.endsWith(' ')&&next&&next.b!==undefined;
+                if(isFragment){
+                    const group=document.createElement('span');group.className='nowrap-group';
+                    group.appendChild(document.createTextNode(seg.t));
+                    const inp=document.createElement('input');
+                    inp.type='text';inp.className=`blank ${next.s}`;
+                    inp.dataset.answer=next.b;
+                    group.appendChild(inp);
+                    const sol=document.createElement('span');sol.className='solution-text';sol.textContent=next.b;
+                    group.appendChild(sol);
+                    div.appendChild(group);
+                    skipNext=true;
+                } else {
+                    div.appendChild(document.createTextNode(seg.t));
+                }
+            } else if(seg.b!==undefined){
+                const inp=document.createElement('input');
+                inp.type='text';inp.className=`blank ${seg.s}`;
+                inp.dataset.answer=seg.b;
+                div.appendChild(inp);
+                const sol=document.createElement('span');sol.className='solution-text';sol.textContent=seg.b;
+                div.appendChild(sol);
+            }
+        });
+        container.appendChild(div);
+    });
+}
+function checkLuecken(){
+    let correct=0,total=0;
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        total++;inp.classList.remove('correct','wrong');
+        if(inp.value.trim()===inp.dataset.answer){
+            inp.classList.add('correct');correct++;
+        } else if(inp.value.trim()!==''){inp.classList.add('wrong')}
+    });
+    document.getElementById('luecken-score').textContent=`${correct} von ${total} richtig`;
+}
+function showLuecken(){
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        const user=inp.value.trim();
+        const answer=inp.dataset.answer.toLowerCase();
+        const next=inp.nextElementSibling;
+        if(next&&next.classList.contains('correction-hint')) next.remove();
+        if(user===answer){
+            inp.classList.remove('wrong');inp.classList.add('correct');
+        } else {
+            inp.classList.add('wrong');
+            const hint=document.createElement('span');
+            hint.className='correction-hint';
+            hint.textContent=inp.dataset.answer;
+            inp.insertAdjacentElement('afterend',hint);
+        }
+    });
+    document.getElementById('luecken-score').textContent='Lösungen angezeigt';
+}
+function resetLuecken(){
+    document.querySelectorAll('#sec-3 input.blank').forEach(inp=>{
+        inp.value='';inp.classList.remove('correct','wrong');
+        const next=inp.nextElementSibling;
+        if(next&&next.classList.contains('correction-hint')) next.remove();
+    });
+    document.getElementById('luecken-score').textContent='';
+}
+renderLuecken();
+
+// ====== MULTIPLE-CHOICE (10) ======
+const MC_DATA=[
+    {q:"Was ist laut Text die weltweit führende Todesursache?",
+     opts:["Krebs","Herzerkrankungen","Diabetes","Infektionskrankheiten"],correct:1},
+    {q:"Wie viele Mechanismen beschreibt der Text, durch die Insulinresistenz den Blutdruck erhöht?",
+     opts:["Zwei","Drei","Vier","Fünf"],correct:2},
+    {q:"Was passiert, wenn Insulin die Nieren veranlasst, mehr Natrium festzuhalten?",
+     opts:["Der Blutdruck sinkt","Das Blutvolumen steigt und damit der Blutdruck","Die Nieren produzieren mehr Urin","Der Cholesterinspiegel steigt"],correct:1},
+    {q:"Welches Gas erweitert normalerweise die Blutgefäße und senkt den Blutdruck?",
+     opts:["Sauerstoff","Kohlendioxid","Stickstoffmonoxid (NO)","Wasserstoff"],correct:2},
+    {q:"Was ist der Unterschied zwischen LDL-Muster A und Muster B?",
+     opts:["A ist gefährlich, B ist harmlos","A besteht aus großen Partikeln (harmlos), B aus kleinen, dichten (gefährlich)","A hat mehr Cholesterin als B","A kommt nur bei Frauen vor, B nur bei Männern"],correct:1},
+    {q:"Was passiert mit Makrophagen, die oxidiertes Fett aufnehmen?",
+     opts:["Sie sterben sofort ab","Sie werden zu Schaumzellen","Sie werden zu roten Blutkörperchen","Sie verlassen den Körper"],correct:1},
+    {q:"Welche Wirkung hat Insulin bei insulinempfindlichen Personen?",
+     opts:["Es fördert Entzündungen","Es hat keine Wirkung","Es hemmt Entzündungen","Es erhöht den Blutdruck"],correct:2},
+    {q:"Welcher Kardiomyopathie-Typ steht am stärksten mit Insulinresistenz in Verbindung?",
+     opts:["Restriktive Kardiomyopathie","Hypertrophe Kardiomyopathie","Dilatative Kardiomyopathie","Ischämische Kardiomyopathie"],correct:2},
+    {q:"Was zeigt ein Triglyzerid-HDL-Verhältnis über 3 an?",
+     opts:["Gute Herzgesundheit","Hohe Wahrscheinlichkeit einer Insulinresistenz","Zu wenig Cholesterin","Vitamin-D-Mangel"],correct:1},
+    {q:"Was ist die Kernaussage des Fazits?",
+     opts:["Cholesterin ist die wichtigste Variable bei Herzerkrankungen","Medikamente sind die beste Lösung","Insulinresistenz ist die wichtigste Variable bei Herzerkrankungen","Sport allein reicht aus"],correct:2}
+];
+
+function renderMC(){
+    const container=document.getElementById('mc-container');
+    container.innerHTML='';
+    MC_DATA.forEach((item,qi)=>{
+        const div=document.createElement('div');div.className='mc-question';div.dataset.qi=qi;
+        div.innerHTML=`<div class="mc-q">${qi+1}. ${item.q}</div><div class="mc-opts"></div>`;
+        const optsDiv=div.querySelector('.mc-opts');
+        item.opts.forEach((opt,oi)=>{
+            const o=document.createElement('div');o.className='mc-opt';o.textContent=opt;
+            o.dataset.qi=qi;o.dataset.oi=oi;
+            o.addEventListener('click',()=>{
+                div.querySelectorAll('.mc-opt').forEach(x=>x.classList.remove('selected'));
+                o.classList.add('selected');
+            });
+            optsDiv.appendChild(o);
+        });
+        container.appendChild(div);
+    });
+}
+function checkMC(){
+    let correct=0;
+    MC_DATA.forEach((item,qi)=>{
+        const sel=document.querySelector(`.mc-question[data-qi="${qi}"] .mc-opt.selected`);
+        document.querySelectorAll(`.mc-question[data-qi="${qi}"] .mc-opt`).forEach(o=>o.classList.remove('correct','wrong'));
+        if(sel){
+            if(parseInt(sel.dataset.oi)===item.correct){sel.classList.add('correct');correct++}
+            else{sel.classList.add('wrong');document.querySelectorAll(`.mc-question[data-qi="${qi}"] .mc-opt`)[item.correct].classList.add('correct')}
+        }
+    });
+    document.getElementById('mc-score').textContent=`${correct} von ${MC_DATA.length} richtig`;
+}
+function showMC(){
+    MC_DATA.forEach((item,qi)=>{
+        document.querySelectorAll(`.mc-question[data-qi="${qi}"] .mc-opt`).forEach((o,oi)=>{
+            o.classList.remove('selected','wrong');
+            o.classList.toggle('correct',oi===item.correct);
+        });
+    });
+    document.getElementById('mc-score').textContent='Lösungen angezeigt';
+}
+function resetMC(){
+    document.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('selected','correct','wrong'));
+    document.getElementById('mc-score').textContent='';
+}
+renderMC();
+
+// ====== SATZBAU (10) ======
+const SATZBAU=[
+    {id:1,
+     parts:["Herzerkrankungen","sind","die weltweit führende Todesursache"],
+     valid:[
+         ["Herzerkrankungen","sind","die weltweit führende Todesursache"]
+     ]},
+    {id:2,
+     parts:["Insulin","veranlasst","die Nieren",",","mehr Natrium festzuhalten"],
+     valid:[
+         ["Insulin","veranlasst","die Nieren",",","mehr Natrium festzuhalten"]
+     ]},
+    {id:3,
+     parts:["bei Insulinresistenz","verschiebt","sich","das LDL-Muster","von A zu B"],
+     valid:[
+         ["bei Insulinresistenz","verschiebt","sich","das LDL-Muster","von A zu B"],
+         ["das LDL-Muster","verschiebt","sich","bei Insulinresistenz","von A zu B"]
+     ]},
+    {id:4,
+     parts:["die Situation","kippt","bei starkem oxidativem Stress"],
+     valid:[
+         ["die Situation","kippt","bei starkem oxidativem Stress"],
+         ["bei starkem oxidativem Stress","kippt","die Situation"]
+     ]},
+    {id:5,
+     parts:["die Mischung aus Schaumzellen und Lipiden","bildet","schließlich","den Kern der atherosklerotischen Plaque"],
+     valid:[
+         ["die Mischung aus Schaumzellen und Lipiden","bildet","schließlich","den Kern der atherosklerotischen Plaque"],
+         ["schließlich","bildet","die Mischung aus Schaumzellen und Lipiden","den Kern der atherosklerotischen Plaque"]
+     ]},
+    {id:6,
+     parts:["Insulin","fördert","normalerweise","die Freisetzung von Stickstoffmonoxid"],
+     valid:[
+         ["Insulin","fördert","normalerweise","die Freisetzung von Stickstoffmonoxid"],
+         ["normalerweise","fördert","Insulin","die Freisetzung von Stickstoffmonoxid"]
+     ]},
+    {id:7,
+     parts:["eine Insulinresistenz","erhöht","erstens","den Blutdruck"],
+     valid:[
+         ["eine Insulinresistenz","erhöht","erstens","den Blutdruck"],
+         ["erstens","erhöht","eine Insulinresistenz","den Blutdruck"]
+     ]},
+    {id:8,
+     parts:["bei einer Kardiomyopathie","reicht","die Kraft der Herzmuskeln","nicht mehr aus"],
+     valid:[
+         ["bei einer Kardiomyopathie","reicht","die Kraft der Herzmuskeln","nicht mehr aus"],
+         ["die Kraft der Herzmuskeln","reicht","bei einer Kardiomyopathie","nicht mehr aus"]
+     ]},
+    {id:9,
+     parts:["die Insulinresistenz","ist","die wichtigste Variable","bei Herzerkrankungen"],
+     valid:[
+         ["die Insulinresistenz","ist","die wichtigste Variable","bei Herzerkrankungen"]
+     ]},
+    {id:10,
+     parts:["je länger","wir so weitermachen",",","desto größer","wird","das Problem"],
+     valid:[
+         ["je länger","wir so weitermachen",",","desto größer","wird","das Problem"]
+     ]}
+];
+
+let sbSelected=null;
+function initSB(){
+    const container=document.getElementById('sb-container');
+    container.innerHTML='';
+    SATZBAU.forEach(ex=>{
+        const div=document.createElement('div');div.className='sb-exercise';
+        div.innerHTML=`<div class="sb-label">Satz ${ex.id}:</div>`;
+        const row=document.createElement('div');row.className='drop-row';row.dataset.sbId=ex.id;
+        const dot=document.createElement('span');dot.className='fixed-dot';dot.textContent='.';
+        row.appendChild(dot);
+        div.appendChild(row);
+        const bank=document.createElement('div');bank.className='chip-bank';bank.dataset.sbId=ex.id;
+        const shuffled=[...ex.parts].sort(()=>Math.random()-.5);
+        shuffled.forEach(p=>{
+            const chip=document.createElement('div');chip.className='chip';
+            if(p===','||p===';'||p===':') chip.classList.add('punct');
+            chip.textContent=p;chip.dataset.orig=p;chip.draggable=true;
+            chip.addEventListener('click',()=>handleSBClick(chip,ex.id));
+            chip.addEventListener('dragstart',e=>{sbSelected=chip;e.dataTransfer.setData('text','sb')});
+            bank.appendChild(chip);
+        });
+        div.appendChild(bank);
+        const result=document.createElement('div');result.className='sb-result';result.id=`sb-result-${ex.id}`;
+        div.appendChild(result);
+        row.addEventListener('dragover',e=>{e.preventDefault();row.classList.add('over')});
+        row.addEventListener('dragleave',()=>row.classList.remove('over'));
+        row.addEventListener('drop',e=>{
+            e.preventDefault();row.classList.remove('over');
+            if(sbSelected){
+                const chips=[...row.querySelectorAll('.chip')];
+                let inserted=false;
+                for(const ch of chips){
+                    if(ch===sbSelected)continue;
+                    const rect=ch.getBoundingClientRect();
+                    if(e.clientX<rect.left+rect.width/2){row.insertBefore(sbSelected,ch);inserted=true;break}
+                }
+                if(!inserted)row.insertBefore(sbSelected,dot);
+                updateCaps(ex.id);sbSelected=null;
+            }
+        });
+        bank.addEventListener('dragover',e=>e.preventDefault());
+        bank.addEventListener('drop',e=>{
+            e.preventDefault();
+            if(sbSelected){bank.appendChild(sbSelected);updateCaps(ex.id);sbSelected=null}
+        });
+        container.appendChild(div);
+    });
+}
+function handleSBClick(chip,exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    const dot=row.querySelector('.fixed-dot');
+    if(chip.parentElement===bank){
+        if(sbSelected&&sbSelected!==chip&&sbSelected.parentElement===row){
+            row.insertBefore(chip,sbSelected);sbSelected.classList.remove('selected');sbSelected=null;
+        } else {
+            row.insertBefore(chip,dot);
+        }
+    } else if(chip.parentElement===row){
+        if(sbSelected===chip){chip.classList.remove('selected');sbSelected=null;bank.appendChild(chip)}
+        else{
+            if(sbSelected)sbSelected.classList.remove('selected');
+            sbSelected=chip;chip.classList.add('selected');
+        }
+    }
+    updateCaps(exId);
+}
+function updateCaps(exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')].forEach(c=>{
+        if(c.dataset.orig)c.textContent=c.dataset.orig;
+    });
+    const first=row.querySelector('.chip');
+    if(first&&first.textContent!=='.'&&!first.classList.contains('punct'))
+        first.textContent=first.textContent.charAt(0).toUpperCase()+first.textContent.slice(1);
+}
+function checkSB(){
+    let correct=0;
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const chips=[...row.querySelectorAll('.chip')];
+        const answer=chips.map(c=>c.dataset.orig);
+        const isCorrect=ex.valid.some(v=>v.length===answer.length&&v.every((p,i)=>p===answer[i]));
+        const result=document.getElementById(`sb-result-${ex.id}`);
+        result.className='sb-result '+(isCorrect?'correct':'wrong');
+        result.textContent=isCorrect?'✓ Richtig!':'✗ Nicht korrekt';
+        if(isCorrect)correct++;
+    });
+    document.getElementById('sb-score').textContent=`${correct} von ${SATZBAU.length} richtig`;
+}
+function showSB(){
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const bank=document.querySelector(`.chip-bank[data-sb-id="${ex.id}"]`);
+        const dot=row.querySelector('.fixed-dot');
+        const allChips=[...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')];
+        allChips.forEach(c=>bank.appendChild(c));
+        ex.valid[0].forEach(part=>{
+            const chip=allChips.find(c=>c.dataset.orig===part);
+            if(chip){row.insertBefore(chip,dot);chip.classList.add('correct')}
+        });
+        updateCaps(ex.id);
+        const result=document.getElementById(`sb-result-${ex.id}`);
+        result.className='sb-result correct';result.textContent='Lösung angezeigt';
+    });
+    document.getElementById('sb-score').textContent='Lösungen angezeigt';
+}
+function resetSB(){
+    sbSelected=null;
+    document.querySelectorAll('#sec-5 .chip').forEach(c=>{c.classList.remove('correct','wrong','selected')});
+    document.querySelectorAll('#sec-5 .sb-result').forEach(r=>{r.className='sb-result';r.textContent=''});
+    document.getElementById('sb-score').textContent='';
+    initSB();
+}
+initSB();
+</script>
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

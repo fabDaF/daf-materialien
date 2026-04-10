@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Trolley-Problem – Interaktive Übungen</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:18px}
+.container{max-width:820px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.2);overflow:hidden}
+.header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:24px;text-align:center}
+.header h1{font-size:1.5em;margin-bottom:4px}
+.header p{opacity:.9;font-size:.95em}
+.nav{display:flex;flex-wrap:wrap;background:#f0f0f0;border-bottom:2px solid #e0e0e0}
+.nav-btn{flex:1;min-width:120px;padding:10px 6px;text-align:center;cursor:pointer;font-size:.8em;border-bottom:3px solid transparent;transition:.2s;color:#555}
+.nav-btn:hover{background:#e8e8e8}
+.nav-btn.active{background:#fff;color:#667eea;border-bottom-color:#667eea;font-weight:600}
+.section{display:none;padding:24px}
+.section.active{display:block}
+.section h2{color:#333;margin-bottom:6px;font-size:1.15em}
+.section .intro{color:#777;font-size:.9em;margin-bottom:16px}
+/* Vorentlastung */
+.vocab-card{background:#f8f9ff;border-left:4px solid #667eea;padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.vocab-term{font-weight:700;color:#333;font-size:1.05em}
+.vocab-def{color:#555;margin-top:4px;font-size:.95em}
+.vocab-example{color:#777;font-style:italic;margin-top:4px;font-size:.9em}
+/* Originaltext */
+.text-block{background:#f8f9ff;border-radius:12px;padding:20px 24px;line-height:1.8;color:#333;font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
+.text-block p{margin-bottom:14px;text-align:justify}
+.text-block .section-label{font-weight:700;color:#667eea;margin-top:20px;margin-bottom:8px;font-family:'Segoe UI',sans-serif;font-size:.9em;text-transform:uppercase;letter-spacing:1px}
+.text-block hr{border:none;border-top:1px solid #ddd;margin:18px 0}
+/* Genus */
+.chip-bank{min-height:50px;background:#f8f9ff;border:2px dashed #ccc;border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:600px){.categories{grid-template-columns:repeat(2,1fr)}}
+.category{background:#f8f9ff;border-radius:12px;padding:10px;min-height:100px;text-align:center}
+.category h3{font-size:.9em;color:#667eea;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #667eea}
+.drop-zone{min-height:50px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{display:inline-block;padding:6px 14px;border-radius:20px;font-size:.9em;cursor:grab;transition:.2s;background:#667eea;color:#fff;user-select:none}
+.chip:active{cursor:grabbing;transform:scale(1.05)}
+.chip.correct{background:#27ae60!important}
+.chip.wrong{background:#e74c3c!important}
+.chip.selected-chip{outline:3px solid #f39c12;outline-offset:2px}
+/* Lückentext */
+.luecke-satz{background:#f8f9ff;border-radius:10px;padding:14px 18px;margin-bottom:10px;line-height:2.2;font-size:.97em}
+.nowrap-group{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
+input.blank{border:none;border-bottom:2px solid #667eea;background:transparent;padding:2px 4px;font-size:.95em;text-align:center;outline:none;transition:.2s;font-family:inherit}
+input.blank:focus{border-bottom-color:#764ba2;background:#f0f0ff}
+input.blank.s{min-width:50px;width:50px}
+input.blank.m{min-width:90px;width:90px}
+input.blank.l{min-width:150px;width:150px}
+input.blank.xl{min-width:200px;width:200px}
+input.blank.correct{border-bottom-color:#27ae60;background:#e8f5e9;color:#27ae60}
+input.blank.wrong{border-bottom-color:#e74c3c;background:#fce4ec;color:#e74c3c}
+.solution-text{display:none;color:#27ae60;font-size:.85em;font-weight:600;margin-left:4px}
+/* Multiple-Choice */
+.mc-question{background:#f8f9ff;border-radius:12px;padding:16px;margin-bottom:14px}
+.mc-question p{font-weight:600;margin-bottom:10px;color:#333}
+.mc-opts{display:flex;flex-direction:column;gap:8px}
+.mc-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
+.mc-opt:hover{border-color:#667eea;background:#f8f9ff}
+.mc-opt.selected{border-color:#667eea;background:rgba(102,126,234,.15)}
+.mc-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.1)}
+.mc-opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.1)}
+/* Satzbau */
+.sb-exercise{background:#f8f9ff;border-radius:12px;padding:14px;margin-bottom:14px}
+.sb-exercise .sb-label{font-weight:600;color:#667eea;font-size:.85em;margin-bottom:8px}
+.drop-row{min-height:44px;background:#fff;border:2px dashed #667eea;border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.drop-row .chip{background:#764ba2}
+.fixed-dot{font-weight:700;font-size:1.1em;color:#333;padding:0 4px}
+.sb-bank{min-height:44px;display:flex;flex-wrap:wrap;gap:6px}
+.help-box{background:#fff3cd;border-left:4px solid #f39c12;padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:16px;font-size:.88em;color:#856404;line-height:1.6}
+/* Buttons */
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 20px;border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:.9em;transition:.2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.btn-check{background:#667eea}
+.btn-solve{background:#f39c12}
+.btn-reset{background:#95a5a6}
+.score{margin-top:12px;font-weight:600;color:#333;font-size:.95em}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Das Trolley-Problem</h1>
+<p>Ein moralisches Dilemma – Interaktive Übungen (B1+)</p>
+</div>
+<div class="nav">
+<div class="nav-btn active" onclick="showSection(0)">📖 Vorentlastung</div>
+<div class="nav-btn" onclick="showSection(1)">📄 Originaltext</div>
+<div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+<div class="nav-btn" onclick="showSection(3)">✏️ Lückentext</div>
+<div class="nav-btn" onclick="showSection(4)">❓ Multiple-Choice</div>
+<div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+</div>
+
+<!-- TAB 0: Vorentlastung -->
+<div class="section active" id="sec-0">
+<h2>📖 Vorentlastung</h2>
+<p class="intro">Lernen Sie diese Wörter, bevor Sie den Originaltext lesen.</p>
+
+<div class="vocab-card">
+<div class="vocab-term">das Dilemma, Dilemmata</div>
+<div class="vocab-def">Eine Situation, in der man zwischen zwei Möglichkeiten wählen muss – und beide sind schlecht. (griechisch: di = zwei, lemma = Annahme)</div>
+<div class="vocab-example">„Bei echten moralischen Dilemmata stehen zwei berechtigte Prinzipien gegeneinander.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">der Weichenhebel, -</div>
+<div class="vocab-def">Ein mechanisches Gerät an Bahngleisen, mit dem man die Richtung eines Zuges ändern kann.</div>
+<div class="vocab-example">„Direkt neben dir steht ein alter Weichenhebel, verrostet, aber funktionsfähig.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">die Güterbahn, -en</div>
+<div class="vocab-def">Ein Zug, der Waren (keine Personen) transportiert. Synonym: der Güterzug.</div>
+<div class="vocab-example">„Eine Güterbahn, ohne Bremslicht, ohne Hupe – offenbar außer Kontrolle.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">das Unterlassen, kein Plural</div>
+<div class="vocab-def">Wenn man etwas absichtlich <em>nicht</em> tut, obwohl man es tun könnte. Das Gegenteil von „Handeln“.</div>
+<div class="vocab-example">„Denn Unterlassen ist, wenn man die Wahl hatte, auch eine Handlung.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">die Rechengröße, -n</div>
+<div class="vocab-def">Etwas, das man in Zahlen ausdrücken und berechnen kann. Hier: Menschen werden wie Zahlen behandelt.</div>
+<div class="vocab-example">„Menschen sind keine Rechengrößen.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">die Barbarei, -en</div>
+<div class="vocab-def">Grausames, unmenschliches Verhalten. Das Gegenteil von Zivilisation.</div>
+<div class="vocab-example">„Der Unterschied zwischen Zivilisation und Barbarei liegt genau darin, dass wir unschuldige Menschen nicht zu Mitteln machen.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">ermächtigen, ermächtigte, hat ermächtigt</div>
+<div class="vocab-def">Jemandem offiziell die Erlaubnis oder das Recht geben, etwas zu tun. Synonym: bevollmächtigen.</div>
+<div class="vocab-example">„Niemand hat dich ermächtigt, ein Menschenleben gegen ein anderes aufzuwiegen.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">aufwiegen, wog auf, hat aufgewogen</div>
+<div class="vocab-def">Zwei Dinge vergleichen und entscheiden, welches mehr wert ist. (wiegen = auf eine Waage legen)</div>
+<div class="vocab-example">„Niemand hat dich ermächtigt, ein Menschenleben gegen ein anderes aufzuwiegen.“</div>
+</div>
+
+<div class="vocab-card">
+<div class="vocab-term">vergeblich (Adjektiv)</div>
+<div class="vocab-def">Ohne Erfolg, umsonst. Man versucht etwas, aber es funktioniert nicht.</div>
+<div class="vocab-example">„Fünf Familien, die heute Abend vergeblich auf ihre Angehörigen warten, sind fünf Tragödien.“</div>
+</div>
+</div>
+
+<!-- TAB 1: Originaltext -->
+<div class="section" id="sec-1">
+<h2>📄 Originaltext</h2>
+<p class="intro">Lesen Sie nun den Originaltext. Sie können jederzeit zur Vorentlastung zurückwechseln.</p>
+<div class="text-block">
+<p class="section-label">Die Szene</p>
+<p>Du bist allein an einem kleinen Bahnübergang irgendwo am Stadtrand. Es ist früher Morgen, die Luft riecht nach Gras und Schmieröl. Vor dir teilt sich das Gleis in zwei Stränge – links und rechts. Direkt neben dir steht ein alter Weichenhebel, verrostet, aber funktionsfähig.</p>
+<p>Dann hörst du es. Ein tiefes Grollen von links, schnell lauter werdend. Eine Güterbahn, ohne Bremslicht, ohne Hupe – offenbar außer Kontrolle. Du siehst sie durch die Kurve brechen.</p>
+<p>Und dann siehst du die Menschen.</p>
+<p>Auf dem linken Gleis – dem Gleis, auf das die Bahn zurast – stehen fünf Arbeiter. Warnwesten, Werkzeug in der Hand, den Rücken zur Bahn. Keiner dreht sich um.</p>
+<p>Auf dem rechten Gleis steht ein einzelner Mann. Er trinkt Kaffee aus einer Thermoskanne und schaut auf sein Handy.</p>
+<p>Deine Hand liegt auf dem Weichenhebel. Er lässt sich bewegen, du hast es vorhin ausprobiert.</p>
+<p>Wenn du nichts tust, sterben fünf. Wenn du den Hebel umlegst, stirbt einer.</p>
+<p>Du hast vielleicht noch acht Sekunden.</p>
+
+<hr>
+
+<p class="section-label">Für das Umlegen des Hebels</p>
+<p>Du hast die Macht, fünf Menschenleben zu retten. Wer diese Macht hat und sie nicht nutzt, trägt Verantwortung für das, was geschieht. Nichtstun ist hier keine neutrale Haltung – es ist eine Entscheidung, fünf Menschen sterben zu lassen, obwohl du es hättest verhindern können. Der Mann auf dem rechten Gleis wäre ein tragisches Opfer, ja. Aber fünf Familien, die heute Abend vergeblich auf ihre Angehörigen warten, sind fünf Tragödien. Wer rechnen kann, muss handeln. Und wer sich hinter dem Argument versteckt, er habe ja „nichts getan“, der macht es sich zu leicht. Denn Unterlassen ist, wenn man die Wahl hatte, auch eine Handlung. Du legst den Hebel um, du trägst die Last – aber du trägst sie für fünf gerettete Leben.</p>
+
+<hr>
+
+<p class="section-label">Gegen das Umlegen des Hebels</p>
+<p>Der Mann auf dem rechten Gleis steht dort in vollkommener Sicherheit. Er trinkt seinen Kaffee, er denkt an seinen Tag, vielleicht an seine Kinder. Er wird sterben, weil <em>du</em> eine Entscheidung triffst. Nicht der Zufall, nicht ein technischer Defekt – du. Du machst dich zum Richter über sein Leben. Mit welchem Recht? Niemand hat dich ermächtigt, ein Menschenleben gegen ein anderes aufzuwiegen. Menschen sind keine Rechengrößen. Und wenn du heute den Hebel umlegst, wo endet das? Darf ein Arzt einen gesunden Patienten töten, um mit seinen Organen fünf andere zu retten? Die Rechnung wäre dieselbe. Der Unterschied zwischen Zivilisation und Barbarei liegt genau darin, dass wir unschuldige Menschen nicht zu Mitteln machen – auch nicht für einen guten Zweck. Die fünf auf dem linken Gleis sind Opfer eines Unglücks. Der eine auf dem rechten Gleis wäre Opfer <em>deiner Entscheidung</em>. Das ist nicht dasselbe.</p>
+</div>
+</div>
+
+<!-- TAB 2: Genus -->
+<div class="section" id="sec-2">
+<h2>🔤 Genus – der, die, das oder Plural?</h2>
+<p class="intro">Ordnen Sie die Nomen dem richtigen Artikel zu.</p>
+<div class="chip-bank" id="genus-bank"></div>
+<div class="categories" id="genus-cats">
+<div class="category" data-cat="der"><h3>der</h3><div class="drop-zone"></div></div>
+<div class="category" data-cat="die"><h3>die</h3><div class="drop-zone"></div></div>
+<div class="category" data-cat="das"><h3>das</h3><div class="drop-zone"></div></div>
+<div class="category" data-cat="pl"><h3>Plural (die)</h3><div class="drop-zone"></div></div>
+</div>
+<div class="btn-row">
+<button class="btn btn-check" onclick="checkGenus()">✔ Prüfen</button>
+<button class="btn btn-solve" onclick="solveGenus()">👁 Lösungen</button>
+<button class="btn btn-reset" onclick="resetGenus()">↺ Neu starten</button>
+</div>
+<div class="score" id="genus-score"></div>
+</div>
+
+<!-- TAB 3: Lückentext -->
+<div class="section" id="sec-3">
+<h2>✏️ Lückentext</h2>
+<p class="intro">Ergänzen Sie die fehlenden Wörter aus dem Text.</p>
+<div id="luecken-container"></div>
+<div class="btn-row">
+<button class="btn btn-check" onclick="checkLuecken()">✔ Prüfen</button>
+<button class="btn btn-solve" onclick="solveLuecken()">👁 Lösungen</button>
+<button class="btn btn-reset" onclick="resetLuecken()">↺ Neu starten</button>
+</div>
+<div class="score" id="luecken-score"></div>
+</div>
+
+<!-- TAB 4: Multiple-Choice -->
+<div class="section" id="sec-4">
+<h2>❓ Multiple-Choice – Textverständnis</h2>
+<p class="intro">Wählen Sie die richtige Antwort.</p>
+<div id="mc-container"></div>
+<div class="btn-row">
+<button class="btn btn-check" onclick="checkMC()">✔ Prüfen</button>
+<button class="btn btn-solve" onclick="solveMC()">👁 Lösungen</button>
+<button class="btn btn-reset" onclick="resetMC()">↺ Neu starten</button>
+</div>
+<div class="score" id="mc-score"></div>
+</div>
+
+<!-- TAB 5: Satzbau -->
+<div class="section" id="sec-5">
+<h2>🧩 Satzbau</h2>
+<p class="intro">Ordnen Sie die Satzglieder in die richtige Reihenfolge.</p>
+<div class="help-box">
+🔹 Das Verb steht immer auf Position 2.<br>
+🔹 Zeit vor Ort – „Wann?“ kommt vor „Wo?“/„Wohin?“<br>
+🔹 Standard: Subjekt – Verb – Zeit – Ort<br>
+🔹 Auch möglich: Zeit auf Position 1 – dann tauschen Subjekt und Zeitangabe den Platz (Inversion). Das Verb bleibt auf Position 2.
+</div>
+<div id="sb-container"></div>
+<div class="btn-row">
+<button class="btn btn-check" onclick="checkSB()">✔ Prüfen</button>
+<button class="btn btn-solve" onclick="solveSB()">👁 Lösungen</button>
+<button class="btn btn-reset" onclick="resetSB()">↺ Neu starten</button>
+</div>
+<div class="score" id="sb-score"></div>
+</div>
+</div>
+
+<script>
+// === TAB NAVIGATION ===
+function showSection(idx){
+    document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+// === GENUS DATA ===
+const GENUS_DATA=[
+    {word:"Weichenhebel",cat:"der"},
+    {word:"Bahnübergang",cat:"der"},
+    {word:"Stadtrand",cat:"der"},
+    {word:"Güterbahn",cat:"die"},
+    {word:"Verantwortung",cat:"die"},
+    {word:"Barbarei",cat:"die"},
+    {word:"Haltung",cat:"die"},
+    {word:"Dilemma",cat:"das"},
+    {word:"Gleis",cat:"das"},
+    {word:"Werkzeug",cat:"das"},
+    {word:"Menschenleben",cat:"pl"},
+    {word:"Rechengrößen",cat:"pl"},
+    {word:"Angehörigen",cat:"pl"}
+];
+
+// === LÜCKENTEXT DATA ===
+const LUECKEN=[
+    {id:1,segments:[
+        {t:"Vor dir teilt sich das Gleis in zwei "},
+        {b:"Stränge",s:"m"},
+        {t:" – links und rechts."}
+    ]},
+    {id:2,segments:[
+        {t:"Eine Güterbahn, ohne Bremslicht, ohne Hupe – offenbar außer "},
+        {b:"Kontrolle",s:"m"},
+        {t:"."}
+    ]},
+    {id:3,segments:[
+        {t:"Nichtstun ist hier keine "},
+        {b:"neutrale",s:"l"},
+        {t:" Haltung – es ist eine "},
+        {b:"Entscheidung",s:"l"},
+        {t:", fünf Menschen sterben zu lassen."}
+    ]},
+    {id:4,segments:[
+        {t:"Wer sich hinter dem Argument "},
+        {b:"versteckt",s:"m"},
+        {t:", er habe ja \u201Enichts getan\u201C, der macht es sich zu "},
+        {b:"leicht",s:"m"},
+        {t:"."}
+    ]},
+    {id:5,segments:[
+        {t:"Du machst dich zum "},
+        {b:"Richter",s:"m"},
+        {t:" über sein Leben."}
+    ]},
+    {id:6,segments:[
+        {t:"Niemand hat dich "},
+        {b:"ermächtigt",s:"l"},
+        {t:", ein Menschenleben gegen ein anderes "},
+        {b:"aufzuwiegen",s:"l"},
+        {t:"."}
+    ]},
+    {id:7,segments:[
+        {t:"Der Unterschied zwischen "},
+        {b:"Zivilisation",s:"l"},
+        {t:" und "},
+        {b:"Barbarei",s:"m"},
+        {t:" liegt genau darin, dass wir unschuldige Menschen nicht zu Mitteln machen."}
+    ]}
+];
+
+// === MC DATA ===
+const MC_DATA=[
+    {q:"Was ist das zentrale moralische Problem beim Trolley-Dilemma?",
+     opts:["Ob man einen Zug stoppen darf","Ob man einen Menschen opfern darf, um mehrere zu retten","Ob Gleisarbeiter Gehörschutz tragen sollten","Ob man fremdes Eigentum beschädigen darf"],
+     correct:1},
+    {q:"Wo spielt die Szene?",
+     opts:["An einem Hauptbahnhof","In einer Fabrik","An einem kleinen Bahnübergang am Stadtrand","Auf einer Autobahnbrücke"],
+     correct:2},
+    {q:"Warum hören die fünf Arbeiter die Bahn nicht?",
+     opts:["Sie schlafen","Sie tragen Gehörschutz","Sie sind taub","Sie streiten laut"],
+     correct:1},
+    {q:"Was macht der einzelne Mann auf dem rechten Gleis?",
+     opts:["Er repariert die Schienen","Er trinkt Kaffee und schaut auf sein Handy","Er wartet auf den Zug","Er telefoniert mit seiner Frau"],
+     correct:1},
+    {q:"Welches Argument spricht FÜR das Umlegen des Hebels?",
+     opts:["Der einzelne Mann ist ein Verbrecher","Wer die Macht hat zu helfen und nicht handelt, trägt Verantwortung","Die fünf Arbeiter sind wichtiger","Der Hebel muss regelmäßig betätigt werden"],
+     correct:1},
+    {q:"Was bedeutet der Satz: \u201EUnterlassen ist auch eine Handlung\u201C?",
+     opts:["Man muss immer etwas tun","Auch Nichtstun ist eine bewusste Entscheidung, wenn man hätte handeln können","Unterlassen ist illegal","Man darf niemals untätig sein"],
+     correct:1},
+    {q:"Welches Argument spricht GEGEN das Umlegen des Hebels?",
+     opts:["Der Hebel ist zu schwer","Man hat kein Recht, einen sicheren Menschen zum Opfer zu machen","Fünf Leben sind weniger wert als eines","Die Bahn wird von selbst bremsen"],
+     correct:1},
+    {q:"Welchen Vergleich zieht der Text im Argument gegen das Umlegen?",
+     opts:["Ein Kapitän, der ein Schiff opfert","Ein Arzt, der einen Gesunden tötet, um mit seinen Organen fünf andere zu retten","Ein Soldat im Krieg","Ein Richter, der ein Urteil fällt"],
+     correct:1},
+    {q:"Was meint der Text mit: \u201EMenschen sind keine Rechengr\u00F6\u00DFen\u201C?",
+     opts:["Menschen können nicht rechnen","Man darf Menschenleben nicht wie Zahlen gegeneinander aufrechnen","Mathematik ist unwichtig","Menschen sind mehr wert als Geld"],
+     correct:1},
+    {q:"Worin liegt laut Text der entscheidende Unterschied zwischen den fünf und dem einen?",
+     opts:["Die fünf sind älter","Die fünf sind Opfer eines Unglücks, der eine wäre Opfer einer bewussten Entscheidung","Der eine ist reicher","Die fünf haben Familie"],
+     correct:1}
+];
+
+// === SATZBAU DATA ===
+const SATZBAU=[
+    {id:1,
+     parts:["du","machst","dich","zum Richter","über sein Leben"],
+     valid:[
+        ["du","machst","dich","zum Richter","über sein Leben"]
+     ]},
+    {id:2,
+     parts:["Unterlassen","ist","auch","eine Handlung"],
+     valid:[
+        ["Unterlassen","ist","auch","eine Handlung"]
+     ]},
+    {id:3,
+     parts:["die fünf Arbeiter","stehen","mit Warnwesten","auf dem linken Gleis"],
+     valid:[
+        ["die fünf Arbeiter","stehen","mit Warnwesten","auf dem linken Gleis"],
+        ["mit Warnwesten","stehen","die fünf Arbeiter","auf dem linken Gleis"]
+     ]},
+    {id:4,
+     parts:["wer rechnen kann","muss","handeln"],
+     valid:[
+        ["wer rechnen kann","muss","handeln"]
+     ]},
+    {id:5,
+     parts:["der Mann","trinkt","in vollkommener Sicherheit","seinen Kaffee","auf dem rechten Gleis"],
+     valid:[
+        ["der Mann","trinkt","in vollkommener Sicherheit","seinen Kaffee","auf dem rechten Gleis"],
+        ["in vollkommener Sicherheit","trinkt","der Mann","seinen Kaffee","auf dem rechten Gleis"]
+     ]}
+];
+
+// === GENUS LOGIC ===
+let genusSelected=null;
+function initGenus(){
+    const bank=document.getElementById('genus-bank');
+    bank.innerHTML='';
+    const shuffled=[...GENUS_DATA].sort(()=>Math.random()-.5);
+    shuffled.forEach((item,i)=>{
+        const chip=document.createElement('div');
+        chip.className='chip';chip.textContent=item.word;
+        chip.dataset.cat=item.cat;chip.dataset.idx=i;
+        chip.draggable=true;
+        chip.addEventListener('dragstart',e=>{e.dataTransfer.setData('text',i);chip.style.opacity='.5'});
+        chip.addEventListener('dragend',()=>{chip.style.opacity='1'});
+        chip.addEventListener('click',()=>{
+            if(genusSelected===chip){chip.classList.remove('selected-chip');genusSelected=null;return}
+            if(genusSelected)genusSelected.classList.remove('selected-chip');
+            genusSelected=chip;chip.classList.add('selected-chip');
+        });
+        bank.appendChild(chip);
+    });
+    document.querySelectorAll('#genus-cats .category').forEach(cat=>{
+        const dz=cat.querySelector('.drop-zone');
+        dz.addEventListener('dragover',e=>e.preventDefault());
+        dz.addEventListener('drop',e=>{
+            e.preventDefault();
+            const idx=e.dataTransfer.getData('text');
+            const chip=bank.querySelector(`[data-idx="${idx}"]`)||document.querySelector(`#genus-cats .chip[data-idx="${idx}"]`);
+            if(chip){chip.classList.remove('correct','wrong');dz.appendChild(chip)}
+        });
+        cat.addEventListener('click',()=>{
+            if(genusSelected){genusSelected.classList.remove('selected-chip','correct','wrong');dz.appendChild(genusSelected);genusSelected=null}
+        });
+    });
+    bank.addEventListener('dragover',e=>e.preventDefault());
+    bank.addEventListener('drop',e=>{
+        e.preventDefault();
+        const idx=e.dataTransfer.getData('text');
+        const chip=document.querySelector(`#genus-cats .chip[data-idx="${idx}"]`);
+        if(chip){chip.classList.remove('correct','wrong');bank.appendChild(chip)}
+    });
+    bank.addEventListener('click',e=>{
+        if(e.target===bank&&genusSelected){genusSelected.classList.remove('selected-chip','correct','wrong');bank.appendChild(genusSelected);genusSelected=null}
+    });
+    document.getElementById('genus-score').textContent='';
+}
+function checkGenus(){
+    let correct=0;
+    document.querySelectorAll('#genus-cats .chip').forEach(chip=>{
+        const parent=chip.closest('.category');
+        if(parent&&parent.dataset.cat===chip.dataset.cat){chip.classList.add('correct');chip.classList.remove('wrong');correct++}
+        else{chip.classList.add('wrong');chip.classList.remove('correct')}
+    });
+    const total=GENUS_DATA.length;
+    const placed=document.querySelectorAll('#genus-cats .chip').length;
+    document.getElementById('genus-score').textContent=`${correct} von ${total} richtig (${Math.round(correct/total*100)}%) – ${total-placed} noch nicht zugeordnet`;
+}
+function solveGenus(){
+    const bank=document.getElementById('genus-bank');bank.innerHTML='';
+    document.querySelectorAll('#genus-cats .drop-zone').forEach(dz=>dz.innerHTML='');
+    GENUS_DATA.forEach((item,i)=>{
+        const chip=document.createElement('div');chip.className='chip correct';chip.textContent=item.word;
+        document.querySelector(`#genus-cats .category[data-cat="${item.cat}"] .drop-zone`).appendChild(chip);
+    });
+    document.getElementById('genus-score').textContent='Lösungen angezeigt';
+}
+function resetGenus(){initGenus()}
+
+// === LÜCKENTEXT LOGIC ===
+function initLuecken(){
+    const container=document.getElementById('luecken-container');container.innerHTML='';
+    LUECKEN.forEach(ex=>{
+        const div=document.createElement('div');div.className='luecke-satz';
+        let blankIdx=0;
+        let lastWasFragment=false;
+        const elements=[];
+        ex.segments.forEach(seg=>{
+            if(seg.t!==undefined){
+                const endsWithoutSpace=seg.t.length>0&&seg.t[seg.t.length-1]!==' '&&seg.t[seg.t.length-1]!=='\n';
+                const span=document.createElement('span');span.textContent=seg.t;
+                elements.push({el:span,isFragment:endsWithoutSpace,isBlank:false});
+                lastWasFragment=endsWithoutSpace;
+            }
+            if(seg.b!==undefined){
+                const currentBlankIdx=blankIdx;
+                const inp=document.createElement('input');
+                inp.type='text';inp.className=`blank ${seg.s}`;
+                inp.dataset.answer=seg.b;inp.dataset.exId=ex.id;inp.dataset.bIdx=currentBlankIdx;
+                const sol=document.createElement('span');sol.className='solution-text';sol.textContent=seg.b;
+                if(lastWasFragment){
+                    const group=document.createElement('span');group.className='nowrap-group';
+                    const prev=elements.pop();
+                    group.appendChild(prev.el);group.appendChild(inp);group.appendChild(sol);
+                    elements.push({el:group,isFragment:false,isBlank:true});
+                }else{
+                    const wrapper=document.createElement('span');wrapper.appendChild(inp);wrapper.appendChild(sol);
+                    elements.push({el:wrapper,isFragment:false,isBlank:true});
+                }
+                blankIdx++;lastWasFragment=false;
+            }
+        });
+        elements.forEach(e=>div.appendChild(e.el));
+        container.appendChild(div);
+    });
+    document.getElementById('luecken-score').textContent='';
+}
+function checkLuecken(){
+    let correct=0,total=0;
+    document.querySelectorAll('#luecken-container input.blank').forEach(inp=>{
+        total++;
+        const val=inp.value.trim();
+        if(val.toLowerCase()===inp.dataset.answer){inp.classList.add('correct');inp.classList.remove('wrong');correct++}
+        else{inp.classList.add('wrong');inp.classList.remove('correct')}
+    });
+    document.getElementById('luecken-score').textContent=`${correct} von ${total} richtig (${Math.round(correct/total*100)}%)`;
+}
+function solveLuecken(){
+    document.querySelectorAll('#luecken-container input.blank').forEach(inp=>{
+        inp.value=inp.dataset.answer;inp.classList.add('correct');inp.classList.remove('wrong');
+    });
+    document.querySelectorAll('.solution-text').forEach(s=>s.style.display='none');
+    document.getElementById('luecken-score').textContent='Lösungen angezeigt';
+}
+function resetLuecken(){initLuecken()}
+
+// === MC LOGIC ===
+function initMC(){
+    const container=document.getElementById('mc-container');container.innerHTML='';
+    MC_DATA.forEach((item,qi)=>{
+        const div=document.createElement('div');div.className='mc-question';div.dataset.qi=qi;
+        const p=document.createElement('p');p.textContent=`${qi+1}. ${item.q}`;div.appendChild(p);
+        const opts=document.createElement('div');opts.className='mc-opts';
+        item.opts.forEach((opt,oi)=>{
+            const o=document.createElement('div');o.className='mc-opt';o.textContent=opt;o.dataset.oi=oi;
+            o.addEventListener('click',()=>{
+                opts.querySelectorAll('.mc-opt').forEach(x=>x.classList.remove('selected'));
+                o.classList.add('selected');
+            });
+            opts.appendChild(o);
+        });
+        div.appendChild(opts);container.appendChild(div);
+    });
+    document.getElementById('mc-score').textContent='';
+}
+function checkMC(){
+    let correct=0;
+    document.querySelectorAll('.mc-question').forEach((div,qi)=>{
+        const sel=div.querySelector('.mc-opt.selected');
+        div.querySelectorAll('.mc-opt').forEach(o=>{
+            o.classList.remove('correct','wrong');
+            if(parseInt(o.dataset.oi)===MC_DATA[qi].correct)o.classList.add('correct');
+        });
+        if(sel){
+            if(parseInt(sel.dataset.oi)===MC_DATA[qi].correct)correct++;
+            else sel.classList.add('wrong');
+        }
+    });
+    document.getElementById('mc-score').textContent=`${correct} von ${MC_DATA.length} richtig (${Math.round(correct/MC_DATA.length*100)}%)`;
+}
+function solveMC(){
+    document.querySelectorAll('.mc-question').forEach((div,qi)=>{
+        div.querySelectorAll('.mc-opt').forEach(o=>{
+            o.classList.remove('selected','wrong');
+            if(parseInt(o.dataset.oi)===MC_DATA[qi].correct)o.classList.add('correct');
+        });
+    });
+    document.getElementById('mc-score').textContent='Lösungen angezeigt';
+}
+function resetMC(){initMC()}
+
+// === SATZBAU LOGIC ===
+let sbSelected=null;
+function initSB(){
+    const container=document.getElementById('sb-container');container.innerHTML='';
+    SATZBAU.forEach(ex=>{
+        const div=document.createElement('div');div.className='sb-exercise';
+        const label=document.createElement('div');label.className='sb-label';label.textContent=`Satz ${ex.id}`;div.appendChild(label);
+        const row=document.createElement('div');row.className='drop-row';row.dataset.sbId=ex.id;
+        const dot=document.createElement('span');dot.className='fixed-dot';dot.textContent='.';
+        row.appendChild(dot);
+        row.addEventListener('dragover',e=>e.preventDefault());
+        row.addEventListener('drop',e=>{
+            e.preventDefault();
+            const data=e.dataTransfer.getData('text');
+            const chip=document.querySelector(`.chip[data-sb-uid="${data}"]`);
+            if(!chip)return;
+            chip.classList.remove('correct','wrong');
+            const chips=[...row.querySelectorAll('.chip')];
+            let inserted=false;
+            for(const ch of chips){
+                if(ch===chip)continue;
+                const rect=ch.getBoundingClientRect();
+                if(e.clientX<rect.left+rect.width/2){row.insertBefore(chip,ch);inserted=true;break}
+            }
+            if(!inserted)row.insertBefore(chip,dot);
+            updateCaps(ex.id);
+        });
+        div.appendChild(row);
+        const bank=document.createElement('div');bank.className='sb-bank';bank.dataset.sbId=ex.id;
+        const shuffled=[...ex.parts].sort(()=>Math.random()-.5);
+        shuffled.forEach((part,pi)=>{
+            const uid=`${ex.id}-${pi}`;
+            const chip=document.createElement('div');chip.className='chip';chip.textContent=part;
+            chip.dataset.orig=part;chip.dataset.sbId=ex.id;chip.dataset.sbUid=uid;chip.draggable=true;
+            chip.addEventListener('dragstart',e=>{e.dataTransfer.setData('text',uid);chip.style.opacity='.5'});
+            chip.addEventListener('dragend',()=>{chip.style.opacity='1'});
+            chip.addEventListener('click',()=>{
+                if(chip.parentElement.classList.contains('sb-bank')){
+                    chip.classList.remove('correct','wrong');
+                    row.insertBefore(chip,dot);updateCaps(ex.id);
+                }else if(chip.parentElement.classList.contains('drop-row')){
+                    if(sbSelected===chip){sbSelected.classList.remove('selected-chip');sbSelected=null;return}
+                    if(sbSelected&&sbSelected.dataset.sbId===chip.dataset.sbId&&sbSelected.parentElement.classList.contains('drop-row')){
+                        row.insertBefore(sbSelected,chip);sbSelected.classList.remove('selected-chip');sbSelected=null;updateCaps(ex.id);return;
+                    }
+                    if(sbSelected)sbSelected.classList.remove('selected-chip');
+                    sbSelected=chip;chip.classList.add('selected-chip');
+                }
+            });
+            chip.addEventListener('dblclick',()=>{
+                chip.classList.remove('correct','wrong','selected-chip');
+                bank.appendChild(chip);if(sbSelected===chip)sbSelected=null;updateCaps(ex.id);
+            });
+            bank.appendChild(chip);
+        });
+        div.appendChild(bank);container.appendChild(div);
+    });
+    document.getElementById('sb-score').textContent='';
+}
+function updateCaps(exId){
+    const row=document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank=document.querySelector(`.sb-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')].forEach(c=>{
+        if(c.dataset.orig)c.textContent=c.dataset.orig;
+    });
+    const first=row.querySelector('.chip');
+    if(first&&first.textContent!=='.')
+        first.textContent=first.textContent.charAt(0).toUpperCase()+first.textContent.slice(1);
+}
+function checkSB(){
+    let correct=0;
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const chips=[...row.querySelectorAll('.chip')];
+        const answer=chips.map(c=>c.dataset.orig);
+        const isCorrect=ex.valid.some(v=>v.length===answer.length&&v.every((w,i)=>w===answer[i]));
+        chips.forEach(c=>{c.classList.remove('correct','wrong');c.classList.add(isCorrect?'correct':'wrong')});
+        if(isCorrect)correct++;
+    });
+    document.getElementById('sb-score').textContent=`${correct} von ${SATZBAU.length} richtig (${Math.round(correct/SATZBAU.length*100)}%)`;
+}
+function solveSB(){
+    SATZBAU.forEach(ex=>{
+        const row=document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const bank=document.querySelector(`.sb-bank[data-sb-id="${ex.id}"]`);
+        const allChips=[...row.querySelectorAll('.chip'),...bank.querySelectorAll('.chip')];
+        const dot=row.querySelector('.fixed-dot');
+        const solution=ex.valid[0];
+        solution.forEach(word=>{
+            const chip=allChips.find(c=>c.dataset.orig===word);
+            if(chip){chip.classList.remove('wrong');chip.classList.add('correct');row.insertBefore(chip,dot)}
+        });
+        updateCaps(ex.id);
+    });
+    document.getElementById('sb-score').textContent='Lösungen angezeigt';
+}
+function resetSB(){sbSelected=null;initSB()}
+
+// === INIT ===
+initGenus();initLuecken();initMC();initSB();
+</script>
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

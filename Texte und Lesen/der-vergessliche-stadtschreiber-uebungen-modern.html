@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der vergessliche Stadtschreiber – Interaktive Übungen</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+.header h1 { font-size: 1.8em; margin-bottom: 8px; }
+.header p { opacity: 0.9; font-size: 0.95em; }
+
+.nav {
+  display: flex;
+  background: #f5f5f5;
+  border-bottom: 2px solid #e0e0e0;
+  overflow-x: auto;
+}
+.nav-btn {
+  flex: 1;
+  padding: 14px 12px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 0.85em;
+  white-space: nowrap;
+  transition: all 0.3s;
+  font-weight: 500;
+  color: #555;
+}
+.nav-btn:hover { background: #e8e8e8; }
+.nav-btn.active {
+  background: white;
+  color: #667eea;
+  border-bottom: 3px solid #667eea;
+  font-weight: 600;
+}
+
+.section {
+  display: none;
+  padding: 30px;
+  animation: fadeIn 0.4s;
+}
+.section.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.intro {
+  background: #f0f7ff;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #667eea;
+  font-size: 0.95em;
+  color: #555;
+}
+
+/* Vorentlastung */
+.vocab-card {
+  background: #f8f9ff;
+  border-left: 4px solid #667eea;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 0 8px 8px 0;
+}
+.vocab-term { font-weight: 700; color: #333; font-size: 1.05em; }
+.vocab-def { color: #555; margin-top: 4px; font-size: 0.95em; }
+.vocab-example { color: #777; font-style: italic; margin-top: 4px; font-size: 0.9em; }
+
+/* Originaltext */
+.text-block {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  line-height: 1.8;
+  color: #333;
+  font-size: 1em;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.text-block p { margin-bottom: 14px; }
+
+/* Genus */
+.genus-container { margin-top: 20px; }
+.genus-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.genus-cat {
+  background: #f0f0f0;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 120px;
+}
+.genus-cat-title {
+  font-weight: 700;
+  color: #667eea;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+.chip-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  min-height: 60px;
+}
+.chip {
+  background: white;
+  border: 2px solid #667eea;
+  color: #667eea;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: move;
+  font-weight: 500;
+  font-size: 0.9em;
+  transition: all 0.2s;
+  user-select: none;
+}
+.chip:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+.chip.placed { background: #667eea; color: white; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+
+/* Lückentext */
+.luecke-item {
+  background: #f8f9ff;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  line-height: 1.8;
+  font-size: 0.95em;
+}
+input.blank {
+  border: none;
+  border-bottom: 2px solid #667eea;
+  background: #fff;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 0.95em;
+  outline: none;
+  transition: all 0.2s;
+}
+input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+input.blank.s { min-width: 50px; width: 50px; }
+input.blank.m { min-width: 90px; width: 90px; }
+input.blank.l { min-width: 150px; width: 150px; }
+input.blank.xl { min-width: 200px; width: 200px; }
+input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+
+/* Multiple Choice */
+.mc-item {
+  background: #f8f9ff;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+}
+.mc-question {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 0.95em;
+}
+.mc-option {
+  background: white;
+  border: 2px solid #ddd;
+  padding: 10px 14px;
+  margin: 6px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9em;
+}
+.mc-option:hover { border-color: #667eea; background: #f0f7ff; }
+.mc-option.selected { border-color: #667eea; background: #667eea; color: white; }
+.mc-option.correct { border-color: #27ae60; background: #27ae60; color: white; }
+.mc-option.wrong { border-color: #e74c3c; background: #e74c3c; color: white; }
+
+/* Satzbau */
+.satzbau-item {
+  background: #f8f9ff;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+}
+.drop-row {
+  background: white;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 14px;
+  min-height: 60px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.drop-row .chip { margin: 0; }
+.chip.punct { min-width: 32px; padding: 8px 10px; font-size: 1.2em; font-weight: 700; text-align: center; }
+.drop-row .chip.punct { margin-left: -4px; }
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s;
+  min-width: 140px;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.btn-check { background: #667eea; color: white; }
+.btn-solution { background: #f39c12; color: white; }
+.btn-reset { background: #95a5a6; color: white; }
+
+.score {
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #667eea;
+  margin-top: 20px;
+  padding: 14px;
+  background: #f0f7ff;
+  border-radius: 8px;
+}
+
+.help-box {
+  background: #fff3cd;
+  border-left: 4px solid #f39c12;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+  color: #856404;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Der vergessliche Stadtschreiber</h1>
+    <p>Interaktive Übungen zu Wilhelm Busch • Niveau A1-A2</p>
+  </div>
+
+  <div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)">📖 Vokabeln</div>
+    <div class="nav-btn" onclick="showSection(1)">📄 Geschichte</div>
+    <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+    <div class="nav-btn" onclick="showSection(3)">✏️ Lückentext</div>
+    <div class="nav-btn" onclick="showSection(4)">☑️ Fragen</div>
+    <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+  </div>
+
+  <!-- Sektion 1: Vorentlastung -->
+  <div class="section active" id="sec0">
+    <div class="intro">
+      Lernen Sie diese Wörter, bevor Sie die Geschichte lesen.
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">der Regenschirm, -e</div>
+      <div class="vocab-def">Ein Gegenstand, der vor Regen schützt. Man kann ihn öffnen und schließen.</div>
+      <div class="vocab-example">"Er öffnete seinen Regenschirm."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">das Restaurant, -s</div>
+      <div class="vocab-def">Ein Ort, wo man essen und trinken kann. (ähnlich: die Gaststätte, das Café)</div>
+      <div class="vocab-example">"Er kam aus dem Restaurant."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">der Heimweg, -e</div>
+      <div class="vocab-def">Der Weg nach Hause. Von einem Ort zurück nach Hause gehen.</div>
+      <div class="vocab-example">"Er ging auf dem Heimweg."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">vergessen (Verb)</div>
+      <div class="vocab-def">Etwas nicht mehr wissen oder nicht mitnehmen. (Gegenteil: sich erinnern)</div>
+      <div class="vocab-example">"Er glaubte, er hatte etwas vergessen."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">plötzlich (Adverb)</div>
+      <div class="vocab-def">Unerwartet, sehr schnell. Etwas passiert ohne Warnung.</div>
+      <div class="vocab-example">"Plötzlich hatte er ein komisches Gefühl."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">zurückgehen (Verb)</div>
+      <div class="vocab-def">Den gleichen Weg wieder zurück gehen. Zum Ausgangspunkt gehen.</div>
+      <div class="vocab-example">"Er ging zurück zum Restaurant."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">aufhören (Verb)</div>
+      <div class="vocab-def">Etwas endet, stoppt. (ähnlich: beenden, stoppen)</div>
+      <div class="vocab-example">"Der Regen hörte auf."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">schließen (Verb)</div>
+      <div class="vocab-def">Etwas zumachen. (Gegenteil: öffnen)</div>
+      <div class="vocab-example">"Er schloss seinen Regenschirm."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">merken (Verb)</div>
+      <div class="vocab-def">Etwas bemerken, etwas verstehen. Plötzlich wissen.</div>
+      <div class="vocab-example">"Er merkte, dass er nichts vergessen hatte."</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">nämlich (Adverb)</div>
+      <div class="vocab-def">Das heißt, und zwar. Wird für eine Erklärung benutzt.</div>
+      <div class="vocab-example">"Er hatte den Regenschirm, nämlich den geschlossenen."</div>
+    </div>
+  </div>
+
+  <!-- Sektion 2: Originaltext -->
+  <div class="section" id="sec1">
+    <div class="intro">
+      Lesen Sie nun die Geschichte. Sie können jederzeit zu den Vokabeln zurückwechseln.
+    </div>
+
+    <div class="text-block">
+      <p>Es war ein kalter Abend. Es regnete. Herr Dröge war Stadtschreiber. Er arbeitete im Rathaus und schrieb wichtige Dokumente.</p>
+
+      <p>Herr Dröge kam aus einem Restaurant. Er öffnete seinen Regenschirm. Seine Wohnung war weit weg, am Ende der Stadt. Er ging schnell nach Hause.</p>
+
+      <p>Er war schon fast zu Hause. Plötzlich hatte er ein komisches Gefühl. "Oh nein!", dachte er. "Ich habe etwas vergessen! Aber was?"</p>
+
+      <p>Er war sicher: Als er zum Restaurant gegangen war, hatte er etwas unter dem Arm getragen. Jetzt hatte er nichts unter dem Arm. Er musste etwas im Restaurant vergessen haben!</p>
+
+      <p>Herr Dröge ging zurück zum Restaurant. Er wollte die Sache suchen.</p>
+
+      <p>In der Nähe vom Restaurant hörte der Regen auf. Herr Dröge schloss seinen Regenschirm. Jetzt hatte er plötzlich wieder etwas unter dem Arm!</p>
+
+      <p>Da merkte er: "Aha! Ich habe nichts vergessen! Als ich zum Restaurant gegangen bin, hat es nicht geregnet. Damals hatte ich meinen Regenschirm unter dem Arm - den geschlossenen Regenschirm! Und jetzt trage ich ihn wieder unter dem Arm - den geschlossenen Regenschirm!"</p>
+    </div>
+  </div>
+
+  <!-- Sektion 3: Genus -->
+  <div class="section" id="sec2">
+    <div class="intro">
+      Ziehen Sie die Wörter in die richtige Kategorie (oder tippen Sie erst auf das Wort, dann auf die Kategorie).
+    </div>
+
+    <div class="genus-container">
+      <div class="genus-categories">
+        <div class="genus-cat" data-cat="der" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+          <div class="genus-cat-title">der</div>
+        </div>
+        <div class="genus-cat" data-cat="die" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+          <div class="genus-cat-title">die</div>
+        </div>
+        <div class="genus-cat" data-cat="das" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+          <div class="genus-cat-title">das</div>
+        </div>
+        <div class="genus-cat" data-cat="pl" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+          <div class="genus-cat-title">Plural (die)</div>
+        </div>
+      </div>
+      <div class="chip-bank" id="genusBank" ondrop="dropGenus(event)" ondragover="allowDrop(event)"></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-check" onclick="checkGenus()">✔ Prüfen</button>
+      <button class="btn btn-solution" onclick="showGenusLoesung()">👁️ Lösungen</button>
+      <button class="btn btn-reset" onclick="resetGenus()">↺ Neu starten</button>
+    </div>
+    <div class="score" id="genusScore"></div>
+  </div>
+
+  <!-- Sektion 4: Lückentext -->
+  <div class="section" id="sec3">
+    <div class="intro">
+      Ergänzen Sie die fehlenden Wörter.
+    </div>
+
+    <div id="lueckenContainer"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-check" onclick="checkLuecken()">✔ Prüfen</button>
+      <button class="btn btn-solution" onclick="showLueckenLoesung()">👁️ Lösungen</button>
+      <button class="btn btn-reset" onclick="resetLuecken()">↺ Neu starten</button>
+    </div>
+    <div class="score" id="lueckenScore"></div>
+  </div>
+
+  <!-- Sektion 5: Multiple Choice -->
+  <div class="section" id="sec4">
+    <div class="intro">
+      Wählen Sie die richtige Antwort.
+    </div>
+
+    <div id="mcContainer"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-check" onclick="checkMC()">✔ Prüfen</button>
+      <button class="btn btn-solution" onclick="showMCLoesung()">👁️ Lösungen</button>
+      <button class="btn btn-reset" onclick="resetMC()">↺ Neu starten</button>
+    </div>
+    <div class="score" id="mcScore"></div>
+  </div>
+
+  <!-- Sektion 6: Satzbau -->
+  <div class="section" id="sec5">
+    <div class="intro">
+      Bringen Sie die Wörter in die richtige Reihenfolge.
+    </div>
+
+    <div class="help-box">
+      🔹 Das Verb steht auf Position 2.<br>
+      🔹 Standard: Subjekt – Verb – Objekt<br>
+      🔹 Zeit vor Ort: "Wann?" kommt vor "Wo?"
+    </div>
+
+    <div id="satzbauContainer"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-check" onclick="checkSatzbau()">✔ Prüfen</button>
+      <button class="btn btn-solution" onclick="showSatzbauLoesung()">👁️ Lösungen</button>
+      <button class="btn btn-reset" onclick="resetSatzbau()">↺ Neu starten</button>
+    </div>
+    <div class="score" id="satzbauScore"></div>
+  </div>
+
+</div>
+
+<script>
+// Navigation
+function showSection(idx) {
+  const sections = document.querySelectorAll('.section');
+  const btns = document.querySelectorAll('.nav-btn');
+  sections.forEach((s,i) => s.classList.toggle('active', i===idx));
+  btns.forEach((b,i) => b.classList.toggle('active', i===idx));
+}
+
+// ===== GENUS =====
+const GENUS_DATA = [
+  { word: "Regenschirm", cat: "der" },
+  { word: "Abend", cat: "der" },
+  { word: "Heimweg", cat: "der" },
+  { word: "Regen", cat: "der" },
+  { word: "Arm", cat: "der" },
+  { word: "Restaurant", cat: "das" },
+  { word: "Rathaus", cat: "das" },
+  { word: "Gefühl", cat: "das" },
+  { word: "Wohnung", cat: "die" },
+  { word: "Stadt", cat: "die" },
+  { word: "Nähe", cat: "die" },
+  { word: "Sache", cat: "die" },
+  { word: "Dokumente", cat: "pl" },
+  { word: "Arme", cat: "pl" }
+];
+
+let selectedGenusChip = null;
+
+function initGenus() {
+  const bank = document.getElementById('genusBank');
+  bank.innerHTML = '';
+  GENUS_DATA.forEach((item,idx) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = item.word;
+    chip.draggable = true;
+    chip.dataset.word = item.word;
+    chip.dataset.cat = item.cat;
+    chip.id = 'genus-chip-'+idx;
+    chip.ondragstart = dragGenus;
+    chip.onclick = () => selectGenusChip(chip);
+    bank.appendChild(chip);
+  });
+}
+
+function selectGenusChip(chip) {
+  if (selectedGenusChip) selectedGenusChip.style.outline = '';
+  selectedGenusChip = chip;
+  chip.style.outline = '3px solid #f39c12';
+
+  document.querySelectorAll('.genus-cat').forEach(cat => {
+    cat.onclick = () => {
+      if (selectedGenusChip) {
+        cat.appendChild(selectedGenusChip);
+        selectedGenusChip.style.outline = '';
+        selectedGenusChip.classList.add('placed');
+        selectedGenusChip = null;
+      }
+    };
+  });
+
+  document.getElementById('genusBank').onclick = () => {
+    if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) {
+      document.getElementById('genusBank').appendChild(selectedGenusChip);
+      selectedGenusChip.classList.remove('placed');
+      selectedGenusChip.style.outline = '';
+      selectedGenusChip = null;
+    }
+  };
+}
+
+function dragGenus(e) {
+  e.dataTransfer.setData('text', e.target.id);
+}
+
+function allowDrop(e) {
+  e.preventDefault();
+}
+
+function dropGenus(e) {
+  e.preventDefault();
+  const chipId = e.dataTransfer.getData('text');
+  const chip = document.getElementById(chipId);
+  if (!chip) return;
+
+  const dropTarget = e.currentTarget;
+  dropTarget.appendChild(chip);
+
+  if (dropTarget.id === 'genusBank') {
+    chip.classList.remove('placed');
+  } else {
+    chip.classList.add('placed');
+  }
+}
+
+function checkGenus() {
+  let correct = 0;
+  document.querySelectorAll('.genus-cat').forEach(cat => {
+    const catName = cat.dataset.cat;
+    cat.querySelectorAll('.chip').forEach(chip => {
+      chip.classList.remove('correct', 'wrong');
+      if (chip.dataset.cat === catName) {
+        chip.classList.add('correct');
+        correct++;
+      } else {
+        chip.classList.add('wrong');
+      }
+    });
+  });
+  document.getElementById('genusScore').textContent = `${correct} von ${GENUS_DATA.length} richtig`;
+}
+
+function showGenusLoesung() {
+  document.querySelectorAll('.genus-cat').forEach(cat => {
+    cat.innerHTML = '<div class="genus-cat-title">'+cat.querySelector('.genus-cat-title').textContent+'</div>';
+  });
+
+  GENUS_DATA.forEach((item,idx) => {
+    const chip = document.getElementById('genus-chip-'+idx);
+    const targetCat = document.querySelector(`.genus-cat[data-cat="${item.cat}"]`);
+    targetCat.appendChild(chip);
+    chip.classList.add('placed', 'correct');
+    chip.classList.remove('wrong');
+  });
+
+  document.getElementById('genusScore').textContent = `${GENUS_DATA.length} von ${GENUS_DATA.length} richtig`;
+}
+
+function resetGenus() {
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.remove('placed', 'correct', 'wrong');
+    c.style.outline = '';
+  });
+  document.querySelectorAll('.genus-cat').forEach(cat => {
+    cat.innerHTML = '<div class="genus-cat-title">'+cat.querySelector('.genus-cat-title').textContent+'</div>';
+  });
+  initGenus();
+  document.getElementById('genusScore').textContent = '';
+  selectedGenusChip = null;
+}
+
+// ===== LÜCKENTEXT =====
+const LUECKEN = [
+  { id: 1, segments: [
+    { t: "Es war ein " },
+    { b: "kalter", s: "m" },
+    { t: " Abend." }
+  ]},
+  { id: 2, segments: [
+    { t: "Es " },
+    { b: "regnete", s: "m" },
+    { t: "." }
+  ]},
+  { id: 3, segments: [
+    { t: "Herr Dröge kam aus einem " },
+    { b: "Restaurant", s: "l" },
+    { t: "." }
+  ]},
+  { id: 4, segments: [
+    { t: "Er " },
+    { b: "öffnete", s: "m" },
+    { t: " seinen Regenschirm." }
+  ]},
+  { id: 5, segments: [
+    { t: "Er ging schnell nach " },
+    { b: "Hause", s: "m" },
+    { t: "." }
+  ]},
+  { id: 6, segments: [
+    { t: "Er glaubte, er hatte etwas " },
+    { b: "vergessen", s: "l" },
+    { t: "." }
+  ]},
+  { id: 7, segments: [
+    { t: "Er ging " },
+    { b: "zurück", s: "m" },
+    { t: " zum Restaurant." }
+  ]},
+  { id: 8, segments: [
+    { t: "Der " },
+    { b: "Regen", s: "m" },
+    { t: " hörte auf." }
+  ]},
+  { id: 9, segments: [
+    { t: "Er " },
+    { b: "schloss", s: "m" },
+    { t: " seinen Regenschirm." }
+  ]},
+  { id: 10, segments: [
+    { t: "Er hatte nichts " },
+    { b: "vergessen", s: "l" },
+    { t: "." }
+  ]}
+];
+
+function initLuecken() {
+  const container = document.getElementById('lueckenContainer');
+  container.innerHTML = '';
+
+  LUECKEN.forEach(ex => {
+    const div = document.createElement('div');
+    div.className = 'luecke-item';
+    div.id = 'luecke-'+ex.id;
+
+    ex.segments.forEach((seg,si) => {
+      if (seg.t !== undefined) {
+        const span = document.createElement('span');
+        span.textContent = seg.t;
+        div.appendChild(span);
+      } else if (seg.b !== undefined) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'blank ' + (seg.s || 'm');
+        input.dataset.answer = seg.b;
+        input.dataset.exId = ex.id;
+        input.dataset.segIdx = si;
+        div.appendChild(input);
+      }
+    });
+
+    container.appendChild(div);
+  });
+}
+
+function checkLuecken() {
+  let correct = 0;
+  let total = 0;
+  document.querySelectorAll('input.blank').forEach(inp => {
+    inp.classList.remove('correct', 'wrong');
+    const user = inp.value.trim();
+    const answer = inp.dataset.answer.toLowerCase();
+    total++;
+    if (user === answer) {
+      inp.classList.add('correct');
+      correct++;
+    } else {
+      inp.classList.add('wrong');
+    }
+  });
+  document.getElementById('lueckenScore').textContent = `${correct} von ${total} richtig`;
+}
+
+function showLueckenLoesung() {
+  let total = 0;
+  document.querySelectorAll('input.blank').forEach(inp => {
+    total++;
+    const user = inp.value.trim();
+    const answer = inp.dataset.answer.toLowerCase();
+    // Bereits vorhandene Hints entfernen
+    const oldHint = inp.parentElement.querySelector('.correction-hint');
+    if (oldHint) oldHint.remove();
+    if (user === answer) {
+      inp.classList.remove('wrong');
+      inp.classList.add('correct');
+    } else {
+      inp.classList.add('wrong');
+      const hint = document.createElement('span');
+      hint.className = 'correction-hint';
+      hint.textContent = '→ ' + inp.dataset.answer;
+      inp.insertAdjacentElement('afterend', hint);
+    }
+  });
+  document.getElementById('lueckenScore').textContent = `${total} von ${total} richtig`;
+}
+
+function resetLuecken() {
+  document.querySelectorAll('input.blank').forEach(inp => {
+    inp.value = '';
+    inp.classList.remove('correct', 'wrong');
+    const hint = inp.parentElement.querySelector('.correction-hint');
+    if (hint) hint.remove();
+  });
+  document.getElementById('lueckenScore').textContent = '';
+}
+
+// ===== MULTIPLE CHOICE =====
+const MC_DATA = [
+  {
+    q: "Wie war das Wetter?",
+    opts: ["Sonnig", "Kalt und regnerisch", "Warm", "Windig"],
+    correct: 1
+  },
+  {
+    q: "Was war Herr Dröge von Beruf?",
+    opts: ["Lehrer", "Arzt", "Stadtschreiber", "Koch"],
+    correct: 2
+  },
+  {
+    q: "Woher kam er?",
+    opts: ["Aus dem Rathaus", "Aus dem Restaurant", "Von zu Hause", "Aus der Schule"],
+    correct: 1
+  },
+  {
+    q: "Was machte er, als er aus dem Restaurant kam?",
+    opts: ["Er rief ein Taxi", "Er öffnete den Regenschirm", "Er telefonierte", "Er aß etwas"],
+    correct: 1
+  },
+  {
+    q: "Wo war seine Wohnung?",
+    opts: ["Neben dem Restaurant", "Am Ende der Stadt", "In der Stadtmitte", "Im Rathaus"],
+    correct: 1
+  },
+  {
+    q: "Was dachte er plötzlich?",
+    opts: ["Er war müde", "Er hatte Hunger", "Er hatte etwas vergessen", "Er wollte schlafen"],
+    correct: 2
+  },
+  {
+    q: "Wohin ging er dann?",
+    opts: ["Nach Hause", "Zurück zum Restaurant", "Zum Rathaus", "Zur Arbeit"],
+    correct: 1
+  },
+  {
+    q: "Was passierte beim Restaurant?",
+    opts: ["Es regnete mehr", "Der Regen hörte auf", "Es wurde dunkel", "Nichts"],
+    correct: 1
+  },
+  {
+    q: "Was machte er mit dem Regenschirm?",
+    opts: ["Er öffnete ihn", "Er schloss ihn", "Er verlor ihn", "Er kaufte einen neuen"],
+    correct: 1
+  },
+  {
+    q: "Was hatte er wirklich vergessen?",
+    opts: ["Seine Tasche", "Seinen Hut", "Nichts", "Sein Geld"],
+    correct: 2
+  }
+];
+
+let mcAnswers = {};
+
+function initMC() {
+  const container = document.getElementById('mcContainer');
+  container.innerHTML = '';
+  mcAnswers = {};
+
+  MC_DATA.forEach((item,idx) => {
+    const div = document.createElement('div');
+    div.className = 'mc-item';
+    div.innerHTML = `<div class="mc-question">${idx+1}. ${item.q}</div>`;
+
+    item.opts.forEach((opt,oi) => {
+      const optDiv = document.createElement('div');
+      optDiv.className = 'mc-option';
+      optDiv.textContent = opt;
+      optDiv.dataset.qIdx = idx;
+      optDiv.dataset.optIdx = oi;
+      optDiv.onclick = () => selectMC(idx, oi, optDiv);
+      div.appendChild(optDiv);
+    });
+
+    container.appendChild(div);
+  });
+}
+
+function selectMC(qIdx, optIdx, elem) {
+  const siblings = elem.parentElement.querySelectorAll('.mc-option');
+  siblings.forEach(s => s.classList.remove('selected'));
+  elem.classList.add('selected');
+  mcAnswers[qIdx] = optIdx;
+}
+
+function checkMC() {
+  let correct = 0;
+  MC_DATA.forEach((item,idx) => {
+    const opts = document.querySelectorAll(`.mc-option[data-q-idx="${idx}"]`);
+    opts.forEach((opt,oi) => {
+      opt.classList.remove('correct', 'wrong');
+      const isCorrect = oi === item.correct;
+      const isSelected = mcAnswers[idx] === oi;
+
+      if (isSelected) {
+        if (isCorrect) {
+          opt.classList.add('correct');
+          correct++;
+        } else {
+          opt.classList.add('wrong');
+        }
+      }
+    });
+  });
+  document.getElementById('mcScore').textContent = `${correct} von ${MC_DATA.length} richtig`;
+}
+
+function showMCLoesung() {
+  MC_DATA.forEach((item,idx) => {
+    const opts = document.querySelectorAll(`.mc-option[data-q-idx="${idx}"]`);
+    opts.forEach((opt,oi) => {
+      opt.classList.remove('selected', 'wrong');
+      if (oi === item.correct) {
+        opt.classList.add('correct', 'selected');
+      }
+    });
+  });
+  document.getElementById('mcScore').textContent = `${MC_DATA.length} von ${MC_DATA.length} richtig`;
+}
+
+function resetMC() {
+  mcAnswers = {};
+  document.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.remove('selected', 'correct', 'wrong');
+  });
+  document.getElementById('mcScore').textContent = '';
+}
+
+// ===== SATZBAU =====
+const SATZBAU = [
+  {
+    id: 1,
+    parts: ["es", "war", "ein kalter Abend"],
+    valid: [["es", "war", "ein kalter Abend"]]
+  },
+  {
+    id: 2,
+    parts: ["Herr Dröge", "kam", "aus einem Restaurant"],
+    valid: [["Herr Dröge", "kam", "aus einem Restaurant"]]
+  },
+  {
+    id: 3,
+    parts: ["er", "öffnete", "seinen Regenschirm"],
+    valid: [["er", "öffnete", "seinen Regenschirm"]]
+  },
+  {
+    id: 4,
+    parts: ["seine Wohnung", "war", "weit weg"],
+    valid: [["seine Wohnung", "war", "weit weg"]]
+  },
+  {
+    id: 5,
+    parts: ["er", "ging", "schnell", "nach Hause"],
+    valid: [
+      ["er", "ging", "schnell", "nach Hause"],
+      ["schnell", "ging", "er", "nach Hause"]
+    ]
+  },
+  {
+    id: 6,
+    parts: ["plötzlich", "hatte", "er", "ein komisches Gefühl"],
+    valid: [
+      ["plötzlich", "hatte", "er", "ein komisches Gefühl"],
+      ["er", "hatte", "plötzlich", "ein komisches Gefühl"]
+    ]
+  },
+  {
+    id: 7,
+    parts: ["er", "glaubte", ",", "er hatte etwas vergessen"],
+    valid: [["er", "glaubte", ",", "er hatte etwas vergessen"]]
+  },
+  {
+    id: 8,
+    parts: ["er", "ging", "zurück", "zum Restaurant"],
+    valid: [
+      ["er", "ging", "zurück", "zum Restaurant"],
+      ["zurück", "ging", "er", "zum Restaurant"]
+    ]
+  },
+  {
+    id: 9,
+    parts: ["der Regen", "hörte", "auf"],
+    valid: [["der Regen", "hörte", "auf"]]
+  },
+  {
+    id: 10,
+    parts: ["er", "hatte", "nichts", "vergessen"],
+    valid: [["er", "hatte", "nichts", "vergessen"]]
+  }
+];
+
+let selectedSBChip = null;
+
+function initSatzbau() {
+  const container = document.getElementById('satzbauContainer');
+  container.innerHTML = '';
+
+  SATZBAU.forEach(ex => {
+    const div = document.createElement('div');
+    div.className = 'satzbau-item';
+
+    const dropRow = document.createElement('div');
+    dropRow.className = 'drop-row';
+    dropRow.id = 'sb-drop-'+ex.id;
+    dropRow.dataset.exId = ex.id;
+    dropRow.ondrop = dropSB;
+    dropRow.ondragover = allowDrop;
+    dropRow.onclick = () => {
+      if (selectedSBChip && !selectedSBChip.parentElement.classList.contains('chip-bank')) {
+        dropRow.appendChild(selectedSBChip);
+        selectedSBChip.style.outline = '';
+        selectedSBChip = null;
+      }
+    };
+
+    const bank = document.createElement('div');
+    bank.className = 'chip-bank';
+    bank.id = 'sb-bank-'+ex.id;
+    bank.ondrop = dropSB;
+    bank.ondragover = allowDrop;
+    bank.onclick = () => {
+      if (selectedSBChip && selectedSBChip.parentElement.classList.contains('drop-row')) {
+        bank.appendChild(selectedSBChip);
+        selectedSBChip.style.outline = '';
+        selectedSBChip = null;
+      }
+    };
+
+    const shuffled = [...ex.parts].sort(() => Math.random()-0.5);
+    shuffled.forEach((p,pi) => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = p;
+      chip.draggable = true;
+      chip.dataset.text = p;
+      chip.dataset.exId = ex.id;
+      chip.id = `sb-chip-${ex.id}-${pi}`;
+      chip.ondragstart = dragSB;
+      chip.onclick = () => selectSBChip(chip);
+
+      if (p === ',') chip.classList.add('punct');
+
+      bank.appendChild(chip);
+    });
+
+    div.appendChild(dropRow);
+    const point = document.createElement('span');
+    point.textContent = '.';
+    point.style.fontSize = '1.5em';
+    point.style.marginLeft = '4px';
+    dropRow.appendChild(point);
+
+    div.appendChild(bank);
+    container.appendChild(div);
+  });
+}
+
+function selectSBChip(chip) {
+  if (selectedSBChip) selectedSBChip.style.outline = '';
+  selectedSBChip = chip;
+  chip.style.outline = '3px solid #f39c12';
+}
+
+function dragSB(e) {
+  e.dataTransfer.setData('text', e.target.id);
+}
+
+function dropSB(e) {
+  e.preventDefault();
+  const chipId = e.dataTransfer.getData('text');
+  const chip = document.getElementById(chipId);
+  if (!chip) return;
+
+  e.currentTarget.appendChild(chip);
+  updateCaps(chip.dataset.exId);
+}
+
+function updateCaps(exId) {
+  const row = document.getElementById('sb-drop-'+exId);
+  row.querySelectorAll('.chip').forEach(c => {
+    const t = c.dataset.text;
+    if (t && t.length > 0 && t[0] === t[0]) {
+      c.textContent = t.toLowerCase();
+    }
+  });
+
+  const first = row.querySelector('.chip');
+  if (first && first.textContent !== '.' && !first.classList.contains('punct')) {
+    const t = first.dataset.text;
+    if (t && t.length > 0) {
+      first.textContent = t;
+    }
+  }
+}
+
+function checkSatzbau() {
+  let correct = 0;
+  SATZBAU.forEach(ex => {
+    const row = document.getElementById('sb-drop-'+ex.id);
+    const chips = Array.from(row.querySelectorAll('.chip'));
+    const userOrder = chips.map(c => c.dataset.text);
+
+    const isCorrect = ex.valid.some(v =>
+      v.length === userOrder.length && v.every((p,i) => p === userOrder[i])
+    );
+
+    chips.forEach(c => {
+      c.classList.remove('correct', 'wrong');
+      c.classList.add(isCorrect ? 'correct' : 'wrong');
+    });
+
+    if (isCorrect) correct++;
+  });
+
+  document.getElementById('satzbauScore').textContent = `${correct} von ${SATZBAU.length} richtig`;
+}
+
+function showSatzbauLoesung() {
+  SATZBAU.forEach(ex => {
+    const row = document.getElementById('sb-drop-'+ex.id);
+    const bank = document.getElementById('sb-bank-'+ex.id);
+
+    row.innerHTML = '';
+    ex.valid[0].forEach((p,pi) => {
+      const chip = bank.querySelector(`[data-text="${p}"]`) ||
+                   row.querySelector(`[data-text="${p}"]`);
+      if (chip) {
+        row.appendChild(chip);
+        chip.classList.remove('wrong');
+        chip.classList.add('correct');
+      }
+    });
+
+    const point = document.createElement('span');
+    point.textContent = '.';
+    point.style.fontSize = '1.5em';
+    point.style.marginLeft = '4px';
+    row.appendChild(point);
+
+    updateCaps(ex.id);
+  });
+
+  document.getElementById('satzbauScore').textContent = `${SATZBAU.length} von ${SATZBAU.length} richtig`;
+}
+
+function resetSatzbau() {
+  initSatzbau();
+  document.getElementById('satzbauScore').textContent = '';
+  selectedSBChip = null;
+}
+
+// Initialize all sections
+initGenus();
+initLuecken();
+initMC();
+initSatzbau();
+</script>
+
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

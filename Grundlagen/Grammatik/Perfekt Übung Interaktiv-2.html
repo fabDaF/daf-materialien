@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfekt Übung - Interaktiv</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .verb-reference {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .verb-reference h2 {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .verb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        .verb-item {
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        
+        .verb-item strong {
+            color: #764ba2;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .exercise-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+        
+        .verb-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .sentence {
+            line-height: 2;
+            font-size: 1.1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px;
+        }
+        
+        .sentence span {
+            white-space: pre;
+        }
+        
+        input.blank {
+            border: none;
+            border-bottom: 2px solid #667eea;
+            background: transparent;
+            font-size: 1.1rem;
+            padding: 2px 8px;
+            min-width: 60px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        input.blank:focus {
+            outline: none;
+            border-bottom-color: #764ba2;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        input.blank.short {
+            min-width: 40px;
+        }
+        
+        input.blank.medium {
+            min-width: 80px;
+        }
+        
+        input.blank.long {
+            min-width: 140px;
+        }
+        
+        input.blank.correct {
+            border-bottom-color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+        }
+        
+        input.blank.incorrect {
+            border-bottom-color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+        }
+        
+        .solution {
+            display: none;
+            color: #28a745;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .solution.show {
+            display: inline;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .result-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .result-message.show {
+            display: block;
+        }
+        
+        .result-message.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 2px solid #28a745;
+        }
+        
+        .result-message.partial {
+            background: rgba(255, 193, 7, 0.1);
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .sentence {
+                font-size: 1rem;
+            }
+            
+            input.blank {
+                font-size: 1rem;
+            }
+        }
+    </style>
+<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770482648231&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADJMBJCgAAARIAEAAq9R6cCIuySqyEgV0QTeX4%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260116004.08%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770482648231&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770482648231&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F83296fb4d6af428ebf8c2e042313beef%2F6d23d4ab-3292-4c0d-a2e2-b86d6bbf3008%2Fcanvas-app%2Findex.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dfile.html%253B%2520filename%252A%253DUTF-8%2527%2527Perfekt%252520%2525C3%25259Cbung%252520Interaktiv.html%26AWSAccessKeyId%3DASIA2F3EMEYE7YWFS5B7%26Signature%3Dll1p005PJGsLdCudtbCuTYzbnYw%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEJn%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEaCXVzLWVhc3QtMSJHMEUCIQDNcYfUKGAC656BJifpE01WAeS1r8nmwFWOPbP2s36ZgQIgdzcDyZo%252FIOiVRLkuazB7sJ5bBUJz5RGkUhMb3q7xlnYq8wQIYRABGgw2OTk3NTMzMDk3MDUiDH7hhBIVZSrL3TiQZirQBPmYL%252FZuQFUoE7qlA7f93%252Bub2%252Bp6IfnNjjhOFRlVM05zJsg%252FbtDdskhawhSPXVqoSogqC6ka2W77AptnbInIUKtxWfY7mVy7Fh%252BFl5CQ8zVx6XSHuf%252B3L8dVmyxyQW6OBWkFrakK7bfWalvcCE9g41rOcXjO4QB%252Ftd43MKuPIhoC7vqEJE3XHTrzpFa%252B3DY4B19QM3W5a4dMTWBwYLk%252B1Hdl8pTFt%252BG3%252FTQnG6aIgoX4FP4OMR5r3xUF8UEHd2sXLl5R4mZ55%252FPjzFuE%252BjcX7F%252BUCrbblpQ6SAUqM9uKIWr3Qe7c5iNVqy8ePOQneXK5reh6VgVKUzIjiXlOyb6HThMTzmcq6yLcisy85sQgt%252B8o%252Fn7K3PQrCRrGtaYX6L3sc64Aj4sm6DrHD9HOe4GggRCwuIl84BzNM5vvAHsrr%252Ft60j0uxkA7D5ngmQBDHIbZGg0Z%252FhQjAXp8T7lo7NAGvljqF3lGkS7%252B9GxwG5z7ggykRKECYyunw8sRzqq2eZnnnq%252BQQfJXQIWk36so9ffisLfS%252FCXyOYjx952cTQdtJOmsL2uv4WRAt9WNUJVO306sX%252FA5iV3DMEuYXNpVcoD3VcNDuDE8ugB94S4jA23btIoHWJDMNycqHMJ5aLah0jmR8hxcid2eerKYfhzgxLDtP5meOeWOypJF76EKA1ymVOBUzOY0dJO2fmUY%252BKS2gWFEuemIz0x%252FJ%252BZC06SI7e6mp5yCE%252F0ZsG7pxKM%252BWwC5Vjc80G52eVfZQfwyQ8ECX14GR5uiFdI5D4omYUSiUMHy%252BlowncmdzAY6mAE28ndJ4t%252FdKGsMNpCbDuSG6xdg47UaZFw29xDp68z1iqi4UE%252FkM8xXQeTyvidv2fMYL61IsJnIC8TFzXmkth1oZ9Iq4x9FWiBImZT2MopXlgkiHu7rtSxIMkIrBTN0nWoEFMqeC7FtrFE8H0PsHNyK16iMqHJIdXT5VlUcDMGQQ3968zknyN5raU5LYI0ofhSh6V%252BUrOOK8A%253D%253D%26Expires%3D1770483578&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770482648231&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+    <div class="container">
+        <h1>🎯 Perfekt-Übung</h1>
+        <p class="subtitle">Ergänzen Sie die fehlenden Wörter in den Sätzen</p>
+        
+        <div class="verb-reference">
+            <h2>📚 Hilfe: Unregelmäßige Verben</h2>
+            <div class="verb-grid">
+                <div class="verb-item"><strong>sprechen</strong> → gesprochen (e → o)</div>
+                <div class="verb-item"><strong>schreiben</strong> → geschrieben (ei → ie)</div>
+                <div class="verb-item"><strong>finden</strong> → gefunden (i → u)</div>
+                <div class="verb-item"><strong>lesen</strong> → gelesen (kein Wechsel)</div>
+                <div class="verb-item"><strong>fahren</strong> → gefahren (a bleibt a)</div>
+                <div class="verb-item"><strong>kommen</strong> → gekommen (kein Wechsel)</div>
+            </div>
+        </div>
+        
+        <div id="exercises"></div>
+        
+        <div class="button-container">
+            <button onclick="checkAnswers()">✓ Lösung prüfen</button>
+            <button class="secondary" onclick="showSolutions()">👁 Lösungen anzeigen</button>
+            <button class="secondary" onclick="resetExercise()">🔄 Neu starten</button>
+        </div>
+        
+        <div id="result" class="result-message"></div>
+    </div>
+
+    <script>
+        const EXERCISES = [
+            {
+                id: 1,
+                verb: "beginnen",
+                segments: [
+                    {t: "D"}, {b: "as", s: "s"}, {t: " Konzert h"}, {b: "at", s: "s"},
+                    {t: " erst "}, {b: "um", s: "s"}, {t: " 22.30 Uhr "}, {b: "begonnen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 2,
+                verb: "wissen",
+                segments: [
+                    {t: "D"}, {b: "er", s: "s"}, {t: " Kandidat h"}, {b: "at", s: "s"},
+                    {t: " d"}, {b: "ie", s: "s"}, {t: " Antwort leider nicht "}, {b: "gewusst", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 3,
+                verb: "helfen",
+                segments: [
+                    {t: "D"}, {b: "er", s: "s"}, {t: " Junge h"}, {b: "at", s: "s"},
+                    {t: " seiner Freundin bei d"}, {b: "en", s: "s"}, {t: " Hausaufgaben "}, {b: "geholfen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 4,
+                verb: "kommen",
+                segments: [
+                    {t: "M"}, {b: "eine", s: "s"}, {t: " Eltern s"}, {b: "ind", s: "s"},
+                    {t: " erst "}, {b: "um", s: "s"}, {t: " 03.00 Uhr "}, {b: "nach", s: "s"},
+                    {t: " Hause "}, {b: "gekommen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 5,
+                verb: "lesen",
+                segments: [
+                    {t: "D"}, {b: "er", s: "s"}, {t: " Schüler h"}, {b: "at", s: "s"},
+                    {t: " d"}, {b: "as", s: "s"}, {t: " Kapitel für heute nicht "}, {b: "gelesen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 6,
+                verb: "schreiben",
+                segments: [
+                    {t: "M"}, {b: "ein", s: "s"}, {t: " Bruder h"}, {b: "at", s: "s"},
+                    {t: " mir e"}, {b: "ine", s: "s"}, {t: " E-Mail "}, {b: "geschrieben", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 7,
+                verb: "sprechen",
+                segments: [
+                    {t: "Marie h"}, {b: "at", s: "s"}, {t: " mit ihr"}, {b: "er", s: "s"},
+                    {t: " Freundin über d"}, {b: "en", s: "s"}, {t: " Urlaub "}, {b: "gesprochen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 8,
+                verb: "unterstreichen",
+                segments: [
+                    {t: "D"}, {b: "er", s: "s"}, {t: " Schüler h"}, {b: "at", s: "s"},
+                    {t: " d"}, {b: "ie", s: "s"}, {t: " unbekannten Wörter i"}, {b: "m", s: "s"},
+                    {t: " Text "}, {b: "unterstrichen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 9,
+                verb: "vorlesen",
+                segments: [
+                    {t: "D"}, {b: "ie", s: "s"}, {t: " Schülerin h"}, {b: "at", s: "s"},
+                    {t: " e"}, {b: "in", s: "s"}, {t: " Gedicht von Erich Kästner "}, {b: "vorgelesen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 10,
+                verb: "finden",
+                segments: [
+                    {t: "Ich h"}, {b: "abe", s: "s"}, {t: " e"}, {b: "ine", s: "s"},
+                    {t: " tolle Jacke für m"}, {b: "einen", s: "m"}, {t: " Sohn "}, {b: "gefunden", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 11,
+                verb: "nehmen",
+                segments: [
+                    {t: "M"}, {b: "ein", s: "s"}, {t: " Opa h"}, {b: "at", s: "s"},
+                    {t: " s"}, {b: "eine", s: "s"}, {t: " Medikamente wieder nicht "}, {b: "genommen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 12,
+                verb: "ansehen",
+                segments: [
+                    {t: "Wir h"}, {b: "aben", s: "s"}, {t: " gestern e"}, {b: "inen", s: "s"},
+                    {t: " ganz alten deutschen Film "}, {b: "angesehen", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 13,
+                verb: "erkennen",
+                segments: [
+                    {t: "M"}, {b: "eine", s: "s"}, {t: " Frau h"}, {b: "at", s: "s"},
+                    {t: " m"}, {b: "eine", s: "s"}, {t: " Mutter auf d"}, {b: "em", s: "s"},
+                    {t: " Foto nicht "}, {b: "erkannt", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 14,
+                verb: "aufschreiben",
+                segments: [
+                    {t: "Ich h"}, {b: "abe", s: "s"}, {t: " mir schnell d"}, {b: "as", s: "s"},
+                    {t: " Autokennzeichen "}, {b: "aufgeschrieben", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 15,
+                verb: "fahren",
+                segments: [
+                    {t: "Wir s"}, {b: "ind", s: "s"}, {t: " mit d"}, {b: "em", s: "s"},
+                    {t: " Fahrrad über d"}, {b: "ie", s: "s"}, {t: " Alpen "}, {b: "nach", s: "s"},
+                    {t: " Italien "}, {b: "gefahren", s: "l"}, {t: "."}
+                ]
+            },
+            {
+                id: 16,
+                verb: "mitschreiben",
+                segments: [
+                    {t: "D"}, {b: "er", s: "s"}, {t: " Journalist h"}, {b: "at", s: "s"},
+                    {t: " d"}, {b: "ie", s: "s"}, {t: " Rede des Präsidenten "}, {b: "mitgeschrieben", s: "l"}, {t: "."}
+                ]
+            }
+        ];
+
+        let answers = {};
+        let checked = false;
+
+        function renderExercises() {
+            const container = document.getElementById('exercises');
+            container.innerHTML = '';
+            
+            EXERCISES.forEach((ex, exIdx) => {
+                const exerciseDiv = document.createElement('div');
+                exerciseDiv.className = 'exercise';
+                
+                const header = document.createElement('div');
+                header.className = 'exercise-header';
+                header.innerHTML = `
+                    <span class="exercise-number">${exIdx + 1}.</span>
+                    <span class="verb-badge">${ex.verb}</span>
+                `;
+                exerciseDiv.appendChild(header);
+                
+                const sentenceDiv = document.createElement('div');
+                sentenceDiv.className = 'sentence';
+                
+                let blankIdx = 0;
+                ex.segments.forEach((seg) => {
+                    if (seg.t !== undefined) {
+                        const span = document.createElement('span');
+                        span.textContent = seg.t;
+                        sentenceDiv.appendChild(span);
+                    }
+                    if (seg.b !== undefined) {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = `blank ${seg.s}`;
+                        input.dataset.exerciseId = ex.id;
+                        input.dataset.blankIdx = blankIdx;
+                        input.dataset.answer = seg.b;
+                        input.value = answers[`${ex.id}-${blankIdx}`] || '';
+                        
+                        input.addEventListener('input', (e) => {
+                            answers[`${ex.id}-${blankIdx}`] = e.target.value;
+                            if (checked) {
+                                checked = false;
+                                document.getElementById('result').classList.remove('show');
+                            }
+                        });
+                        
+                        input.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                const allInputs = document.querySelectorAll('input.blank');
+                                const currentIndex = Array.from(allInputs).indexOf(input);
+                                if (currentIndex < allInputs.length - 1) {
+                                    allInputs[currentIndex + 1].focus();
+                                } else {
+                                    checkAnswers();
+                                }
+                            }
+                        });
+                        
+                        sentenceDiv.appendChild(input);
+                        
+                        const solutionSpan = document.createElement('span');
+                        solutionSpan.className = 'solution';
+                        solutionSpan.dataset.exerciseId = ex.id;
+                        solutionSpan.dataset.blankIdx = blankIdx;
+                        solutionSpan.textContent = `✓ ${seg.b}`;
+                        sentenceDiv.appendChild(solutionSpan);
+                        
+                        blankIdx++;
+                    }
+                });
+                
+                exerciseDiv.appendChild(sentenceDiv);
+                container.appendChild(exerciseDiv);
+            });
+        }
+
+        function checkAnswers() {
+            checked = true;
+            const inputs = document.querySelectorAll('input.blank');
+            let correct = 0;
+            let total = 0;
+            
+            inputs.forEach(input => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.dataset.answer.toLowerCase();
+                total++;
+                
+                input.classList.remove('correct', 'incorrect');
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    correct++;
+                } else if (userAnswer !== '') {
+                    input.classList.add('incorrect');
+                }
+            });
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('success', 'partial');
+            resultDiv.classList.add('show');
+            
+            if (correct === total) {
+                resultDiv.className = 'result-message show success';
+                resultDiv.textContent = `🎉 Perfekt! Alle ${total} Antworten sind richtig!`;
+            } else {
+                resultDiv.className = 'result-message show partial';
+                resultDiv.textContent = `📊 ${correct} von ${total} Antworten richtig. Versuchen Sie es noch einmal!`;
+            }
+            
+            // Scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showSolutions() {
+            const solutions = document.querySelectorAll('.solution');
+            solutions.forEach(sol => {
+                sol.classList.add('show');
+            });
+            
+            const inputs = document.querySelectorAll('input.blank');
+            inputs.forEach(input => {
+                const correctAnswer = input.dataset.answer;
+                input.value = correctAnswer;
+                const key = `${input.dataset.exerciseId}-${input.dataset.blankIdx}`;
+                answers[key] = correctAnswer;
+            });
+        }
+
+        function resetExercise() {
+            answers = {};
+            checked = false;
+            
+            const inputs = document.querySelectorAll('input.blank');
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            
+            const solutions = document.querySelectorAll('.solution');
+            solutions.forEach(sol => {
+                sol.classList.remove('show');
+            });
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('show');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderExercises();
+    </script>
+</body>
+</html>

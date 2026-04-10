@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vor dem Gesetz - Interaktive DaF-Übung (C1)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+            gap: 0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px 12px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: #555;
+            background: white;
+        }
+
+        .nav-btn:last-child {
+            border-right: none;
+        }
+
+        .nav-btn:hover {
+            background: #f0f1f5;
+            color: #667eea;
+        }
+
+        .nav-btn.active {
+            background: #667eea;
+            color: white;
+            border-bottom: 4px solid #764ba2;
+        }
+
+        .sections {
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .intro-text {
+            background: #f0f1f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .vocab-card {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .vocab-term {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .vocab-def {
+            color: #555;
+            margin-top: 4px;
+            font-size: 0.95em;
+        }
+
+        .text-block {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 0.98em;
+            max-height: 70vh;
+            overflow-y: auto;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .text-block p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        .text-author {
+            text-align: right;
+            font-weight: 700;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .exercise-item {
+            background: #f8f9ff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .exercise-label {
+            font-size: 0.9em;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .luecken-sentence {
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .luecken-sentence span {
+            margin: 0 2px;
+        }
+
+        input.blank {
+            border: none;
+            border-bottom: 2px solid #667eea;
+            padding: 4px 8px;
+            font-size: 1em;
+            min-width: 80px;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        input.blank.s { min-width: 50px; }
+        input.blank.m { min-width: 90px; }
+        input.blank.l { min-width: 150px; }
+        input.blank.xl { min-width: 200px; }
+
+        input.blank:focus {
+            outline: none;
+            border-bottom-color: #764ba2;
+            background: #f0f1f5;
+        }
+
+        input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+        input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+        .correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+
+        .mc-question {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .mc-question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .mc-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .mc-option {
+            padding: 10px 15px;
+            background: #f8f9ff;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mc-option:hover {
+            background: #f0f1f5;
+            border-color: #667eea;
+        }
+
+        .mc-option.correct {
+            background: #2ecc71;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .mc-option.incorrect {
+            background: #e74c3c;
+            color: white;
+            border-color: #c0392b;
+        }
+
+        .satzbau-parts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background: white;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            min-height: 50px;
+            align-content: flex-start;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            cursor: move;
+            user-select: none;
+            font-size: 0.9em;
+            transition: all 0.2s;
+            touch-action: none;
+        }
+
+        .chip:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .chip.dragging {
+            opacity: 0.5;
+        }
+
+        .chip.selected {
+            background: #f39c12;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+        }
+
+        .chip.placed { background: #667eea; color: white; }
+        .chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+        .chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+
+        .drop-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: #f8f9ff;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            min-height: 45px;
+            margin-top: 15px;
+            align-content: flex-start;
+        }
+
+        .drop-row.filled {
+            border-color: #2ecc71;
+            background: #f0fff4;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-solution {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-solution:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .score {
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .genus-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .genus-cat {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px dashed #667eea;
+            min-height: 150px;
+        }
+
+        .genus-cat-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .timer {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f1f5;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .timer.running { color: #667eea; font-weight: 600; }
+        .timer.completed { color: #27ae60; font-weight: 600; }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        .footer-text {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                gap: 4px;
+            }
+
+            .nav-btn {
+                min-width: 100px;
+                padding: 12px 8px;
+                font-size: 0.85em;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vor dem Gesetz</h1>
+            <p>Nach Franz Kafka (1915) · Niveau C1</p>
+        </div>
+
+        <div class="nav">
+            <div class="nav-btn active" onclick="showSection(0)">📖 Vorentlastung</div>
+            <div class="nav-btn" onclick="showSection(1)">📄 Originaltext</div>
+            <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+            <div class="nav-btn" onclick="showSection(3)">✓ Lückentext</div>
+            <div class="nav-btn" onclick="showSection(4)">☑ Fragen</div>
+            <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+        </div>
+
+        <div class="sections">
+            <!-- SECTION 1: VORENTLASTUNG -->
+            <div class="section active">
+                <h2 class="section-title">📖 Vorentlastung: Wichtige Wörter</h2>
+                <div class="intro-text">
+                    <strong>Lernen Sie diese Wörter, bevor Sie den Text lesen.</strong> So verstehen Sie die Geschichte besser.
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Türhüter, -</div>
+                    <div class="vocab-def">Eine Person, die vor einer Tür steht und kontrolliert, wer hineingeht.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">das Gesetz, -e</div>
+                    <div class="vocab-def">Eine Regel, die für alle Menschen gilt; hier: etwas Abstraktes, Höheres.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Eintritt (kein Pl.)</div>
+                    <div class="vocab-def">Das Hineingehen, der Zugang zu einem Ort.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">gewähren</div>
+                    <div class="vocab-def">Jemandem etwas erlauben, jemandem etwas geben.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Schemel, -</div>
+                    <div class="vocab-def">Ein kleiner, einfacher Stuhl ohne Lehne.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">bestechen</div>
+                    <div class="vocab-def">Jemandem Geld oder Geschenke geben, damit er etwas Verbotenes tut.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">das Hindernis, -se</div>
+                    <div class="vocab-def">Etwas, das im Weg steht; ein Problem, das den Fortschritt blockiert.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">das Augenlicht (kein Pl.)</div>
+                    <div class="vocab-def">Die Fähigkeit zu sehen; die Sehkraft.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">unverlöschlich</div>
+                    <div class="vocab-def">So stark, dass es nicht gelöscht oder ausgemacht werden kann.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Einlass (kein Pl.)</div>
+                    <div class="vocab-def">Die Erlaubnis oder Möglichkeit, einen Ort zu betreten.</div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: ORIGINALTEXT -->
+            <div class="section">
+                <h2 class="section-title">📄 Kafkas „Vor dem Gesetz“</h2>
+                <div class="intro-text">
+                    <strong>Lesen Sie die Geschichte.</strong> Sie können jederzeit zur Vorentlastung zurückwechseln, wenn Sie ein Wort nicht verstehen.
+                </div>
+
+                <div class="text-block">
+                    <p>Vor dem Gesetz steht ein Türhüter. Zu diesem Türhüter kommt ein Mann vom Lande und bittet um Eintritt in das Gesetz. Aber der Türhüter sagt, dass er ihm jetzt den Eintritt nicht gewähren könne. Der Mann überlegt und fragt dann, ob er also später werde eintreten dürfen. »Es ist möglich«, sagt der Türhüter, »jetzt aber nicht.« Da das Tor zum Gesetz offensteht wie immer und der Türhüter beiseite tritt, bückt sich der Mann, um durch das Tor in das Innere zu sehen.</p>
+
+                    <p>Als der Türhüter das merkt, lacht er und sagt: »Wenn es dich so lockt, versuche es doch, trotz meines Verbotes hineinzugehen. Merke aber: Ich bin mächtig. Und ich bin nur der unterste Türhüter. Von Saal zu Saal stehen aber Türhüter, einer mächtiger als der andere. Schon den Anblick des dritten kann nicht einmal ich mehr ertragen.«</p>
+
+                    <p>Solche Schwierigkeiten hat der Mann vom Lande nicht erwartet; das Gesetz soll doch jedem und immer zugänglich sein, denkt er, aber als er jetzt den Türhüter in seinem Pelzmantel genauer ansieht, seine große Spitznase, den langen, dünnen, schwarzen tatarischen Bart, entschließt er sich, doch lieber zu warten, bis er die Erlaubnis zum Eintritt bekommt. Der Türhüter gibt ihm einen Schemel und lässt ihn seitwärts von der Tür sich niedersetzen. Dort sitzt er Tage und Jahre.</p>
+
+                    <p>Er macht viele Versuche, eingelassen zu werden, und ermüdet den Türhüter durch seine Bitten. Der Türhüter stellt öfters kleine Verhöre mit ihm an, fragt ihn über seine Heimat aus und nach vielem anderen, es sind aber teilnahmslose Fragen, wie sie große Herren stellen, und zum Schluss sagt er ihm immer wieder, dass er ihn noch nicht einlassen könne. Der Mann, der sich für seine Reise mit vielem ausgerüstet hat, verwendet alles, und sei es noch so wertvoll, um den Türhüter zu bestechen. Dieser nimmt zwar alles an, aber sagt dabei: »Ich nehme es nur an, damit du nicht glaubst, etwas versäumt zu haben.«</p>
+
+                    <p>Während der vielen Jahre beobachtet der Mann den Türhüter fast ununterbrochen. Er vergisst die anderen Türhüter, und dieser erste scheint ihm das einzige Hindernis für den Eintritt in das Gesetz. Er verflucht den unglücklichen Zufall, in den ersten Jahren rücksichtslos und laut, später, als er alt wird, brummt er nur noch vor sich hin. Er wird kindisch, und, da er in dem jahrelangen Studium des Türhüters auch die Flöhe in seinem Pelzkragen erkannt hat, bittet er auch die Flöhe, ihm zu helfen und den Türhüter umzustimmen.</p>
+
+                    <p>Schließlich wird sein Augenlicht schwach, und er weiß nicht, ob es um ihn wirklich dunkler wird, oder ob ihn nur seine Augen täuschen. Wohl aber erkennt er jetzt im Dunkel einen Glanz, der unverlöschlich aus der Türe des Gesetzes bricht. Nun lebt er nicht mehr lange.</p>
+
+                    <p>Vor seinem Tode sammeln sich in seinem Kopf alle Erfahrungen der ganzen Zeit zu einer Frage, die er bisher an den Türhüter noch nicht gestellt hat. Er winkt ihm zu, da er seinen erstarrenden Körper nicht mehr aufrichten kann. Der Türhüter muss sich tief zu ihm hinunterneigen, denn der Größenunterschied hat sich sehr zuungunsten des Mannes verändert. »Was willst du denn jetzt noch wissen?« fragt der Türhüter, »du bist unersättlich.« »Alle streben doch nach dem Gesetz«, sagt der Mann, »wieso kommt es, dass in den vielen Jahren niemand außer mir Einlass verlangt hat?« Der Türhüter erkennt, dass der Mann schon an seinem Ende ist, und, um sein vergehendes Gehör noch zu erreichen, brüllt er ihn an: »Hier konnte niemand sonst Einlass erhalten, denn dieser Eingang war nur für dich bestimmt. Ich gehe jetzt und schließe ihn.«</p>
+
+                    <p class="text-author">Franz Kafka: Vor dem Gesetz (1915)<br>
+                    <span style="font-size:0.85em; font-weight:400;">Quelle: Projekt Gutenberg-DE · Bearbeitung: Neue Rechtschreibung</span></p>
+                </div>
+            </div>
+
+            <!-- SECTION 3: GENUS -->
+            <div class="section">
+                <h2 class="section-title">🔤 Genus-Übung: der – die – das</h2>
+                <div class="intro-text">
+                    <strong>Ordnen Sie die Wörter in die richtige Kategorie.</strong> Ziehen Sie die blauen Wörter mit der Maus in die richtige Kategorie. Die Feedback ist sofort!
+                </div>
+
+                <div class="genus-categories">
+                    <div class="genus-cat" data-cat="der" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🔵 der</div>
+                    </div>
+                    <div class="genus-cat" data-cat="die" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🔴 die</div>
+                    </div>
+                    <div class="genus-cat" data-cat="das" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🟡 das</div>
+                    </div>
+                    <div class="genus-cat" data-cat="pl" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🟣 Plural (die)</div>
+                    </div>
+                </div>
+
+                <div class="satzbau-parts" id="genusBank" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-solution" onclick="showGenusAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetGenus()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="genus-feedback"></div>
+                <div class="timer" id="genus-timer"></div>
+            </div>
+
+            <!-- SECTION 4: LÜCKENTEXT -->
+            <div class="section">
+                <h2 class="section-title">✓ Lückentext: Wichtige Wörter einsetzen</h2>
+                <div class="intro-text">
+                    <strong>Ergänzen Sie die Lücken mit den passenden Wörtern.</strong> Die Feedback erfolgt sofort mit jedem Buchstaben!
+                </div>
+
+                <div id="luecken-container"></div>
+
+                <div class="buttons">
+                    <button class="btn-solution" onclick="showLueckenAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetLuecken()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="luecken-feedback"></div>
+                <div class="timer" id="luecken-timer"></div>
+            </div>
+
+            <!-- SECTION 5: MULTIPLE CHOICE -->
+            <div class="section">
+                <h2 class="section-title">☑ Fragen zum Text</h2>
+                <div class="intro-text">
+                    <strong>Wählen Sie die richtige Antwort.</strong> Lesen Sie die Frage und klicken Sie auf die beste Antwort. Die Feedback ist sofort!
+                </div>
+
+                <div id="mc-container"></div>
+
+                <div class="buttons">
+                    <button class="btn-solution" onclick="showMCAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetMC()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="mc-feedback"></div>
+                <div class="timer" id="mc-timer"></div>
+            </div>
+
+            <!-- SECTION 6: SATZBAU -->
+            <div class="section">
+                <h2 class="section-title">🧩 Satzbau: Wörter in die richtige Reihenfolge</h2>
+                <div class="intro-text">
+                    <strong>Ordnen Sie die Wörter so, dass ein korrekter Satz entsteht.</strong> Ziehen Sie die blauen Wörter in die richtige Reihenfolge.
+                </div>
+
+                <div id="satzbau-container"></div>
+
+                <div class="buttons">
+                    <button class="btn-solution" onclick="showSatzbauAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetSatzbau()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="satzbau-feedback"></div>
+                <div class="timer" id="satzbau-timer"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">
+                <span class="author-name">&copy; Frank Burkert</span> · DaF-Materialien ·
+                FrankBurkert@fabdaf.onmicrosoft.com
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const TIMER_PREFIX = 'kafka-vor-dem-gesetz';
+
+        const VORENTLASTUNG = [
+            { term: "der Türhüter, -", def: "eine Person, die vor einer Tür steht und kontrolliert, wer hineingeht" },
+            { term: "das Gesetz, -e", def: "eine Regel, die für alle Menschen gilt; hier: etwas Abstraktes, Höheres" },
+            { term: "der Eintritt (kein Pl.)", def: "das Hineingehen, der Zugang zu einem Ort" },
+            { term: "gewähren", def: "jemandem etwas erlauben, jemandem etwas geben" },
+            { term: "der Schemel, -", def: "ein kleiner, einfacher Stuhl ohne Lehne" },
+            { term: "bestechen", def: "jemandem Geld oder Geschenke geben, damit er etwas Verbotenes tut" },
+            { term: "das Hindernis, -se", def: "etwas, das im Weg steht; ein Problem, das den Fortschritt blockiert" },
+            { term: "das Augenlicht (kein Pl.)", def: "die Fähigkeit zu sehen; die Sehkraft" },
+            { term: "unverlöschlich", def: "so stark, dass es nicht gelöscht oder ausgemacht werden kann" },
+            { term: "der Einlass (kein Pl.)", def: "die Erlaubnis oder Möglichkeit, einen Ort zu betreten" }
+        ];
+
+        const GENUS_DATA = [
+            { word: "🚪 Türhüter", cat: "der" },
+            { word: "📜 Gesetz", cat: "das" },
+            { word: "🏠 Tor", cat: "das" },
+            { word: "🧔 Mann", cat: "der" },
+            { word: "🪑 Schemel", cat: "der" },
+            { word: "🏡 Heimat", cat: "die" },
+            { word: "🧥 Pelzmantel", cat: "der" },
+            { word: "🎁 Erlaubnis", cat: "die" },
+            { word: "🚧 Hindernis", cat: "das" },
+            { word: "⏳ Zufall", cat: "der" },
+            { word: "👁️ Augenlicht", cat: "das" },
+            { word: "✨ Glanz", cat: "der" },
+            { word: "💀 Tod", cat: "der" },
+            { word: "🚪 Eingang", cat: "der" },
+            { word: "👂 Gehör", cat: "das" }
+        ];
+
+        const LUECKEN = [
+            { id: 1, segments: [{t: "Vor dem Gesetz steht ein "}, {b: "Türhüter", s: "l"}, {t: "."}] },
+            { id: 2, segments: [{t: "Der Mann bittet um "}, {b: "Eintritt", s: "m"}, {t: " in das Gesetz."}] },
+            { id: 3, segments: [{t: "Der Türhüter sagt, dass er ihm den Eintritt nicht "}, {b: "gewähren", s: "l"}, {t: " könne."}] },
+            { id: 4, segments: [{t: "Der Mann entschließt sich zu "}, {b: "warten", s: "m"}, {t: ", bis er die Erlaubnis bekommt."}] },
+            { id: 5, segments: [{t: "Der Türhüter gibt ihm einen "}, {b: "Schemel", s: "m"}, {t: " zum Sitzen."}] },
+            { id: 6, segments: [{t: "Der Mann versucht, den Türhüter zu "}, {b: "bestechen", s: "l"}, {t: "."}] },
+            { id: 7, segments: [{t: "Dieser erste Türhüter scheint ihm das einzige "}, {b: "Hindernis", s: "l"}, {t: " für den Eintritt."}] },
+            { id: 8, segments: [{t: "Schließlich wird sein "}, {b: "Augenlicht", s: "l"}, {t: " schwach."}] },
+            { id: 9, segments: [{t: "Er erkennt einen "}, {b: "Glanz", s: "m"}, {t: ", der aus der Türe des Gesetzes bricht."}] },
+            { id: 10, segments: [{t: "Dieser "}, {b: "Eingang", s: "m"}, {t: " war nur für dich bestimmt."}] }
+        ];
+
+        const MC_DATA = [
+            { q: "Wer kommt zum Türhüter?", opts: ["Ein Richter", "Ein Mann vom Lande", "Ein Priester", "Ein König"], correct: 1 },
+            { q: "Was möchte der Mann?", opts: ["Arbeit finden", "Den Türhüter sprechen", "Eintritt in das Gesetz", "Das Tor schließen"], correct: 2 },
+            { q: "Was antwortet der Türhüter auf die erste Bitte?", opts: ["Er darf sofort hinein", "Jetzt nicht, aber vielleicht später", "Der Eingang ist geschlossen", "Er muss bezahlen"], correct: 1 },
+            { q: "Warum entscheidet sich der Mann zu warten?", opts: ["Er hat keine Eile", "Der Türhüter sieht furchteinflößend aus", "Er will die anderen Türhüter sehen", "Er hat kein Geld"], correct: 1 },
+            { q: "Was tut der Mann, um hineinzukommen?", opts: ["Er kämpft mit dem Türhüter", "Er versucht, den Türhüter zu bestechen", "Er sucht einen anderen Eingang", "Er bittet andere um Hilfe"], correct: 1 },
+            { q: "Was sagt der Türhüter, wenn er die Bestechung annimmt?", opts: ["Danke, komm herein", "Ich nehme es nur an, damit du nichts versäumt zu haben glaubst", "Das reicht nicht", "Gib mir mehr"], correct: 1 },
+            { q: "Was passiert mit dem Mann im Laufe der Jahre?", opts: ["Er wird reich", "Er wird alt und schwach", "Er findet einen anderen Eingang", "Er wird zum Türhüter"], correct: 1 },
+            { q: "Was erkennt der Mann am Ende im Dunkel?", opts: ["Einen anderen Menschen", "Einen Glanz aus der Türe des Gesetzes", "Den Weg nach Hause", "Nichts"], correct: 1 },
+            { q: "Was ist die letzte Frage des Mannes?", opts: ["Wie heißt du?", "Warum hat niemand außer mir Einlass verlangt?", "Wann darf ich hinein?", "Gibt es ein anderes Tor?"], correct: 1 },
+            { q: "Was ist die Antwort des Türhüters am Ende?", opts: ["Du darfst jetzt hinein", "Dieser Eingang war nur für dich bestimmt", "Es gibt kein Gesetz", "Du hast zu lange gewartet"], correct: 1 }
+        ];
+
+        const SATZBAU = [
+            { id: 1, parts: ["ein Mann", "kommt", "vom Lande", "zum Türhüter"], valid: [["ein Mann", "kommt", "vom Lande", "zum Türhüter"]] },
+            { id: 2, parts: ["der Türhüter", "kann", "ihm", "den Eintritt", "nicht", "gewähren"], valid: [["der Türhüter", "kann", "ihm", "den Eintritt", "nicht", "gewähren"]] },
+            { id: 3, parts: ["der Mann", "entschließt", "sich", "zu warten"], valid: [["der Mann", "entschließt", "sich", "zu warten"]] },
+            { id: 4, parts: ["er", "sitzt", "dort", "Tage", "und", "Jahre"], valid: [["er", "sitzt", "dort", "Tage", "und", "Jahre"], ["dort", "sitzt", "er", "Tage", "und", "Jahre"]] },
+            { id: 5, parts: ["er", "verwendet", "alles", "um", "den Türhüter", "zu bestechen"], valid: [["er", "verwendet", "alles", "um", "den Türhüter", "zu bestechen"]] },
+            { id: 6, parts: ["der Mann", "vergisst", "die anderen Türhüter"], valid: [["der Mann", "vergisst", "die anderen Türhüter"]] },
+            { id: 7, parts: ["sein Augenlicht", "wird", "schließlich", "schwach"], valid: [["sein Augenlicht", "wird", "schließlich", "schwach"], ["schließlich", "wird", "sein Augenlicht", "schwach"]] },
+            { id: 8, parts: ["er", "erkennt", "einen Glanz", "im Dunkel"], valid: [["er", "erkennt", "einen Glanz", "im Dunkel"], ["im Dunkel", "erkennt", "er", "einen Glanz"]] },
+            { id: 9, parts: ["niemand", "hat", "außer", "ihm", "Einlass", "verlangt"], valid: [["niemand", "hat", "außer", "ihm", "Einlass", "verlangt"]] },
+            { id: 10, parts: ["dieser Eingang", "war", "nur", "für dich", "bestimmt"], valid: [["dieser Eingang", "war", "nur", "für dich", "bestimmt"]] }
+        ];
+
+        // Timer management
+        const timers = {};
+
+        function startTimer(tabName) {
+            const key = TIMER_PREFIX + '-' + tabName;
+            if (!timers[key]) {
+                timers[key] = { start: Date.now(), running: true };
+                updateTimerDisplay(tabName);
+            }
+        }
+
+        function stopTimer(tabName) {
+            const key = TIMER_PREFIX + '-' + tabName;
+            if (timers[key]) {
+                timers[key].running = false;
+            }
+        }
+
+        function updateTimerDisplay(tabName) {
+            const key = TIMER_PREFIX + '-' + tabName;
+            const timerEl = document.getElementById(tabName + '-timer');
+            if (!timerEl) return;
+
+            if (!timers[key]) return;
+
+            const elapsed = Math.floor((Date.now() - timers[key].start) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+            const timeStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+            timerEl.textContent = timers[key].running ? `⏱️ Zeit: ${timeStr}` : `✓ Fertig! Zeit: ${timeStr}`;
+            timerEl.className = 'timer ' + (timers[key].running ? 'running' : 'completed');
+
+            if (timers[key].running) {
+                setTimeout(() => updateTimerDisplay(tabName), 1000);
+            }
+        }
+
+        function showSection(idx) {
+            const sections = document.querySelectorAll('.section');
+            const navBtns = document.querySelectorAll('.nav-btn');
+
+            sections.forEach(s => s.classList.remove('active'));
+            navBtns.forEach(b => b.classList.remove('active'));
+
+            sections[idx].classList.add('active');
+            navBtns[idx].classList.add('active');
+        }
+
+        // ============ GENUS ============
+        let selectedGenusChip = null;
+
+        function initGenus() {
+            const bank = document.getElementById('genusBank');
+            bank.innerHTML = '';
+            GENUS_DATA.forEach((item, idx) => {
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.textContent = item.word;
+                chip.draggable = true;
+                chip.dataset.word = item.word;
+                chip.dataset.cat = item.cat;
+                chip.id = 'genus-chip-' + idx;
+                chip.ondragstart = dragGenus;
+                chip.onclick = () => selectGenusChip(chip);
+                bank.appendChild(chip);
+            });
+        }
+
+        function selectGenusChip(chip) {
+            startTimer('genus');
+            if (selectedGenusChip) selectedGenusChip.style.outline = '';
+            selectedGenusChip = chip;
+            chip.style.outline = '3px solid #f39c12';
+
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                cat.onclick = () => {
+                    if (selectedGenusChip) {
+                        cat.appendChild(selectedGenusChip);
+                        selectedGenusChip.style.outline = '';
+                        selectedGenusChip.classList.add('placed');
+                        checkGenusImmediate(selectedGenusChip);
+                        selectedGenusChip = null;
+                    }
+                };
+            });
+
+            document.getElementById('genusBank').onclick = () => {
+                if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) {
+                    document.getElementById('genusBank').appendChild(selectedGenusChip);
+                    selectedGenusChip.classList.remove('placed', 'correct', 'wrong');
+                    selectedGenusChip.style.outline = '';
+                    selectedGenusChip = null;
+                }
+            };
+        }
+
+        function dragGenus(e) {
+            startTimer('genus');
+            e.dataTransfer.setData('text', e.target.id);
+        }
+
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+        function dropGenus(e) {
+            e.preventDefault();
+            const chipId = e.dataTransfer.getData('text');
+            const chip = document.getElementById(chipId);
+            if (!chip) return;
+
+            const dropTarget = e.currentTarget;
+            dropTarget.appendChild(chip);
+
+            if (dropTarget.id === 'genusBank') {
+                chip.classList.remove('placed', 'correct', 'wrong');
+            } else {
+                chip.classList.add('placed');
+                checkGenusImmediate(chip);
+            }
+        }
+
+        function checkGenusImmediate(chip) {
+            const dropTarget = chip.parentElement;
+            if (dropTarget.classList.contains('genus-cat')) {
+                const catName = dropTarget.dataset.cat;
+                chip.classList.remove('correct', 'wrong');
+                if (chip.dataset.cat === catName) {
+                    chip.classList.add('correct');
+                } else {
+                    chip.classList.add('wrong');
+                }
+            }
+        }
+
+        function showGenusAnswer() {
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                const title = cat.querySelector('.genus-cat-title').textContent;
+                cat.innerHTML = '<div class="genus-cat-title">' + title + '</div>';
+            });
+
+            GENUS_DATA.forEach((item, idx) => {
+                const chip = document.getElementById('genus-chip-' + idx);
+                const targetCat = document.querySelector(`.genus-cat[data-cat="${item.cat}"]`);
+                targetCat.appendChild(chip);
+                chip.classList.add('placed', 'correct');
+                chip.classList.remove('wrong');
+            });
+
+            const feedback = document.getElementById('genus-feedback');
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = `<span class="score">✓ Alle ${GENUS_DATA.length} Wörter korrekt!</span>`;
+            stopTimer('genus');
+        }
+
+        function resetGenus() {
+            document.querySelectorAll('.chip').forEach(c => {
+                c.classList.remove('placed', 'correct', 'wrong');
+                c.style.outline = '';
+            });
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                const title = cat.querySelector('.genus-cat-title').textContent;
+                cat.innerHTML = '<div class="genus-cat-title">' + title + '</div>';
+            });
+            initGenus();
+            document.getElementById('genus-feedback').className = 'feedback';
+            document.getElementById('genus-feedback').innerHTML = '';
+            selectedGenusChip = null;
+        }
+
+        // ============ LÜCKENTEXT ============
+        function renderLuecken() {
+            const container = document.getElementById('luecken-container');
+            container.innerHTML = '';
+
+            LUECKEN.forEach(ex => {
+                const div = document.createElement('div');
+                div.className = 'luecken-sentence';
+                div.id = 'luecken-' + ex.id;
+
+                let html = '';
+                ex.segments.forEach((seg, i) => {
+                    if (seg.t) {
+                        html += '<span>' + seg.t + '</span>';
+                    } else if (seg.b) {
+                        html += `<input class="blank ${seg.s}" type="text" data-id="${ex.id}" data-answer="${seg.b}" oninput="liveCheck(this)">`;
+                    }
+                });
+
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+
+        }
+
+        function liveCheck(input) {
+            startTimer('luecken');
+            const answer = input.dataset.answer.toLowerCase();
+            const value = input.value.trim();
+
+            input.classList.remove('correct', 'wrong');
+            if (value === answer) {
+                input.classList.add('correct');
+            } else if (value.length > 0) {
+                input.classList.add('wrong');
+            }
+        }
+
+        function showLueckenAnswer() {
+            document.querySelectorAll('.blank').forEach(input => {
+                const answer = input.dataset.answer;
+                const user = input.value.trim();
+                input.value = answer;
+                const next = input.nextElementSibling;
+                if (next && next.classList.contains('correction-hint')) next.remove();
+                if (user.toLowerCase() !== answer) {
+                    const hint = document.createElement('span');
+                    hint.className = 'correction-hint';
+                    hint.textContent = '(' + answer + ')';
+                    input.insertAdjacentElement('afterend', hint);
+                }
+                input.classList.remove('wrong');
+                input.classList.add('correct');
+            });
+
+            const feedback = document.getElementById('luecken-feedback');
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = `<span class="score">✓ Alle Lücken gefüllt!</span>`;
+            stopTimer('luecken');
+        }
+
+        function resetLuecken() {
+            document.getElementById('luecken-feedback').className = 'feedback';
+            document.getElementById('luecken-feedback').innerHTML = '';
+            renderLuecken();
+        }
+
+        // ============ MULTIPLE CHOICE ============
+        function renderMC() {
+            const container = document.getElementById('mc-container');
+            container.innerHTML = '';
+
+            MC_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'mc-question';
+                div.id = 'mc-' + idx;
+
+                let html = `<div class="mc-question-text">${idx + 1}. ${item.q}</div>`;
+                html += '<div class="mc-options">';
+
+                item.opts.forEach((opt, oidx) => {
+                    html += `<div class="mc-option" onclick="selectMCOption(${idx}, ${oidx})" data-mc="${idx}" data-opt="${oidx}">${opt}</div>`;
+                });
+
+                html += '</div>';
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+
+        }
+
+        function selectMCOption(mcIdx, optIdx) {
+            startTimer('mc');
+            const option = document.querySelector(`[data-mc="${mcIdx}"][data-opt="${optIdx}"]`);
+            const isCorrect = optIdx === MC_DATA[mcIdx].correct;
+
+            document.querySelectorAll(`[data-mc="${mcIdx}"]`).forEach(el => {
+                el.classList.remove('correct', 'incorrect');
+            });
+
+            if (isCorrect) {
+                option.classList.add('correct');
+            } else {
+                option.classList.add('incorrect');
+                const correctOpt = document.querySelector(`[data-mc="${mcIdx}"][data-opt="${MC_DATA[mcIdx].correct}"]`);
+                if (correctOpt) correctOpt.classList.add('correct');
+            }
+        }
+
+        function showMCAnswer() {
+            MC_DATA.forEach((item, idx) => {
+                const correct = document.querySelector(`[data-mc="${idx}"][data-opt="${item.correct}"]`);
+                document.querySelectorAll(`[data-mc="${idx}"]`).forEach(el => {
+                    el.classList.remove('correct', 'incorrect');
+                });
+                if (correct) {
+                    correct.classList.add('correct');
+                }
+            });
+
+            const feedback = document.getElementById('mc-feedback');
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = `<span class="score">✓ Alle Antworten angezeigt!</span>`;
+            stopTimer('mc');
+        }
+
+        function resetMC() {
+            document.getElementById('mc-feedback').className = 'feedback';
+            document.getElementById('mc-feedback').innerHTML = '';
+            renderMC();
+        }
+
+        // ============ SATZBAU ============
+        let selectedSBChip = null;
+
+        function initSatzbau() {
+            const container = document.getElementById('satzbau-container');
+            container.innerHTML = '';
+
+            SATZBAU.forEach(ex => {
+                const div = document.createElement('div');
+                div.className = 'exercise-item';
+
+                const dropRow = document.createElement('div');
+                dropRow.className = 'drop-row';
+                dropRow.id = 'sb-drop-' + ex.id;
+                dropRow.dataset.exId = ex.id;
+                dropRow.ondrop = dropSB;
+                dropRow.ondragover = allowDrop;
+                dropRow.onclick = () => {
+                    if (selectedSBChip && selectedSBChip.dataset.exId == ex.id) {
+                        const dot = dropRow.querySelector('.fixed-dot');
+                        dropRow.insertBefore(selectedSBChip, dot);
+                        selectedSBChip.style.outline = '';
+                        selectedSBChip = null;
+                        updateCaps(ex.id);
+                        checkSatzbauAuto(ex.id);
+                    }
+                };
+
+                const bank = document.createElement('div');
+                bank.className = 'satzbau-parts';
+                bank.id = 'sb-bank-' + ex.id;
+                bank.ondrop = dropSB;
+                bank.ondragover = allowDrop;
+                bank.onclick = () => {
+                    if (selectedSBChip && selectedSBChip.dataset.exId == ex.id && selectedSBChip.parentElement.classList.contains('drop-row')) {
+                        bank.appendChild(selectedSBChip);
+                        selectedSBChip.style.outline = '';
+                        selectedSBChip = null;
+                        updateCaps(ex.id);
+                        checkSatzbauAuto(ex.id);
+                    }
+                };
+
+                const shuffled = [...ex.parts].sort(() => Math.random() - 0.5);
+                shuffled.forEach((p, pi) => {
+                    const chip = document.createElement('div');
+                    chip.className = 'chip';
+                    chip.textContent = p;
+                    chip.draggable = true;
+                    chip.dataset.text = p;
+                    chip.dataset.exId = ex.id;
+                    chip.id = `sb-chip-${ex.id}-${pi}`;
+                    chip.ondragstart = dragSB;
+                    chip.onclick = () => selectSBChip(chip);
+
+                    bank.appendChild(chip);
+                });
+
+                const point = document.createElement('span');
+                point.className = 'fixed-dot';
+                point.textContent = '.';
+                point.style.fontSize = '1.5em';
+                point.style.marginLeft = '4px';
+                dropRow.appendChild(point);
+
+                div.appendChild(dropRow);
+                div.appendChild(bank);
+                container.appendChild(div);
+            });
+
+        }
+
+        function selectSBChip(chip) {
+            startTimer('satzbau');
+            if (selectedSBChip) selectedSBChip.style.outline = '';
+            selectedSBChip = chip;
+            chip.style.outline = '3px solid #f39c12';
+        }
+
+        function dragSB(e) {
+            startTimer('satzbau');
+            e.dataTransfer.setData('text', e.target.id);
+        }
+
+        function dropSB(e) {
+            e.preventDefault();
+            const chipId = e.dataTransfer.getData('text');
+            const chip = document.getElementById(chipId);
+            if (!chip) return;
+
+            const target = e.currentTarget;
+            if (target.classList.contains('drop-row')) {
+                const dot = target.querySelector('.fixed-dot');
+                target.insertBefore(chip, dot);
+            } else {
+                target.appendChild(chip);
+            }
+            const exId = chip.dataset.exId;
+            updateCaps(exId);
+            checkSatzbauAuto(exId);
+        }
+
+        function updateCaps(exId) {
+            const row = document.getElementById('sb-drop-' + exId);
+            const chips = row.querySelectorAll('.chip');
+
+            chips.forEach((c, i) => {
+                const t = c.dataset.text;
+                if (i === 0 && t && t.length > 0) {
+                    c.textContent = t.toLowerCase();
+                } else if (t) {
+                    c.textContent = t.toLowerCase();
+                }
+            });
+        }
+
+        function checkSatzbauAuto(exId) {
+            const ex = SATZBAU.find(e => e.id === exId);
+            if (!ex) return;
+
+            const row = document.getElementById('sb-drop-' + exId);
+            const bank = document.getElementById('sb-bank-' + exId);
+            const rowChips = Array.from(row.querySelectorAll('.chip'));
+            const bankChips = Array.from(bank.querySelectorAll('.chip'));
+
+            if (bankChips.length === 0 && rowChips.length > 0) {
+                const userOrder = rowChips.map(c => c.dataset.text);
+                const isCorrect = ex.valid.some(v =>
+                    v.length === userOrder.length && v.every((p, i) => p === userOrder[i])
+                );
+
+                rowChips.forEach(c => {
+                    c.classList.remove('correct', 'wrong');
+                    c.classList.add(isCorrect ? 'correct' : 'wrong');
+                });
+
+                if (isCorrect) {
+                    const feedback = document.getElementById('satzbau-feedback');
+                    feedback.className = 'feedback correct';
+                    feedback.innerHTML = `<span class="score">✓ Satz ${exId} ist korrekt!</span>`;
+                }
+            }
+        }
+
+        function showSatzbauAnswer() {
+            SATZBAU.forEach(ex => {
+                const row = document.getElementById('sb-drop-' + ex.id);
+                const bank = document.getElementById('sb-bank-' + ex.id);
+
+                const allChips = [...row.querySelectorAll('.chip'), ...bank.querySelectorAll('.chip')];
+                const tempDiv = document.createDocumentFragment();
+                allChips.forEach(c => tempDiv.appendChild(c));
+
+                row.innerHTML = '';
+                const point = document.createElement('span');
+                point.className = 'fixed-dot';
+                point.textContent = '.';
+                point.style.fontSize = '1.5em';
+                point.style.marginLeft = '4px';
+
+                bank.innerHTML = '';
+
+                ex.valid[0].forEach(p => {
+                    const chip = allChips.find(c => c.dataset.text === p);
+                    if (chip) {
+                        row.appendChild(chip);
+                        chip.classList.remove('wrong');
+                        chip.classList.add('correct');
+                    }
+                });
+
+                row.appendChild(point);
+                updateCaps(ex.id);
+            });
+
+            const feedback = document.getElementById('satzbau-feedback');
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = `<span class="score">✓ Alle ${SATZBAU.length} Sätze korrekt!</span>`;
+            stopTimer('satzbau');
+        }
+
+        function resetSatzbau() {
+            initSatzbau();
+            document.getElementById('satzbau-feedback').className = 'feedback';
+            document.getElementById('satzbau-feedback').innerHTML = '';
+            selectedSBChip = null;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initGenus();
+            renderLuecken();
+            renderMC();
+            initSatzbau();
+        });
+    </script>
+</body>
+</html>

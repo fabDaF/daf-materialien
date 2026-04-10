@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kannitverstan - Interaktive DaF-Übung (A2)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+            gap: 0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px 12px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: #555;
+            background: white;
+        }
+
+        .nav-btn:last-child {
+            border-right: none;
+        }
+
+        .nav-btn:hover {
+            background: #f0f1f5;
+            color: #667eea;
+        }
+
+        .nav-btn.active {
+            background: #667eea;
+            color: white;
+            border-bottom: 4px solid #764ba2;
+        }
+
+        .sections {
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .intro-text {
+            background: #f0f1f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .vocab-card {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .vocab-term {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .vocab-def {
+            color: #555;
+            margin-top: 4px;
+            font-size: 0.95em;
+        }
+
+        .vocab-example {
+            color: #777;
+            font-style: italic;
+            margin-top: 4px;
+            font-size: 0.9em;
+        }
+
+        .text-block {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 0.98em;
+            max-height: 70vh;
+            overflow-y: auto;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .text-block p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        .text-block em {
+            font-style: italic;
+        }
+
+        .text-author {
+            text-align: right;
+            font-weight: 700;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .exercise-item {
+            background: #f8f9ff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .exercise-label {
+            font-size: 0.9em;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .luecken-sentence {
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .luecken-sentence span {
+            margin: 0 2px;
+        }
+
+        input.blank {
+            border: none;
+            border-bottom: 2px solid #667eea;
+            padding: 4px 8px;
+            font-size: 1em;
+            min-width: 80px;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        input.blank.s { min-width: 50px; }
+        input.blank.m { min-width: 90px; }
+        input.blank.l { min-width: 150px; }
+        input.blank.xl { min-width: 200px; }
+
+        input.blank:focus {
+            outline: none;
+            border-bottom-color: #764ba2;
+            background: #f0f1f5;
+        }
+        input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+        input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+        .correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+
+        .mc-question {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .mc-question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .mc-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .mc-option {
+            padding: 10px 15px;
+            background: #f8f9ff;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mc-option:hover {
+            background: #f0f1f5;
+            border-color: #667eea;
+        }
+
+        .mc-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .mc-option.correct {
+            background: #2ecc71;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .mc-option.incorrect {
+            background: #e74c3c;
+            color: white;
+            border-color: #c0392b;
+        }
+
+        .satzbau-parts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background: white;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            min-height: 50px;
+            align-content: flex-start;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            cursor: move;
+            user-select: none;
+            font-size: 0.9em;
+            transition: all 0.2s;
+            touch-action: none;
+        }
+
+        .chip:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .chip.dragging {
+            opacity: 0.5;
+        }
+
+        .chip.selected {
+            background: #f39c12;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+        }
+
+        .chip.placed { background: #667eea; color: white; }
+        .chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+        .chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+
+        .drop-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: #f8f9ff;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            min-height: 45px;
+            margin-top: 15px;
+            align-content: flex-start;
+        }
+
+        .drop-row.filled {
+            border-color: #2ecc71;
+            background: #f0fff4;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-check {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .btn-solution {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-solution:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .score {
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .genus-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .genus-cat {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px dashed #667eea;
+            min-height: 150px;
+        }
+
+        .genus-cat-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .help-box {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #856404;
+        }
+
+        .help-box strong {
+            color: #664d03;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        .footer-text {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                gap: 4px;
+            }
+
+            .nav-btn {
+                min-width: 100px;
+                padding: 12px 8px;
+                font-size: 0.85em;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kannitverstan</h1>
+            <p>Frei nach Johann Peter Hebel • Niveau A2</p>
+        </div>
+
+        <div class="nav">
+            <div class="nav-btn active" onclick="showSection(0)">📖 Vokabeln</div>
+            <div class="nav-btn" onclick="showSection(1)">📄 Text</div>
+            <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+            <div class="nav-btn" onclick="showSection(3)">✓ Lückentext</div>
+            <div class="nav-btn" onclick="showSection(4)">☑ Fragen</div>
+            <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+        </div>
+
+        <div class="sections">
+            <!-- SECTION 1: VOKABELN -->
+            <div class="section active">
+                <h2 class="section-title">📖 Wichtige Wörter zum Text</h2>
+                <div class="intro-text">
+                    <strong>Lernen Sie diese Wörter, bevor Sie den Text lesen.</strong> So verstehen Sie die Geschichte besser.
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Handwerker, -</div>
+                    <div class="vocab-def">Ein junger Mann, der ein Handwerk (z.B. Schreiner, Maurer) gelernt hat und arbeitet.</div>
+                    <div class="vocab-example">"Ein junger Handwerker kam nach Amsterdam."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">die Reise, -n</div>
+                    <div class="vocab-def">Eine lange Fahrt von einem Ort zu einem anderen Ort.</div>
+                    <div class="vocab-example">"Der Handwerker machte eine lange Reise nach Amsterdam."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Hafen, "-</div>
+                    <div class="vocab-def">Der Ort, wo die Schiffe ankommen und gehen. Der Platz am Meer mit vielen Schiffen.</div>
+                    <div class="vocab-example">"Am Hafen standen viele große Schiffe."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">die Kiste, -n</div>
+                    <div class="vocab-def">Ein großer hölzerner Behälter zum Transport von Waren.</div>
+                    <div class="vocab-example">"Ganze Reihen von Kisten standen am Hafen."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">sterben / der Tod</div>
+                    <div class="vocab-def">Das Ende des Lebens. Wenn ein Mensch nicht mehr lebt.</div>
+                    <div class="vocab-example">"Der Mann starb. Sein Tod war das Ende."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">reich / arm</div>
+                    <div class="vocab-def">Reich = viel Geld und Besitz. Arm = wenig Geld, nicht viel.</div>
+                    <div class="vocab-example">"Der reiche Mann hatte ein schönes Haus. Der arme Mann war nicht glücklich."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">die Dekoration, -en</div>
+                    <div class="vocab-def">Schöne Teile und Ornamente an einem Haus oder an Möbeln.</div>
+                    <div class="vocab-example">"Das Haus hatte schöne Dekorationen."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">zufrieden / unzufrieden</div>
+                    <div class="vocab-def">Zufrieden = glücklich, mit dem Leben okay. Unzufrieden = nicht glücklich.</div>
+                    <div class="vocab-example">"Der Handwerker war unzufrieden, weil er arm war."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">das Missverständnis, -se</div>
+                    <div class="vocab-def">Wenn man etwas falsch versteht. Wenn zwei Menschen sich nicht richtig verstehen.</div>
+                    <div class="vocab-example">"Das Missverständnis war: Der Handwerker dachte, Kannitverstan ist ein Name."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">der Mast, -e</div>
+                    <div class="vocab-def">Das lange Holz in der Mitte eines Schiffes, wo die Segel hängen.</div>
+                    <div class="vocab-example">"Das Schiff hatte vier Masten."</div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: ORIGINALTEXT -->
+            <div class="section">
+                <h2 class="section-title">📄 Die Geschichte: Kannitverstan</h2>
+                <div class="intro-text">
+                    <strong>Lesen Sie die Geschichte.</strong> Sie können jederzeit zur Vokabel-Seite zurückwechseln, wenn Sie ein Wort nicht verstehen.
+                </div>
+
+                <div class="text-block">
+                    <p>Ein junger Handwerker aus Deutschland reiste nach Amsterdam. Das ist eine große Stadt am Meer mit vielen Schiffen. Dort sah er ein großes, schönes Haus. Das Haus war größer als jedes Haus in seiner Heimat. Es hatte sechs Kamine und schöne Dekorationen.</p>
+
+                    <p>Der junge Mann fragte einen Mann auf der Straße: "Wie heißt der Herr, dem dieses schöne Haus gehört? Und wer hat die schönen Blumen in die Fenster gepflanzt?"</p>
+
+                    <p>Der Mann verstand Deutsch nicht. Er sagte kurz: "Kannitverstan!" Das ist holländisch und bedeutet: "Ich kann Euch nicht verstehen." Aber der junge Mann dachte: Das ist ein Name! Das muss ein sehr reicher Mann sein, dieser Herr Kannitverstan!</p>
+
+                    <p>Der Handwerker ging weiter. Bald kam er zum Hafen. Dort standen viele Schiffe nebeneinander. Gerade kam ein großes Schiff aus Ostindien an. Viele Menschen luden große Kisten und Ballen aus. In den Kisten war Zucker, Kaffee und Pfeffer.</p>
+
+                    <p>Der Handwerker fragte: "Wem gehört all diese Ware? Wer ist so reich?" Ein Mann antwortete: "Kannitverstan!"</p>
+
+                    <p>Jetzt dachte der Handwerker: Ah! Dieser Herr Kannitverstan ist sehr, sehr reich! Er hat ein schönes großes Haus, er hat ein großes Schiff, und die besten Waren aus Ostindien! Ich bin ja so arm!</p>
+
+                    <p>Der Handwerker war sehr traurig. Dann sah er plötzlich einen Leichenzug. Das ist ein Zug mit einem toten Menschen. Vier schwarze Pferde zogen einen schwarzen Wagen. Viele Menschen in schwarzen Kleidern folgten schweigend.</p>
+
+                    <p>Der letzte Mann im Zug ging langsam und dachte nur an sein Geschäft. Der Handwerker fragte ihn: "Ist das ein guter Freund von Ihnen?"</p>
+
+                    <p>Der Mann antwortete: "Kannitverstan!"</p>
+
+                    <p>Plötzlich verstand der Handwerker alles! Dieser reiche Mann Kannitverstan war tot! Sein Reichtum half ihm nicht! Der Tod kommt für alle: für reiche Menschen und für arme Menschen. Der Handwerker war nicht mehr traurig. Er dachte: Der reiche Mann und ich, wir bekommen das Gleiche - den Tod.</p>
+
+                    <p>Der Handwerker war jetzt zufrieden mit seinem Leben. Er aß in einer Gaststätte ein Stück Käse und war glücklich.</p>
+
+                    <p>Von da an, wenn der Handwerker traurig über seine Armut war, dachte er an Herrn Kannitverstan - an sein großes Haus, an sein Schiff, und an sein Grab im kalten Boden.</p>
+
+                    <p class="text-author">Frei nach Johann Peter Hebel (1760-1826)</p>
+                </div>
+            </div>
+
+            <!-- SECTION 3: GENUS -->
+            <div class="section">
+                <h2 class="section-title">🔤 Genus-Übung: der – die – das</h2>
+                <div class="intro-text">
+                    <strong>Ordnen Sie die Wörter in die richtige Kategorie.</strong> Ziehen Sie die blauen Wörter mit der Maus in die richtige Kategorie.
+                </div>
+
+                <div class="genus-categories">
+                    <div class="genus-cat" data-cat="der" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🔵 der</div>
+                    </div>
+                    <div class="genus-cat" data-cat="die" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🔴 die</div>
+                    </div>
+                    <div class="genus-cat" data-cat="das" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🟡 das</div>
+                    </div>
+                    <div class="genus-cat" data-cat="pl" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                        <div class="genus-cat-title">🟣 Plural (die)</div>
+                    </div>
+                </div>
+
+                <div class="satzbau-parts" id="genusBank" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-check" onclick="checkGenus()">✓ Prüfen</button>
+                    <button class="btn-solution" onclick="showGenusAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetGenus()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="genus-feedback"></div>
+            </div>
+
+            <!-- SECTION 4: LÜCKENTEXT -->
+            <div class="section">
+                <h2 class="section-title">✓ Lückentext: Wichtige Wörter einsetzen</h2>
+                <div class="intro-text">
+                    <strong>Ergänzen Sie die Lücken mit den passenden Wörtern.</strong> Die Wörter sind aus der Geschichte.
+                </div>
+
+                <div id="luecken-container"></div>
+
+                <div class="buttons">
+                    <button class="btn-check" onclick="checkLuecken()">✓ Prüfen</button>
+                    <button class="btn-solution" onclick="showLueckenAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetLuecken()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="luecken-feedback"></div>
+            </div>
+
+            <!-- SECTION 5: MULTIPLE CHOICE -->
+            <div class="section">
+                <h2 class="section-title">☑ Fragen zum Text</h2>
+                <div class="intro-text">
+                    <strong>Wählen Sie die richtige Antwort.</strong> Lesen Sie die Frage und klicken Sie auf die beste Antwort.
+                </div>
+
+                <div id="mc-container"></div>
+
+                <div class="buttons">
+                    <button class="btn-check" onclick="checkMC()">✓ Prüfen</button>
+                    <button class="btn-solution" onclick="showMCAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetMC()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="mc-feedback"></div>
+            </div>
+
+            <!-- SECTION 6: SATZBAU -->
+            <div class="section">
+                <h2 class="section-title">🧩 Satzbau: Wörter in die richtige Reihenfolge</h2>
+                <div class="intro-text">
+                    <strong>Ordnen Sie die Wörter so, dass ein korrekter Satz entsteht.</strong> Ziehen Sie die blauen Wörter in die richtige Reihenfolge.
+                </div>
+
+                <div class="help-box">
+                    <strong>🔑 Tipps für den Satzbau:</strong><br>
+                    🔹 Das Verb steht immer auf Position 2 (in Hauptsätzen).<br>
+                    🔹 Die Standardreihenfolge: Subjekt – Verb – Zeit – Ort<br>
+                    🔹 Zeitangaben vor Ortsangaben
+                </div>
+
+                <div id="satzbau-container"></div>
+
+                <div class="buttons">
+                    <button class="btn-check" onclick="checkSatzbau()">✓ Prüfen</button>
+                    <button class="btn-solution" onclick="showSatzbauAnswer()">👁 Lösungen</button>
+                    <button class="btn-reset" onclick="resetSatzbau()">⟲ Neu starten</button>
+                </div>
+
+                <div class="feedback" id="satzbau-feedback"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">
+                <span class="author-name">&copy; Frank Burkert</span> · DaF-Materialien ·
+                <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const GENUS_DATA = [
+            { word: "Handwerker", cat: "der" },
+            { word: "Stadt", cat: "die" },
+            { word: "Haus", cat: "das" },
+            { word: "Fenster", cat: "das" },
+            { word: "Hafen", cat: "der" },
+            { word: "Schiff", cat: "das" },
+            { word: "Kiste", cat: "die" },
+            { word: "Blume", cat: "die" },
+            { word: "Tod", cat: "der" },
+            { word: "Reise", cat: "die" },
+            { word: "Mann", cat: "der" },
+            { word: "Frau", cat: "die" },
+            { word: "Geld", cat: "das" },
+            { word: "Mast", cat: "der" },
+            { word: "Segel", cat: "pl" }
+        ];
+
+        const LUECKEN = [
+            {
+                id: 1,
+                text: "Ein junger ___ reiste nach Amsterdam.",
+                blank: "Handwerker",
+                context: "ein junger Handwerker"
+            },
+            {
+                id: 2,
+                text: "Amsterdam ist eine große ___ am Meer.",
+                blank: "Stadt",
+                context: "eine große Stadt"
+            },
+            {
+                id: 3,
+                text: "Das ___ war größer als alle Häuser in seiner Heimat.",
+                blank: "Haus",
+                context: "ein großes Haus"
+            },
+            {
+                id: 4,
+                text: "Der Mann sagte: '___!' Das bedeutet 'Ich verstehe nicht.'",
+                blank: "Kannitverstan",
+                context: "ein holländisches Wort"
+            },
+            {
+                id: 5,
+                text: "Der Handwerker ging zum ___. Dort standen viele Schiffe.",
+                blank: "Hafen",
+                context: "zum Hafen am Meer"
+            },
+            {
+                id: 6,
+                text: "Ein großes ___ kam aus Ostindien an.",
+                blank: "Schiff",
+                context: "ein großes Schiff"
+            },
+            {
+                id: 7,
+                text: "Viele ___ standen am Hafen.",
+                blank: "Kisten",
+                context: "Kisten mit Waren"
+            },
+            {
+                id: 8,
+                text: "Der Handwerker sah einen ___. Das ist ein Zug mit einem toten Menschen.",
+                blank: "Leichenzug",
+                context: "ein Leichenzug"
+            },
+            {
+                id: 9,
+                text: "Dieser reiche Mann war ___. Der ___ kommt für alle Menschen.",
+                blank: "tot",
+                context: "Er war tot. Der Tod kommt für alle."
+            },
+            {
+                id: 10,
+                text: "Der Handwerker war jetzt ___. Sein Leben war gut.",
+                blank: "zufrieden",
+                context: "er war zufrieden"
+            }
+        ];
+
+        const MC_DATA = [
+            {
+                q: "Woher kommt der Handwerker?",
+                opts: ["Aus Amsterdam", "Aus Deutschland", "Aus Ostindien", "Aus England"],
+                correct: 1
+            },
+            {
+                q: "Was sieht der Handwerker zuerst in Amsterdam?",
+                opts: ["Ein Schiff", "Ein Haus", "Viele Blumen", "Einen Hafen"],
+                correct: 1
+            },
+            {
+                q: "Was bedeutet 'Kannitverstan'?",
+                opts: ["Ein reicher Mann", "Ich kann Euch nicht verstehen", "Ein schönes Haus", "Ein großes Schiff"],
+                correct: 1
+            },
+            {
+                q: "Woher kommt das große Schiff am Hafen?",
+                opts: ["Aus Holland", "Aus Deutschland", "Aus Ostindien", "Aus England"],
+                correct: 2
+            },
+            {
+                q: "Was ist in den Kisten?",
+                opts: ["Blumen", "Holz", "Zucker, Kaffee und Pfeffer", "Geld"],
+                correct: 2
+            },
+            {
+                q: "Was sieht der Handwerker, wenn er traurig über seine Armut ist?",
+                opts: ["Ein großes Haus", "Ein Schiff", "Einen Leichenzug", "Viele Menschen"],
+                correct: 2
+            },
+            {
+                q: "Wer ist die Person im Leichenzug?",
+                opts: ["Ein Freund des Handwerkers", "Herr Kannitverstan", "Ein Priester", "Der Vater des Handwerkers"],
+                correct: 1
+            },
+            {
+                q: "Was lernt der Handwerker aus der Geschichte?",
+                opts: ["Reichtum ist nicht alles", "Amsterdam ist schön", "Schiffe sind wichtig", "Geld macht glücklich"],
+                correct: 0
+            },
+            {
+                q: "Was macht der Handwerker am Ende der Geschichte?",
+                opts: ["Er verlässt Amsterdam", "Er isst Käse und ist glücklich", "Er wird reich", "Er arbeitet auf einem Schiff"],
+                correct: 1
+            },
+            {
+                q: "Wie fühlt sich der Handwerker am Ende?",
+                opts: ["Traurig und arm", "Zufrieden mit seinem Leben", "Wütend", "Verwirrt"],
+                correct: 1
+            }
+        ];
+
+        const SATZBAU = [
+            {
+                id: 1,
+                parts: ["der Handwerker", "reiste", "nach Amsterdam"],
+                valid: [
+                    ["der Handwerker", "reiste", "nach Amsterdam"]
+                ]
+            },
+            {
+                id: 2,
+                parts: ["das Haus", "war", "größer", "als alle Häuser"],
+                valid: [
+                    ["das Haus", "war", "größer", "als alle Häuser"]
+                ]
+            },
+            {
+                id: 3,
+                parts: ["der Mann", "verstand", "kein Deutsch"],
+                valid: [
+                    ["der Mann", "verstand", "kein Deutsch"]
+                ]
+            },
+            {
+                id: 4,
+                parts: ["ein Schiff", "kam", "aus Ostindien", "an"],
+                valid: [
+                    ["ein Schiff", "kam", "aus Ostindien", "an"]
+                ]
+            },
+            {
+                id: 5,
+                parts: ["der Handwerker", "sah", "einen Leichenzug"],
+                valid: [
+                    ["der Handwerker", "sah", "einen Leichenzug"]
+                ]
+            },
+            {
+                id: 6,
+                parts: ["der tote Mann", "war", "Herr Kannitverstan"],
+                valid: [
+                    ["der tote Mann", "war", "Herr Kannitverstan"]
+                ]
+            },
+            {
+                id: 7,
+                parts: ["der Tod", "kommt", "für alle Menschen"],
+                valid: [
+                    ["der Tod", "kommt", "für alle Menschen"]
+                ]
+            },
+            {
+                id: 8,
+                parts: ["der Handwerker", "war", "jetzt", "zufrieden"],
+                valid: [
+                    ["der Handwerker", "war", "jetzt", "zufrieden"],
+                    ["jetzt", "war", "der Handwerker", "zufrieden"]
+                ]
+            },
+            {
+                id: 9,
+                parts: ["Reichtum", "hilft", "nicht", "gegen", "den Tod"],
+                valid: [
+                    ["Reichtum", "hilft", "nicht", "gegen", "den Tod"]
+                ]
+            },
+            {
+                id: 10,
+                parts: ["er", "aß", "Käse", "und", "war", "glücklich"],
+                valid: [
+                    ["er", "aß", "Käse", "und", "war", "glücklich"]
+                ]
+            }
+        ];
+
+        function showSection(idx) {
+            const sections = document.querySelectorAll('.section');
+            const navBtns = document.querySelectorAll('.nav-btn');
+
+            sections.forEach(s => s.classList.remove('active'));
+            navBtns.forEach(b => b.classList.remove('active'));
+
+            sections[idx].classList.add('active');
+            navBtns[idx].classList.add('active');
+
+            // Sections werden einmalig im DOMContentLoaded initialisiert
+        }
+
+        // ============ GENUS ============
+        let selectedGenusChip = null;
+
+        function initGenus() {
+            const bank = document.getElementById('genusBank');
+            bank.innerHTML = '';
+            GENUS_DATA.forEach((item, idx) => {
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.textContent = item.word;
+                chip.draggable = true;
+                chip.dataset.word = item.word;
+                chip.dataset.cat = item.cat;
+                chip.id = 'genus-chip-' + idx;
+                chip.ondragstart = dragGenus;
+                chip.onclick = () => selectGenusChip(chip);
+                bank.appendChild(chip);
+            });
+        }
+
+        function selectGenusChip(chip) {
+            if (selectedGenusChip) selectedGenusChip.style.outline = '';
+            selectedGenusChip = chip;
+            chip.style.outline = '3px solid #f39c12';
+
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                cat.onclick = () => {
+                    if (selectedGenusChip) {
+                        cat.appendChild(selectedGenusChip);
+                        selectedGenusChip.style.outline = '';
+                        selectedGenusChip.classList.add('placed');
+                        selectedGenusChip = null;
+                    }
+                };
+            });
+
+            document.getElementById('genusBank').onclick = () => {
+                if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) {
+                    document.getElementById('genusBank').appendChild(selectedGenusChip);
+                    selectedGenusChip.classList.remove('placed');
+                    selectedGenusChip.style.outline = '';
+                    selectedGenusChip = null;
+                }
+            };
+        }
+
+        function dragGenus(e) {
+            e.dataTransfer.setData('text', e.target.id);
+        }
+
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+        function dropGenus(e) {
+            e.preventDefault();
+            const chipId = e.dataTransfer.getData('text');
+            const chip = document.getElementById(chipId);
+            if (!chip) return;
+
+            const dropTarget = e.currentTarget;
+            dropTarget.appendChild(chip);
+
+            if (dropTarget.id === 'genusBank') {
+                chip.classList.remove('placed');
+            } else {
+                chip.classList.add('placed');
+            }
+        }
+
+        function checkGenus() {
+            let correct = 0;
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                const catName = cat.dataset.cat;
+                cat.querySelectorAll('.chip').forEach(chip => {
+                    chip.classList.remove('correct', 'wrong');
+                    if (chip.dataset.cat === catName) {
+                        chip.classList.add('correct');
+                        correct++;
+                    } else {
+                        chip.classList.add('wrong');
+                    }
+                });
+            });
+
+            const feedback = document.getElementById('genus-feedback');
+            feedback.className = 'feedback ' + (correct === GENUS_DATA.length ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<span class="score">${correct} von ${GENUS_DATA.length} korrekt</span>`;
+        }
+
+        function showGenusAnswer() {
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                const title = cat.querySelector('.genus-cat-title').textContent;
+                cat.innerHTML = '<div class="genus-cat-title">' + title + '</div>';
+            });
+
+            GENUS_DATA.forEach((item, idx) => {
+                const chip = document.getElementById('genus-chip-' + idx);
+                const targetCat = document.querySelector(`.genus-cat[data-cat="${item.cat}"]`);
+                targetCat.appendChild(chip);
+                chip.classList.add('placed', 'correct');
+                chip.classList.remove('wrong');
+            });
+
+            const feedback = document.getElementById('genus-feedback');
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = `<span class="score">${GENUS_DATA.length} von ${GENUS_DATA.length} korrekt</span>`;
+        }
+
+        function resetGenus() {
+            document.querySelectorAll('.chip').forEach(c => {
+                c.classList.remove('placed', 'correct', 'wrong');
+                c.style.outline = '';
+            });
+            document.querySelectorAll('.genus-cat').forEach(cat => {
+                const title = cat.querySelector('.genus-cat-title').textContent;
+                cat.innerHTML = '<div class="genus-cat-title">' + title + '</div>';
+            });
+            initGenus();
+            document.getElementById('genus-feedback').className = 'feedback';
+            document.getElementById('genus-feedback').innerHTML = '';
+            selectedGenusChip = null;
+        }
+
+        // ============ LÜCKENTEXT ============
+        function renderLuecken() {
+            const container = document.getElementById('luecken-container');
+            container.innerHTML = '';
+
+            LUECKEN.forEach(ex => {
+                const div = document.createElement('div');
+                div.className = 'luecken-sentence';
+                div.id = 'luecken-' + ex.id;
+
+                const parts = ex.text.split('___');
+                let html = '<span>' + parts[0] + '</span>';
+                html += `<input class="blank s" type="text" data-id="${ex.id}" data-answer="${ex.blank}">`;
+                html += '<span>' + parts[1] + '</span>';
+
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+        }
+
+        function checkLuecken() {
+            let correct = 0;
+            document.querySelectorAll('.blank').forEach(input => {
+                if (input.value.trim() === input.dataset.answer) {
+                    correct++;
+                    input.style.color = '#2ecc71';
+                } else {
+                    input.style.color = '#e74c3c';
+                }
+            });
+
+            const feedback = document.getElementById('luecken-feedback');
+            feedback.className = 'feedback ' + (correct === LUECKEN.length ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<span class="score">${correct} von ${LUECKEN.length} korrekt</span>`;
+        }
+
+        function showLueckenAnswer() {
+            document.querySelectorAll('.blank').forEach(input => {
+                const user = input.value.trim();
+                const answer = input.dataset.answer.toLowerCase();
+                const next = input.nextElementSibling;
+                if (next && next.classList.contains('correction-hint')) next.remove();
+                if (user === answer) {
+                    input.classList.remove('wrong');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('wrong');
+                    const hint = document.createElement('span');
+                    hint.className = 'correction-hint';
+                    hint.textContent = input.dataset.answer;
+                    input.insertAdjacentElement('afterend', hint);
+                }
+            });
+        }
+
+        function resetLuecken() {
+            document.getElementById('luecken-feedback').className = 'feedback';
+            document.getElementById('luecken-feedback').innerHTML = '';
+            renderLuecken();
+        }
+
+        // ============ MULTIPLE CHOICE ============
+        function renderMC() {
+            const container = document.getElementById('mc-container');
+            container.innerHTML = '';
+
+            MC_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'mc-question';
+                div.id = 'mc-' + idx;
+
+                let html = `<div class="mc-question-text">${idx + 1}. ${item.q}</div>`;
+                html += '<div class="mc-options">';
+
+                item.opts.forEach((opt, oidx) => {
+                    html += `<div class="mc-option" onclick="selectOption(${idx}, ${oidx})" data-mc="${idx}" data-opt="${oidx}">${opt}</div>`;
+                });
+
+                html += '</div>';
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+        }
+
+        function selectOption(mcIdx, optIdx) {
+            document.querySelectorAll(`[data-mc="${mcIdx}"]`).forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.querySelector(`[data-mc="${mcIdx}"][data-opt="${optIdx}"]`).classList.add('selected');
+        }
+
+        function checkMC() {
+            let correct = 0;
+            MC_DATA.forEach((item, idx) => {
+                const selected = document.querySelector(`[data-mc="${idx}"].selected`);
+                if (selected) {
+                    const optIdx = parseInt(selected.dataset.opt);
+                    if (optIdx === item.correct) {
+                        correct++;
+                        selected.classList.add('correct');
+                    } else {
+                        selected.classList.add('incorrect');
+                    }
+                }
+            });
+
+            const feedback = document.getElementById('mc-feedback');
+            feedback.className = 'feedback ' + (correct === MC_DATA.length ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<span class="score">${correct} von ${MC_DATA.length} korrekt</span>`;
+        }
+
+        function showMCAnswer() {
+            MC_DATA.forEach((item, idx) => {
+                const correct = document.querySelector(`[data-mc="${idx}"][data-opt="${item.correct}"]`);
+                if (correct) {
+                    correct.classList.add('correct');
+                }
+            });
+        }
+
+        function resetMC() {
+            document.getElementById('mc-feedback').className = 'feedback';
+            document.getElementById('mc-feedback').innerHTML = '';
+            renderMC();
+        }
+
+        // ============ SATZBAU ============
+        let selectedSBChip = null;
+
+        function initSatzbau() {
+            const container = document.getElementById('satzbau-container');
+            container.innerHTML = '';
+
+            SATZBAU.forEach(ex => {
+                const div = document.createElement('div');
+                div.className = 'exercise-item';
+
+                const dropRow = document.createElement('div');
+                dropRow.className = 'drop-row';
+                dropRow.id = 'sb-drop-' + ex.id;
+                dropRow.dataset.exId = ex.id;
+                dropRow.ondrop = dropSB;
+                dropRow.ondragover = allowDrop;
+                dropRow.onclick = () => {
+                    if (selectedSBChip && selectedSBChip.dataset.exId == ex.id) {
+                        const dot = dropRow.querySelector('.fixed-dot');
+                        dropRow.insertBefore(selectedSBChip, dot);
+                        selectedSBChip.style.outline = '';
+                        selectedSBChip = null;
+                        updateCaps(ex.id);
+                    }
+                };
+
+                const bank = document.createElement('div');
+                bank.className = 'satzbau-parts';
+                bank.id = 'sb-bank-' + ex.id;
+                bank.ondrop = dropSB;
+                bank.ondragover = allowDrop;
+                bank.onclick = () => {
+                    if (selectedSBChip && selectedSBChip.dataset.exId == ex.id && selectedSBChip.parentElement.classList.contains('drop-row')) {
+                        bank.appendChild(selectedSBChip);
+                        selectedSBChip.style.outline = '';
+                        selectedSBChip = null;
+                        updateCaps(ex.id);
+                    }
+                };
+
+                const shuffled = [...ex.parts].sort(() => Math.random() - 0.5);
+                shuffled.forEach((p, pi) => {
+                    const chip = document.createElement('div');
+                    chip.className = 'chip';
+                    chip.textContent = p;
+                    chip.draggable = true;
+                    chip.dataset.text = p;
+                    chip.dataset.exId = ex.id;
+                    chip.id = `sb-chip-${ex.id}-${pi}`;
+                    chip.ondragstart = dragSB;
+                    chip.onclick = () => selectSBChip(chip);
+
+                    if (p === ',' || p === ';' || p === ':') chip.classList.add('punct');
+
+                    bank.appendChild(chip);
+                });
+
+                const point = document.createElement('span');
+                point.className = 'fixed-dot';
+                point.textContent = '.';
+                point.style.fontSize = '1.5em';
+                point.style.marginLeft = '4px';
+                dropRow.appendChild(point);
+
+                div.appendChild(dropRow);
+                div.appendChild(bank);
+                container.appendChild(div);
+            });
+        }
+
+        function selectSBChip(chip) {
+            if (selectedSBChip) selectedSBChip.style.outline = '';
+            selectedSBChip = chip;
+            chip.style.outline = '3px solid #f39c12';
+        }
+
+        function dragSB(e) {
+            e.dataTransfer.setData('text', e.target.id);
+        }
+
+        function dropSB(e) {
+            e.preventDefault();
+            const chipId = e.dataTransfer.getData('text');
+            const chip = document.getElementById(chipId);
+            if (!chip) return;
+
+            const target = e.currentTarget;
+            if (target.classList.contains('drop-row')) {
+                const dot = target.querySelector('.fixed-dot');
+                target.insertBefore(chip, dot);
+            } else {
+                target.appendChild(chip);
+            }
+            updateCaps(chip.dataset.exId);
+        }
+
+        function updateCaps(exId) {
+            const row = document.getElementById('sb-drop-' + exId);
+            row.querySelectorAll('.chip').forEach(c => {
+                const t = c.dataset.text;
+                if (t && t.length > 0 && t[0] === t[0]) {
+                    c.textContent = t.toLowerCase();
+                }
+            });
+
+            const first = row.querySelector('.chip');
+            if (first && first.textContent !== '.' && !first.classList.contains('punct')) {
+                const t = first.dataset.text;
+                if (t && t.length > 0) {
+                    first.textContent = t;
+                }
+            }
+        }
+
+        function checkSatzbau() {
+            let correct = 0;
+            SATZBAU.forEach(ex => {
+                const row = document.getElementById('sb-drop-' + ex.id);
+                const bank = document.getElementById('sb-bank-' + ex.id);
+                const rowChips = Array.from(row.querySelectorAll('.chip'));
+                const bankChips = Array.from(bank.querySelectorAll('.chip'));
+                const userOrder = rowChips.map(c => c.dataset.text);
+
+                const isCorrect = ex.valid.some(v =>
+                    v.length === userOrder.length && v.every((p, i) => p === userOrder[i])
+                );
+
+                rowChips.forEach(c => {
+                    c.classList.remove('correct', 'wrong');
+                    c.classList.add(isCorrect ? 'correct' : 'wrong');
+                });
+
+                // Chips in der Bank = nicht platziert = falsch
+                bankChips.forEach(c => {
+                    c.classList.remove('correct', 'wrong');
+                    c.classList.add('wrong');
+                });
+
+                if (isCorrect) correct++;
+            });
+
+            const feedback = document.getElementById('satzbau-feedback');
+            feedback.className = 'feedback ' + (correct === SATZBAU.length ? 'correct' : 'incorrect');
+            feedback.innerHTML = `<span class="score">${correct} von ${SATZBAU.length} korrekt</span>`;
+        }
+
+        function showSatzbauAnswer() {
+            SATZBAU.forEach(ex => {
+                const row = document.getElementById('sb-drop-' + ex.id);
+                const bank = document.getElementById('sb-bank-' + ex.id);
+
+                // Alle Chips sicher rausnehmen (nicht innerHTML!)
+                const allChips = [...row.querySelectorAll('.chip'), ...bank.querySelectorAll('.chip')];
+                const tempDiv = document.createDocumentFragment();
+                allChips.forEach(c => tempDiv.appendChild(c));
+
+                // Row leeren (jetzt nur noch der fixed-dot drin)
+                row.innerHTML = '';
+                const point = document.createElement('span');
+                point.className = 'fixed-dot';
+                point.textContent = '.';
+                point.style.fontSize = '1.5em';
+                point.style.marginLeft = '4px';
+
+                // Bank leeren
+                bank.innerHTML = '';
+
+                ex.valid[0].forEach(p => {
+                    const chip = allChips.find(c => c.dataset.text === p);
+                    if (chip) {
+                        row.appendChild(chip);
+                        chip.classList.remove('wrong');
+                        chip.classList.add('correct');
+                    }
+                });
+
+                row.appendChild(point);
+                updateCaps(ex.id);
+            });
+
+            const feedback = document.getElementById('satzbau-feedback');
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = `<span class="score">${SATZBAU.length} von ${SATZBAU.length} korrekt</span>`;
+        }
+
+        function resetSatzbau() {
+            initSatzbau();
+            document.getElementById('satzbau-feedback').className = 'feedback';
+            document.getElementById('satzbau-feedback').innerHTML = '';
+            selectedSBChip = null;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initGenus();
+            renderLuecken();
+            renderMC();
+            initSatzbau();
+        });
+    </script>
+</body>
+</html>

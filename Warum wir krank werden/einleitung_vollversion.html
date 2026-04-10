@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warum wir krank werden – Einleitung</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+}
+.container {
+    max-width: 1000px;
+    margin:0 auto;
+    background:#fff;
+    border-radius: 12px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+.header {
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+    padding:30px;
+    text-align:center;
+}
+.header h1 { font-size:2em; margin-bottom:10px; }
+.header p { font-size:1.1em; opacity:0.95; }
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+
+
+
+.section {
+    display:none;
+    padding:30px;
+    min-height:400px;
+}
+.section.active { display:block; }
+.section h2 {
+    color:#333;
+    margin-bottom:20px;
+    font-size:1.6em;
+}
+.intro-text {
+    background:#f0f4ff;
+    border-left:4px solid #667eea;
+    padding:12px 16px;
+    margin-bottom:20px;
+    border-radius:0 8px 8px 0;
+    color:#555;
+    font-size:0.95em;
+}
+
+/* Vorentlastung */
+.vocab-card {
+    background:#f8f9ff;
+    border-left:4px solid #667eea;
+    padding:14px 18px;
+    margin-bottom:12px;
+    border-radius:0 8px 8px 0;
+}
+.vocab-term {
+    font-weight:700;
+    color:#333;
+    font-size:1.05em;
+}
+.vocab-def {
+    color:#555;
+    margin-top:4px;
+    font-size:0.95em;
+}
+.vocab-example {
+    color:#777;
+    font-style:italic;
+    margin-top:4px;
+    font-size:0.9em;
+}
+
+/* Originaltext */
+.text-block {
+    background:#f8f9ff;
+    border-radius:12px;
+    padding:20px 24px;
+    line-height:1.8;
+    color:#333;
+    font-size:0.98em;
+    max-height:70vh;
+    overflow-y:auto;
+    font-family:Georgia,'Times New Roman',serif;
+}
+.text-block p {
+    margin-bottom:14px;
+    text-align:justify;
+}
+.text-block em { font-style:italic; }
+.text-author {
+    text-align:right;
+    font-weight:700;
+    margin-top:20px;
+    color:#555;
+}
+
+/* Genus */
+.chip-bank {
+    min-height:60px;
+    background:#f8f9ff;
+    border:2px dashed #667eea;
+    border-radius:8px;
+    padding:10px;
+    margin-bottom:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:flex-start;
+}
+.categories {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+.category {
+    background:#f8f9ff;
+    border-radius:8px;
+    padding:12px;
+}
+.category h3 {
+    text-align:center;
+    color:#667eea;
+    margin-bottom:8px;
+    font-size:1.1em;
+}
+.drop-zone {
+    min-height:80px;
+    background:#fff;
+    border:2px dashed #ccc;
+    border-radius:6px;
+    padding:8px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    align-content:flex-start;
+}
+.chip {
+    background:#667eea;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:move;
+    user-select:none;
+    font-size:0.95em;
+    transition:all 0.2s;
+}
+.chip:hover { transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
+.chip.correct { background:#27ae60; }
+.chip.wrong { background:#e74c3c; }
+
+/* Lückentext */
+.exercise-item {
+    background:#f8f9ff;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:15px;
+    line-height:2;
+}
+input.blank {
+    border:none;
+    border-bottom:2px solid #667eea;
+    background:transparent;
+    padding:2px 8px;
+    font-size:1em;
+    font-family:inherit;
+    text-align:center;
+    outline:none;
+}
+input.blank.s { min-width:50px; width:50px; }
+input.blank.m { min-width:90px; width:90px; }
+input.blank.l { min-width:150px; width:150px; }
+input.blank.xl { min-width:200px; width:200px; }
+input.blank.correct { border-bottom-color:#27ae60; background:#d4f4dd; }
+input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
+.solution {
+    display:none;
+    color:#27ae60;
+    font-weight:600;
+    margin-left:4px;
+}
+.solution.show { display:inline; }
+
+/* Multiple-Choice */
+.mc-question {
+    background:#f8f9ff;
+    padding:18px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+.mc-question-text {
+    font-weight:600;
+    color:#333;
+    margin-bottom:12px;
+    font-size:1.05em;
+}
+.mc-options {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.mc-opt {
+    padding:10px 16px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.2s;
+    font-size:0.95em;
+}
+.mc-opt:hover {
+    border-color:#667eea;
+    background:#f8f9ff;
+}
+.mc-opt.selected {
+    border-color:#667eea;
+    background:rgba(102,126,234,0.15);
+}
+.mc-opt.correct {
+    border-color:#27ae60;
+    background:rgba(39,174,96,0.1);
+}
+.mc-opt.wrong {
+    border-color:#e74c3c;
+    background:rgba(231,76,60,0.1);
+}
+
+/* Satzbau */
+.satzbau-item {
+    background:#f8f9ff;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+.drop-row {
+    min-height:50px;
+    background:#fff;
+    border:2px dashed #667eea;
+    border-radius:8px;
+    padding:10px;
+    margin-bottom:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    align-items:center;
+}
+.fixed-dot {
+    font-size:1.5em;
+    font-weight:700;
+    color:#333;
+    margin-left:2px;
+}
+.help-box {
+    background:#fff3cd;
+    border-left:4px solid #f39c12;
+    padding:12px 16px;
+    margin-bottom:20px;
+    border-radius:0 8px 8px 0;
+    font-size:0.9em;
+    line-height:1.6;
+}
+
+/* Buttons */
+.controls {
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+.btn {
+    padding:12px 24px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:1em;
+    font-weight:600;
+    transition:all 0.3s;
+    color:#fff;
+}
+.btn:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+.btn-check { background:#667eea; }
+.btn-check:hover { background:#5568d3; }
+.btn-solution { background:#f39c12; }
+.btn-solution:hover { background:#e67e22; }
+.btn-reset { background:#95a5a6; }
+.btn-reset:hover { background:#7f8c8d; }
+.score {
+    background:#e8f5e9;
+    color:#27ae60;
+    padding:12px 20px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:1.05em;
+    text-align:center;
+}
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ebff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 700; }
+@media (max-width: 600px) {
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; font-size: 0.78em; padding: 10px 4px; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Warum wir krank werden</h1>
+        <p>Einleitung – Interaktive Übungen</p>
+    </div>
+    
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)">📖 Vorentlastung</div>
+        <div class="nav-btn" onclick="showSection(1)">📄 Originaltext</div>
+        <div class="nav-btn" onclick="showSection(2)">🔤 Genus</div>
+        <div class="nav-btn" onclick="showSection(3)">✏️ Lückentext</div>
+        <div class="nav-btn" onclick="showSection(4)">❓ Multiple-Choice</div>
+        <div class="nav-btn" onclick="showSection(5)">🧩 Satzbau</div>
+    </div>
+    
+    <!-- Tab 1: Vorentlastung -->
+    <div class="section active" id="sec-0">
+        <h2>📖 Vorentlastung</h2>
+        <p class="intro-text">Lernen Sie diese Wörter, bevor Sie den Originaltext lesen.</p>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die Insulinresistenz, -en</div>
+            <div class="vocab-def">Zustand, bei dem der Körper nicht mehr richtig auf das Hormon Insulin reagiert. Dies kann zu verschiedenen chronischen Krankheiten führen.</div>
+            <div class="vocab-example">„Möglicherweise sind auch Sie insulinresistent – die Wahrscheinlichkeit spricht dafür."</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die Pathophysiologie, kein Plural</div>
+            <div class="vocab-def">Die Wissenschaft, die untersucht, wie Organsysteme funktionieren, wenn wir krank oder verletzt sind. (griechisch: <em>pathos</em> = Leiden, <em>physis</em> = Natur)</div>
+            <div class="vocab-example">„Dieses Fach heißt Pathophysiologie."</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die Fettleibigkeit, kein Plural</div>
+            <div class="vocab-def">Starkes Übergewicht; medizinisch: wenn der Body-Mass-Index (BMI) über 30 liegt. Synonym: Adipositas.</div>
+            <div class="vocab-example">„Anfang der 2000er-Jahre war das Interesse an der Fettleibigkeit ebenso groß wie heute."</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die Alzheimerkrankheit, -en</div>
+            <div class="vocab-def">Eine Erkrankung des Gehirns, bei der Menschen allmählich ihr Gedächtnis und ihre kognitiven Fähigkeiten verlieren. Die häufigste Form von Demenz.</div>
+            <div class="vocab-example">„Weitere 50 Millionen Menschen in aller Welt leiden an der Alzheimerkrankheit."</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">der Typ-2-Diabetes, kein Plural</div>
+            <div class="vocab-def">Eine Form von Diabetes, die durch Insulinresistenz verursacht wird. Im Gegensatz zu Typ-1-Diabetes entsteht sie meist im Erwachsenenalter.</div>
+            <div class="vocab-example">„Sie galt als Vorstufe von Typ-2-Diabetes."</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die Triglyzeride, nur Plural</div>
+            <div class="vocab-def">Fette im Blut. Erhöhte Triglyzeridwerte können auf Stoffwechselprobleme hinweisen und das Risiko für Herzerkrankungen erhöhen.</div>
+            <div class="vocab-example">„Sind Ihre Triglyzeridwerte erhöht?"</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">das polyzystische Ovarialsyndrom (PCOS), kein Plural</div>
+            <div class="vocab-def">Eine hormonelle Störung bei Frauen, die zu unregelmäßigen Menstruationszyklen, Unfruchtbarkeit und anderen Symptomen führen kann. Oft verbunden mit Insulinresistenz.</div>
+            <div class="vocab-example">„Leiden Sie unter dem polyzystischen Ovarialsyndrom (PCOS; bei Frauen)?"</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die Wassereinlagerungen, nur Plural</div>
+            <div class="vocab-def">Flüssigkeitsansammlungen im Gewebe, die zu Schwellungen führen. Medizinisch: Ödeme.</div>
+            <div class="vocab-example">„Neigen Sie zu Wassereinlagerungen?"</div>
+        </div>
+        
+        <div class="vocab-card">
+            <div class="vocab-term">die erektile Dysfunktion, -en</div>
+            <div class="vocab-def">Unfähigkeit, eine für den Geschlechtsverkehr ausreichende Erektion zu bekommen oder aufrechtzuerhalten. Kann ein Anzeichen für Durchblutungsprobleme und Insulinresistenz sein.</div>
+            <div class="vocab-example">„Leiden Sie unter erektiler Dysfunktion (bei Männern)?"</div>
+        </div>
+    </div>
+    
+    <!-- Tab 2: Originaltext -->
+    <div class="section" id="sec-1">
+        <h2>📄 Originaltext</h2>
+        <p class="intro-text">Lesen Sie nun den Originaltext. Sie können jederzeit zur Vorentlastung zurückwechseln.</p>
+        
+        <div class="text-block">
+            <p><strong>Einleitung</strong></p>
+            
+            <p>Wir sind krank. Überall auf der Welt kämpfen wir mit Krankheiten, die früher einmal sehr selten waren – und oft verlieren wir den Kampf. Jedes Jahr sterben weltweit ungefähr 10 Millionen Menschen an Krebs und fast 20 Millionen Menschen an Herzerkrankungen. Weitere 50 Millionen Menschen in aller Welt leiden an der Alzheimerkrankheit, und fast eine halbe Milliarde von uns sind Diabetiker.</p>
+            
+            <p>Derartige Erkrankungen werden immer häufiger, aber auch andere, weniger tödliche Krankheiten nehmen zu. Ungefähr 40 Prozent der Erwachsenen in aller Welt gelten als übergewichtig oder fettleibig. Darüber hinaus ist bei nahezu der Hälfte aller Männer über 45 Jahren der Testosteronspiegel nicht optimal, und fast 10 Prozent der Frauen leiden unter Unregelmäßigkeiten bei der Menstruation oder sind unfruchtbar.</p>
+            
+            <p>Es mag den Anschein haben, als hätten diese und weitere Störungen nichts miteinander zu tun, und doch haben sie eines gemeinsam: Die genannten Probleme sind in unterschiedlichem Ausmaß auf eine Insulinresistenz zurückzuführen oder werden dadurch verstärkt. Möglicherweise sind auch Sie insulinresistent – die Wahrscheinlichkeit spricht dafür. Eine neuere Studie deutet an, dass bis zu 85 Prozent aller erwachsenen US-Amerikaner insulinresistent sind, genau wie die Hälfte aller Erwachsenen in Mexiko, China und Indien sowie über ein Drittel der erwachsenen Europäer und Kanadier. Auf den pazifischen Inseln, in Nordafrika und im Nahen Osten ist das Problem mindestens ebenso stark verbreitet.</p>
+            
+            <p>Die Insulinresistenz ist die häufigste Gesundheitsstörung weltweit, und sie trifft Jahr für Jahr mehr Menschen als alle anderen Gesundheitsprobleme. Dennoch sind die wenigsten mit dem Begriff vertraut, und falls sie ihn schon einmal gehört haben, können sie nichts damit anfangen. Das ist nicht überraschend. Ich bin in der biomedizinischen Forschung und als Professor tätig, und obwohl ich mich heute hauptsächlich mit der Insulinresistenz beschäftige, hatte auch ich davon früher nicht die geringste Ahnung.</p>
+            
+            <p><strong>Wie ich zum Experten für eine Krankheit wurde, von der ich noch nie gehört hatte</strong></p>
+            
+            <p>Falls Sie sich fragen, warum man nicht mehr von der Insulinresistenz hört, obwohl sie so häufig ist, sind Sie damit nicht allein. Ich jedenfalls wurde erst damit vertraut, als mich mein professionelles wissenschaftliches Interesse in diese Richtung drängte. Aber auch da war ich ursprünglich nicht angetreten, um die Insulinresistenz zu erforschen – aber meine Interessen verlagerten sich schnell.</p>
+            
+            <p>Anfang der 2000er-Jahre war das Interesse an der Fettleibigkeit ebenso groß wie heute. Nachdem ich in einem wissenschaftlichen Artikel gelesen hatte, dass Fettgewebe Hormone absondert, die dann mit dem Blut durch den Körper fließen und auch alle anderen Körperteile beeinflussen, war ich fasziniert – und wollte unbedingt mehr darüber in Erfahrung bringen. Mein ursprünglicher Forschungsschwerpunkt war die Anpassung der Muskulatur an sportliche Belastung, doch dieser Artikel weckte mein Interesse an der Frage, inwiefern sich der Körper an die Fettleibigkeit anpasst. Denn warum sollte er es nicht tun? Der menschliche Körper ist ganz erstaunlich und wild entschlossen, auch unter ungesunden Bedingungen wie extremem Übergewicht weiter zu funktionieren. (Wie Sie sehen werden, sind leider nicht alle Anpassungen von Vorteil.) Je mehr ich las, desto mehr deutete darauf hin, dass der Körper bei steigendem Fettanteil auch insulinresistent wird, das heißt immer weniger auf das Hormon Insulin reagiert.</p>
+            
+            <p>Während meines weiteren Studiums kratzte ich zwar an der Oberfläche des Ursprungs von Insulinresistenz. Aber ich hatte immer noch keine Ahnung, auf welche Weise die Insulinresistenz ihrerseits weitere Krankheiten verursacht. Mein Weckruf kam mit meiner Arbeit als Universitätsprofessor.</p>
+            
+            <p>Mein erster Lehrauftrag bestand darin, den Studierenden beizubringen, wie unsere Organsysteme funktionieren, wenn wir krank oder verletzt sind. Dieses Fach heißt Pathophysiologie. Als Wissenschaftler hatte ich zwar die Ursachen der Insulinresistenz untersucht, aber an eine Verbindung zu chronischen Erkrankungen glaubte ich damals eigentlich nicht – abgesehen davon, dass sie als Vorstufe von Typ-2-Diabetes galt und ein flüchtiger Zusammenhang zu Herzerkrankungen bestand.</p>
+            
+            <p>Als ich mit der Planung der Vorlesungen für meine Kurse begann, setzte ich auf meine Stärken und rückte die Insulinresistenz so oft wie möglich in den Mittelpunkt. Und mit einem Mal gingen mir die Augen auf. Ich kann mich besonders gut an die Vorbereitungen zu einer Vorlesung über Herz-Kreislauf-Erkrankungen erinnern – die weltweit führende Todesursache. Ich war sprachlos, als ich entdeckte, wie viele wissenschaftliche Arbeiten die unzähligen Möglichkeiten beleuchten, wie eine Insulinresistenz auf direktem Wege zu einem hohen Blutdruck, einem hohen Cholesterinspiegel, Ablagerungen in den Arterien und vielem mehr führen kann. Dieser Zusammenhang war alles andere als flüchtig!</p>
+            
+            <p>Von da an versuchte ich, auch bei anderen Krankheiten Hinweise auf eine Beteiligung der Insulinresistenz zu finden, und stellte fest, dass sie bei nahezu allen chronischen Erkrankungen vorhanden ist. (Wie Sie sehen werden, galt dies besonders für chronische Krankheiten, die auf den Verzehr von vielen industriell verarbeiteten und künstlichen Nahrungsmitteln zurückzuführen sind.)</p>
+            
+            <p>Mir war nie wirklich klar gewesen, dass eine Insulinresistenz nicht nur Diabetes, sondern auch andere Krankheiten verursacht – obwohl ich als Experte für Insulinresistenz galt!</p>
+            
+            <p>So peinlich mir diese Wissenslücke war, so erstaunt war ich darüber, dass die meisten anderen Wissenschaftler und Ärzte auch nicht mehr wussten als ich. Ich dachte mir, wenn schon die Biomediziner keine Ahnung hatten, dass die Insulinresistenz zu den Ursachen der häufigsten chronischen Erkrankungen zählte, dürfte der Durchschnittsbürger so gut wie völlig im Dunkeln tappen. Ich fragte mich, weshalb die Insulinresistenz in Gesprächen zum Thema Gesundheit nicht öfter zur Sprache kam. Mit der Zeit wurde mir klar: Um das ungeheure Ausmaß dieses Problems zu verstehen, müsste man Tausende von wissenschaftlichen Fachzeitschriften und Arbeiten durchforsten, den Fachjargon verstehen und Zusammenhänge herstellen können. Noch schwieriger zu bewerkstelligen wäre, dass man diese wissenschaftlichen Forschungen in die Praxis überführen müsste. Kein Wunder, dass kaum einer die Bedrohung durch die Insulinresistenz erkannte.</p>
+            
+            <p>Da sich das Ausmaß des Problems in letzter Zeit immer deutlicher zeigt, werde ich des Öfteren gebeten, über meine Forschungen zu sprechen. Seither kann ich diese Botschaft in Vorträgen, Podcast-Interviews und Youtube-Diskussionen mit der ganzen Welt teilen. Aber so viel ich auch darüber spreche, ich werde niemals alles sagen können, was ich gern zu diesem Thema sagen würde. Und da kommt das vorliegende Buch ins Spiel.</p>
+            
+            <p>Mein oberstes Ziel ist es, die Wissenschaft rund um die Insulinresistenz zu entmystifizieren, damit jeder verstehen kann, was Insulinresistenz ist und was sie so gefährlich macht. Ich möchte Sie mit dem auf soliden veröffentlichten Erkenntnissen beruhenden Wissen ausstatten, wie Sie eine Insulinresistenz verhindern oder gar rückgängig machen können. Und ich möchte Ihnen zeigen, welche Schritte Sie unternehmen können, um diese Erkrankung mit einfachen Veränderungen Ihrer Lebensgewohnheiten – und ohne irgendwelche ärztlichen Verordnungen – zu verhindern.</p>
+            
+            <p>In diesem Buch stütze ich mich auf die Forschungen und Veröffentlichungen unzähliger Labors und Krankenhäuser in aller Welt, wo man dieses Thema seit hundert Jahren erforscht. Für mich als Autor und Wissenschaftler ist die Geschichte der vorliegenden Beweise erlösend. Nichts von dem, was ich in diesem Buch schreibe, beruht auf meiner persönlichen Meinung, sondern auf veröffentlichten, von Experten geprüften wissenschaftlichen Erkenntnissen. (Falls Ihnen irgendwelche Schlussfolgerungen nicht behagen, werden Sie dies wohl mit der Primärliteratur klären müssen.)</p>
+            
+            <p><strong>Woher weiß ich, ob ich insulinresistent bin?</strong></p>
+            
+            <p>Wie ich bereits sagte, ist vielen Ärzten nicht bewusst, wie weit verbreitet die Insulinresistenz ist, welche Probleme sie verursachen kann und vor allem, wie man sie erkennt. Wenn Ihr Arzt das Thema noch nie zur Sprache gebracht hat, bedeutet das also möglicherweise keineswegs, dass Sie aus dem Schneider sind.</p>
+            
+            <p>Bitte beantworten Sie die folgenden Fragen, um sich einen Eindruck von Ihrem Risiko zu verschaffen:</p>
+            <p>Haben Sie mehr Bauchfett, als Ihnen lieb ist?<br>
+            Haben Sie Bluthochdruck?<br>
+            Gibt es eine familiäre Vorbelastung für Herzerkrankungen?<br>
+            Sind Ihre Triglyzeridwerte erhöht?<br>
+            Neigen Sie zu Wassereinlagerungen?<br>
+            Haben Sie dunklere Hautstellen oder Stielwarzen am Hals, unter den Armen oder anderswo?<br>
+            Gibt es in Ihrer Familie Personen mit Insulinresistenz oder Typ-2-Diabetes?<br>
+            Leiden Sie unter dem polyzystischen Ovarialsyndrom (PCOS; bei Frauen) oder erektiler Dysfunktion (bei Männern)?</p>
+            
+            <p>Alle diese Fragen stehen irgendwie mit Insulinresistenz in Verbindung. Wenn Sie eine davon mit Ja beantwortet haben, sind Sie wahrscheinlich insulinresistent. Wenn Sie zwei (oder mehr) mit Ja beantwortet haben, sind Sie es mit Sicherheit. In beiden Fällen ist dieses Buch das richtige für Sie. Es informiert über die häufigste Erkrankung der Welt und verrät Ihnen, weshalb sie so weit verbreitet ist, wieso Sie sich dafür interessieren sollten und was Sie dagegen tun können. Sie müssen Ihre Gesundheit aus einer anderen Perspektive betrachten, können sich ein genaueres Bild von Ihrem Krankheitsrisiko machen und möglichen Problemen dadurch begegnen, dass Sie das Insulin in den Fokus rücken.</p>
+            
+            <p class="text-author">Dr. Benjamin Bikman</p>
+        </div>
+    </div>
+    
+    <!-- Tab 3: Genus -->
+    <div class="section" id="sec-2">
+        <h2>🔤 Genus-Übung</h2>
+        <p class="intro-text">Ordnen Sie die Nomen den richtigen Artikeln zu.</p>
+        
+        <div class="chip-bank" id="genus-bank"></div>
+        
+        <div class="categories">
+            <div class="category" data-cat="der">
+                <h3>der</h3>
+                <div class="drop-zone"></div>
+            </div>
+            <div class="category" data-cat="die">
+                <h3>die</h3>
+                <div class="drop-zone"></div>
+            </div>
+            <div class="category" data-cat="das">
+                <h3>das</h3>
+                <div class="drop-zone"></div>
+            </div>
+            <div class="category" data-cat="pl">
+                <h3>Plural (die)</h3>
+                <div class="drop-zone"></div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn btn-check" onclick="checkGenus()">✓ Prüfen</button>
+            <button class="btn btn-solution" onclick="showGenusSol()">Lösungen</button>
+            <button class="btn btn-reset" onclick="resetGenus()">↺ Neu starten</button>
+            <div class="score" id="genus-score" style="display:none;"></div>
+        </div>
+    </div>
+    
+    <!-- Tab 4: Lückentext -->
+    <div class="section" id="sec-3">
+        <h2>✏️ Lückentext</h2>
+        <p class="intro-text">Ergänzen Sie die fehlenden Wörter.</p>
+        
+        <div id="luecken-container"></div>
+        
+        <div class="controls">
+            <button class="btn btn-check" onclick="checkLuecken()">✓ Prüfen</button>
+            <button class="btn btn-solution" onclick="showLueckenSol()">Lösungen</button>
+            <button class="btn btn-reset" onclick="resetLuecken()">↺ Neu starten</button>
+            <div class="score" id="luecken-score" style="display:none;"></div>
+        </div>
+    </div>
+    
+    <!-- Tab 5: Multiple-Choice -->
+    <div class="section" id="sec-4">
+        <h2>❓ Multiple-Choice</h2>
+        <p class="intro-text">Beantworten Sie die Fragen zum Text.</p>
+        
+        <div id="mc-container"></div>
+        
+        <div class="controls">
+            <button class="btn btn-check" onclick="checkMC()">✓ Prüfen</button>
+            <button class="btn btn-solution" onclick="showMCSol()">Lösungen</button>
+            <button class="btn btn-reset" onclick="resetMC()">↺ Neu starten</button>
+            <div class="score" id="mc-score" style="display:none;"></div>
+        </div>
+    </div>
+    
+    <!-- Tab 6: Satzbau -->
+    <div class="section" id="sec-5">
+        <h2>🧩 Satzbau</h2>
+        <p class="intro-text">Bringen Sie die Satzteile in die richtige Reihenfolge.</p>
+        
+        <div class="help-box">
+            🔹 Das Verb steht immer auf Position 2.<br>
+            🔹 Zeit vor Ort – „Wann?" kommt vor „Wo?"/„Wohin?"<br>
+            🔹 Standard: Subjekt – Verb – Zeit – Ort<br>
+            🔹 Auch möglich: Zeit auf Position 1 – dann tauschen Subjekt und Zeitangabe den Platz (Inversion). Das Verb bleibt auf Position 2.
+        </div>
+        
+        <div id="satzbau-container"></div>
+        
+        <div class="controls">
+            <button class="btn btn-check" onclick="checkSatzbau()">✓ Prüfen</button>
+            <button class="btn btn-solution" onclick="showSatzbauSol()">Lösungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau()">↺ Neu starten</button>
+            <div class="score" id="satzbau-score" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Navigation
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active', i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+}
+
+// GENUS-ÜBUNG
+const GENUS_DATA = [
+    { word: "Diabetes", cat: "der" },
+    { word: "Krebs", cat: "der" },
+    { word: "Blutdruck", cat: "der" },
+    { word: "Cholesterinspiegel", cat: "der" },
+    { word: "Insulinresistenz", cat: "die" },
+    { word: "Alzheimerkrankheit", cat: "die" },
+    { word: "Fettleibigkeit", cat: "die" },
+    { word: "Pathophysiologie", cat: "die" },
+    { word: "Übergewicht", cat: "das" },
+    { word: "Fettgewebe", cat: "das" },
+    { word: "Hormon", cat: "das" },
+    { word: "Erkrankungen", cat: "pl" },
+    { word: "Triglyzeride", cat: "pl" }
+];
+
+let genusState = { checked: false };
+
+function initGenus() {
+    const bank = document.getElementById('genus-bank');
+    const shuffled = [...GENUS_DATA].sort(() => Math.random() - 0.5);
+    shuffled.forEach(item => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.textContent = item.word;
+        chip.dataset.cat = item.cat;
+        chip.draggable = true;
+        chip.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('text/plain', item.word);
+            chip.classList.add('dragging');
+        });
+        chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+        chip.addEventListener('click', () => handleChipClick(chip));
+        bank.appendChild(chip);
+    });
+    
+    document.querySelectorAll('.drop-zone, .chip-bank').forEach(zone => {
+        zone.addEventListener('dragover', e => e.preventDefault());
+        zone.addEventListener('drop', e => {
+            e.preventDefault();
+            const draggingChip = document.querySelector('.chip.dragging');
+            if (draggingChip) {
+                zone.appendChild(draggingChip);
+                if (genusState.checked) {
+                    draggingChip.classList.remove('correct', 'wrong');
+                    genusState.checked = false;
+                    document.getElementById('genus-score').style.display = 'none';
+                }
+            }
+        });
+        zone.addEventListener('click', () => handleZoneClick(zone));
+    });
+}
+
+let selectedChip = null;
+
+function handleChipClick(chip) {
+    if (selectedChip) selectedChip.style.outline = '';
+    selectedChip = chip;
+    chip.style.outline = '3px solid #f39c12';
+}
+
+function handleZoneClick(zone) {
+    if (selectedChip && (zone.classList.contains('drop-zone') || zone.classList.contains('chip-bank'))) {
+        zone.appendChild(selectedChip);
+        selectedChip.style.outline = '';
+        if (genusState.checked) {
+            selectedChip.classList.remove('correct', 'wrong');
+            genusState.checked = false;
+            document.getElementById('genus-score').style.display = 'none';
+        }
+        selectedChip = null;
+    }
+}
+
+function checkGenus() {
+    let correct = 0;
+    document.querySelectorAll('.category').forEach(cat => {
+        const expectedCat = cat.dataset.cat;
+        const chips = cat.querySelectorAll('.drop-zone .chip');
+        chips.forEach(chip => {
+            if (chip.dataset.cat === expectedCat) {
+                chip.classList.add('correct');
+                chip.classList.remove('wrong');
+                correct++;
+            } else {
+                chip.classList.add('wrong');
+                chip.classList.remove('correct');
+            }
+        });
+    });
+    genusState.checked = true;
+    const scoreEl = document.getElementById('genus-score');
+    const pct = Math.round(correct / GENUS_DATA.length * 100);
+    scoreEl.textContent = `${correct} von ${GENUS_DATA.length} richtig (${pct}%)`;
+    scoreEl.style.display = 'block';
+}
+
+function showGenusSol() {
+    document.querySelectorAll('.drop-zone .chip').forEach(chip => {
+        const parent = chip.closest('.category');
+        if (parent && chip.dataset.cat !== parent.dataset.cat) {
+            document.getElementById('genus-bank').appendChild(chip);
+        }
+    });
+    GENUS_DATA.forEach(item => {
+        const chip = Array.from(document.querySelectorAll('.chip')).find(c => c.textContent === item.word);
+        if (chip) {
+            const targetCat = document.querySelector(`.category[data-cat="${item.cat}"] .drop-zone`);
+            targetCat.appendChild(chip);
+            chip.classList.add('correct');
+            chip.classList.remove('wrong');
+        }
+    });
+    genusState.checked = true;
+    const scoreEl = document.getElementById('genus-score');
+    scoreEl.textContent = `${GENUS_DATA.length} von ${GENUS_DATA.length} richtig (100%)`;
+    scoreEl.style.display = 'block';
+}
+
+function resetGenus() {
+    document.querySelectorAll('.chip').forEach(chip => {
+        chip.classList.remove('correct', 'wrong');
+        document.getElementById('genus-bank').appendChild(chip);
+    });
+    genusState.checked = false;
+    document.getElementById('genus-score').style.display = 'none';
+}
+
+// LÜCKENTEXT
+const LUECKEN = [
+    {
+        id: 1,
+        segments: [
+            { t: "Die " },
+            { b: "Insulinresistenz", s: "xl" },
+            { t: " ist die häufigste " },
+            { b: "Gesundheitsstörung", s: "xl" },
+            { t: " weltweit." }
+        ]
+    },
+    {
+        id: 2,
+        segments: [
+            { t: "Jedes Jahr sterben weltweit ungefähr 10 Millionen Menschen an " },
+            { b: "Krebs", s: "m" },
+            { t: "." }
+        ]
+    },
+    {
+        id: 3,
+        segments: [
+            { t: "Ungefähr 40 Prozent der Erwachsenen gelten als " },
+            { b: "übergewichtig", s: "l" },
+            { t: " oder " },
+            { b: "fettleibig", s: "m" },
+            { t: "." }
+        ]
+    },
+    {
+        id: 4,
+        segments: [
+            { t: "Mein erster Lehrauftrag bestand darin, den Studierenden die " },
+            { b: "Pathophysiologie", s: "xl" },
+            { t: " beizubringen." }
+        ]
+    },
+    {
+        id: 5,
+        segments: [
+            { t: "Eine Insulinresistenz kann zu einem hohen " },
+            { b: "Blutdruck", s: "m" },
+            { t: " führen." }
+        ]
+    },
+    {
+        id: 6,
+        segments: [
+            { t: "Fettgewebe " },
+            { b: "absondert", s: "m" },
+            { t: " Hormone, die durch den Körper " },
+            { b: "fließen", s: "m" },
+            { t: "." }
+        ]
+    },
+    {
+        id: 7,
+        segments: [
+            { t: "Man muss den " },
+            { b: "Fachjargon", s: "m" },
+            { t: " verstehen und " },
+            { b: "Zusammenhänge", s: "l" },
+            { t: " herstellen können." }
+        ]
+    }
+];
+
+let lueckenState = { checked: false };
+
+function initLuecken() {
+    const container = document.getElementById('luecken-container');
+    LUECKEN.forEach(ex => {
+        const div = document.createElement('div');
+        div.className = 'exercise-item';
+        let blankIdx = 0;
+        ex.segments.forEach(seg => {
+            if (seg.t) {
+                const span = document.createElement('span');
+                span.textContent = seg.t;
+                div.appendChild(span);
+            } else if (seg.b) {
+                const currentBlankIdx = blankIdx++;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = `blank ${seg.s}`;
+                input.dataset.exId = ex.id;
+                input.dataset.blankIdx = currentBlankIdx;
+                input.dataset.answer = seg.b;
+                input.addEventListener('input', () => {
+                    if (lueckenState.checked) {
+                        input.classList.remove('correct', 'wrong');
+                        lueckenState.checked = false;
+                        document.getElementById('luecken-score').style.display = 'none';
+                    }
+                });
+                div.appendChild(input);
+                
+                const sol = document.createElement('span');
+                sol.className = 'solution';
+                sol.textContent = `(${seg.b})`;
+                div.appendChild(sol);
+            }
+        });
+        container.appendChild(div);
+    });
+}
+
+function checkLuecken() {
+    let correct = 0;
+    let total = 0;
+    document.querySelectorAll('input.blank').forEach(input => {
+        total++;
+        const answer = input.dataset.answer.trim();
+        const userInput = input.value.trim();
+        if (userInput === answer) {
+            input.classList.add('correct');
+            input.classList.remove('wrong');
+            correct++;
+        } else {
+            input.classList.add('wrong');
+            input.classList.remove('correct');
+        }
+    });
+    lueckenState.checked = true;
+    const scoreEl = document.getElementById('luecken-score');
+    const pct = Math.round(correct / total * 100);
+    scoreEl.textContent = `${correct} von ${total} richtig (${pct}%)`;
+    scoreEl.style.display = 'block';
+}
+
+function showLueckenSol() {
+    document.querySelectorAll('.solution').forEach(s => s.classList.add('show'));
+    document.querySelectorAll('input.blank').forEach(input => {
+        input.value = input.dataset.answer;
+        input.classList.add('correct');
+        input.classList.remove('wrong');
+    });
+    lueckenState.checked = true;
+    const total = document.querySelectorAll('input.blank').length;
+    const scoreEl = document.getElementById('luecken-score');
+    scoreEl.textContent = `${total} von ${total} richtig (100%)`;
+    scoreEl.style.display = 'block';
+}
+
+function resetLuecken() {
+    document.querySelectorAll('input.blank').forEach(input => {
+        input.value = '';
+        input.classList.remove('correct', 'wrong');
+    });
+    document.querySelectorAll('.solution').forEach(s => s.classList.remove('show'));
+    lueckenState.checked = false;
+    document.getElementById('luecken-score').style.display = 'none';
+}
+
+// MULTIPLE-CHOICE
+const MC_DATA = [
+    {
+        q: "Wie viel Prozent der erwachsenen US-Amerikaner sind laut einer neueren Studie insulinresistent?",
+        opts: ["50 Prozent", "65 Prozent", "85 Prozent", "95 Prozent"],
+        correct: 2
+    },
+    {
+        q: "Welches Fach unterrichtete der Autor als Universitätsprofessor?",
+        opts: ["Biochemie", "Pathophysiologie", "Endokrinologie", "Kardiologie"],
+        correct: 1
+    },
+    {
+        q: "Wie viele Menschen leiden weltweit an der Alzheimerkrankheit?",
+        opts: ["10 Millionen", "20 Millionen", "50 Millionen", "100 Millionen"],
+        correct: 2
+    },
+    {
+        q: "Was war der ursprüngliche Forschungsschwerpunkt des Autors?",
+        opts: ["Insulinresistenz", "Anpassung der Muskulatur an sportliche Belastung", "Fettleibigkeit", "Diabetes"],
+        correct: 1
+    },
+    {
+        q: "Welches Gewebe sondert laut dem Text Hormone ab?",
+        opts: ["Muskelgewebe", "Nervengewebe", "Fettgewebe", "Knochengewebe"],
+        correct: 2
+    },
+    {
+        q: "Als Vorstufe welcher Krankheit galt Insulinresistenz früher hauptsächlich?",
+        opts: ["Typ-1-Diabetes", "Typ-2-Diabetes", "Alzheimerkrankheit", "Krebs"],
+        correct: 1
+    },
+    {
+        q: "Was ist laut Text die weltweit führende Todesursache?",
+        opts: ["Krebs", "Diabetes", "Alzheimerkrankheit", "Herz-Kreislauf-Erkrankungen"],
+        correct: 3
+    },
+    {
+        q: "Wie viele der folgenden Fragen muss man mit Ja beantworten, um mit Sicherheit insulinresistent zu sein?",
+        opts: ["Eine", "Zwei oder mehr", "Alle", "Mindestens fünf"],
+        correct: 1
+    },
+    {
+        q: "Welches Problem bei Männern über 45 Jahren wird im Text erwähnt?",
+        opts: ["Hoher Blutdruck", "Nicht optimaler Testosteronspiegel", "Diabetes", "Übergewicht"],
+        correct: 1
+    },
+    {
+        q: "Worauf beruht laut Autor der Inhalt seines Buches?",
+        opts: ["Seiner persönlichen Meinung", "Veröffentlichten wissenschaftlichen Erkenntnissen", "Erfahrungen seiner Patienten", "Traditioneller Medizin"],
+        correct: 1
+    }
+];
+
+let mcState = { checked: false, selected: {} };
+
+function initMC() {
+    const container = document.getElementById('mc-container');
+    MC_DATA.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'mc-question';
+        
+        const qText = document.createElement('div');
+        qText.className = 'mc-question-text';
+        qText.textContent = `${idx + 1}. ${item.q}`;
+        div.appendChild(qText);
+        
+        const optContainer = document.createElement('div');
+        optContainer.className = 'mc-options';
+        item.opts.forEach((opt, optIdx) => {
+            const optDiv = document.createElement('div');
+            optDiv.className = 'mc-opt';
+            optDiv.textContent = opt;
+            optDiv.dataset.qIdx = idx;
+            optDiv.dataset.optIdx = optIdx;
+            optDiv.addEventListener('click', () => {
+                document.querySelectorAll(`.mc-opt[data-q-idx="${idx}"]`).forEach(o => o.classList.remove('selected'));
+                optDiv.classList.add('selected');
+                mcState.selected[idx] = optIdx;
+                if (mcState.checked) {
+                    optDiv.classList.remove('correct', 'wrong');
+                    mcState.checked = false;
+                    document.getElementById('mc-score').style.display = 'none';
+                }
+            });
+            optContainer.appendChild(optDiv);
+        });
+        div.appendChild(optContainer);
+        container.appendChild(div);
+    });
+}
+
+function checkMC() {
+    let correct = 0;
+    MC_DATA.forEach((item, idx) => {
+        const selected = mcState.selected[idx];
+        document.querySelectorAll(`.mc-opt[data-q-idx="${idx}"]`).forEach(opt => {
+            const optIdx = parseInt(opt.dataset.optIdx);
+            if (optIdx === item.correct) {
+                opt.classList.add('correct');
+            } else if (optIdx === selected) {
+                opt.classList.add('wrong');
+            }
+        });
+        if (selected === item.correct) correct++;
+    });
+    mcState.checked = true;
+    const scoreEl = document.getElementById('mc-score');
+    const pct = Math.round(correct / MC_DATA.length * 100);
+    scoreEl.textContent = `${correct} von ${MC_DATA.length} richtig (${pct}%)`;
+    scoreEl.style.display = 'block';
+}
+
+function showMCSol() {
+    MC_DATA.forEach((item, idx) => {
+        document.querySelectorAll(`.mc-opt[data-q-idx="${idx}"]`).forEach(opt => {
+            opt.classList.remove('selected', 'wrong');
+            const optIdx = parseInt(opt.dataset.optIdx);
+            if (optIdx === item.correct) {
+                opt.classList.add('selected', 'correct');
+            }
+        });
+        mcState.selected[idx] = item.correct;
+    });
+    mcState.checked = true;
+    const scoreEl = document.getElementById('mc-score');
+    scoreEl.textContent = `${MC_DATA.length} von ${MC_DATA.length} richtig (100%)`;
+    scoreEl.style.display = 'block';
+}
+
+function resetMC() {
+    document.querySelectorAll('.mc-opt').forEach(opt => {
+        opt.classList.remove('selected', 'correct', 'wrong');
+    });
+    mcState = { checked: false, selected: {} };
+    document.getElementById('mc-score').style.display = 'none';
+}
+
+// SATZBAU
+const SATZBAU = [
+    {
+        id: 1,
+        parts: ["die Insulinresistenz", "ist", "die häufigste Gesundheitsstörung", "weltweit"],
+        valid: [
+            ["die Insulinresistenz", "ist", "die häufigste Gesundheitsstörung", "weltweit"]
+        ]
+    },
+    {
+        id: 2,
+        parts: ["jedes Jahr", "sterben", "weltweit ungefähr 10 Millionen Menschen", "an Krebs"],
+        valid: [
+            ["jedes Jahr", "sterben", "weltweit ungefähr 10 Millionen Menschen", "an Krebs"],
+            ["weltweit ungefähr 10 Millionen Menschen", "sterben", "jedes Jahr", "an Krebs"]
+        ]
+    },
+    {
+        id: 3,
+        parts: ["die Medizin", "hat", "in den letzten hundert Jahren", "erhebliche Fortschritte", "gemacht"],
+        valid: [
+            ["die Medizin", "hat", "in den letzten hundert Jahren", "erhebliche Fortschritte", "gemacht"],
+            ["in den letzten hundert Jahren", "hat", "die Medizin", "erhebliche Fortschritte", "gemacht"]
+        ]
+    },
+    {
+        id: 4,
+        parts: ["ich", "bin", "in der biomedizinischen Forschung", "tätig"],
+        valid: [
+            ["ich", "bin", "in der biomedizinischen Forschung", "tätig"]
+        ]
+    },
+    {
+        id: 5,
+        parts: ["der Körper", "wird", "bei steigendem Fettanteil", "insulinresistent"],
+        valid: [
+            ["der Körper", "wird", "bei steigendem Fettanteil", "insulinresistent"],
+            ["bei steigendem Fettanteil", "wird", "der Körper", "insulinresistent"]
+        ]
+    }
+];
+
+let satzbauState = { checked: false };
+
+function initSatzbau() {
+    const container = document.getElementById('satzbau-container');
+    SATZBAU.forEach(ex => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'satzbau-item';
+        
+        const bank = document.createElement('div');
+        bank.className = 'chip-bank';
+        bank.dataset.sbId = ex.id;
+        
+        const shuffled = [...ex.parts].sort(() => Math.random() - 0.5);
+        shuffled.forEach(part => {
+            const chip = document.createElement('div');
+            chip.className = 'chip';
+            chip.textContent = part;
+            chip.dataset.orig = part;
+            chip.draggable = true;
+            chip.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', part);
+                chip.classList.add('dragging');
+            });
+            chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+            chip.addEventListener('click', () => handleSatzbauChipClick(chip, ex.id));
+            bank.appendChild(chip);
+        });
+        
+        const dropRow = document.createElement('div');
+        dropRow.className = 'drop-row';
+        dropRow.dataset.sbId = ex.id;
+        
+        const dot = document.createElement('span');
+        dot.className = 'fixed-dot';
+        dot.textContent = '.';
+        dropRow.appendChild(dot);
+        
+        dropRow.addEventListener('dragover', e => e.preventDefault());
+        dropRow.addEventListener('drop', e => {
+            e.preventDefault();
+            const draggingChip = document.querySelector('.chip.dragging');
+            if (draggingChip) {
+                const dot = dropRow.querySelector('.fixed-dot');
+                dropRow.insertBefore(draggingChip, dot);
+                updateCaps(ex.id);
+                if (satzbauState.checked) {
+                    draggingChip.classList.remove('correct', 'wrong');
+                    satzbauState.checked = false;
+                    document.getElementById('satzbau-score').style.display = 'none';
+                }
+            }
+        });
+        
+        bank.addEventListener('dragover', e => e.preventDefault());
+        bank.addEventListener('drop', e => {
+            e.preventDefault();
+            const draggingChip = document.querySelector('.chip.dragging');
+            if (draggingChip) {
+                bank.appendChild(draggingChip);
+                updateCaps(ex.id);
+                if (satzbauState.checked) {
+                    draggingChip.classList.remove('correct', 'wrong');
+                    satzbauState.checked = false;
+                    document.getElementById('satzbau-score').style.display = 'none';
+                }
+            }
+        });
+        
+        dropRow.addEventListener('click', () => handleSatzbauZoneClick(dropRow, ex.id));
+        bank.addEventListener('click', () => handleSatzbauZoneClick(bank, ex.id));
+        
+        itemDiv.appendChild(bank);
+        itemDiv.appendChild(dropRow);
+        container.appendChild(itemDiv);
+    });
+}
+
+let selectedSatzbauChip = null;
+
+function handleSatzbauChipClick(chip, exId) {
+    if (selectedSatzbauChip) selectedSatzbauChip.style.outline = '';
+    selectedSatzbauChip = chip;
+    chip.style.outline = '3px solid #f39c12';
+}
+
+function handleSatzbauZoneClick(zone, exId) {
+    if (selectedSatzbauChip && selectedSatzbauChip.dataset.orig) {
+        if (zone.classList.contains('drop-row')) {
+            const dot = zone.querySelector('.fixed-dot');
+            zone.insertBefore(selectedSatzbauChip, dot);
+        } else {
+            zone.appendChild(selectedSatzbauChip);
+        }
+        updateCaps(exId);
+        selectedSatzbauChip.style.outline = '';
+        if (satzbauState.checked) {
+            selectedSatzbauChip.classList.remove('correct', 'wrong');
+            satzbauState.checked = false;
+            document.getElementById('satzbau-score').style.display = 'none';
+        }
+        selectedSatzbauChip = null;
+    }
+}
+
+function updateCaps(exId) {
+    const row = document.querySelector(`.drop-row[data-sb-id="${exId}"]`);
+    const bank = document.querySelector(`.chip-bank[data-sb-id="${exId}"]`);
+    [...row.querySelectorAll('.chip'), ...bank.querySelectorAll('.chip')].forEach(c => {
+        if (c.dataset.orig) c.textContent = c.dataset.orig;
+    });
+    const first = row.querySelector('.chip');
+    if (first && first.textContent !== '.')
+        first.textContent = first.textContent.charAt(0).toUpperCase() + first.textContent.slice(1);
+}
+
+function checkSatzbau() {
+    let correct = 0;
+    SATZBAU.forEach(ex => {
+        const row = document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const chips = Array.from(row.querySelectorAll('.chip')).map(c => c.dataset.orig);
+        const isCorrect = ex.valid.some(validSeq => 
+            validSeq.length === chips.length && validSeq.every((v, i) => v === chips[i])
+        );
+        row.querySelectorAll('.chip').forEach(chip => {
+            if (isCorrect) {
+                chip.classList.add('correct');
+                chip.classList.remove('wrong');
+            } else {
+                chip.classList.add('wrong');
+                chip.classList.remove('correct');
+            }
+        });
+        if (isCorrect) correct++;
+    });
+    satzbauState.checked = true;
+    const scoreEl = document.getElementById('satzbau-score');
+    const pct = Math.round(correct / SATZBAU.length * 100);
+    scoreEl.textContent = `${correct} von ${SATZBAU.length} richtig (${pct}%)`;
+    scoreEl.style.display = 'block';
+}
+
+function showSatzbauSol() {
+    SATZBAU.forEach(ex => {
+        const row = document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const bank = document.querySelector(`.chip-bank[data-sb-id="${ex.id}"]`);
+        row.querySelectorAll('.chip').forEach(chip => bank.appendChild(chip));
+        
+        const dot = row.querySelector('.fixed-dot');
+        ex.valid[0].forEach(part => {
+            const chip = Array.from(bank.querySelectorAll('.chip')).find(c => c.dataset.orig === part);
+            if (chip) {
+                row.insertBefore(chip, dot);
+                chip.classList.add('correct');
+                chip.classList.remove('wrong');
+            }
+        });
+        updateCaps(ex.id);
+    });
+    satzbauState.checked = true;
+    const scoreEl = document.getElementById('satzbau-score');
+    scoreEl.textContent = `${SATZBAU.length} von ${SATZBAU.length} richtig (100%)`;
+    scoreEl.style.display = 'block';
+}
+
+function resetSatzbau() {
+    SATZBAU.forEach(ex => {
+        const row = document.querySelector(`.drop-row[data-sb-id="${ex.id}"]`);
+        const bank = document.querySelector(`.chip-bank[data-sb-id="${ex.id}"]`);
+        row.querySelectorAll('.chip').forEach(chip => {
+            chip.classList.remove('correct', 'wrong');
+            bank.appendChild(chip);
+        });
+        updateCaps(ex.id);
+    });
+    satzbauState.checked = false;
+    document.getElementById('satzbau-score').style.display = 'none';
+}
+
+// Initialization
+initGenus();
+initLuecken();
+initMC();
+initSatzbau();
+</script>
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

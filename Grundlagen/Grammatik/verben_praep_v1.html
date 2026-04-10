@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verben mit Präposition – Lückenübung</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+.header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:28px 20px 22px;text-align:center}
+.header h1{font-size:1.5rem;margin-bottom:4px}
+.header p{font-size:.95rem;opacity:.9}
+.container{max-width:820px;margin:0 auto;padding:16px}
+.nav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.nav-btn{padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:600;background:#fff;color:#555;border:2px solid #ddd;transition:all .2s;user-select:none}
+.nav-btn:hover{border-color:#667eea;color:#667eea}
+.nav-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+.section{display:none}.section.active{display:block}
+.sec-title{font-size:1.1rem;font-weight:700;color:#667eea;margin-bottom:6px}
+.sec-desc{font-size:.88rem;color:#666;margin-bottom:18px;line-height:1.5}
+.help-box{background:#eef1ff;border-left:4px solid #667eea;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px;font-size:.85rem;line-height:1.7}
+.help-box strong{color:#667eea}
+.card{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-nr{font-weight:700;color:#764ba2;font-size:1rem}
+.card-badge{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:3px 12px;border-radius:20px;font-size:.8rem;font-weight:600}
+.dl{display:flex;align-items:baseline;flex-wrap:wrap;margin-bottom:8px;line-height:2.1;font-size:1rem}
+.dl:last-child{margin-bottom:0}
+.sp{font-weight:700;color:#764ba2;min-width:26px;margin-right:5px}
+.sp.b{color:#667eea}
+.ans-row{display:flex;align-items:baseline;flex-wrap:wrap;margin-bottom:0;line-height:2.1;font-size:1rem;gap:0}
+.hint{color:#888;font-style:italic;font-size:.92rem;margin-right:8px;white-space:nowrap}
+.arrow{color:#aaa;margin-right:6px;font-size:.9rem}
+input.bl{border:none;border-bottom:2.5px solid #667eea;background:transparent;font-size:1rem;font-family:inherit;padding:2px 4px;outline:none;text-align:center;transition:all .3s;margin:0 3px}
+input.bl:focus{border-bottom-color:#764ba2;background:#f8f7ff}
+input.bl.correct{border-bottom-color:#22c55e;background:#f0fdf4;color:#166534}
+input.bl.wrong{border-bottom-color:#ef4444;background:#fef2f2;color:#991b1b}
+input.bl.s{width:65px;min-width:65px}
+input.bl.m{width:105px;min-width:105px}
+input.bl.l{width:140px;min-width:140px}
+.sol{display:none;font-weight:600;color:#22c55e;margin:0 3px;font-size:.92rem}
+.sol.visible{display:inline}
+.nw{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
+.memo-akk{color:#2563eb;font-weight:700}
+.memo-dat{color:#dc2626;font-weight:700}
+.noun-fixed{margin-left:3px}
+.btn-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn{padding:11px 22px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-check{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-check:hover{opacity:.9;transform:translateY(-1px)}
+.btn-show{background:#fff;color:#667eea;border:2px solid #667eea}
+.btn-show:hover{background:#f0f0ff}
+.btn-reset{background:#fff;color:#888;border:2px solid #ddd}
+.btn-reset:hover{background:#f5f5f5}
+.score{margin-top:14px;font-size:.9rem;color:#555;font-weight:600;min-height:24px}
+.score span{color:#667eea}
+@media(max-width:600px){
+.header h1{font-size:1.25rem}.card{padding:14px}
+input.bl.s{width:55px;min-width:55px}input.bl.m{width:85px;min-width:85px}input.bl.l{width:115px;min-width:115px}
+.hint{font-size:.82rem}
+}
+</style>
+<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770641048883&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADJMHXigAAARIAEAAACSoQGonuSbdSziYSObLm%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260130003.05%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770641048883&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+<div class="header">
+<h1>Verben mit Präposition</h1>
+<p>Lückenübung – Ergänze die Präpositionen und Artikel</p>
+</div>
+<div class="container">
+<div class="nav">
+<div class="nav-btn active" onclick="showSection(0)">📝 a) Sache</div>
+<div class="nav-btn" onclick="showSection(1)">👤 b) Person</div>
+<div class="nav-btn" onclick="showSection(2)">⏱ c) Perfekt</div>
+</div>
+<div class="section active" id="sec-0"></div>
+<div class="section" id="sec-1"></div>
+<div class="section" id="sec-2"></div>
+</div>
+<script>
+// k:"a"=Akkusativ(blau), k:"d"=Dativ(rot)
+const DATA = [
+// ========== SECTION 0: SACHE (15) ==========
+// --- Akkusativ ---
+{s:0,id:1,verb:"warten",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Wartest du "},{b:"auf",z:"s"},{t:" den "},{mn:"Auf",mr:"zug",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darauf",z:"m"},{t:" warte ich nicht."}]},
+  {sp:"A",sg:[{b:"Worauf",z:"m"},{t:" wartest du denn?"}]},
+  {ans:1,ha:"die",hn:"Aufgabe",mn:"Auf",mr:"gabe",k:"a",sp:"auf",sa:"die"}
+]},
+{s:0,id:2,verb:"denken",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Denkst du "},{b:"an",z:"s"},{t:" das "},{mn:"An",mr:"gebot",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"daran",z:"m"},{t:" denke ich nicht."}]},
+  {sp:"A",sg:[{b:"Woran",z:"m"},{t:" denkst du denn?"}]},
+  {ans:1,ha:"der",hn:"Anfang",mn:"An",mr:"fang",k:"a",sp:"an",sa:"den"}
+]},
+{s:0,id:3,verb:"sich freuen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Freust du dich "},{b:"auf",z:"s"},{t:" den "},{mn:"Auf",mr:"enthalt",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darauf",z:"m"},{t:" freue ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Worauf",z:"m"},{t:" freust du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Aufführung",mn:"Auf",mr:"führung",k:"a",sp:"auf",sa:"die"}
+]},
+{s:0,id:4,verb:"sich ärgern",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Ärgerst du dich "},{b:"über",z:"m"},{t:" die "},{mn:"Über",mr:"stunden",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darüber",z:"m"},{t:" ärgere ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Worüber",z:"m"},{t:" ärgerst du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Überraschung",mn:"Über",mr:"raschung",k:"a",sp:"über",sa:"die"}
+]},
+{s:0,id:5,verb:"hoffen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hoffst du "},{b:"auf",z:"s"},{t:" eine "},{mn:"Auf",mr:"enthaltserlaubnis",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darauf",z:"m"},{t:" hoffe ich nicht."}]},
+  {sp:"A",sg:[{b:"Worauf",z:"m"},{t:" hoffst du denn?"}]},
+  {ans:1,ha:"der",hn:"Aufstieg",mn:"Auf",mr:"stieg",k:"a",sp:"auf",sa:"den"}
+]},
+{s:0,id:6,verb:"sich interessieren",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Interessierst du dich "},{b:"für",z:"s"},{t:" die "},{mn:"Für",mr:"sorge",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"dafür",z:"m"},{t:" interessiere ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Wofür",z:"m"},{t:" interessierst du dich denn?"}]},
+  {ans:1,ha:"der",hn:"Führerschein",mn:"Führ",mr:"erschein",k:"a",sp:"für",sa:"den"}
+]},
+{s:0,id:7,verb:"sich erinnern",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Erinnerst du dich "},{b:"an",z:"s"},{t:" den "},{mn:"An",mr:"fang",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"daran",z:"m"},{t:" erinnere ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Woran",z:"m"},{t:" erinnerst du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Ankunft",mn:"An",mr:"kunft",k:"a",sp:"an",sa:"die"}
+]},
+{s:0,id:8,verb:"achten",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Achtest du "},{b:"auf",z:"s"},{t:" die "},{mn:"Auf",mr:"gabenstellung",k:"a"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darauf",z:"m"},{t:" achte ich nicht."}]},
+  {sp:"A",sg:[{b:"Worauf",z:"m"},{t:" achtest du denn?"}]},
+  {ans:1,ha:"der",hn:"Aufzug",mn:"Auf",mr:"zug",k:"a",sp:"auf",sa:"den"}
+]},
+// --- Dativ ---
+{s:0,id:9,verb:"träumen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Träumst du "},{b:"von",z:"s"},{t:" einem "},{mn:"Fon",mr:"due",k:"d"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"davon",z:"m"},{t:" träume ich nicht."}]},
+  {sp:"A",sg:[{b:"Wovon",z:"m"},{t:" träumst du denn?"}]},
+  {ans:1,ha:"der",hn:"Fonds",mn:"Fon",mr:"ds",k:"d",sp:"von",sa:"dem"}
+]},
+{s:0,id:10,verb:"fragen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Fragst du "},{b:"nach",z:"m"},{t:" dem "},{mn:"Nach",mr:"tisch",k:"d"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"danach",z:"m"},{t:" frage ich nicht."}]},
+  {sp:"A",sg:[{b:"Wonach",z:"m"},{t:" fragst du denn?"}]},
+  {ans:1,ha:"die",hn:"Nachricht",mn:"Nach",mr:"richt",k:"d",sp:"nach",sa:"der"}
+]},
+{s:0,id:11,verb:"anfangen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Fängst du "},{b:"mit",z:"s"},{t:" dem "},{mn:"Mit",mr:"tagessen",k:"d"},{t:" an?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"damit",z:"m"},{t:" fange ich nicht an."}]},
+  {sp:"A",sg:[{b:"Womit",z:"m"},{t:" fängst du denn an?"}]},
+  {ans:1,ha:"die",hn:"Mittagspause",mn:"Mit",mr:"tagspause",k:"d",sp:"mit",sa:"der"}
+]},
+{s:0,id:12,verb:"sich fürchten",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Fürchtest du dich "},{b:"vor",z:"s"},{t:" dem "},{mn:"Vor",mr:"stellungsgespräch",k:"d"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"davor",z:"m"},{t:" fürchte ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Wovor",z:"m"},{t:" fürchtest du dich denn?"}]},
+  {ans:1,ha:"der",hn:"Vorschlaghammer",mn:"Vor",mr:"schlaghammer",k:"d",sp:"vor",sa:"dem"}
+]},
+{s:0,id:13,verb:"sich erkundigen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Erkundigst du dich "},{b:"nach",z:"m"},{t:" dem "},{mn:"Nach",mr:"tzug",k:"d"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"danach",z:"m"},{t:" erkundige ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Wonach",z:"m"},{t:" erkundigst du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Nachspeise",mn:"Nach",mr:"speise",k:"d",sp:"nach",sa:"der"}
+]},
+{s:0,id:14,verb:"sich beschäftigen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Beschäftigst du dich "},{b:"mit",z:"s"},{t:" der "},{mn:"Mit",mr:"teilung",k:"d"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"damit",z:"m"},{t:" beschäftige ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Womit",z:"m"},{t:" beschäftigst du dich denn?"}]},
+  {ans:1,ha:"das",hn:"Mittel",mn:"Mit",mr:"tel",k:"d",sp:"mit",sa:"dem"}
+]},
+{s:0,id:15,verb:"gehören",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Gehört das "},{b:"zu",z:"s"},{t:" den "},{mn:"Zu",mr:"taten",k:"d"},{t:"?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"dazu",z:"m"},{t:" gehört das nicht."}]},
+  {sp:"A",sg:[{b:"Wozu",z:"m"},{t:" gehört das denn?"}]},
+  {ans:1,ha:"der",hn:"Zucker",mn:"Zu",mr:"cker",k:"d",sp:"zu",sa:"dem"}
+]},
+
+// ========== SECTION 1: PERSON (10) ==========
+// --- Akkusativ ---
+{s:1,id:16,verb:"lachen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Lachst du "},{b:"über",z:"m"},{t:" deinen Lehrer?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"über ihn",z:"m"},{t:" lache ich nicht."}]},
+  {sp:"A",sg:[{b:"Über wen",z:"m"},{t:" lachst du denn?"}]},
+  {ans:1,ha:"der",hn:"Übersetzer",mn:"Über",mr:"setzer",k:"a",sp:"über",sa:"den"}
+]},
+{s:1,id:17,verb:"denken",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Denkst du "},{b:"an",z:"s"},{t:" deine Schwester?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"an sie",z:"m"},{t:" denke ich nicht."}]},
+  {sp:"A",sg:[{b:"An wen",z:"m"},{t:" denkst du denn?"}]},
+  {ans:1,ha:"der",hn:"Anwalt",mn:"An",mr:"walt",k:"a",sp:"an",sa:"den"}
+]},
+{s:1,id:18,verb:"sich erinnern",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Erinnerst du dich "},{b:"an",z:"s"},{t:" deinen Lehrer?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"an ihn",z:"m"},{t:" erinnere ich mich nicht."}]},
+  {sp:"A",sg:[{b:"An wen",z:"m"},{t:" erinnerst du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Angestellte",mn:"An",mr:"gestellte",k:"a",sp:"an",sa:"die"}
+]},
+{s:1,id:19,verb:"sich freuen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Freust du dich "},{b:"über",z:"m"},{t:" deinen Bruder?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"über ihn",z:"m"},{t:" freue ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Über wen",z:"m"},{t:" freust du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Übersetzerin",mn:"Über",mr:"setzerin",k:"a",sp:"über",sa:"die"}
+]},
+{s:1,id:20,verb:"kämpfen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Kämpfst du "},{b:"für",z:"s"},{t:" deinen Chef?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"für ihn",z:"m"},{t:" kämpfe ich nicht."}]},
+  {sp:"A",sg:[{b:"Für wen",z:"m"},{t:" kämpfst du denn?"}]},
+  {ans:1,ha:"die",hn:"Fürstin",mn:"Für",mr:"stin",k:"a",sp:"für",sa:"die"}
+]},
+// --- Dativ ---
+{s:1,id:21,verb:"sprechen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Sprichst du "},{b:"mit",z:"s"},{t:" deiner Kollegin?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"mit ihr",z:"m"},{t:" spreche ich nicht."}]},
+  {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" sprichst du denn?"}]},
+  {ans:1,ha:"der",hn:"Mitbewohner",mn:"Mit",mr:"bewohner",k:"d",sp:"mit",sa:"dem"}
+]},
+{s:1,id:22,verb:"sich treffen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Triffst du dich "},{b:"mit",z:"s"},{t:" deinem Freund?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"mit ihm",z:"m"},{t:" treffe ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" triffst du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Mitarbeiterin",mn:"Mit",mr:"arbeiterin",k:"d",sp:"mit",sa:"der"}
+]},
+{s:1,id:23,verb:"sich streiten",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Streitest du dich "},{b:"mit",z:"s"},{t:" deinem Bruder?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"mit ihm",z:"m"},{t:" streite ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" streitest du dich denn?"}]},
+  {ans:1,ha:"der",hn:"Mitschüler",mn:"Mit",mr:"schüler",k:"d",sp:"mit",sa:"dem"}
+]},
+{s:1,id:24,verb:"sich verabreden",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Verabredest du dich "},{b:"mit",z:"s"},{t:" deiner Schwester?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"mit ihr",z:"m"},{t:" verabrede ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" verabredest du dich denn?"}]},
+  {ans:1,ha:"der",hn:"Mitarbeiter",mn:"Mit",mr:"arbeiter",k:"d",sp:"mit",sa:"dem"}
+]},
+{s:1,id:25,verb:"sich erkundigen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Erkundigst du dich "},{b:"nach",z:"m"},{t:" deinem Vater?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"nach ihm",z:"m"},{t:" erkundige ich mich nicht."}]},
+  {sp:"A",sg:[{b:"Nach wem",z:"m"},{t:" erkundigst du dich denn?"}]},
+  {ans:1,ha:"die",hn:"Nachbarin",mn:"Nach",mr:"barin",k:"d",sp:"nach",sa:"der"}
+]},
+
+// ========== SECTION 2: PERFEKT (15) ==========
+// --- Akkusativ ---
+{s:2,id:26,verb:"warten",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du "},{b:"auf",z:"s"},{t:" den "},{mn:"Auf",mr:"zug",k:"a"},{t:" gewartet?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darauf",z:"m"},{t:" habe ich nicht gewartet."}]},
+  {sp:"A",sg:[{b:"Worauf",z:"m"},{t:" hast du denn gewartet?"}]},
+  {ans:1,ha:"die",hn:"Aufgabe",mn:"Auf",mr:"gabe",k:"a",sp:"auf",sa:"die"}
+]},
+{s:2,id:27,verb:"denken",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du "},{b:"an",z:"s"},{t:" den "},{mn:"An",mr:"fang",k:"a"},{t:" gedacht?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"daran",z:"m"},{t:" habe ich nicht gedacht."}]},
+  {sp:"A",sg:[{b:"Woran",z:"m"},{t:" hast du denn gedacht?"}]},
+  {ans:1,ha:"das",hn:"Angebot",mn:"An",mr:"gebot",k:"a",sp:"an",sa:"das"}
+]},
+{s:2,id:28,verb:"sich informieren",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"über",z:"m"},{t:" die "},{mn:"Über",mr:"nachtung",k:"a"},{t:" informiert?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darüber",z:"m"},{t:" habe ich mich nicht informiert."}]},
+  {sp:"A",sg:[{b:"Worüber",z:"m"},{t:" hast du dich denn informiert?"}]},
+  {ans:1,ha:"die",hn:"Überraschung",mn:"Über",mr:"raschung",k:"a",sp:"über",sa:"die"}
+]},
+{s:2,id:29,verb:"sich freuen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"über",z:"m"},{t:" die "},{mn:"Über",mr:"raschung",k:"a"},{t:" gefreut?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darüber",z:"m"},{t:" habe ich mich nicht gefreut."}]},
+  {sp:"A",sg:[{b:"Worüber",z:"m"},{t:" hast du dich denn gefreut?"}]},
+  {ans:1,ha:"der",hn:"Überblick",mn:"Über",mr:"blick",k:"a",sp:"über",sa:"den"}
+]},
+{s:2,id:30,verb:"sich kümmern",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"um",z:"s"},{t:" den "},{mn:"Um",mr:"zug",k:"a"},{t:" gekümmert?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darum",z:"m"},{t:" habe ich mich nicht gekümmert."}]},
+  {sp:"A",sg:[{b:"Worum",z:"m"},{t:" hast du dich denn gekümmert?"}]},
+  {ans:1,ha:"der",hn:"Umtausch",mn:"Um",mr:"tausch",k:"a",sp:"um",sa:"den"}
+]},
+{s:2,id:31,verb:"sich bedanken",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"für",z:"s"},{t:" die "},{mn:"Führ",mr:"ung",k:"a"},{t:" bedankt?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"dafür",z:"m"},{t:" habe ich mich nicht bedankt."}]},
+  {sp:"A",sg:[{b:"Wofür",z:"m"},{t:" hast du dich denn bedankt?"}]},
+  {ans:1,ha:"der",hn:"Führerschein",mn:"Führ",mr:"erschein",k:"a",sp:"für",sa:"den"}
+]},
+{s:2,id:32,verb:"sich beschweren",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"über",z:"m"},{t:" die "},{mn:"Über",mr:"stunden",k:"a"},{t:" beschwert?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darüber",z:"m"},{t:" habe ich mich nicht beschwert."}]},
+  {sp:"A",sg:[{b:"Worüber",z:"m"},{t:" hast du dich denn beschwert?"}]},
+  {ans:1,ha:"die",hn:"Übernachtung",mn:"Über",mr:"nachtung",k:"a",sp:"über",sa:"die"}
+]},
+{s:2,id:33,verb:"sich gewöhnen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"an",z:"s"},{t:" die "},{mn:"An",mr:"forderungen",k:"a"},{t:" gewöhnt?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"daran",z:"m"},{t:" habe ich mich nicht gewöhnt."}]},
+  {sp:"A",sg:[{b:"Woran",z:"m"},{t:" hast du dich denn gewöhnt?"}]},
+  {ans:1,ha:"der",hn:"Anfang",mn:"An",mr:"fang",k:"a",sp:"an",sa:"den"}
+]},
+// --- Dativ ---
+{s:2,id:34,verb:"fragen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Hast du "},{b:"nach",z:"m"},{t:" dem "},{mn:"Nach",mr:"tisch",k:"d"},{t:" gefragt?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"danach",z:"m"},{t:" habe ich nicht gefragt."}]},
+  {sp:"A",sg:[{b:"Wonach",z:"m"},{t:" hast du denn gefragt?"}]},
+  {ans:1,ha:"die",hn:"Nachricht",mn:"Nach",mr:"richt",k:"d",sp:"nach",sa:"der"}
+]},
+{s:2,id:35,verb:"anfangen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Hast du "},{b:"mit",z:"s"},{t:" dem "},{mn:"Mit",mr:"tagessen",k:"d"},{t:" angefangen?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"damit",z:"m"},{t:" habe ich nicht angefangen."}]},
+  {sp:"A",sg:[{b:"Womit",z:"m"},{t:" hast du denn angefangen?"}]},
+  {ans:1,ha:"die",hn:"Mittagspause",mn:"Mit",mr:"tagspause",k:"d",sp:"mit",sa:"der"}
+]},
+{s:2,id:36,verb:"sich fürchten",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"vor",z:"s"},{t:" dem "},{mn:"Vor",mr:"trag",k:"d"},{t:" gefürchtet?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"davor",z:"m"},{t:" habe ich mich nicht gefürchtet."}]},
+  {sp:"A",sg:[{b:"Wovor",z:"m"},{t:" hast du dich denn gefürchtet?"}]},
+  {ans:1,ha:"die",hn:"Vorstellung",mn:"Vor",mr:"stellung",k:"d",sp:"vor",sa:"der"}
+]},
+{s:2,id:37,verb:"sich erkundigen",k:"d",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"nach",z:"m"},{t:" dem "},{mn:"Nach",mr:"barn",k:"d"},{t:" erkundigt?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"danach",z:"m"},{t:" habe ich mich nicht erkundigt."}]},
+  {sp:"A",sg:[{b:"Wonach",z:"m"},{t:" hast du dich denn erkundigt?"}]},
+  {ans:1,ha:"die",hn:"Nachspeise",mn:"Nach",mr:"speise",k:"d",sp:"nach",sa:"der"}
+]},
+// --- sein-Perfekt ---
+{s:2,id:38,verb:"es geht um",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Ist es "},{b:"um",z:"s"},{t:" den "},{mn:"Um",mr:"weltschutz",k:"a"},{t:" gegangen?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darum",z:"m"},{t:" ist es nicht gegangen."}]},
+  {sp:"A",sg:[{b:"Worum",z:"m"},{t:" ist es denn gegangen?"}]},
+  {ans:1,ha:"der",hn:"Umbau",mn:"Um",mr:"bau",k:"a",sp:"um",sa:"den"}
+]},
+{s:2,id:39,verb:"ankommen",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Ist es "},{b:"auf",z:"s"},{t:" die "},{mn:"Auf",mr:"gabe",k:"a"},{t:" angekommen?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"darauf",z:"m"},{t:" ist es nicht angekommen."}]},
+  {sp:"A",sg:[{b:"Worauf",z:"m"},{t:" ist es denn angekommen?"}]},
+  {ans:1,ha:"die",hn:"Aufforderung",mn:"Auf",mr:"forderung",k:"a",sp:"auf",sa:"die"}
+]},
+{s:2,id:40,verb:"sich entscheiden",k:"a",
+ L:[
+  {sp:"A",sg:[{t:"Hast du dich "},{b:"für",z:"s"},{t:" die "},{mn:"Für",mr:"sorge",k:"a"},{t:" entschieden?"}]},
+  {sp:"B",sg:[{t:"Nein, "},{b:"dafür",z:"m"},{t:" habe ich mich nicht entschieden."}]},
+  {sp:"A",sg:[{b:"Wofür",z:"m"},{t:" hast du dich denn entschieden?"}]},
+  {ans:1,ha:"die",hn:"Führung",mn:"Führ",mr:"ung",k:"a",sp:"für",sa:"die"}
+]},
+];
+
+const SEC_META = [
+{title:"a) Verben mit Präposition – Sache",
+ desc:"Ergänze die Präposition, das Pronominaladverb (da+Präp), das Fragewort (wo+Präp) und beantworte mit dem richtigen Kasus.",
+ help:`<strong>Muster:</strong> warten <strong>auf</strong> → da<strong>r</strong>auf / wo<strong>r</strong>auf<br>
+<strong>Tipp:</strong> Beginnt die Präposition mit Vokal → <strong>r</strong> einfügen: an → da<strong>r</strong>an, wo<strong>r</strong>an<br>
+<strong>Farben:</strong> <span class="memo-akk">■ blau = Akkusativ</span> &nbsp; <span class="memo-dat">■ rot = Dativ</span>`},
+{title:"b) Verben mit Präposition – Person",
+ desc:"Bei Personen: Präposition + Pronomen (ihn/sie/ihm/ihr) und Fragewort mit wen/wem. Beantworte mit dem richtigen Kasus.",
+ help:`<strong>Muster:</strong> lachen <strong>über</strong> (Akk.) → über <strong>ihn</strong> / über <strong>wen</strong><br>
+<strong>Tipp:</strong> Akkusativ → <strong>wen?</strong> / Dativ → <strong>wem?</strong><br>
+<strong>Farben:</strong> <span class="memo-akk">■ blau = Akkusativ</span> &nbsp; <span class="memo-dat">■ rot = Dativ</span>`},
+{title:"c) Verben mit Präposition – Perfekt",
+ desc:"Wie a), aber im Perfekt. Achte auf haben oder sein!",
+ help:`<strong>Muster:</strong> Hast du <strong>nach</strong> dem Nachtisch gefragt? → da<strong>nach</strong> / wo<strong>nach</strong><br>
+<strong>Achtung:</strong> Partizip steht am Satzende! Meistens mit <strong>haben</strong>, selten mit <strong>sein</strong>.<br>
+<strong>Farben:</strong> <span class="memo-akk">■ blau = Akkusativ</span> &nbsp; <span class="memo-dat">■ rot = Dativ</span>`}
+];
+
+// ======== RENDER ========
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function memoHtml(mn,mr,k){
+    const cls = k==='a'?'memo-akk':'memo-dat';
+    return `<span class="${cls}">${esc(mn)}</span>${esc(mr)}`;
+}
+
+function renderSeg(sg,exId,lineIdx){
+    let h='';
+    for(let i=0;i<sg.length;i++){
+        const s=sg[i];
+        if(s.t!==undefined){
+            // check if next is blank and this has no trailing space (nowrap)
+            const nx=sg[i+1];
+            if(nx&&nx.b!==undefined&&s.t.length>0&&!s.t.endsWith(' ')){
+                const bid=`i-${exId}-${lineIdx}-${i+1}`;
+                h+=`<span class="nw">${esc(s.t)}<input class="bl ${nx.z}" id="${bid}" data-sol="${nx.b}" autocomplete="off" spellcheck="false"><span class="sol" id="s-${bid}">${esc(nx.b)}</span></span>`;
+                sg[i+1]._sk=1;
+            } else {
+                h+=esc(s.t);
+            }
+        } else if(s.b!==undefined&&!s._sk){
+            const bid=`i-${exId}-${lineIdx}-${i}`;
+            h+=`<input class="bl ${s.z}" id="${bid}" data-sol="${s.b}" autocomplete="off" spellcheck="false">`;
+            h+=`<span class="sol" id="s-${bid}">${esc(s.b)}</span>`;
+        } else if(s.mn!==undefined){
+            h+=memoHtml(s.mn,s.mr,s.k);
+        }
+    }
+    return h;
+}
+
+function renderAnswer(a,exId){
+    const cls=a.k==='a'?'memo-akk':'memo-dat';
+    const pid=`i-${exId}-3-0`;
+    const aid=`i-${exId}-3-1`;
+    return `<div class="ans-row">
+<span class="sp b">B:</span>
+<span class="hint">(${esc(a.ha)} ${esc(a.hn)})</span>
+<span class="arrow">→</span>
+<input class="bl m" id="${pid}" data-sol="${a.sp}" autocomplete="off" spellcheck="false"><span class="sol" id="s-${pid}">${esc(a.sp)}</span>
+<input class="bl s" id="${aid}" data-sol="${a.sa}" autocomplete="off" spellcheck="false"><span class="sol" id="s-${aid}">${esc(a.sa)}</span>
+<span class="noun-fixed"><span class="${cls}">${esc(a.mn)}</span>${esc(a.mr)}.</span>
+</div>`;
+}
+
+function renderAll(){
+    for(let si=0;si<3;si++){
+        const sec=document.getElementById(`sec-${si}`);
+        const m=SEC_META[si];
+        const exs=DATA.filter(d=>d.s===si);
+        let h=`<div class="sec-title">${m.title}</div>
+<div class="sec-desc">${m.desc}</div>
+<div class="help-box">${m.help}</div>`;
+        exs.forEach(ex=>{
+            h+=`<div class="card">`;
+            h+=`<div class="card-hdr"><span class="card-nr">${String(ex.id).padStart(2,'0')}.</span><span class="card-badge">${esc(ex.verb)}</span></div>`;
+            ex.L.forEach((line,li)=>{
+                if(line.ans){
+                    h+=renderAnswer(line,ex.id);
+                } else {
+                    const spCls=line.sp==='B'?'sp b':'sp';
+                    // clone segments to avoid mutation issues
+                    const sg=line.sg.map(s=>({...s}));
+                    h+=`<div class="dl"><span class="${spCls}">${line.sp}:</span>${renderSeg(sg,ex.id,li)}</div>`;
+                }
+            });
+            h+=`</div>`;
+        });
+        h+=`<div class="btn-row">
+<button class="btn btn-check" onclick="check(${si})">✓ Prüfen</button>
+<button class="btn btn-show" onclick="show(${si})">Lösungen</button>
+<button class="btn btn-reset" onclick="reset(${si})">↺ Neu starten</button>
+</div><div class="score" id="sc-${si}"></div>`;
+        sec.innerHTML=h;
+    }
+}
+
+// ======== LOGIC ========
+function norm(s){return s.trim().toLowerCase().replace(/\s+/g,' ')}
+
+function check(si){
+    const inputs=document.querySelectorAll(`#sec-${si} input.bl`);
+    let c=0,t=inputs.length;
+    inputs.forEach(inp=>{
+        inp.classList.remove('correct','wrong');
+        const sol=norm(inp.dataset.sol);
+        const val=norm(inp.value);
+        if(val===sol){inp.classList.add('correct');c++}
+        else if(val!=='')inp.classList.add('wrong');
+    });
+    const pct=t?Math.round(c/t*100):0;
+    let msg=`Ergebnis: <span>${c}</span> von <span>${t}</span> richtig (${pct}%)`;
+    if(pct===100) msg+=` &nbsp;🎉 Perfekt!`;
+    else if(pct>=80) msg+=` &nbsp;👏 Sehr gut!`;
+    else if(pct>=60) msg+=` &nbsp;👍 Gut!`;
+    else msg+=` &nbsp;💪 Weiter üben!`;
+    document.getElementById(`sc-${si}`).innerHTML=msg;
+}
+
+function show(si){
+    const inputs=document.querySelectorAll(`#sec-${si} input.bl`);
+    inputs.forEach(inp=>{
+        inp.classList.remove('correct','wrong');
+        inp.value=inp.dataset.sol;
+        inp.classList.add('correct');
+        const sol=document.getElementById(`s-${inp.id}`);
+        if(sol)sol.classList.add('visible');
+    });
+    document.getElementById(`sc-${si}`).innerHTML='';
+}
+
+function reset(si){
+    const inputs=document.querySelectorAll(`#sec-${si} input.bl`);
+    inputs.forEach(inp=>{
+        inp.value='';inp.classList.remove('correct','wrong');
+        const sol=document.getElementById(`s-${inp.id}`);
+        if(sol)sol.classList.remove('visible');
+    });
+    document.getElementById(`sc-${si}`).innerHTML='';
+}
+
+function showSection(idx){
+    document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+renderAll();
+</script>
+</body>
+</html>

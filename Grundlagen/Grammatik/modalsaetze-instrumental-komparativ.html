@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modalsätze: Instrumentalsatz & Komparativsatz (B2)</title>
+<style>
+/* ═══ DaF-Layout (verbindlich) ═══ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh; padding: 20px;
+}
+.container {
+  max-width: 1000px; margin: 0 auto;
+  background: white; border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; padding: 30px; text-align: center;
+}
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header p { font-size: 1.0em; font-family: Georgia, 'Times New Roman', serif; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; }
+
+/* ═══ Navigation ═══ */
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav-btn {
+  flex: 1; padding: 14px 10px; text-align: center; cursor: pointer;
+  border: none; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;
+  transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666;
+  background: transparent;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; font-weight: 700; border-bottom: 3px solid #667eea; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+
+/* ═══ Sections ═══ */
+section { display: none; }
+section.active { display: block; }
+.section-inner { padding: 28px 30px; }
+.section-title { font-family: Georgia, 'Times New Roman', serif; color: #4a148c; font-size: 1.15rem; margin-bottom: 16px; font-weight: 700; }
+
+/* ═══ Entdeckungs-Tab ═══ */
+.entdeck-intro {
+  background: #f3e5f5; border-radius: 12px;
+  padding: 18px 22px; margin-bottom: 20px;
+  border-left: 5px solid #9c27b0; font-size: 0.97rem; line-height: 1.75;
+}
+.entdeck-intro h3 { color: #6a1b9a; margin-bottom: 10px; font-size: 1.05rem; }
+.hl { background: #e1bee7; border-radius: 4px; padding: 0 4px; color: #4a148c; font-weight: 700; }
+.mc-step { display: none; background: #fafbff; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; border: 1px solid #c5cae9; }
+.mc-step.active { display: block; }
+.mc-step h4 { color: #3949ab; margin-bottom: 12px; font-size: 0.97rem; }
+.mc-options { display: flex; flex-direction: column; gap: 8px; }
+.mc-btn {
+  padding: 9px 16px; border: 2px solid #c5cae9; border-radius: 8px;
+  background: #fff; cursor: pointer; text-align: left; font-size: 0.92rem;
+  transition: all .2s;
+}
+.mc-btn:hover { border-color: #667eea; background: #f3f4ff; }
+.mc-btn.correct { border-color: #43a047; background: #e8f5e9; color: #2e7d32; font-weight: 700; }
+.mc-btn.wrong   { border-color: #e53935; background: #ffebee; color: #c62828; }
+.mc-feedback { margin-top: 10px; font-size: 0.88rem; min-height: 1.3em; }
+.mc-feedback.ok  { color: #2e7d32; font-weight: 700; }
+.mc-feedback.err { color: #c62828; }
+.progress-dots { display: flex; gap: 8px; margin-bottom: 20px; }
+.pdot { width: 14px; height: 14px; border-radius: 50%; background: #c5cae9; transition: background .3s; }
+.pdot.done { background: #667eea; }
+.regel-karte { display: none; background: linear-gradient(135deg, #e8eaf6, #ede7f6); border-radius: 14px; padding: 22px 26px; border-left: 5px solid #3949ab; margin-top: 10px; }
+.regel-karte h3 { color: #1a237e; margin-bottom: 12px; font-size: 1.05rem; }
+.regel-karte ul { margin-left: 18px; }
+.regel-karte li { color: #333; line-height: 1.8; font-size: 0.95rem; }
+.regel-karte .rk-example { background: #fff; border-radius: 8px; padding: 10px 14px; margin-top: 12px; border-left: 3px solid #7c4dff; font-size: 0.9rem; color: #333; }
+.regel-karte .rk-example b { color: #3949ab; }
+
+/* ═══ Chips (Zuordnung) ═══ */
+.zuo-chip {
+  padding: 6px 14px; border-radius: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white; cursor: grab; font-size: 0.85rem;
+  font-weight: 600; user-select: none;
+  transition: transform .15s, opacity .15s;
+  white-space: normal; display: inline-block;
+}
+.zuo-chip:active { cursor: grabbing; transform: scale(1.04); }
+.zuo-chip.selected { outline: 3px solid #f39c12; }
+.zuo-chip.correct { background: linear-gradient(135deg, #27ae60, #2ecc71) !important; }
+.zuo-chip.wrong   { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; }
+
+/* ═══ Satzbau-Chips ═══ */
+.chip {
+  background: white; border: 2px solid #667eea; color: #667eea;
+  padding: 8px 14px; border-radius: 20px; cursor: move;
+  font-weight: 500; font-size: 0.9em; transition: all 0.2s;
+  user-select: none; white-space: nowrap;
+}
+.chip.correct   { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.incorrect { background: #e74c3c; border-color: #e74c3c; color: white; }
+
+/* ═══ Drop-Zonen (Zuordnung) ═══ */
+.drop-zone {
+  min-height: 100px; border-radius: 10px;
+  border: 2px dashed #c5cae9;
+  padding: 10px; background: #fafbff;
+  transition: background .2s;
+}
+.drop-zone.dragover { background: #e8eaff; border-color: #667eea; }
+.chip-bank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 12px; background: #f8f9fa;
+  border-radius: 10px; margin-bottom: 14px; min-height: 54px;
+}
+
+/* ═══ Satzbau-Bereiche ═══ */
+.chips-container {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 14px; background: #f8f8f8;
+  border-radius: 10px; min-height: 56px; margin-bottom: 10px;
+}
+.sentence-builder {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 14px; background: white;
+  border: 2px dashed #ccc; border-radius: 10px;
+  min-height: 56px; align-items: center; margin-bottom: 6px;
+}
+.sentence-builder.correct   { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt {
+  font-size: 1.1em; font-weight: 700; color: #27ae60;
+  margin-left: 2px; align-self: center; user-select: none;
+}
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct   { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+
+/* ═══ Eingabefelder ═══ */
+input.blank {
+  border: 2px solid #c5cae9; border-radius: 6px;
+  padding: 3px 8px; font-size: 0.9rem;
+  font-family: inherit; outline: none;
+  transition: border-color .2s, background .2s;
+  background: white; margin: 0 2px;
+}
+input.blank:focus { border-color: #667eea; }
+input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
+input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
+.correction-hint {
+  font-size: 0.78rem; color: #27ae60; font-weight: 700;
+  margin-left: 4px; white-space: nowrap;
+}
+
+/* ═══ Timer & Score ═══ */
+.timer-bar {
+  display: flex; align-items: center; gap: 12px;
+  background: white; border-radius: 10px;
+  padding: 10px 16px; margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  font-size: 0.85rem; color: #666;
+}
+.timer-display { font-weight: 700; color: #667eea; font-size: 1rem; }
+.best-display  { color: #f39c12; font-weight: 600; }
+.score-box { text-align: right; font-size: 0.83rem; color: #888; margin-bottom: 8px; }
+.score-box span { font-weight: 700; color: #667eea; }
+
+/* ═══ Übungselemente ═══ */
+.ex-item {
+  background: #fafbff; border-radius: 10px; padding: 14px 18px;
+  margin-bottom: 12px; border-left: 4px solid #667eea;
+  line-height: 1.7; font-size: 0.93rem;
+}
+.ex-badge {
+  display: inline-block; background: #667eea; color: #fff;
+  border-radius: 50%; width: 24px; height: 24px; text-align: center;
+  line-height: 24px; font-size: 0.75rem; font-weight: 700; margin-right: 8px;
+}
+.wordbank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  background: #f3e5f5; border-radius: 10px; padding: 12px 16px;
+  margin-bottom: 18px; border: 1px dashed #9c27b0;
+}
+.wordbank .wb-chip {
+  background: #fff; border: 1px solid #9c27b0; color: #4a148c;
+  padding: 4px 12px; border-radius: 16px; font-size: 0.85rem; font-weight: 600;
+}
+.meaning-hint { display: none; font-size: 0.8rem; color: #888; font-style: italic; margin-left: 6px; }
+.btn-reset {
+  padding: 8px 20px; border: none; border-radius: 8px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+  margin-top: 12px; transition: opacity .2s;
+}
+.btn-reset:hover { opacity: 0.85; }
+.btn-solution {
+  padding: 6px 16px; border: 1px solid #667eea; border-radius: 8px;
+  background: #fff; color: #667eea; cursor: pointer; font-size: 0.8rem;
+  font-weight: 600; margin-top: 8px; transition: all .2s;
+}
+.btn-solution:hover { background: #667eea; color: #fff; }
+
+/* ═══ Zuordnung Layout ═══ */
+.zuo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.zuo-label { font-weight: 700; color: #4a148c; font-size: 0.9rem; text-align: center; padding: 8px; background: #f3e5f5; border-radius: 8px; }
+.zuo-counter { text-align: right; font-size: 0.83rem; color: #888; margin-bottom: 6px; }
+.zuo-counter span { font-weight: 700; color: #667eea; }
+
+/* ═══ Satzbau ═══ */
+.sb-item { margin-bottom: 18px; }
+.sb-label { font-weight: 600; color: #4a148c; font-size: 0.88rem; margin-bottom: 6px; }
+
+/* ═══ Author-Footer ═══ */
+.author-footer {
+  text-align: center; margin-top: 40px; padding: 16px;
+  font-size: 0.8rem; color: #aaa;
+}
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 600px) {
+  body { padding: 8px; }
+  .nav { flex-wrap: wrap; }
+  .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+  .nav-btn:last-child { border-right: 1px solid #ddd; }
+  .header h1 { font-size: 1.4em; }
+  .section-inner { padding: 16px; }
+  .zuo-layout { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>Modalsätze: Instrumentalsatz &amp; Komparativsatz</h1>
+  <p style="font-family: Georgia, serif;">B2 Grammatik &nbsp;|&nbsp; indem, dadurch dass, als ob, als wenn, je … desto</p>
+</div>
+
+<div class="nav">
+  <div class="nav-btn active" onclick="showTab(0)"><span class="nav-emoji">📖</span><span class="nav-label">Entdeckung</span></div>
+  <div class="nav-btn" onclick="showTab(1)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
+  <div class="nav-btn" onclick="showTab(2)"><span class="nav-emoji">🔀</span><span class="nav-label">Zuordnung</span></div>
+  <div class="nav-btn" onclick="showTab(3)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+</div>
+
+<!-- ═══════════ TAB 0: ENTDECKUNG ═══════════ -->
+<section id="sec-0" class="active">
+<div class="section-inner">
+  <h2 class="section-title">Entdecke die Regel</h2>
+
+  <div class="entdeck-intro">
+    <h3>Lies die Sätze aufmerksam und achte auf die hervorgehobenen Wörter:</h3>
+    <p>1. Man kann einen guten Eindruck hinterlassen, <span class="hl">indem</span> man sich sorgfältig auf das Gespräch <span class="hl">vorbereitet</span>.</p>
+    <p>2. Die Firma erzielte hervorragende Ergebnisse, <span class="hl">dadurch dass</span> sie ihre Qualität kontinuierlich <span class="hl">verbesserte</span>.</p>
+    <p>3. Er tut so, <span class="hl">als ob</span> er alle Aufgaben mühelos <span class="hl">bewältigen könnte</span>.</p>
+    <p>4. Sie spricht so sicher, <span class="hl">als wenn</span> sie jahrelange Erfahrung <span class="hl">hätte</span>.</p>
+    <p>5. <span class="hl">Je</span> mehr Fortschritte man macht, <span class="hl">desto</span> größer wird das Vertrauen.</p>
+    <p>6. Der Erfolg stellt sich ein, <span class="hl">indem</span> man realistische Ziele <span class="hl">formuliert</span>.</p>
+  </div>
+
+  <div class="progress-dots">
+    <div class="pdot" id="pdot0"></div>
+    <div class="pdot" id="pdot1"></div>
+    <div class="pdot" id="pdot2"></div>
+    <div class="pdot" id="pdot3"></div>
+  </div>
+
+  <div class="mc-step active" id="mc-step0">
+    <h4>Schritt 1: Schau dir die Sätze 1, 2 und 6 an. Was drücken „indem" und „dadurch dass" aus?</h4>
+    <div class="mc-options">
+      <button class="mc-btn" onclick="mcCheck(0, this, false)">Eine zeitliche Abfolge — erst passiert A, dann B.</button>
+      <button class="mc-btn" onclick="mcCheck(0, this, true)">Das Mittel oder die Art und Weise, wie etwas erreicht wird.</button>
+      <button class="mc-btn" onclick="mcCheck(0, this, false)">Einen Gegensatz zwischen zwei Handlungen.</button>
+      <button class="mc-btn" onclick="mcCheck(0, this, false)">Eine Bedingung, unter der etwas passiert.</button>
+    </div>
+    <div class="mc-feedback" id="mcfb0"></div>
+  </div>
+
+  <div class="mc-step" id="mc-step1">
+    <h4>Schritt 2: Wo steht das Verb in den Nebensätzen mit „indem" und „dadurch dass"?</h4>
+    <div class="mc-options">
+      <button class="mc-btn" onclick="mcCheck(1, this, false)">An Position 2, wie in einem Hauptsatz.</button>
+      <button class="mc-btn" onclick="mcCheck(1, this, true)">Am Ende des Nebensatzes.</button>
+      <button class="mc-btn" onclick="mcCheck(1, this, false)">Direkt nach der Konjunktion.</button>
+    </div>
+    <div class="mc-feedback" id="mcfb1"></div>
+  </div>
+
+  <div class="mc-step" id="mc-step2">
+    <h4>Schritt 3: Lies Satz 3 und 4. Welchen Modus verwenden die Verben nach „als ob" / „als wenn"?</h4>
+    <div class="mc-options">
+      <button class="mc-btn" onclick="mcCheck(2, this, false)">Indikativ — es beschreibt die Realität.</button>
+      <button class="mc-btn" onclick="mcCheck(2, this, true)">Konjunktiv II — es ist ein irrealer Vergleich, etwas ist nicht wirklich so.</button>
+      <button class="mc-btn" onclick="mcCheck(2, this, false)">Imperativ — es ist eine Aufforderung.</button>
+    </div>
+    <div class="mc-feedback" id="mcfb2"></div>
+  </div>
+
+  <div class="mc-step" id="mc-step3">
+    <h4>Schritt 4: Schau dir Satz 5 an. Was beschreibt die Konstruktion „je … desto"?</h4>
+    <div class="mc-options">
+      <button class="mc-btn" onclick="mcCheck(3, this, false)">Einen Gegensatz: A passiert, aber B ist das Gegenteil.</button>
+      <button class="mc-btn" onclick="mcCheck(3, this, false)">Eine Bedingung: Nur wenn A, dann auch B.</button>
+      <button class="mc-btn" onclick="mcCheck(3, this, true)">Ein proportionales Verhältnis: Wenn A steigt, steigt auch B.</button>
+    </div>
+    <div class="mc-feedback" id="mcfb3"></div>
+  </div>
+
+  <div class="regel-karte" id="regelkarte">
+    <h3>📋 Die Regeln auf einen Blick</h3>
+    <ul>
+      <li><b>Instrumentalsatz (indem / dadurch dass)</b> = Art und Weise / Mittel. Frage: <i>Wie? Wodurch?</i> — Verb am Ende.</li>
+      <li><b>indem</b> = Nebensatz (Umstellung möglich). <b>dadurch dass</b> = Variante (Umstellung möglich).</li>
+      <li><b>Komparativsatz (als ob / als wenn / als)</b> = irrealer Vergleich. Frage: <i>Wie?</i> — mit Konjunktiv II.</li>
+      <li><b>als ob / als wenn</b> = Nebensatz (Verb am Ende). <b>als</b> = Hauptsatz (Verb direkt nach <i>als</i>).</li>
+      <li><b>je … desto / je … umso</b> = proportionaler Vergleich mit Komparativ. <i>je</i> + Nebensatz, <i>desto</i> + Hauptsatz.</li>
+    </ul>
+    <div class="rk-example">
+      <p><b>indem:</b> Man gewinnt Vertrauen, <b>indem</b> man zuverlässige Ergebnisse <b>liefert</b>.</p>
+      <p><b>als ob:</b> Er handelt, <b>als ob</b> er keinerlei Erfahrung <b>hätte</b>.</p>
+      <p><b>je … desto:</b> <b>Je</b> gründlicher man das Problem <b>analysiert</b>, <b>desto</b> schneller findet man eine Lösung.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════ TAB 1: LÜCKENTEXT ═══════════ -->
+<section id="sec-1">
+<div class="section-inner">
+  <h2 class="section-title">Lückentext — Konjunktionen einsetzen</h2>
+
+  <div class="timer-bar">
+    <span>⏱</span> <span class="timer-display" id="timer-1">0:00</span>
+    <span style="margin-left:auto">🏆 Bestzeit:</span> <span class="best-display" id="best-1">—</span>
+  </div>
+
+  <div class="wordbank" id="wordbank1">
+    <span class="wb-chip">indem</span>
+    <span class="wb-chip">dadurch dass</span>
+    <span class="wb-chip">als ob</span>
+    <span class="wb-chip">als wenn</span>
+    <span class="wb-chip">je</span>
+    <span class="wb-chip">desto</span>
+  </div>
+
+  <div class="score-box">Richtig: <span id="score1">0</span> / <span id="total1">12</span></div>
+  <div id="luecke-container"></div>
+
+  <button class="btn-solution" onclick="solveLuecke(1)">Lösung zeigen</button>
+  <button class="btn-reset" onclick="resetLuecke(1)">Neu starten</button>
+</div>
+</section>
+
+<!-- ═══════════ TAB 2: ZUORDNUNG ═══════════ -->
+<section id="sec-2">
+<div class="section-inner">
+  <h2 class="section-title">Zuordnung — Welcher Satztyp?</h2>
+
+  <div class="timer-bar">
+    <span>⏱</span> <span class="timer-display" id="timer-2">0:00</span>
+    <span style="margin-left:auto">🏆 Bestzeit:</span> <span class="best-display" id="best-2">—</span>
+  </div>
+
+  <div class="zuo-counter">Richtig: <span id="zuo-ok">0</span> / <span id="zuo-total">0</span></div>
+
+  <div class="chip-bank" id="zuo-bank"></div>
+
+  <div class="zuo-layout">
+    <div>
+      <div class="zuo-label">Instrumentalsatz<br><small>(indem / dadurch dass)</small></div>
+      <div class="drop-zone" id="zone-instrumental" data-cat="instrumental"
+        ondragover="allowDrop(event)" ondrop="dropZuo(event, this)"></div>
+    </div>
+    <div>
+      <div class="zuo-label">Komparativsatz<br><small>(als ob / als wenn / je…desto)</small></div>
+      <div class="drop-zone" id="zone-komparativ" data-cat="komparativ"
+        ondragover="allowDrop(event)" ondrop="dropZuo(event, this)"></div>
+    </div>
+  </div>
+
+  <button class="btn-reset" onclick="resetZuo()">Neu starten</button>
+</div>
+</section>
+
+<!-- ═══════════ TAB 3: SATZBAU ═══════════ -->
+<section id="sec-3">
+<div class="section-inner">
+  <h2 class="section-title">Satzbau — Satzteile ordnen</h2>
+
+  <div class="timer-bar">
+    <span>⏱</span> <span class="timer-display" id="timer-3">0:00</span>
+    <span style="margin-left:auto">🏆 Bestzeit:</span> <span class="best-display" id="best-3">—</span>
+  </div>
+
+  <div class="sb-item"><div class="sb-label">Satz 1</div><div class="chips-container" id="sb-bank-0"></div><div class="sentence-builder" id="sb-row-0"></div><div class="satzbau-feedback" id="sb-fb-0"></div><button onclick="sbShowSolution(0)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 2</div><div class="chips-container" id="sb-bank-1"></div><div class="sentence-builder" id="sb-row-1"></div><div class="satzbau-feedback" id="sb-fb-1"></div><button onclick="sbShowSolution(1)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 3</div><div class="chips-container" id="sb-bank-2"></div><div class="sentence-builder" id="sb-row-2"></div><div class="satzbau-feedback" id="sb-fb-2"></div><button onclick="sbShowSolution(2)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 4</div><div class="chips-container" id="sb-bank-3"></div><div class="sentence-builder" id="sb-row-3"></div><div class="satzbau-feedback" id="sb-fb-3"></div><button onclick="sbShowSolution(3)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 5</div><div class="chips-container" id="sb-bank-4"></div><div class="sentence-builder" id="sb-row-4"></div><div class="satzbau-feedback" id="sb-fb-4"></div><button onclick="sbShowSolution(4)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 6</div><div class="chips-container" id="sb-bank-5"></div><div class="sentence-builder" id="sb-row-5"></div><div class="satzbau-feedback" id="sb-fb-5"></div><button onclick="sbShowSolution(5)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 7</div><div class="chips-container" id="sb-bank-6"></div><div class="sentence-builder" id="sb-row-6"></div><div class="satzbau-feedback" id="sb-fb-6"></div><button onclick="sbShowSolution(6)" class="btn-solution">Lösung anzeigen</button></div>
+  <div class="sb-item"><div class="sb-label">Satz 8</div><div class="chips-container" id="sb-bank-7"></div><div class="sentence-builder" id="sb-row-7"></div><div class="satzbau-feedback" id="sb-fb-7"></div><button onclick="sbShowSolution(7)" class="btn-solution">Lösung anzeigen</button></div>
+
+  <button class="btn-reset" onclick="resetSb()">Neu starten</button>
+</div>
+</section>
+
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════
+   GLOBALE VARIABLEN
+   ═══════════════════════════════════════════ */
+var TIMER_PREFIX = 'b2_2032g_modal_instr_komp_';
+var draggedChip = null;
+
+/* ═══ TAB-NAVIGATION ═══ */
+function showTab(n) {
+  document.querySelectorAll('section').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('sec-' + n).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b, i) {
+    b.classList.toggle('active', i === n);
+  });
+}
+
+/* ═══ MC-SYSTEM (Entdeckungs-Tab) ═══ */
+var mcDone = [false, false, false, false];
+
+function mcCheck(step, btn, correct) {
+  var btns = btn.parentElement.querySelectorAll('.mc-btn');
+  btns.forEach(function(b) { b.disabled = true; b.classList.remove('correct','wrong'); });
+  var fb = document.getElementById('mcfb' + step);
+  if (correct) {
+    btn.classList.add('correct');
+    fb.textContent = '\u2713 Richtig! Weiter zum nächsten Schritt.';
+    fb.className = 'mc-feedback ok';
+    mcDone[step] = true;
+    document.getElementById('pdot' + step).classList.add('done');
+    setTimeout(function() {
+      var next = document.getElementById('mc-step' + (step + 1));
+      if (next) { next.classList.add('active'); }
+      else { document.getElementById('regelkarte').style.display = 'block'; }
+    }, 700);
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '\u2717 Nicht ganz \u2014 schau nochmal genau hin und versuche es erneut.';
+    fb.className = 'mc-feedback err';
+    setTimeout(function() {
+      btns.forEach(function(b) { b.disabled = false; b.classList.remove('wrong','correct'); });
+      fb.textContent = '';
+      fb.className = 'mc-feedback';
+    }, 1400);
+  }
+}
+
+/* ═══ TIMER-SYSTEM ═══ */
+var timerStarted  = [false, false, false, false];
+var timerRunning  = [false, false, false, false];
+var timerSeconds  = [0, 0, 0, 0];
+var timerIntervals = [null, null, null, null];
+
+function timerAutoStart(n) {
+  if (timerStarted[n]) return;
+  timerStarted[n] = true;
+  timerRunning[n] = true;
+  timerIntervals[n] = setInterval(function() {
+    timerSeconds[n]++;
+    var el = document.getElementById('timer-' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }, 1000);
+}
+
+function timerStop(n) {
+  if (!timerRunning[n]) return;
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  var best = parseInt(localStorage.getItem(TIMER_PREFIX + n) || '999999');
+  if (timerSeconds[n] > 0 && timerSeconds[n] < best) {
+    localStorage.setItem(TIMER_PREFIX + n, timerSeconds[n]);
+    var el = document.getElementById('best-' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }
+}
+
+function timerResetOne(n) {
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  timerStarted[n] = false;
+  timerSeconds[n] = 0;
+  var el = document.getElementById('timer-' + n);
+  if (el) el.textContent = '0:00';
+}
+
+function fmtTime(s) {
+  return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+}
+
+function loadBestTimes() {
+  for (var i = 1; i <= 3; i++) {
+    var v = localStorage.getItem(TIMER_PREFIX + i);
+    if (v) {
+      var el = document.getElementById('best-' + i);
+      if (el) el.textContent = fmtTime(parseInt(v));
+    }
+  }
+}
+
+/* ═══ SHUFFLE ═══ */
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+/* ═══ LIVE-CHECK (Prefix-Matching) ═══ */
+function liveCheck(inp) {
+  var val = inp.value.trim().toLowerCase();
+  var ans = (inp.dataset.answer || '').toLowerCase();
+  inp.classList.remove('correct', 'wrong');
+  if (val.length === 0) return;
+  if (val === ans) {
+    inp.classList.add('correct');
+    // Bedeutungs-Hint einblenden
+    var hint = inp.parentElement.querySelector('.meaning-hint');
+    if (hint) hint.style.display = 'inline';
+  } else if (ans.indexOf(val) === 0) {
+    // gültiger Präfix → neutral
+  } else {
+    inp.classList.add('wrong');
+  }
+}
+
+function showHint(inp) {
+  var next = inp.nextElementSibling;
+  if (next && next.classList.contains('correction-hint')) next.remove();
+  if (!inp.classList.contains('correct')) {
+    var hint = document.createElement('span');
+    hint.className = 'correction-hint';
+    hint.textContent = inp.dataset.answer;
+    inp.insertAdjacentElement('afterend', hint);
+  }
+  inp.value = inp.dataset.answer;
+  inp.classList.add('correct');
+  inp.classList.remove('wrong');
+}
+
+/* ═══════════════════════════════════════════
+   TAB 1: LÜCKENTEXT — DATEN
+   ═══════════════════════════════════════════ */
+var LUECKEN_DATA = [
+  { id: 1, segs: [
+    {t: 'Man verbessert die Qualität, '},
+    {b: 'indem', s: 'l'},
+    {t: ' man regelmäßig die Ergebnisse '},
+    {b: 'überprüft', s: 'l'},
+    {t: '.'}
+  ]},
+  { id: 2, segs: [
+    {t: 'Sie erzielte beachtliche Erfolge, '},
+    {b: 'dadurch dass', s: 'xl'},
+    {t: ' sie jede Aufgabe gewissenhaft '},
+    {b: 'erledigte', s: 'l'},
+    {t: '.'}
+  ]},
+  { id: 3, segs: [
+    {t: 'Er tut so, '},
+    {b: 'als ob', s: 'm'},
+    {t: ' er die Kritik nicht '},
+    {b: 'bemerkt hätte', s: 'xl'},
+    {t: '.'}
+  ]},
+  { id: 4, segs: [
+    {t: ''},
+    {b: 'je', s: 's'},
+    {t: ' gründlicher man das Problem analysiert, '},
+    {b: 'desto', s: 'm'},
+    {t: ' schneller findet man eine Lösung.'}
+  ]},
+  { id: 5, segs: [
+    {t: 'Man baut Vertrauen auf, '},
+    {b: 'indem', s: 'l'},
+    {t: ' man zuverlässige Leistung '},
+    {b: 'abliefert', s: 'l'},
+    {t: '.'}
+  ]},
+  { id: 6, segs: [
+    {t: 'Sie verhält sich, '},
+    {b: 'als wenn', s: 'l'},
+    {t: ' sie keinerlei Erfahrung '},
+    {b: 'gesammelt hätte', s: 'xl'},
+    {t: '.'}
+  ]},
+  { id: 7, segs: [
+    {t: ''},
+    {b: 'je', s: 's'},
+    {t: ' mehr Erfahrung man sammelt, '},
+    {b: 'desto', s: 'm'},
+    {t: ' sicherer wird die Entscheidung.'}
+  ]},
+  { id: 8, segs: [
+    {t: 'Die Firma machte Fortschritte, '},
+    {b: 'dadurch dass', s: 'xl'},
+    {t: ' sie ihre Maßnahmen konsequent '},
+    {b: 'umsetzte', s: 'l'},
+    {t: '.'}
+  ]},
+  { id: 9, segs: [
+    {t: 'Man erzielt ein hervorragendes Ergebnis, '},
+    {b: 'indem', s: 'l'},
+    {t: ' man die Aufgaben sorgfältig '},
+    {b: 'bearbeitet', s: 'l'},
+    {t: '.'}
+  ]},
+  { id: 10, segs: [
+    {t: 'Er spricht so, '},
+    {b: 'als ob', s: 'm'},
+    {t: ' er über fundierte Kenntnisse '},
+    {b: 'verfügen würde', s: 'xl'},
+    {t: '.'}
+  ]},
+  { id: 11, segs: [
+    {t: ''},
+    {b: 'je', s: 's'},
+    {t: ' besser die Qualität ist, '},
+    {b: 'desto', s: 'm'},
+    {t: ' größer ist der Erfolg.'}
+  ]},
+  { id: 12, segs: [
+    {t: 'Man gewinnt einen positiven Eindruck, '},
+    {b: 'indem', s: 'l'},
+    {t: ' man professionelle Ergebnisse '},
+    {b: 'präsentiert', s: 'l'},
+    {t: '.'}
+  ]}
+];
+
+var SIZES = {s: '50px', m: '90px', l: '150px', xl: '200px'};
+
+function lueckeInit() {
+  var container = document.getElementById('luecke-container');
+  container.innerHTML = '';
+  LUECKEN_DATA.forEach(function(ex) {
+    var div = document.createElement('div');
+    div.className = 'ex-item';
+    var html = '<span class="ex-badge">#' + ex.id + '</span>';
+    ex.segs.forEach(function(seg) {
+      if (seg.t !== undefined) {
+        html += seg.t;
+      } else {
+        var w = SIZES[seg.s] || '90px';
+        html += '<input class="blank" type="text" data-answer="' + seg.b + '" style="width:' + w + '" autocomplete="off">';
+      }
+    });
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+
+  container.querySelectorAll('input.blank').forEach(function(inp) {
+    inp.addEventListener('input', function() {
+      timerAutoStart(1);
+      liveCheck(inp);
+      checkLueckeAllOk(1);
+    });
+    inp.addEventListener('dblclick', function() { showHint(inp); checkLueckeAllOk(1); });
+  });
+  updateLueckeScore(1);
+}
+
+function checkLueckeAllOk(n) {
+  var inputs = document.querySelectorAll('#sec-' + n + ' input.blank');
+  var ok = 0;
+  inputs.forEach(function(i) { if (i.classList.contains('correct')) ok++; });
+  document.getElementById('score' + n).textContent = ok;
+  if (inputs.length > 0 && ok === inputs.length) timerStop(n);
+}
+
+function updateLueckeScore(n) {
+  var inputs = document.querySelectorAll('#sec-' + n + ' input.blank');
+  document.getElementById('total' + n).textContent = inputs.length;
+}
+
+function solveLuecke(n) {
+  document.querySelectorAll('#sec-' + n + ' input.blank').forEach(function(inp) {
+    showHint(inp);
+  });
+  checkLueckeAllOk(n);
+}
+
+function resetLuecke(n) {
+  timerResetOne(n);
+  document.querySelectorAll('#sec-' + n + ' input.blank').forEach(function(inp) {
+    inp.value = '';
+    inp.classList.remove('correct', 'wrong');
+    var next = inp.nextElementSibling;
+    if (next && next.classList.contains('correction-hint')) next.remove();
+    var hint = inp.parentElement.querySelector('.meaning-hint');
+    if (hint) hint.style.display = 'none';
+  });
+  document.getElementById('score' + n).textContent = '0';
+}
+
+/* ═══════════════════════════════════════════
+   TAB 2: ZUORDNUNG — DATEN
+   ═══════════════════════════════════════════ */
+var ZUO_DATA = [
+  { text: 'Man steigert die Qualität, indem man systematisch vorgeht.', cat: 'instrumental' },
+  { text: 'Er handelt, als ob er keine Probleme hätte.', cat: 'komparativ' },
+  { text: 'Sie gewann Vertrauen, dadurch dass sie Fortschritte vorlegte.', cat: 'instrumental' },
+  { text: 'Je größer der Erfolg ist, desto höher sind die Erwartungen.', cat: 'komparativ' },
+  { text: 'Man erreicht das Ziel, indem man realistische Maßnahmen ergreift.', cat: 'instrumental' },
+  { text: 'Sie sieht aus, als wenn sie die ganze Nacht gearbeitet hätte.', cat: 'komparativ' },
+  { text: 'Die Ergebnisse verbesserten sich, dadurch dass neue Kenntnisse erworben wurden.', cat: 'instrumental' },
+  { text: 'Er spricht, als hätte er jahrelange Erfahrung.', cat: 'komparativ' },
+  { text: 'Man bewältigt die Aufgabe, indem man Schritt für Schritt vorgeht.', cat: 'instrumental' },
+  { text: 'Je mehr Erfahrung sie sammelt, desto besser wird ihre Leistung.', cat: 'komparativ' },
+  { text: 'Man hinterlässt einen positiven Eindruck, indem man pünktlich erscheint.', cat: 'instrumental' },
+  { text: 'Es klingt, als ob das Problem bereits gelöst wäre.', cat: 'komparativ' }
+];
+
+function zuoInit() {
+  var bank = document.getElementById('zuo-bank');
+  bank.innerHTML = '';
+  document.getElementById('zone-instrumental').innerHTML = '';
+  document.getElementById('zone-komparativ').innerHTML = '';
+
+  bank.addEventListener('dragover', allowDrop);
+  bank.addEventListener('drop', function(e) {
+    e.preventDefault();
+    if (!draggedChip) return;
+    bank.appendChild(draggedChip); draggedChip = null;
+    colorAllZuordnungChips();
+  });
+  bank.addEventListener('click', function(e) {
+    if (e.target === bank) {
+      var sel = document.querySelector('#sec-2 .zuo-chip.selected');
+      if (sel) { bank.appendChild(sel); sel.classList.remove('selected'); colorAllZuordnungChips(); }
+    }
+  });
+
+  // Klick auf Drop-Zonen
+  ['zone-instrumental', 'zone-komparativ'].forEach(function(id) {
+    var zone = document.getElementById(id);
+    zone.addEventListener('click', function() {
+      var sel = document.querySelector('#sec-2 .zuo-chip.selected');
+      if (sel) { zone.appendChild(sel); sel.classList.remove('selected'); colorAllZuordnungChips(); }
+    });
+  });
+
+  shuffle(ZUO_DATA).forEach(function(item, i) {
+    var chip = document.createElement('div');
+    chip.className = 'zuo-chip';
+    chip.textContent = item.text;
+    chip.dataset.cat = item.cat;
+    chip.draggable = true;
+    chip.style.whiteSpace = 'normal';
+    chip.style.fontSize = '0.8rem';
+    chip.style.maxWidth = '100%';
+    chip.addEventListener('dragstart', function(e) {
+      draggedChip = chip;
+      e.dataTransfer.setData('text/plain', '');
+    });
+    chip.addEventListener('dragend', function() { colorAllZuordnungChips(); });
+    chip.addEventListener('click', function() {
+      if (chip.classList.contains('selected')) { chip.classList.remove('selected'); return; }
+      document.querySelectorAll('#sec-2 .zuo-chip.selected').forEach(function(c) { c.classList.remove('selected'); });
+      chip.classList.add('selected');
+    });
+    bank.appendChild(chip);
+  });
+
+  document.getElementById('zuo-total').textContent = ZUO_DATA.length;
+}
+
+function allowDrop(e) { e.preventDefault(); }
+
+function dropZuo(e, zone) {
+  e.preventDefault();
+  if (!draggedChip) return;
+  zone.appendChild(draggedChip);
+  draggedChip = null;
+  colorAllZuordnungChips();
+}
+
+function colorZuordnungChip(chip) {
+  var zone = chip.closest('.drop-zone');
+  if (zone) {
+    chip.classList.remove('correct', 'wrong');
+    chip.classList.add(chip.dataset.cat === zone.dataset.cat ? 'correct' : 'wrong');
+  } else {
+    chip.classList.remove('correct', 'wrong');
+  }
+}
+
+function colorAllZuordnungChips() {
+  document.querySelectorAll('#sec-2 .zuo-chip').forEach(function(chip) {
+    colorZuordnungChip(chip);
+  });
+  timerAutoStart(2);
+  updateZuoCounter();
+  checkZuoAllOk();
+}
+
+function updateZuoCounter() {
+  var ok = document.querySelectorAll('#sec-2 .zuo-chip.correct').length;
+  document.getElementById('zuo-ok').textContent = ok;
+}
+
+function checkZuoAllOk() {
+  var chips = document.querySelectorAll('#sec-2 .zuo-chip');
+  var allInZones = true;
+  chips.forEach(function(c) { if (!c.closest('.drop-zone')) allInZones = false; });
+  var allOk = allInZones && chips.length > 0 &&
+    Array.from(chips).every(function(c) { return c.classList.contains('correct'); });
+  if (allOk) timerStop(2);
+}
+
+function resetZuo() {
+  timerResetOne(2);
+  zuoInit();
+}
+
+/* ═══════════════════════════════════════════
+   TAB 3: SATZBAU (Skill-konform)
+   ═══════════════════════════════════════════ */
+var sbDragged = null;
+
+var satzbauData = [
+  { parts: ['man', 'erzielt', 'Erfolg', ',', 'indem', 'man', 'die', 'Aufgaben', 'sorgfältig', 'bewältigt'],
+    valid: [['man', 'erzielt', 'Erfolg', ',', 'indem', 'man', 'die', 'Aufgaben', 'sorgfältig', 'bewältigt']], punct: '.' },
+  { parts: ['er', 'tut', 'so', ',', 'als', 'ob', 'er', 'über', 'reiche', 'Erfahrung', 'verfügen', 'würde'],
+    valid: [['er', 'tut', 'so', ',', 'als', 'ob', 'er', 'über', 'reiche', 'Erfahrung', 'verfügen', 'würde']], punct: '.' },
+  { parts: ['je', 'mehr', 'Fortschritte', 'man', 'macht', ',', 'desto', 'größer', 'wird', 'das', 'Vertrauen'],
+    valid: [['je', 'mehr', 'Fortschritte', 'man', 'macht', ',', 'desto', 'größer', 'wird', 'das', 'Vertrauen']], punct: '.' },
+  { parts: ['die', 'Qualität', 'verbessert', 'sich', ',', 'dadurch', 'dass', 'man', 'die', 'Ergebnisse', 'überprüft'],
+    valid: [['die', 'Qualität', 'verbessert', 'sich', ',', 'dadurch', 'dass', 'man', 'die', 'Ergebnisse', 'überprüft']], punct: '.' },
+  { parts: ['sie', 'spricht', ',', 'als', 'hätte', 'sie', 'jahrelange', 'Erfahrung'],
+    valid: [['sie', 'spricht', ',', 'als', 'hätte', 'sie', 'jahrelange', 'Erfahrung']], punct: '.' },
+  { parts: ['je', 'besser', 'die', 'Leistung', 'ist', ',', 'desto', 'höher', 'ist', 'der', 'Erfolg'],
+    valid: [['je', 'besser', 'die', 'Leistung', 'ist', ',', 'desto', 'höher', 'ist', 'der', 'Erfolg']], punct: '.' },
+  { parts: ['man', 'gewinnt', 'Vertrauen', ',', 'indem', 'man', 'ehrliche', 'Ergebnisse', 'liefert'],
+    valid: [['man', 'gewinnt', 'Vertrauen', ',', 'indem', 'man', 'ehrliche', 'Ergebnisse', 'liefert']], punct: '.' },
+  { parts: ['es', 'klingt', ',', 'als', 'ob', 'das', 'Problem', 'bereits', 'gelöst', 'wäre'],
+    valid: [['es', 'klingt', ',', 'als', 'ob', 'das', 'Problem', 'bereits', 'gelöst', 'wäre']], punct: '.' }
+];
+
+function getSbCursor() {
+  var c = document.getElementById('sb-insert-cursor');
+  if (!c) {
+    c = document.createElement('div');
+    c.id = 'sb-insert-cursor';
+    c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+  }
+  return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+  var chips = Array.from(zone.querySelectorAll('.chip'));
+  for (var i = 0; i < chips.length; i++) {
+    var r = chips[i].getBoundingClientRect();
+    if (clientX < r.left + r.width / 2) return chips[i];
+  }
+  return null;
+}
+
+function sbCapitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function sbUpdateCapitalization(row) {
+  var chips = Array.from(row.querySelectorAll('.chip'));
+  chips.forEach(function(c, i) {
+    var orig = c.dataset.orig;
+    var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+    if (isProper) {
+      c.textContent = orig;
+    } else {
+      c.textContent = (i === 0) ? sbCapitalize(orig) : orig;
+    }
+  });
+}
+
+function sbMakeChip(word) {
+  var chip = document.createElement('div');
+  chip.className = 'chip';
+  chip.textContent = word;
+  chip.dataset.orig = word;
+  chip.draggable = true;
+  chip.addEventListener('dragstart', function(e) {
+    sbDragged = chip;
+    e.dataTransfer.setData('text/plain', '');
+    setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+  });
+  chip.addEventListener('dragend', function() {
+    chip.style.opacity = '';
+    sbDragged = null;
+    var c = document.getElementById('sb-insert-cursor');
+    if (c && c.parentNode) c.parentNode.removeChild(c);
+  });
+  return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+  zone.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    if (!sbDragged) return;
+    var cursor = getSbCursor();
+    var before = getSbInsertPos(zone, e.clientX);
+    if (before) zone.insertBefore(cursor, before);
+    else zone.appendChild(cursor);
+  });
+  zone.addEventListener('dragleave', function(e) {
+    if (!zone.contains(e.relatedTarget)) {
+      var c = document.getElementById('sb-insert-cursor');
+      if (c && c.parentNode === zone) zone.removeChild(c);
+    }
+  });
+  zone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    if (!sbDragged) return;
+    var cursor = document.getElementById('sb-insert-cursor');
+    if (cursor && cursor.parentNode === zone) {
+      zone.insertBefore(sbDragged, cursor);
+      zone.removeChild(cursor);
+    } else {
+      zone.appendChild(sbDragged);
+    }
+    sbDragged = null;
+    var row = document.getElementById('sb-row-' + idx);
+    sbUpdateCapitalization(row);
+    sbCheckAuto(idx);
+  });
+}
+
+function sbColorRow(idx) {
+  var row = document.getElementById('sb-row-' + idx);
+  var chips = Array.from(row.querySelectorAll('.chip'));
+  var order = chips.map(function(c) { return c.dataset.orig; });
+  var ok = satzbauData[idx].valid.some(function(v) {
+    return JSON.stringify(v) === JSON.stringify(order);
+  });
+  chips.forEach(function(c) {
+    c.classList.remove('correct', 'incorrect');
+    c.classList.add(ok ? 'correct' : 'incorrect');
+  });
+  var existing = row.querySelector('.sb-punkt');
+  if (existing) existing.parentNode.removeChild(existing);
+  if (ok) {
+    var punkt = document.createElement('span');
+    punkt.className = 'sb-punkt';
+    punkt.textContent = satzbauData[idx].punct || '.';
+    row.appendChild(punkt);
+  }
+  return ok;
+}
+
+function sbCheckAuto(idx) {
+  var bank = document.getElementById('sb-bank-' + idx);
+  var row  = document.getElementById('sb-row-' + idx);
+  var fb   = document.getElementById('sb-fb-' + idx);
+  if (bank.querySelectorAll('.chip').length > 0) {
+    row.querySelectorAll('.chip').forEach(function(c) {
+      c.classList.remove('correct', 'incorrect');
+    });
+    row.classList.remove('correct', 'incorrect');
+    fb.textContent = '';
+    return;
+  }
+  setTimeout(function() {
+    timerAutoStart(3);
+    var ok = sbColorRow(idx);
+    if (ok) {
+      row.classList.add('correct'); row.classList.remove('incorrect');
+      fb.className = 'satzbau-feedback correct';
+      fb.textContent = '\u2713 Korrekt!';
+      sbCheckAllDone();
+    } else {
+      row.classList.add('incorrect'); row.classList.remove('correct');
+      fb.className = 'satzbau-feedback incorrect';
+      fb.textContent = '\u2717 Falsche Reihenfolge \u2013 verschiebe die Chips!';
+    }
+  }, 500);
+}
+
+function sbCheckAllDone() {
+  var allOk = satzbauData.every(function(_, i) {
+    var row = document.getElementById('sb-row-' + i);
+    return row && row.classList.contains('correct');
+  });
+  if (allOk) timerStop(3);
+}
+
+function sbShowSolution(idx) {
+  var bank = document.getElementById('sb-bank-' + idx);
+  var row  = document.getElementById('sb-row-' + idx);
+  var fb   = document.getElementById('sb-fb-' + idx);
+  var solution = satzbauData[idx].valid[0];
+  var allChips = {};
+  Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+  Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+  while (bank.firstChild) bank.removeChild(bank.firstChild);
+  while (row.firstChild)  row.removeChild(row.firstChild);
+  solution.forEach(function(word, i) {
+    var chip = allChips[word];
+    if (chip) {
+      chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+      chip.classList.remove('correct', 'incorrect');
+      row.appendChild(chip);
+    }
+  });
+  fb.textContent = '';
+  setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+  satzbauData.forEach(function(ex, idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    if (!bank || !row) return;
+    bank.innerHTML = '';
+    row.innerHTML = '';
+    var fb = document.getElementById('sb-fb-' + idx);
+    if (fb) { fb.textContent = ''; fb.className = 'satzbau-feedback'; }
+    var parts = ex.parts.slice();
+    for (var i = parts.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+    }
+    parts.forEach(function(word) {
+      bank.appendChild(sbMakeChip(word));
+    });
+    sbRegisterZone(bank, idx);
+    sbRegisterZone(row, idx);
+  });
+}
+
+function resetSb() {
+  timerResetOne(3);
+  initSatzbau();
+}
+
+/* ═══ INIT ═══ */
+lueckeInit();
+zuoInit();
+initSatzbau();
+loadBestTimes();
+</script>
+</body>
+</html>

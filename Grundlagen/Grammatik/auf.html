@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wechselpräpositionen: auf</title>
+<style>
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  font-family:system-ui,-apple-system,sans-serif;
+  background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  min-height:100vh;
+  padding:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center
+}
+.container {
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 10px 40px rgba(0,0,0,.2);
+  max-width:900px;
+  width:100%;
+  padding:40px
+}
+h1 {
+  color:#667eea;
+  margin-bottom:8px;
+  font-size:2em
+}
+.subtitle {
+  color:#666;
+  margin-bottom:30px;
+  font-size:1.1em
+}
+.nav {
+  display:flex;
+  gap:10px;
+  margin-bottom:30px;
+  border-bottom:2px solid #eee;
+  padding-bottom:10px
+}
+.nav-btn {
+  padding:10px 20px;
+  cursor:pointer;
+  border-radius:8px 8px 0 0;
+  background:#f5f5f5;
+  color:#666;
+  font-weight:500;
+  transition:all .3s
+}
+.nav-btn:hover {
+  background:#e8e8e8
+}
+.nav-btn.active {
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:#fff
+}
+.section {
+  display:none
+}
+.section.active {
+  display:block
+}
+.exercise {
+  background:#f9f9f9;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  border-left:4px solid #667eea
+}
+.sentence {
+  font-size:1.15em;
+  line-height:1.8;
+  color:#333;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:0
+}
+.nowrap-group {
+  display:inline-flex;
+  align-items:baseline;
+  white-space:nowrap;
+  gap:0
+}
+input.blank {
+  border:none;
+  border-bottom:2px solid #667eea;
+  background:transparent;
+  padding:2px 4px;
+  font-size:1em;
+  font-family:inherit;
+  text-align:center;
+  outline:none;
+  transition:all .3s
+}
+input.blank:focus {
+  border-bottom-color:#764ba2;
+  background:#f0f0ff
+}
+input.blank.correct {
+  border-bottom-color:#22c55e;
+  background:#f0fdf4
+}
+input.blank.incorrect {
+  border-bottom-color:#ef4444;
+  background:#fef2f2
+}
+input.blank.s {min-width:40px;max-width:60px}
+input.blank.m {min-width:80px;max-width:120px}
+input.blank.l {min-width:140px;max-width:180px}
+.solution {
+  display:none;
+  color:#667eea;
+  font-weight:600;
+  margin-left:8px;
+  font-size:.95em
+}
+.solution.show {
+  display:inline
+}
+.buttons {
+  display:flex;
+  gap:15px;
+  margin-top:30px;
+  flex-wrap:wrap
+}
+button {
+  padding:12px 30px;
+  border:none;
+  border-radius:8px;
+  font-size:1em;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .3s;
+  color:#fff
+}
+.btn-check {
+  background:linear-gradient(135deg,#667eea,#764ba2)
+}
+.btn-check:hover {
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(102,126,234,.4)
+}
+.btn-show {
+  background:#6b7280
+}
+.btn-show:hover {
+  background:#4b5563
+}
+.btn-reset {
+  background:#ef4444
+}
+.btn-reset:hover {
+  background:#dc2626
+}
+.help-box {
+  background:#fffbeb;
+  border:2px solid #fbbf24;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:30px
+}
+.help-box h3 {
+  color:#d97706;
+  margin-bottom:12px;
+  font-size:1.1em
+}
+.help-box ul {
+  list-style:none;
+  color:#78350f
+}
+.help-box li {
+  padding:6px 0;
+  padding-left:24px;
+  position:relative
+}
+.help-box li:before {
+  content:"📌";
+  position:absolute;
+  left:0
+}
+</style>
+<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770723849347&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADJlILPAAAARIAEACsRWVMJVfwSIePL%252B3cQisr%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260130003.05%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770723849347&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+<div class="container">
+<h1>Wechselpräpositionen: auf</h1>
+<p class="subtitle">Ergänzen Sie Präpositionen, Artikel und Endungen</p>
+
+<div class="nav">
+  <div class="nav-btn active" onclick="showSection(0)">📝 Wohin?</div>
+  <div class="nav-btn" onclick="showSection(1)">📝 Was? / Wohin?</div>
+</div>
+
+<!-- Sektion 1: Seite 138 - Wohin? -->
+<div class="section active" id="sec-0">
+<div class="help-box">
+<h3>Wechselpräpositionen mit „auf" + Akkusativ (Wohin?)</h3>
+<ul>
+<li>Wohin? → Akkusativ: auf <strong>den</strong> Tisch, auf <strong>die</strong> Bank, auf <strong>das</strong> Sofa</li>
+<li>auf + <strong>das</strong> = <strong>aufs</strong> (informell: „aufs Sofa")</li>
+<li>Bewegung = Akkusativ (wohin geht/fährt/steigt etwas?)</li>
+</ul>
+</div>
+
+<div id="ex-sec-0"></div>
+<div class="buttons">
+  <button class="btn-check" onclick="checkAnswers(0)">Prüfen</button>
+  <button class="btn-show" onclick="showSolutions(0)">Lösungen anzeigen</button>
+  <button class="btn-reset" onclick="resetExercises(0)">Neu starten</button>
+</div>
+</div>
+
+<!-- Sektion 2: Seite 139 - Was?/Wohin? -->
+<div class="section" id="sec-1">
+<div class="help-box">
+<h3>Wechselpräpositionen mit „auf" + Akkusativ (Was? / Wohin?)</h3>
+<ul>
+<li>Imperativ-Sätze: Stell/Leg/Setz + Akkusativ-Objekt + auf + Akkusativ-Ort</li>
+<li>auf + <strong>den</strong> Tisch, auf + <strong>die</strong> Couch, auf + <strong>das</strong> Bett</li>
+<li>Artikel im Akkusativ: den/die/das (maskulin/feminin/neutral)</li>
+</ul>
+</div>
+
+<div id="ex-sec-1"></div>
+<div class="buttons">
+  <button class="btn-check" onclick="checkAnswers(1)">Prüfen</button>
+  <button class="btn-show" onclick="showSolutions(1)">Lösungen anzeigen</button>
+  <button class="btn-reset" onclick="resetExercises(1)">Neu starten</button>
+</div>
+</div>
+
+</div>
+
+<script>
+const EXERCISES = [
+  // Sektion 0: Seite 138 - Wohin?
+  [
+    {
+      id:1,
+      segments:[
+        {t:"Wir fliegen dieses Jahr i"},
+        {b:"m",s:"s"},
+        {t:" Sommer "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Kanarischen Inseln."}
+      ]
+    },
+    {
+      id:2,
+      segments:[
+        {t:"Ich möchte a"},
+        {b:"m",s:"s"},
+        {t:" Wochenende mal wieder "},
+        {b:"auf",s:"m"},
+        {t:" e"},
+        {b:"in",s:"s"},
+        {t:" Konzert gehen."}
+      ]
+    },
+    {
+      id:3,
+      segments:[
+        {t:"Kinder rennen oft ohne zu gucken "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Straße."}
+      ]
+    },
+    {
+      id:4,
+      segments:[
+        {t:"Mein Sohn will jeden Tag "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Spielplatz."}
+      ]
+    },
+    {
+      id:5,
+      segments:[
+        {t:"Gehst du heute noch "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Bank?"}
+      ]
+    },
+    {
+      id:6,
+      segments:[
+        {t:"Ich gehe a"},
+        {b:"m",s:"s"},
+        {t:" Freitag "},
+        {b:"auf",s:"m"},
+        {t:" e"},
+        {b:"ine",s:"s"},
+        {t:" Party."}
+      ]
+    },
+    {
+      id:7,
+      segments:[
+        {t:"Wir gehen Samstag Nachmittag vielleicht "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Flohmarkt."}
+      ]
+    },
+    {
+      id:8,
+      segments:[
+        {t:"Steig "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Leiter und häng d"},
+        {b:"as",s:"s"},
+        {t:" Bild auf!"}
+      ]
+    },
+    {
+      id:9,
+      segments:[
+        {t:"D"},
+        {b:"er",s:"s"},
+        {t:" Feuerwehrmann stieg "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"as",s:"s"},
+        {t:" Dach und rettete d"},
+        {b:"ie",s:"s"},
+        {t:" Katze."}
+      ]
+    },
+    {
+      id:10,
+      segments:[
+        {t:"M"},
+        {b:"eine",s:"s"},
+        {t:" Frau und ich gehen immer gemeinsam "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Markt und kaufen ein."}
+      ]
+    },
+    {
+      id:11,
+      segments:[
+        {t:"Oh je! Du musst ja zehnmal a"},
+        {b:"m",s:"s"},
+        {t:" Tag "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Toilette."}
+      ]
+    },
+    {
+      id:12,
+      segments:[
+        {t:"Er will i"},
+        {b:"m",s:"s"},
+        {t:" Sommer "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Zugspitze steigen."}
+      ]
+    },
+    {
+      id:13,
+      segments:[
+        {t:"M"},
+        {b:"eine",s:"s"},
+        {t:" Tochter will zur Zeit "},
+        {b:"auf",s:"m"},
+        {t:" jed"},
+        {b:"en",s:"s"},
+        {t:" Baum klettern."}
+      ]
+    },
+    {
+      id:14,
+      segments:[
+        {t:"Setzt euch doch einfach "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Fußboden!"}
+      ]
+    },
+    {
+      id:15,
+      segments:[
+        {t:"Ich möchte einmal nach Paris und zu Fuß "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Eiffelturm steigen."}
+      ]
+    },
+    {
+      id:16,
+      segments:[
+        {t:"Wir müssen a"},
+        {b:"m",s:"s"},
+        {t:" Samstag "},
+        {b:"auf",s:"m"},
+        {t:" e"},
+        {b:"ine",s:"s"},
+        {t:" Hochzeit und haben noch k"},
+        {b:"ein",s:"s"},
+        {t:" Geschenk."}
+      ]
+    }
+  ],
+  // Sektion 1: Seite 139 - Was?/Wohin?
+  [
+    {
+      id:1,
+      segments:[
+        {t:"Stell d"},
+        {b:"ie",s:"s"},
+        {t:" alten Sachen "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Dachboden!"}
+      ]
+    },
+    {
+      id:2,
+      segments:[
+        {t:"Setz dich hier "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"as",s:"s"},
+        {t:" Sofa!"}
+      ]
+    },
+    {
+      id:3,
+      segments:[
+        {t:"Leg d"},
+        {b:"as",s:"s"},
+        {t:" Kissen "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"ie",s:"s"},
+        {t:" Couch!"}
+      ]
+    },
+    {
+      id:4,
+      segments:[
+        {t:"Pack d"},
+        {b:"en",s:"s"},
+        {t:" Koffer "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Hängeboden!"}
+      ]
+    },
+    {
+      id:5,
+      segments:[
+        {t:"Leg d"},
+        {b:"ie",s:"s"},
+        {t:" Papiere "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Schreibtisch!"}
+      ]
+    },
+    {
+      id:6,
+      segments:[
+        {t:"Stell d"},
+        {b:"ie",s:"s"},
+        {t:" Taschen "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Boden!"}
+      ]
+    },
+    {
+      id:7,
+      segments:[
+        {t:"Leg dein"},
+        {b:"e",s:"s"},
+        {t:" Wäsche im Schlafzimmer "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Hocker!"}
+      ]
+    },
+    {
+      id:8,
+      segments:[
+        {t:"Ich überweise d"},
+        {b:"as",s:"s"},
+        {t:" Geld "},
+        {b:"auf",s:"m"},
+        {t:" dies"},
+        {b:"es",s:"s"},
+        {t:" Konto."}
+      ]
+    },
+    {
+      id:9,
+      segments:[
+        {t:"Leg d"},
+        {b:"as",s:"s"},
+        {t:" Buch "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Nachttisch! Ich lese es später."}
+      ]
+    },
+    {
+      id:10,
+      segments:[
+        {t:"Leg d"},
+        {b:"en",s:"s"},
+        {t:" Pullover "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Stuhl!"}
+      ]
+    },
+    {
+      id:11,
+      segments:[
+        {t:"Ich setze mich hier "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"as",s:"s"},
+        {t:" Kissen und sage nichts mehr."}
+      ]
+    },
+    {
+      id:12,
+      segments:[
+        {t:"Ich stelle d"},
+        {b:"ie",s:"s"},
+        {t:" Kartoffeln und d"},
+        {b:"as",s:"s"},
+        {t:" Gemüse "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Tisch."}
+      ]
+    },
+    {
+      id:13,
+      segments:[
+        {t:"Leg d"},
+        {b:"as",s:"s"},
+        {t:" Bild "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Schrank!"}
+      ]
+    },
+    {
+      id:14,
+      segments:[
+        {t:"D"},
+        {b:"ie",s:"s"},
+        {t:" restlichen Bücher stelle ich einfach "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"as",s:"s"},
+        {t:" Regal."}
+      ]
+    },
+    {
+      id:15,
+      segments:[
+        {t:"Stell d"},
+        {b:"en",s:"s"},
+        {t:" alten Schrank doch "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"en",s:"s"},
+        {t:" Speicher!"}
+      ]
+    },
+    {
+      id:16,
+      segments:[
+        {t:"Leg d"},
+        {b:"ie",s:"s"},
+        {t:" gebügelte Wäsche "},
+        {b:"auf",s:"m"},
+        {t:" d"},
+        {b:"as",s:"s"},
+        {t:" Bett!"}
+      ]
+    }
+  ]
+];
+
+let userAnswers = [[],[]];
+
+function renderExercises() {
+  EXERCISES.forEach((secExs,secIdx)=>{
+    const cont = document.getElementById(`ex-sec-${secIdx}`);
+    cont.innerHTML = '';
+    userAnswers[secIdx] = [];
+    
+    secExs.forEach(ex=>{
+      const div = document.createElement('div');
+      div.className = 'exercise';
+      
+      const sent = document.createElement('div');
+      sent.className = 'sentence';
+      
+      const exAnswers = [];
+      let blankIdx = 0;
+      
+      for(let i=0; i<ex.segments.length; i++){
+        const seg = ex.segments[i];
+        if(seg.t){
+          // Prüfe ob Fragment (kein Leerzeichen am Ende) und nächstes ist blank
+          const isFragment = !seg.t.endsWith(' ') && i+1<ex.segments.length && ex.segments[i+1].b;
+          if(isFragment){
+            const group = document.createElement('span');
+            group.className = 'nowrap-group';
+            const txt = document.createElement('span');
+            txt.textContent = seg.t;
+            group.appendChild(txt);
+            sent.appendChild(group);
+          } else {
+            const txt = document.createElement('span');
+            txt.textContent = seg.t;
+            sent.appendChild(txt);
+          }
+        }
+        if(seg.b){
+          const currentBlankIdx = blankIdx;
+          
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.className = `blank ${seg.s}`;
+          inp.dataset.answer = seg.b;
+          inp.dataset.secIdx = secIdx;
+          inp.dataset.exIdx = ex.id-1;
+          inp.dataset.blankIdx = currentBlankIdx;
+          
+          inp.addEventListener('input',e=>{
+            const si = parseInt(e.target.dataset.secIdx);
+            const ei = parseInt(e.target.dataset.exIdx);
+            const bi = parseInt(e.target.dataset.blankIdx);
+            if(!userAnswers[si][ei]) userAnswers[si][ei]=[];
+            userAnswers[si][ei][bi] = e.target.value.trim();
+            e.target.classList.remove('correct','incorrect');
+          });
+          
+          const sol = document.createElement('span');
+          sol.className = 'solution';
+          sol.textContent = `(${seg.b})`;
+          
+          // Wenn vorheriges Element eine nowrap-group ist, füge dort ein
+          const prevElem = sent.lastElementChild;
+          if(prevElem && prevElem.className === 'nowrap-group'){
+            prevElem.appendChild(inp);
+            prevElem.appendChild(sol);
+          } else {
+            sent.appendChild(inp);
+            sent.appendChild(sol);
+          }
+          
+          exAnswers.push(seg.b);
+          blankIdx++;
+        }
+      }
+      
+      div.appendChild(sent);
+      cont.appendChild(div);
+      
+      if(!userAnswers[secIdx][ex.id-1]){
+        userAnswers[secIdx][ex.id-1] = new Array(exAnswers.length).fill('');
+      }
+    });
+  });
+}
+
+function checkAnswers(secIdx){
+  const inputs = document.querySelectorAll(`input[data-sec-idx="${secIdx}"]`);
+  inputs.forEach(inp=>{
+    const correct = inp.dataset.answer.toLowerCase();
+    const user = inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','incorrect');
+    if(user === correct){
+      inp.classList.add('correct');
+    } else if(user !== ''){
+      inp.classList.add('incorrect');
+    }
+  });
+}
+
+function showSolutions(secIdx){
+  const sols = document.querySelectorAll(`#ex-sec-${secIdx} .solution`);
+  sols.forEach(s=>s.classList.add('show'));
+}
+
+function resetExercises(secIdx){
+  const inputs = document.querySelectorAll(`input[data-sec-idx="${secIdx}"]`);
+  inputs.forEach(inp=>{
+    inp.value = '';
+    inp.classList.remove('correct','incorrect');
+  });
+  const sols = document.querySelectorAll(`#ex-sec-${secIdx} .solution`);
+  sols.forEach(s=>s.classList.remove('show'));
+  userAnswers[secIdx] = EXERCISES[secIdx].map(ex=>new Array(ex.segments.filter(s=>s.b).length).fill(''));
+}
+
+function showSection(idx){
+  document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+renderExercises();
+</script>
+</body>
+</html>

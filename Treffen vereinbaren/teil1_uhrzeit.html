@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über die Zeit sprechen – Teil 1 von 5: Uhrzeit</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 28px 24px 20px; text-align: center; }
+.header h1 { font-size: 1.7em; margin-bottom: 4px; }
+.header p { opacity: 0.9; font-size: 1.05em; }
+.nav { display: flex; gap: 6px; padding: 12px 16px; background: #fff; border-bottom: 2px solid #e8e8e8; flex-wrap: wrap; justify-content: center; }
+.nav-btn { padding: 10px 16px; border-radius: 20px; cursor: pointer; font-size: 0.95em; font-weight: 600; background: #f0f2f5; color: #555; transition: all 0.25s; white-space: nowrap; user-select: none; }
+.nav-btn:hover { background: #e0e3ff; }
+.nav-btn.active { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.section { display: none; padding: 20px 16px 40px; max-width: 900px; margin: 0 auto; }
+.section.active { display: block; }
+.card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.15em; color: #764ba2; margin-bottom: 6px; }
+.card .subtitle { color: #888; font-size: 0.92em; margin-bottom: 16px; }
+
+/* Info Box */
+.info-box { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; border-radius: 0 12px 12px 0; padding: 16px 20px; margin-bottom: 20px; }
+.info-box h3 { color: #667eea; margin-bottom: 8px; font-size: 1em; }
+.info-box p { font-size: 0.93em; line-height: 1.6; color: #444; }
+.info-box .example { background: #fff; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 0.95em; }
+.info-box .example strong { color: #764ba2; }
+
+/* SVG Clock */
+.clock-container { display: flex; justify-content: center; margin: 16px 0; }
+.clock-svg { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.12)); }
+
+/* Exercise rows */
+.exercise-row { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; justify-content: center; }
+.exercise-row:last-of-type { border-bottom: none; }
+.exercise-input-area { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; min-width: 200px; }
+.exercise-input-area label { font-size: 0.9em; color: #888; }
+.time-input { font-size: 1.15em; padding: 10px 16px; border: 2px solid #ddd; border-radius: 10px; text-align: center; width: 220px; max-width: 100%; outline: none; transition: border-color 0.25s; }
+.time-input:focus { border-color: #667eea; }
+.time-input.correct { border-color: #27ae60; background: #e8f8f0; }
+.time-input.wrong { border-color: #e74c3c; background: #fdf0ef; }
+.solution-text { font-size: 0.9em; color: #27ae60; font-weight: 600; display: none; margin-top: 2px; }
+.solution-text.visible { display: block; }
+
+/* Multiple Choice */
+.mc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; max-width: 500px; }
+.mc-btn { padding: 12px 16px; border: 2px solid #ddd; border-radius: 12px; background: #fff; cursor: pointer; font-size: 1em; transition: all 0.2s; text-align: center; user-select: none; }
+.mc-btn:hover { border-color: #667eea; background: #f5f3ff; }
+.mc-btn.selected { border-color: #667eea; background: #e8e4ff; }
+.mc-btn.correct { border-color: #27ae60; background: #e8f8f0; }
+.mc-btn.wrong { border-color: #e74c3c; background: #fdf0ef; }
+.mc-btn.missed { border-color: #27ae60; background: #e8f8f0; outline: 2px dashed #27ae60; }
+
+/* Drag & Drop */
+.dd-container { display: flex; flex-direction: column; gap: 16px; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; min-height: 50px; padding: 12px; background: #f8f7ff; border: 2px dashed #ccc; border-radius: 12px; justify-content: center; }
+.chip { display: inline-flex; align-items: center; padding: 10px 18px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border-radius: 20px; cursor: grab; font-size: 1em; font-weight: 500; user-select: none; transition: transform 0.15s, opacity 0.15s; }
+.chip:active { cursor: grabbing; transform: scale(1.05); }
+.chip.correct { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+.chip.wrong { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.drop-zones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.drop-zone { min-height: 60px; padding: 12px; border: 2px dashed #bbb; border-radius: 12px; background: #fafafa; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: background 0.2s; }
+.drop-zone.drag-over { background: #e8e4ff; border-color: #667eea; }
+.drop-zone h4 { font-size: 0.9em; color: #764ba2; margin-bottom: 4px; }
+.drop-zone .clock-in-zone { margin-bottom: 4px; }
+
+/* Buttons */
+.btn-row { display: flex; gap: 6px; }
+.btn { padding: 12px 24px; border: none; border-radius: 12px; font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-check { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.btn-check:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+.btn-show { background: #f0f2f5; color: #555; }
+.btn-show:hover { background: #e0e3e8; }
+.btn-reset:hover { background: #fde8e8; }
+
+/* Score */
+.score { text-align: center; font-size: 1.1em; font-weight: 600; padding: 12px; border-radius: 12px; margin-top: 16px; display: none; }
+.score.visible { display: block; }
+.score.good { background: #e8f8f0; color: #27ae60; }
+.score.ok { background: #fff8e1; color: #f39c12; }
+.score.bad { background: #fdf0ef; color: #e74c3c; }
+
+@media (max-width: 600px) {
+    .exercise-row { flex-direction: column; }
+    .mc-options { grid-template-columns: 1fr; }
+    .drop-zones { grid-template-columns: 1fr; }
+    .time-input { width: 100%; }
+}
+</style>
+<script type="text/javascript" nonce="1b4085f4614d4b59833a46845b5" src="//local.adguard.org?ts=1771404349215&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADKfsmmgAAARIAEACptNmgt6gLT6NVA9oXl1Zp%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260206002.09%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="1b4085f4614d4b59833a46845b5" src="//local.adguard.org?ts=1771404349215&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+
+<div class="header">
+    <h1>🕐 Über die Zeit sprechen</h1>
+    <p>Interaktive Übungen – Niveau A1</p>
+</div>
+
+<div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)">📖 Erklärung</div>
+    <div class="nav-btn" onclick="showSection(1)">🕑 Wie spät ist es?</div>
+    <div class="nav-btn" onclick="showSection(2)">🔀 Zuordnung</div>
+    <div class="nav-btn" onclick="showSection(3)">✅ Multiple Choice</div>
+</div>
+
+<!-- ==================== SECTION 0: ERKLÄRUNG ==================== -->
+<div class="section active" id="sec-0">
+    <div class="info-box">
+        <h3>📌 So funktioniert die Uhrzeit auf Deutsch</h3>
+        <p>Es gibt zwei Arten, die Uhrzeit zu sagen: <strong>formell</strong> (offiziell, 24h) und <strong>informell</strong> (Alltag, 12h).</p>
+    </div>
+
+    <div class="card">
+        <h2>1. Volle Stunden</h2>
+        <p class="subtitle">Formell vs. informell</p>
+        <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; align-items:flex-start;">
+            <div style="text-align:center;">
+                <div id="clock-demo-1"></div>
+                <p style="margin-top:8px;"><strong>Formell:</strong> Es ist <span style="color:#667eea; font-weight:700;">15:00 Uhr</span>.</p>
+                <p><strong>Informell:</strong> Es ist <span style="color:#764ba2; font-weight:700;">drei (Uhr)</span>.</p>
+            </div>
+            <div style="text-align:center;">
+                <div id="clock-demo-2"></div>
+                <p style="margin-top:8px;"><strong>Formell:</strong> Es ist <span style="color:#667eea; font-weight:700;">13:00 Uhr</span>.</p>
+                <p><strong>Informell:</strong> Es ist <span style="color:#764ba2; font-weight:700;">ein Uhr / eins</span>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. Halb</h2>
+        <p class="subtitle">⚠️ Achtung: „halb drei" = 2:30, NICHT 3:30!</p>
+        <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center;">
+            <div style="text-align:center;">
+                <div id="clock-demo-3"></div>
+                <p style="margin-top:8px;">Es ist <span style="color:#764ba2; font-weight:700;">halb drei</span>.</p>
+                <p style="color:#888; font-size:0.9em;">= 14:30 Uhr / 2:30</p>
+            </div>
+            <div style="text-align:center;">
+                <div id="clock-demo-4"></div>
+                <p style="margin-top:8px;">Es ist <span style="color:#764ba2; font-weight:700;">halb eins</span>.</p>
+                <p style="color:#888; font-size:0.9em;">= 12:30 Uhr / 0:30</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>3. Viertel nach / Viertel vor</h2>
+        <p class="subtitle">15 Minuten nach oder vor der nächsten Stunde</p>
+        <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center;">
+            <div style="text-align:center;">
+                <div id="clock-demo-5"></div>
+                <p style="margin-top:8px;">Es ist <span style="color:#764ba2; font-weight:700;">Viertel nach zwei</span>.</p>
+                <p style="color:#888; font-size:0.9em;">= 14:15 Uhr</p>
+            </div>
+            <div style="text-align:center;">
+                <div id="clock-demo-6"></div>
+                <p style="margin-top:8px;">Es ist <span style="color:#764ba2; font-weight:700;">Viertel vor drei</span>.</p>
+                <p style="color:#888; font-size:0.9em;">= 14:45 Uhr</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>4. Fünf / Zehn / Zwanzig nach/vor</h2>
+        <p class="subtitle">Minuten nach der Stunde oder vor der nächsten Stunde</p>
+        <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center;">
+            <div style="text-align:center;">
+                <div id="clock-demo-7"></div>
+                <p style="margin-top:8px;">Es ist <span style="color:#764ba2; font-weight:700;">zehn nach zwölf</span>.</p>
+                <p style="color:#888; font-size:0.9em;">= 12:10 Uhr</p>
+            </div>
+            <div style="text-align:center;">
+                <div id="clock-demo-8"></div>
+                <p style="margin-top:8px;">Es ist <span style="color:#764ba2; font-weight:700;">fünf vor zwölf</span>.</p>
+                <p style="color:#888; font-size:0.9em;">= 11:55 Uhr</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>5. Ungefähre Zeitangaben</h2>
+        <p class="subtitle">Wenn es nicht genau auf die Minute ankommt</p>
+        <div class="info-box" style="margin-top:12px;">
+            <p>
+                <strong style="color:#764ba2;">kurz nach</strong> acht = ca. 8:02–8:04<br>
+                <strong style="color:#764ba2;">kurz vor</strong> zwölf = ca. 11:56–11:58<br>
+                <strong style="color:#764ba2;">gleich</strong> zehn = ca. 9:58–9:59
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== SECTION 1: WIE SPÄT IST ES? ==================== -->
+<div class="section" id="sec-1">
+    <div class="info-box">
+        <h3>✏️ Schreibe die informelle Uhrzeit!</h3>
+        <p>Schau auf die Uhr und tippe die informelle Zeitangabe. Beispiel: <strong>halb drei</strong>, <strong>Viertel nach fünf</strong>, <strong>zehn vor acht</strong></p>
+    </div>
+    <div id="typing-exercises"></div>
+    <div class="btn-row">
+        <button class="btn btn-show" onclick="showTyping()">👁 Lösungen</button>
+        <button class="btn btn-reset" onclick="resetTyping()">🔄 Neu starten</button>
+    </div>
+</div>
+
+<!-- ==================== SECTION 2: ZUORDNUNG ==================== -->
+<div class="section" id="sec-2">
+    <div class="info-box">
+        <h3>🔀 Formell → Informell: Ordne zu!</h3>
+        <p>Ziehe die formellen Uhrzeiten (z.B. 14:30 Uhr) zur passenden SVG-Uhr mit der informellen Angabe.</p>
+    </div>
+    <div class="card">
+        <div class="dd-container">
+            <div class="chip-bank" id="dd-bank"></div>
+            <div class="drop-zones" id="dd-zones"></div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-show" onclick="showDD()">👁 Lösungen</button>
+            <button class="btn btn-reset" onclick="resetDD()">🔄 Neu starten</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== SECTION 3: MULTIPLE CHOICE ==================== -->
+<div class="section" id="sec-3">
+    <div class="info-box">
+        <h3>✅ Was stimmt? Wähle die richtige Antwort!</h3>
+        <p>Schau auf die Uhr. Welche Zeitangabe ist korrekt?</p>
+    </div>
+    <div id="mc-exercises"></div>
+    <div class="btn-row">
+        <button class="btn btn-show" onclick="showMC()">👁 Lösungen</button>
+        <button class="btn btn-reset" onclick="resetMC()">🔄 Neu starten</button>
+    </div>
+</div>
+
+<script>
+// ==================== SVG CLOCK GENERATOR ====================
+function drawClock(containerId, hours, minutes, size = 140) {
+    const r = size / 2;
+    const cx = r, cy = r;
+    const faceR = r - 4;
+
+    // Calculate angles
+    const minAngle = (minutes / 60) * 360 - 90;
+    const hrAngle = ((hours % 12) / 12) * 360 + (minutes / 60) * 30 - 90;
+
+    const minRad = minAngle * Math.PI / 180;
+    const hrRad = hrAngle * Math.PI / 180;
+
+    const minLen = faceR * 0.75;
+    const hrLen = faceR * 0.52;
+
+    const minX = cx + minLen * Math.cos(minRad);
+    const minY = cy + minLen * Math.sin(minRad);
+    const hrX = cx + hrLen * Math.cos(hrRad);
+    const hrY = cy + hrLen * Math.sin(hrRad);
+
+    // Build number positions
+    let numbers = '';
+    for (let i = 1; i <= 12; i++) {
+        const angle = (i / 12) * 360 - 90;
+        const rad = angle * Math.PI / 180;
+        const numR = faceR * 0.78;
+        const nx = cx + numR * Math.cos(rad);
+        const ny = cy + numR * Math.sin(rad);
+        numbers += `<text x="${nx}" y="${ny}" text-anchor="middle" dominant-baseline="central" font-size="${size * 0.13}px" font-weight="600" fill="#333" font-family="'Segoe UI',sans-serif">${i}</text>`;
+    }
+
+    // Tick marks
+    let ticks = '';
+    for (let i = 0; i < 60; i++) {
+        const angle = (i / 60) * 360 - 90;
+        const rad = angle * Math.PI / 180;
+        const isHour = i % 5 === 0;
+        const outerR = faceR * 0.92;
+        const innerR = isHour ? faceR * 0.85 : faceR * 0.88;
+        const x1 = cx + innerR * Math.cos(rad);
+        const y1 = cy + innerR * Math.sin(rad);
+        const x2 = cx + outerR * Math.cos(rad);
+        const y2 = cy + outerR * Math.sin(rad);
+        ticks += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${isHour ? '#555' : '#bbb'}" stroke-width="${isHour ? 2 : 1}" stroke-linecap="round"/>`;
+    }
+
+    const svg = `<svg class="clock-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <defs>
+            <radialGradient id="face-grad-${containerId}" cx="40%" cy="35%">
+                <stop offset="0%" stop-color="#fff"/>
+                <stop offset="100%" stop-color="#f0eff4"/>
+            </radialGradient>
+        </defs>
+        <circle cx="${cx}" cy="${cy}" r="${faceR}" fill="url(#face-grad-${containerId})" stroke="#888" stroke-width="3"/>
+        <circle cx="${cx}" cy="${cy}" r="${faceR - 1}" fill="none" stroke="#ccc" stroke-width="1"/>
+        ${ticks}
+        ${numbers}
+        <line x1="${cx}" y1="${cy}" x2="${hrX}" y2="${hrY}" stroke="#333" stroke-width="${size * 0.04}" stroke-linecap="round"/>
+        <line x1="${cx}" y1="${cy}" x2="${minX}" y2="${minY}" stroke="#333" stroke-width="${size * 0.025}" stroke-linecap="round"/>
+        <circle cx="${cx}" cy="${cy}" r="${size * 0.03}" fill="#764ba2"/>
+    </svg>`;
+
+    const el = document.getElementById(containerId);
+    if (el) el.innerHTML = svg;
+    return svg;
+}
+
+// Generate SVG string directly (for inline use)
+function clockSVG(hours, minutes, size = 120) {
+    const id = `clk-${hours}-${minutes}-${Math.random().toString(36).slice(2,6)}`;
+    const r = size / 2;
+    const cx = r, cy = r;
+    const faceR = r - 4;
+    const minAngle = (minutes / 60) * 360 - 90;
+    const hrAngle = ((hours % 12) / 12) * 360 + (minutes / 60) * 30 - 90;
+    const minRad = minAngle * Math.PI / 180;
+    const hrRad = hrAngle * Math.PI / 180;
+    const minLen = faceR * 0.75;
+    const hrLen = faceR * 0.52;
+    const minX = cx + minLen * Math.cos(minRad);
+    const minY = cy + minLen * Math.sin(minRad);
+    const hrX = cx + hrLen * Math.cos(hrRad);
+    const hrY = cy + hrLen * Math.sin(hrRad);
+
+    let numbers = '';
+    for (let i = 1; i <= 12; i++) {
+        const a = (i / 12) * 360 - 90;
+        const rad = a * Math.PI / 180;
+        const nr = faceR * 0.78;
+        numbers += `<text x="${cx + nr * Math.cos(rad)}" y="${cy + nr * Math.sin(rad)}" text-anchor="middle" dominant-baseline="central" font-size="${size * 0.13}px" font-weight="600" fill="#333" font-family="'Segoe UI',sans-serif">${i}</text>`;
+    }
+    let ticks = '';
+    for (let i = 0; i < 60; i++) {
+        const a = (i / 60) * 360 - 90;
+        const rad = a * Math.PI / 180;
+        const isH = i % 5 === 0;
+        const oR = faceR * 0.92, iR = isH ? faceR * 0.85 : faceR * 0.88;
+        ticks += `<line x1="${cx + iR * Math.cos(rad)}" y1="${cy + iR * Math.sin(rad)}" x2="${cx + oR * Math.cos(rad)}" y2="${cy + oR * Math.sin(rad)}" stroke="${isH ? '#555' : '#bbb'}" stroke-width="${isH ? 2 : 1}" stroke-linecap="round"/>`;
+    }
+
+    return `<svg class="clock-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <defs><radialGradient id="fg-${id}" cx="40%" cy="35%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f0eff4"/></radialGradient></defs>
+        <circle cx="${cx}" cy="${cy}" r="${faceR}" fill="url(#fg-${id})" stroke="#888" stroke-width="3"/>
+        <circle cx="${cx}" cy="${cy}" r="${faceR - 1}" fill="none" stroke="#ccc" stroke-width="1"/>
+        ${ticks}${numbers}
+        <line x1="${cx}" y1="${cy}" x2="${hrX}" y2="${hrY}" stroke="#333" stroke-width="${size * 0.04}" stroke-linecap="round"/>
+        <line x1="${cx}" y1="${cy}" x2="${minX}" y2="${minY}" stroke="#333" stroke-width="${size * 0.025}" stroke-linecap="round"/>
+        <circle cx="${cx}" cy="${cy}" r="${size * 0.03}" fill="#764ba2"/>
+    </svg>`;
+}
+
+// ==================== TAB NAVIGATION ====================
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach((s, i) => s.classList.toggle('active', i === idx));
+    document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+
+// ==================== DATA ====================
+// Typing exercises: clock -> type informal time
+const TYPING_DATA = [
+    { h: 2, m: 30, answers: ["halb drei"] },
+    { h: 3, m: 15, answers: ["Viertel nach drei", "viertel nach drei"] },
+    { h: 6, m: 45, answers: ["Viertel vor sieben", "viertel vor sieben"] },
+    { h: 12, m: 10, answers: ["zehn nach zw\u00f6lf"] },
+    { h: 8, m: 55, answers: ["f\u00fcnf vor neun"] },
+    { h: 4, m: 20, answers: ["zwanzig nach vier", "zehn vor halb f\u00fcnf"] },
+];
+
+// Drag & Drop: match formal time chip to informal clock+label
+const DD_DATA = [
+    { formal: "14:30 Uhr", h: 2, m: 30, informal: "halb drei" },
+    { formal: "09:15 Uhr", h: 9, m: 15, informal: "Viertel nach neun" },
+    { formal: "17:45 Uhr", h: 5, m: 45, informal: "Viertel vor sechs" },
+    { formal: "11:55 Uhr", h: 11, m: 55, informal: "f\u00fcnf vor zw\u00f6lf" },
+    { formal: "20:10 Uhr", h: 8, m: 10, informal: "zehn nach acht" },
+    { formal: "07:30 Uhr", h: 7, m: 30, informal: "halb acht" },
+];
+
+// Multiple Choice: clock -> pick correct answer from 4
+const MC_DATA = [
+    { h: 6, m: 30, correct: "halb sieben", wrong: ["halb sechs", "sechs Uhr", "Viertel nach sechs"] },
+    { h: 10, m: 45, correct: "Viertel vor elf", wrong: ["Viertel nach zehn", "halb elf", "Viertel vor zehn"] },
+    { h: 3, m: 0, correct: "drei Uhr", wrong: ["halb drei", "Viertel nach drei", "Viertel vor drei"] },
+    { h: 7, m: 20, correct: "zwanzig nach sieben", wrong: ["zwanzig vor sieben", "halb sieben", "zehn nach sieben"] },
+    { h: 1, m: 50, correct: "zehn vor zwei", wrong: ["zehn nach eins", "zehn vor eins", "halb zwei"] },
+];
+
+// ==================== SECTION 1: TYPING ====================
+function initTyping() {
+    const container = document.getElementById('typing-exercises');
+    container.innerHTML = '';
+    TYPING_DATA.forEach((ex, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="exercise-row">
+                <div class="clock-container">
+                    <div id="typing-clock-${i}"></div>
+                </div>
+                <div class="exercise-input-area">
+                    <label>Wie sp\u00e4t ist es? (informell)</label>
+                    <input type="text" class="time-input" id="typing-input-${i}" placeholder="z.B. halb drei" autocomplete="off">
+                    <div class="solution-text" id="typing-sol-${i}">${ex.answers[0]}</div>
+                </div>
+            </div>`;
+        container.appendChild(card);
+        drawClock(`typing-clock-${i}`, ex.h, ex.m, 130);
+
+        // Live-Feedback beim Tippen
+        const inp = document.getElementById(`typing-input-${i}`);
+        inp.oninput = function() {
+            liveCheckTyping(this, i);
+        };
+    });
+}
+
+function liveCheckTyping(inp, idx) {
+    var val = normalize(inp.value);
+    inp.classList.remove('correct', 'wrong');
+    if (val.length === 0) return;
+    var ex = TYPING_DATA[idx];
+    if (ex.answers.some(function(a) { return normalize(a) === val; })) {
+        inp.classList.add('correct');
+    } else {
+        var isPrefix = ex.answers.some(function(a) { return normalize(a).indexOf(val) === 0; });
+        if (!isPrefix) inp.classList.add('wrong');
+    }
+}
+
+function normalize(s) {
+    return s.trim().replace(/\s+/g, ' ');
+}
+
+
+function showTyping() {
+    TYPING_DATA.forEach((ex, i) => {
+        const input = document.getElementById(`typing-input-${i}`);
+        const sol = document.getElementById(`typing-sol-${i}`);
+        input.value = ex.answers[0];
+        input.classList.remove('wrong');
+        input.classList.add('correct');
+        sol.classList.add('visible');
+    });
+    showScore('typing-score', TYPING_DATA.length, TYPING_DATA.length);
+}
+
+function resetTyping() {
+    TYPING_DATA.forEach((ex, i) => {
+        const input = document.getElementById(`typing-input-${i}`);
+        const sol = document.getElementById(`typing-sol-${i}`);
+        input.value = '';
+        input.classList.remove('correct', 'wrong');
+        sol.classList.remove('visible');
+    });
+    hideScore('typing-score');
+}
+
+// ==================== SECTION 2: DRAG & DROP ====================
+let ddState = {};
+
+function initDD() {
+    const bank = document.getElementById('dd-bank');
+    const zones = document.getElementById('dd-zones');
+    bank.innerHTML = '';
+    zones.innerHTML = '';
+    ddState = {};
+
+    // Shuffle chips
+    const shuffled = [...DD_DATA].map((d, i) => ({ ...d, idx: i }));
+    shuffled.sort(() => Math.random() - 0.5);
+
+    shuffled.forEach(d => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.textContent = d.formal;
+        chip.draggable = true;
+        chip.dataset.idx = d.idx;
+        chip.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('text/plain', d.idx);
+            chip.style.opacity = '0.5';
+        });
+        chip.addEventListener('dragend', () => chip.style.opacity = '1');
+        // Touch support
+        chip.addEventListener('click', () => handleChipClick(chip));
+        bank.appendChild(chip);
+    });
+
+    DD_DATA.forEach((d, i) => {
+        const zone = document.createElement('div');
+        zone.className = 'drop-zone';
+        zone.dataset.idx = i;
+        zone.innerHTML = `<div class="clock-in-zone">${clockSVG(d.h, d.m, 90)}</div><h4>${d.informal}</h4>`;
+        zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+        zone.addEventListener('drop', e => {
+            e.preventDefault();
+            zone.classList.remove('drag-over');
+            const chipIdx = e.dataTransfer.getData('text/plain');
+            placeChip(chipIdx, i);
+        });
+        // Touch support
+        zone.addEventListener('click', () => handleZoneClick(i));
+        zones.appendChild(zone);
+    });
+
+    // Add drop to bank handlers
+    bank.addEventListener('dragover', e => { e.preventDefault(); bank.classList.add('drag-over'); });
+    bank.addEventListener('dragleave', () => bank.classList.remove('drag-over'));
+    bank.addEventListener('drop', e => {
+        e.preventDefault();
+        bank.classList.remove('drag-over');
+        const chipIdx = e.dataTransfer.getData('text/plain');
+        const chip = document.querySelector(`.chip[data-idx="${chipIdx}"]`);
+        if (chip) {
+            chip.classList.remove('correct', 'wrong');
+            bank.appendChild(chip);
+            // Remove from ddState
+            Object.keys(ddState).forEach(k => {
+                if (ddState[k] === chipIdx) delete ddState[k];
+            });
+        }
+    });
+}
+
+let selectedChip = null;
+
+function handleChipClick(chip) {
+    if (selectedChip === chip) {
+        chip.style.outline = '';
+        selectedChip = null;
+        return;
+    }
+    if (selectedChip) selectedChip.style.outline = '';
+    selectedChip = chip;
+    chip.style.outline = '3px solid #667eea';
+}
+
+function handleZoneClick(zoneIdx) {
+    if (!selectedChip) return;
+    placeChip(selectedChip.dataset.idx, zoneIdx);
+    selectedChip.style.outline = '';
+    selectedChip = null;
+}
+
+function placeChip(chipIdx, zoneIdx) {
+    chipIdx = parseInt(chipIdx);
+    // Remove chip from previous zone if any — reset its color
+    Object.keys(ddState).forEach(k => {
+        if (ddState[k] === chipIdx) {
+            delete ddState[k];
+        }
+    });
+    // Remove existing chip in this zone — reset its color
+    if (ddState[zoneIdx] !== undefined) {
+        const oldChip = document.querySelector(`.chip[data-idx="${ddState[zoneIdx]}"]`);
+        if (oldChip) {
+            oldChip.classList.remove('correct', 'wrong');
+            document.getElementById('dd-bank').appendChild(oldChip);
+        }
+    }
+    ddState[zoneIdx] = chipIdx;
+    const chip = document.querySelector(`.chip[data-idx="${chipIdx}"]`);
+    const zone = document.querySelector(`.drop-zone[data-idx="${zoneIdx}"]`);
+    if (chip && zone) zone.appendChild(chip);
+    // Color all placed chips immediately
+    colorAllPlacedChips();
+}
+
+function colorAllPlacedChips() {
+    Object.keys(ddState).forEach(zIdx => {
+        const chipIdx = ddState[zIdx];
+        const chip = document.querySelector(`.chip[data-idx="${chipIdx}"]`);
+        if (!chip) return;
+        zIdx = parseInt(zIdx);
+        chip.classList.remove('correct', 'wrong');
+        if (chipIdx === zIdx) {
+            chip.classList.add('correct');
+        } else {
+            chip.classList.add('wrong');
+        }
+    });
+}
+
+
+function showDD() {
+    // Reset and place all correctly
+    document.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('correct', 'wrong');
+        document.getElementById('dd-bank').appendChild(c);
+    });
+    ddState = {};
+    DD_DATA.forEach((d, i) => {
+        placeChip(i, i);
+        const chip = document.querySelector(`.chip[data-idx="${i}"]`);
+        if (chip) chip.classList.add('correct');
+    });
+    showScore('dd-score', DD_DATA.length, DD_DATA.length);
+}
+
+function resetDD() {
+    document.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('correct', 'wrong');
+        c.style.outline = '';
+        document.getElementById('dd-bank').appendChild(c);
+    });
+    ddState = {};
+    selectedChip = null;
+    hideScore('dd-score');
+}
+
+// ==================== SECTION 3: MULTIPLE CHOICE ====================
+let mcSelected = {};
+
+function initMC() {
+    const container = document.getElementById('mc-exercises');
+    container.innerHTML = '';
+    mcSelected = {};
+
+    MC_DATA.forEach((ex, i) => {
+        const options = [ex.correct, ...ex.wrong].sort(() => Math.random() - 0.5);
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; justify-content:center;">
+                <div class="clock-container">
+                    <div id="mc-clock-${i}"></div>
+                </div>
+                <div style="flex:1; min-width:220px;">
+                    <p style="font-weight:600; margin-bottom:10px; color:#764ba2;">Wie sp\u00e4t ist es?</p>
+                    <div class="mc-options" id="mc-opts-${i}">
+                        ${options.map((opt, j) => `<div class="mc-btn" data-q="${i}" data-val="${opt}" onclick="selectMC(${i}, this)">${opt}</div>`).join('')}
+                    </div>
+                </div>
+            </div>`;
+        container.appendChild(card);
+        drawClock(`mc-clock-${i}`, ex.h, ex.m, 130);
+    });
+}
+
+function selectMC(qIdx, btn) {
+    // Deselect others in same question
+    document.querySelectorAll(`#mc-opts-${qIdx} .mc-btn`).forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    mcSelected[qIdx] = btn.dataset.val;
+}
+
+
+function showMC() {
+    MC_DATA.forEach((ex, i) => {
+        const btns = document.querySelectorAll(`#mc-opts-${i} .mc-btn`);
+        btns.forEach(b => {
+            b.classList.remove('selected', 'wrong', 'missed');
+            if (b.dataset.val === ex.correct) {
+                b.classList.add('correct');
+            }
+        });
+        mcSelected[i] = ex.correct;
+    });
+    showScore('mc-score', MC_DATA.length, MC_DATA.length);
+}
+
+function resetMC() {
+    MC_DATA.forEach((ex, i) => {
+        document.querySelectorAll(`#mc-opts-${i} .mc-btn`).forEach(b => {
+            b.classList.remove('selected', 'correct', 'wrong', 'missed');
+        });
+    });
+    mcSelected = {};
+    hideScore('mc-score');
+}
+
+// ==================== SCORE ====================
+function showScore(id, correct, total) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pct = Math.round(correct / total * 100);
+    el.textContent = `${correct} von ${total} richtig (${pct}%)`;
+    el.className = 'score visible ' + (pct >= 80 ? 'good' : pct >= 50 ? 'ok' : 'bad');
+}
+function hideScore(id) {
+    const el = document.getElementById(id);
+    if (el) el.className = 'score';
+}
+
+// ==================== INIT ====================
+function init() {
+    // Demo clocks for explanation tab
+    drawClock('clock-demo-1', 3, 0, 120);
+    drawClock('clock-demo-2', 1, 0, 120);
+    drawClock('clock-demo-3', 2, 30, 120);
+    drawClock('clock-demo-4', 12, 30, 120);
+    drawClock('clock-demo-5', 2, 15, 120);
+    drawClock('clock-demo-6', 2, 45, 120);
+    drawClock('clock-demo-7', 12, 10, 120);
+    drawClock('clock-demo-8', 11, 55, 120);
+
+    initTyping();
+    initDD();
+    initMC();
+}
+
+init();
+</script>
+</body>
+</html>

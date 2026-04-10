@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjektivdeklination – Magic Five</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+.container { max-width: 880px; margin: 0 auto; padding: 16px; }
+h1 { text-align: center; font-size: 1.5rem;
+     background: linear-gradient(135deg, #667eea, #764ba2);
+     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+     margin: 12px 0 4px; }
+.subtitle { text-align: center; color: #666; font-size: 0.88rem; margin-bottom: 16px; }
+
+/* Nav */
+.nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 0; }
+.nav-btn { flex: 1; min-width: 90px; padding: 10px 6px; text-align: center;
+           background: #e8e8e8; border-radius: 8px 8px 0 0; cursor: pointer;
+           font-size: 0.78rem; font-weight: 600; transition: all 0.2s;
+           border-bottom: 3px solid transparent; line-height: 1.3; }
+.nav-btn:hover { background: #d8d8f8; }
+.nav-btn.active { background: #fff; border-bottom: 3px solid #667eea; color: #667eea; }
+
+.section { display: none; background: #fff; border-radius: 0 0 12px 12px;
+           padding: 24px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.section.active { display: block; }
+
+/* Buttons */
+.btn-row { display: flex; gap: 6px; }
+.btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9rem;
+       font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-check { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.btn-check:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+.btn-show { background: #f0f0f0; color: #555; }
+.btn-show:hover { background: #e0e0e0; }
+.btn-reset { background: #fff; color: #888; border: 1px solid #ddd; }
+.score { text-align: center; margin-top: 12px; font-weight: 600; color: #667eea; }
+
+/* Help */
+.help-toggle { background: none; border: 1px solid #667eea; color: #667eea;
+               border-radius: 6px; padding: 4px 12px; font-size: 0.8rem;
+               cursor: pointer; margin-bottom: 14px; }
+.help-toggle:hover { background: #667eea; color: #fff; }
+.help-box { display: none; background: #f8f7ff; border-left: 3px solid #667eea;
+            padding: 12px 16px; margin-bottom: 16px; border-radius: 0 8px 8px 0;
+            font-size: 0.85rem; line-height: 1.7; }
+.help-box.open { display: block; }
+.help-box p { margin-bottom: 5px; }
+
+/* ── MAGIC FIVE FARBEN (nur für Endungen, nicht für Kasuslogik) ── */
+.m5-r { color: #c0392b; font-weight: 800; }
+.m5-e { color: #2980b9; font-weight: 800; }
+.m5-s { color: #e67e22; font-weight: 800; }
+.m5-m { color: #27ae60; font-weight: 800; }
+.m5-n { color: #8e44ad; font-weight: 800; }
+
+/* Kasusanzeige-Unterstrich im Fließtext */
+.ka { font-weight: 800; border-bottom: 2.5px solid currentColor; padding-bottom: 1px; }
+.ka-r { color: #c0392b; }
+.ka-e { color: #2980b9; }
+.ka-s { color: #e67e22; }
+.ka-m { color: #27ae60; }
+.ka-n { color: #8e44ad; }
+.ka-schwach { color: #aaa; font-weight: 600; border-bottom: 1.5px dashed #ccc; padding-bottom: 1px; }
+
+/* ══════════════════════════════════════
+   TAB 1: ENTDECKUNG
+══════════════════════════════════════ */
+
+/* Magic Five – groß */
+.m5-panel {
+    background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+    border-radius: 14px;
+    padding: 20px 16px 16px;
+    margin-bottom: 22px;
+}
+.m5-panel-title {
+    text-align: center; color: #aaa; font-size: 0.8rem;
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
+}
+.m5-row {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+}
+.m5-card {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    min-width: 72px;
+}
+.m5-pill {
+    font-size: 2rem; font-weight: 900; border-radius: 10px;
+    padding: 7px 20px; color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    letter-spacing: 1px;
+}
+.m5-pill.r { background: #c0392b; }
+.m5-pill.e { background: #2980b9; }
+.m5-pill.s { background: #e67e22; }
+.m5-pill.m { background: #27ae60; }
+.m5-pill.n { background: #8e44ad; }
+.m5-kasus { color: #ccc; font-size: 0.7rem; text-align: center; line-height: 1.5; }
+
+/* Pfanne SVG + Text */
+.pfanne-section {
+    display: flex; align-items: flex-start; gap: 28px;
+    margin-bottom: 24px; flex-wrap: wrap; justify-content: center;
+}
+.pfanne-text {
+    flex: 1; min-width: 220px; font-size: 0.88rem; line-height: 1.8; color: #333; padding-top: 8px;
+}
+.pfanne-text .kern {
+    display: block; background: #f0eeff; border-left: 3px solid #667eea;
+    padding: 8px 12px; border-radius: 0 8px 8px 0; margin-top: 10px; font-size: 0.85rem;
+}
+
+/* ── PFANNE als HTML-Tabelle ── */
+.pfanne-wrap { position: relative; }
+.pfanne-svg-outer {
+    /* Pfannen-Form als CSS */
+    position: relative; display: inline-block;
+}
+.pfanne-label-top {
+    text-align: center; font-weight: 800; font-size: 0.95rem;
+    color: #fff; margin-bottom: 6px; letter-spacing: 0.5px;
+}
+.pfanne-label-sub {
+    text-align: center; font-size: 0.75rem; color: #aaa; margin-bottom: 10px;
+}
+.pfanne-table-wrap {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+    border-radius: 12px;
+    border: none;
+    padding: 10px 12px 14px 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+/* Griff — ausgeblendet */
+.pfanne-griff { display: none; }
+/* Rand — ausgeblendet */
+.pfanne-rand { display: none; }
+.pfanne-table {
+    border-collapse: separate; border-spacing: 4px;
+    font-size: 0.82rem; width: 100%;
+}
+.pfanne-table th {
+    text-align: center; font-weight: 700; font-style: italic;
+    color: #aaa; padding: 3px 8px; font-size: 0.78rem;
+}
+.pfanne-table td {
+    text-align: center; padding: 6px 10px; border-radius: 6px;
+    font-weight: 700; min-width: 44px;
+}
+.pfanne-table .kasus-label {
+    text-align: left; font-weight: 600; color: #ccc;
+    font-size: 0.8rem; padding-left: 2px;
+}
+.td-e {
+    background: rgba(255,255,255,0.92);
+    color: #2980b9; font-size: 1.05rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.td-en {
+    background: rgba(255,255,255,0.08);
+    color: #9ab; font-size: 1.05rem;
+}
+.pfanne-legende {
+    text-align: center; font-size: 0.75rem; color: #aaa;
+    margin-top: 8px; font-weight: 600;
+}
+
+/* Entdeckungs-MC */
+.ent-ex {
+    background: #fff; border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 14px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 2px 10px rgba(102,126,234,0.10);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.ent-ex:hover {
+    box-shadow: 0 4px 18px rgba(102,126,234,0.18);
+    transform: translateY(-1px);
+}
+.ent-satz { font-size: 1.1rem; line-height: 2.1; margin-bottom: 10px; }
+.ent-frage { font-size: 0.84rem; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+.mc-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+.mc-btn {
+    padding: 8px 18px; border: 2px solid #7c6cd4; border-radius: 20px;
+    background: #fff; cursor: pointer; font-size: 0.87rem; font-weight: 600;
+    color: #4a35a0; transition: all 0.18s;
+}
+.mc-btn:hover { background: #667eea; border-color: #667eea; color: #fff; }
+.mc-btn.correct { border-color: #27ae60 !important; background: #eafaf1; color: #27ae60; }
+.mc-btn.wrong { border-color: #e74c3c !important; background: #fef0ef; color: #e74c3c; }
+.mc-btn.disabled { pointer-events: none; opacity: 0.55; }
+.mc-fb { display: none; font-size: 0.83rem; color: #333; margin-top: 12px;
+         padding: 10px 14px; background: #eafaf1; border-radius: 8px;
+         border-left: 3px solid #27ae60; line-height: 1.65; }
+.mc-fb.show { display: block; }
+
+/* ══════════════════════════════════════
+   TAB 2: DAS PRINZIP
+══════════════════════════════════════ */
+.prinzip-box {
+    background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+    border-radius: 14px;
+    padding: 22px 28px; text-align: center;
+    margin-bottom: 24px;
+}
+.prinzip-box .pb-hauptsatz {
+    font-size: 1.25rem; font-weight: 800; color: #fff;
+    line-height: 1.6; letter-spacing: 0.3px;
+}
+.prinzip-box .pb-detail {
+    margin-top: 12px; font-size: 0.85rem; color: #aaa;
+    font-weight: 500; letter-spacing: 0.4px;
+}
+.pb-m5 {
+    display: inline-flex; gap: 5px; align-items: center;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    padding: 3px 12px 3px 10px; margin: 0 2px;
+}
+.pb-pill {
+    font-size: 0.95rem; font-weight: 900; border-radius: 5px;
+    padding: 1px 6px; color: #fff;
+}
+.pb-pill.r { background: #c0392b; }
+.pb-pill.e { background: #2980b9; }
+.pb-pill.s { background: #e67e22; }
+.pb-pill.m { background: #27ae60; }
+.pb-pill.n { background: #8e44ad; }
+.pb-wort { color: #e8e0ff; font-weight: 700; font-size: 1.05rem; }
+.pb-oder { color: #f39c12; font-weight: 900; font-size: 1.1rem; margin: 0 8px; }
+.pb-teil { color: #c5b8f8; font-weight: 700; font-size: 1.05rem; }
+.pb-nie { color: #e74c3c; font-weight: 700; font-size: 0.82rem; margin-top: 8px; letter-spacing: 0.3px; }
+
+.zwei-karten {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+}
+@media(max-width:520px){ .zwei-karten { grid-template-columns: 1fr; } }
+.karte { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.karte-head { padding: 12px 16px; color: #fff; font-weight: 700; font-size: 0.95rem; }
+.karte-head.kasusanzeige-adj { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+.karte-head.kasusanzeige-bgl { background: linear-gradient(135deg, #555, #777); }
+.karte-body { padding: 14px 16px; background: #fff; font-size: 0.9rem; line-height: 2; }
+
+.ableitung-title {
+    text-align: center; font-weight: 700; color: #555;
+    font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 12px;
+}
+.abl-row {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.abl-t1 { background: #eaf4fb; border: 1.5px solid #aed6f1; }
+.abl-t2 { background: #f5eef8; border: 1.5px solid #d7bde2; }
+.abl-t3 { background: #eef6ee; border: 1.5px solid #a9d4a9; }
+.abl-bgl { font-weight: 700; font-size: 0.9rem; min-width: 160px; line-height: 1.6; }
+.abl-pfeil { color: #aaa; font-size: 1.1rem; padding-top: 2px; }
+.abl-folge { font-size: 0.88rem; line-height: 1.8; flex: 1; }
+.abl-bsp { font-size: 0.9rem; line-height: 2; margin-left: auto; text-align: right; }
+
+/* ══════════════════════════════════════
+   TABS 3–5: LÜCKENTEXT
+══════════════════════════════════════ */
+.luecke-intro {
+    background: #f8f7ff; border-left: 3px solid #667eea;
+    border-radius: 0 8px 8px 0; padding: 10px 16px;
+    margin-bottom: 18px; font-size: 0.87rem; line-height: 1.7;
+}
+.exercise {
+    background: #fafafa; border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 10px; line-height: 2.6; font-size: 1rem; border: 1px solid #eee;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.exercise:hover {
+    border-color: #c5b8f8;
+    box-shadow: 0 2px 10px rgba(102,126,234,0.10);
+}
+.exercise .num { font-weight: 700; color: #764ba2; margin-right: 4px; }
+input.blank {
+    border: none; border-bottom: 2px solid #667eea; background: transparent;
+    text-align: center; font-size: 0.95rem; font-family: inherit;
+    outline: none; padding: 2px 3px; transition: all 0.25s;
+    cursor: text; border-radius: 3px 3px 0 0;
+}
+input.blank:hover:not(.correct):not(.wrong) {
+    background: #e8e4ff; border-bottom-color: #764ba2;
+    box-shadow: 0 2px 0 0 #764ba2;
+}
+input.blank:focus { border-bottom-color: #764ba2; background: #f0eeff; border-radius: 3px 3px 0 0;
+    box-shadow: 0 3px 0 0 #764ba2; }
+input.blank.s { min-width: 36px; width: 40px; }
+input.blank.m { min-width: 70px; width: 80px; }
+input.blank.l { min-width: 110px; width: 120px; }
+input.blank.correct { border-bottom-color: #2ecc71; background: #eafaf1; color: #27ae60; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
+.sol { display: none; color: #27ae60; font-weight: 600; font-size: 0.8rem; }
+
+/* ══════════════════════════════════════
+   TAB 6: MASTERCLASS – Wohnungsanzeigen
+══════════════════════════════════════ */
+.masterclass-intro {
+    background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+    color: #eee; border-radius: 12px; padding: 16px 20px;
+    margin-bottom: 20px; font-size: 0.88rem; line-height: 1.75;
+}
+.masterclass-intro strong { color: #a78bfa; }
+.anzeige-block {
+    background: #fafafa; border: 1px solid #e0e0e0; border-radius: 10px;
+    padding: 18px 20px; margin-bottom: 16px; font-size: 1rem; line-height: 3.0;
+}
+.anzeige-block h3 {
+    font-size: 0.88rem; font-weight: 700; color: #764ba2;
+    background: #f0eeff; border-radius: 6px; padding: 5px 12px;
+    display: inline-block; margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Adjektivdeklination</h1>
+<p class="subtitle">Die Magic Five stecken entweder im Begleiter oder im Adjektiv-Nomen — immer genau ein Magic Five</p>
+
+<div class="nav">
+  <div class="nav-btn active"  onclick="showSection(0)">💡 Entdeckung</div>
+  <div class="nav-btn"         onclick="showSection(1)">🧠 Das Prinzip</div>
+  <div class="nav-btn"         onclick="showSection(2)">✏️ Typ 1<br>bestimmter Artikel</div>
+  <div class="nav-btn"         onclick="showSection(3)">✏️ Typ 2<br>Possessiv / ein</div>
+  <div class="nav-btn"         onclick="showSection(4)">✏️ Typ 3<br>kein Artikel</div>
+  <div class="nav-btn"         onclick="showSection(5)">🎯 Praxis</div>
+  <div class="nav-btn"         onclick="showSection(6)">🏆 Masterclass</div>
+</div>
+
+<!-- ══ TAB 1: ENTDECKUNG ══ -->
+<div class="section active" id="sec-0">
+
+  <!-- Magic Five groß -->
+  <div class="m5-panel">
+    <div class="m5-panel-title">✦ Die Magic Five</div>
+    <div class="m5-row">
+      <div class="m5-card">
+        <div class="m5-pill r">-r</div>
+        <div class="m5-kasus">Nom. M<br>Dat. F<br>Gen. F · Gen. Pl</div>
+      </div>
+      <div class="m5-card">
+        <div class="m5-pill e">-e</div>
+        <div class="m5-kasus">Nom. F<br>Nom. N<br>Akk. F · Akk. N</div>
+      </div>
+      <div class="m5-card">
+        <div class="m5-pill s">-s</div>
+        <div class="m5-kasus">Nom. N · Akk. N<br>Gen. M · Gen. N</div>
+      </div>
+      <div class="m5-card">
+        <div class="m5-pill m">-m</div>
+        <div class="m5-kasus">Dat. M<br>Dat. N</div>
+      </div>
+      <div class="m5-card">
+        <div class="m5-pill n">-n</div>
+        <div class="m5-kasus">Akk. M<br>Dat. F<br>Gen. M · Gen. N<br>Dat. Pl · Gen. Pl</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pfanne als Tabelle — allein, zentriert -->
+  <div style="display:flex; justify-content:center; margin-bottom:24px;">
+    <div class="pfanne-wrap">
+      <div class="pfanne-label-top">Schwache Adjektivendungen</div>
+      <div class="pfanne-label-sub">wenn der Begleiter schon ein Magic Five trägt → Adjektiv-Nomen bleibt schwach</div>
+      <div class="pfanne-table-wrap">
+        <div class="pfanne-griff"></div>
+        <div class="pfanne-rand"></div>
+        <table class="pfanne-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th><em>m</em></th>
+              <th><em>n</em></th>
+              <th><em>f</em></th>
+              <th><em>Pl.</em></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="kasus-label">Nominativ</td>
+              <td class="td-e">-e</td>
+              <td class="td-e">-e</td>
+              <td class="td-e">-e</td>
+              <td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Akkusativ</td>
+              <td class="td-en">-en</td>
+              <td class="td-e">-e</td>
+              <td class="td-e">-e</td>
+              <td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Dativ</td>
+              <td class="td-en">-en</td>
+              <td class="td-en">-en</td>
+              <td class="td-en">-en</td>
+              <td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Genitiv</td>
+              <td class="td-en">-en</td>
+              <td class="td-en">-en</td>
+              <td class="td-en">-en</td>
+              <td class="td-en">-en</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pfanne-legende"><span style="color:#2980b9; font-weight:800;">-e</span> &nbsp;|&nbsp; <span style="color:#4a5a9a; font-weight:800;">-en</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MC Entdeckung -->
+  <p style="font-weight:600; color:#555; font-size:0.88rem; margin-bottom:12px;">
+    🔍 Entdecke: Wo steckt die Magic Five?
+  </p>
+  <div id="ent-container"></div>
+</div>
+
+<!-- ══ TAB 2: DAS PRINZIP ══ -->
+<div class="section" id="sec-1">
+
+  <div class="prinzip-box">
+    <div class="pb-hauptsatz">
+      <span class="pb-m5">
+        <span class="pb-pill r">-r</span>
+        <span class="pb-pill e">-e</span>
+        <span class="pb-pill s">-s</span>
+        <span class="pb-pill m">-m</span>
+        <span class="pb-pill n">-n</span>
+        <span class="pb-wort">&nbsp;Magic Five</span>
+      </span>
+      <span class="pb-oder">entweder</span>
+      <span class="pb-teil">im Begleiter</span>
+      <span class="pb-oder">oder</span>
+      <span class="pb-teil">im Adjektiv-Nomen</span>
+    </div>
+    <div class="pb-nie">Nie in beiden &nbsp;·&nbsp; Nie in keinem</div>
+    <div class="pb-detail">Begleiter + Adjektiv-Nomen — zwei Teile, genau ein Magic Five</div>
+  </div>
+
+  <div class="zwei-karten">
+    <div class="karte">
+      <div class="karte-head kasusanzeige-adj">Kein Magic Five im Begleiter → wandert ins Adjektiv</div>
+      <div class="karte-body">
+        → Adjektiv trägt ein Magic Five.<br><br>
+        Ein alt<span class="ka ka-r">er</span> Mann<br>
+        Kalt<span class="ka ka-s">es</span> Wasser<br>
+        Frisch<span class="ka ka-e">e</span> Milch
+      </div>
+    </div>
+    <div class="karte">
+      <div class="karte-head kasusanzeige-bgl">Magic Five im Begleiter → Adjektiv <strong>schwach</strong></div>
+      <div class="karte-body">
+        → Adjektiv nur <strong style="color:#2980b9;">-e</strong> oder <strong style="color:#7a6040;">-en</strong>.<br><br>
+        D<span class="ka ka-r">er</span> alt<span class="ka-schwach">e</span> Mann<br>
+        Da<span class="ka ka-s">s</span> kalt<span class="ka-schwach">e</span> Wasser<br>
+        Di<span class="ka ka-e">e</span> frisch<span class="ka-schwach">e</span> Milch
+      </div>
+    </div>
+  </div>
+
+  <div class="ableitung-title">Die drei Begleiter-Typen — Ableitung</div>
+
+  <!-- TYP 1 -->
+  <div class="abl-row abl-t1">
+    <div class="abl-bgl">
+      <div style="font-size:1.05rem; line-height:1.7; margin-bottom:4px;">
+        d<span class="ka ka-r">er</span> &nbsp; di<span class="ka ka-e">e</span> &nbsp; da<span class="ka ka-s">s</span><br>
+        de<span class="ka ka-m">m</span> &nbsp; de<span class="ka ka-n">n</span>
+      </div>
+      <span style="font-size:0.75rem; color:#888; font-weight:400;">bestimmter Artikel · dieser · jeder …</span>
+    </div>
+    <div class="abl-pfeil">→</div>
+    <div class="abl-folge">
+      Begleiter trägt <em>immer</em> ein Magic Five.<br>
+      → Adjektiv immer <strong>schwach</strong>:<br>
+      <strong style="color:#2980b9;">-e</strong> &nbsp;oder&nbsp; <strong style="color:#7a6040;">-en</strong>
+    </div>
+    <div class="abl-bsp">
+      d<span class="ka ka-r">er</span> alt<span class="ka-schwach">e</span> Mann<br>
+      da<span class="ka ka-s">s</span> klein<span class="ka-schwach">e</span> Kind<br>
+      di<span class="ka ka-e">e</span> klug<span class="ka-schwach">en</span> Kinder<br>
+      de<span class="ka ka-m">m</span> alt<span class="ka-schwach">en</span> Mann
+    </div>
+  </div>
+
+  <!-- TYP 2 -->
+  <div class="abl-row abl-t2" style="flex-wrap: nowrap; align-items: flex-start;">
+    <div class="abl-bgl" style="min-width: 220px;">
+      <div style="font-size:0.88rem; line-height:2.1;">
+        <span style="color:#888; font-size:0.78rem; display:block; margin-bottom:1px;">Possessiv</span>
+        mein<span class="ka ka-r" style="font-size:0.85em;">-er</span>
+        <span class="ka ka-e" style="font-size:0.85em;">-e</span>
+        <span class="ka ka-s" style="font-size:0.85em;">-es</span>
+        <span class="ka ka-m" style="font-size:0.85em;">-em</span>
+        <span class="ka ka-n" style="font-size:0.85em;">-en</span>
+        · <span style="color:#c0392b; font-weight:900; font-size:0.82em;">∅</span><br>
+        <span style="color:#888; font-size:0.78rem; display:block; margin-bottom:1px;">unbestimmter Artikel</span>
+        ein<span class="ka ka-r" style="font-size:0.85em;">-er</span>
+        <span class="ka ka-e" style="font-size:0.85em;">-e</span>
+        <span class="ka ka-s" style="font-size:0.85em;">-es</span>
+        <span class="ka ka-m" style="font-size:0.85em;">-em</span>
+        <span class="ka ka-n" style="font-size:0.85em;">-en</span>
+        · <span style="color:#c0392b; font-weight:900; font-size:0.82em;">∅</span><br>
+        <span style="color:#888; font-size:0.78rem; display:block; margin-bottom:1px;">Negation</span>
+        kein<span class="ka ka-r" style="font-size:0.85em;">-er</span>
+        <span class="ka ka-e" style="font-size:0.85em;">-e</span>
+        <span class="ka ka-s" style="font-size:0.85em;">-es</span>
+        <span class="ka ka-m" style="font-size:0.85em;">-em</span>
+        <span class="ka ka-n" style="font-size:0.85em;">-en</span>
+        · <span style="color:#c0392b; font-weight:900; font-size:0.82em;">∅</span>
+      </div>
+    </div>
+    <div class="abl-pfeil">→</div>
+    <div class="abl-folge">
+      Begleiter trägt <strong>immer</strong> ein Magic Five<br>
+      → Adjektiv schwach.<br>
+      <span style="color:#c0392b; font-weight:700;">Ausnahme</span>: Nom. m &amp; Nom./Akk. n<br>
+      → Begleiter ∅ → Magic Five wandert ins Adjektiv.
+    </div>
+    <div class="abl-bsp">
+      mein<span class="ka ka-r">er</span> jung<span class="ka-schwach">en</span> Frau <span style="color:#aaa;font-size:0.75em;">(Dat. f)</span><br>
+      ein<span class="ka ka-e">e</span> jung<span class="ka-schwach">e</span> Frau <span style="color:#aaa;font-size:0.75em;">(Nom. f)</span><br>
+      kein<span class="ka ka-m">em</span> alt<span class="ka-schwach">en</span> Mann <span style="color:#aaa;font-size:0.75em;">(Dat. m)</span><br>
+      mein<span class="ka ka-s">es</span> gut<span class="ka-schwach">en</span> Freundes <span style="color:#aaa;font-size:0.75em;">(Gen. m)</span><br>
+      ein<span style="color:#c0392b; font-weight:900; font-size:0.85em;">∅</span> alt<span class="ka ka-r">er</span> Mann <span style="color:#aaa;font-size:0.75em;">(Nom. m → ∅)</span><br>
+      kein<span style="color:#c0392b; font-weight:900; font-size:0.85em;">∅</span> jung<span class="ka ka-s">es</span> Kind <span style="color:#aaa;font-size:0.75em;">(Nom. n → ∅)</span>
+    </div>
+  </div>
+
+  <!-- TYP 3 -->
+  <div class="abl-row abl-t3">
+    <div class="abl-bgl">
+      <div style="font-size:1.05rem; line-height:1.7; margin-bottom:4px;">
+        — &nbsp;<span style="color:#aaa; font-size:0.9em;">(kein Artikel)</span>
+      </div>
+      <span style="font-size:0.75rem; color:#888; font-weight:400;">Typ 3</span>
+    </div>
+    <div class="abl-pfeil">→</div>
+    <div class="abl-folge">
+      Kein Begleiter → Magic Five wandert <em>immer</em> ins Adjektiv.<br>
+      → Adjektiv trägt alle fünf Magic Five.
+    </div>
+    <div class="abl-bsp">
+      gut<span class="ka ka-r">er</span> Wein <span style="color:#aaa;font-size:0.75em;">(Nom. m)</span><br>
+      frisch<span class="ka ka-e">e</span> Milch <span style="color:#aaa;font-size:0.75em;">(Nom. f)</span><br>
+      kalt<span class="ka ka-s">es</span> Wasser <span style="color:#aaa;font-size:0.75em;">(Nom. n)</span><br>
+      gut<span class="ka ka-m">em</span> Kaffee <span style="color:#aaa;font-size:0.75em;">(Dat. m)</span><br>
+      gut<span class="ka ka-n">en</span> Tag <span style="color:#aaa;font-size:0.75em;">(Akk. m)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 3: TYP 1 ══ -->
+<div class="section" id="sec-2">
+  <button class="help-toggle" onclick="toggleHelp(2)">💡 Hilfe</button>
+  <div class="help-box" id="help-2">
+    <p>🔹 <strong>der / die / das</strong> und Demonstrativpronomen (dieser…) tragen <em>immer</em> ein Magic Five.</p>
+    <p>🔹 Magic Five im Begleiter → Adjektiv schwach: nur <strong style="color:#2980b9">-e</strong> oder <strong style="color:#7a6040">-en</strong>.</p>
+    <p>🔹 Ergänze die Adjektivendung — sofortiges Feedback beim Tippen.</p>
+  </div>
+  <div class="luecke-intro">
+    Begleiter hat ein Magic Five → Adjektiv schwach → nur <strong style="color:#2980b9;">-e</strong> oder <strong style="color:#7a6040;">-en</strong>
+  </div>
+
+  <div style="display:flex; justify-content:center; margin-bottom:22px;">
+    <div class="pfanne-wrap">
+      <div class="pfanne-label-top">Schwache Adjektivendungen</div>
+      <div class="pfanne-table-wrap">
+        <div class="pfanne-griff"></div>
+        <div class="pfanne-rand"></div>
+        <table class="pfanne-table">
+          <thead>
+            <tr>
+              <th></th><th><em>m</em></th><th><em>n</em></th><th><em>f</em></th><th><em>Pl.</em></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="kasus-label">Nominativ</td>
+              <td class="td-e">-e</td><td class="td-e">-e</td><td class="td-e">-e</td><td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Akkusativ</td>
+              <td class="td-en">-en</td><td class="td-e">-e</td><td class="td-e">-e</td><td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Dativ</td>
+              <td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Genitiv</td>
+              <td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pfanne-legende"><span style="color:#2980b9; font-weight:800;">-e</span> &nbsp;|&nbsp; <span style="color:#4a5a9a; font-weight:800;">-en</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="luecke1-container"></div>
+  <div class="btn-row">
+    <button class="btn btn-show"  onclick="showLuecke(1)">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetLuecke(1)">↻ Neu starten</button>
+  </div>
+  <div class="score" id="score-l1"></div>
+</div>
+
+<!-- ══ TAB 4: TYP 2 ══ -->
+<div class="section" id="sec-3">
+  <button class="help-toggle" onclick="toggleHelp(3)">💡 Hilfe</button>
+  <div class="help-box" id="help-3">
+    <p>🔹 Possessivpronomen (mein/dein/sein…) und <em>ein/kein</em> haben <strong>manchmal kein</strong> Magic Five — dann wandert es ins Adjektiv.</p>
+    <p>🔹 <strong>Nom. M, Nom./Akk. N</strong>: Begleiter ohne Endung (∅) → Magic Five wandert ins Adjektiv.</p>
+    <p>🔹 Überall sonst hat der Begleiter ein Magic Five → Adjektiv schwach (-e / -en).</p>
+  </div>
+  <div class="luecke-intro">
+    Erst fragen: Hat <em>dieser</em> Begleiter hier ein Magic Five? → Dann ableiten.
+  </div>
+
+  <div style="display:flex; justify-content:center; margin-bottom:22px;">
+    <div class="pfanne-wrap">
+      <div class="pfanne-label-top">Schwache Adjektivendungen — Ausnahmen rot</div>
+      <div class="pfanne-table-wrap">
+        <div class="pfanne-griff"></div>
+        <div class="pfanne-rand"></div>
+        <table class="pfanne-table">
+          <thead>
+            <tr>
+              <th></th><th><em>m</em></th><th><em>n</em></th><th><em>f</em></th><th><em>Pl.</em></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="kasus-label">Nominativ</td>
+              <td style="background:#fdecea; color:#c0392b; font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-er</span></td>
+              <td style="background:#fdecea; color:#c0392b; font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-es</span></td>
+              <td class="td-e">-e</td>
+              <td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Akkusativ</td>
+              <td class="td-en">-en</td>
+              <td style="background:#fdecea; color:#c0392b; font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-es</span></td>
+              <td class="td-e">-e</td>
+              <td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Dativ</td>
+              <td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td>
+            </tr>
+            <tr>
+              <td class="kasus-label">Genitiv</td>
+              <td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td><td class="td-en">-en</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pfanne-legende">
+          <span style="color:#2980b9; font-weight:800;">-e</span> &nbsp;|&nbsp;
+          <span style="color:#4a5a9a; font-weight:800;">-en</span> &nbsp;|&nbsp;
+          <span style="color:#c0392b; font-weight:800;">∅ = Magic Five wandert ins Adjektiv</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="luecke2-container"></div>
+  <div class="btn-row">
+    <button class="btn btn-show"  onclick="showLuecke(2)">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetLuecke(2)">↻ Neu starten</button>
+  </div>
+  <div class="score" id="score-l2"></div>
+</div>
+
+<!-- ══ TAB 5: TYP 3 ══ -->
+<div class="section" id="sec-4">
+  <button class="help-toggle" onclick="toggleHelp(4)">💡 Hilfe</button>
+  <div class="help-box" id="help-4">
+    <p>🔹 Kein Begleiter → kein Magic Five von außen → wandert ins Adjektiv.</p>
+    <p>🔹 Das Adjektiv trägt immer ein Magic Five — welches? Schau in die Übersicht oben.</p>
+  </div>
+  <div class="luecke-intro">
+    Kein Begleiter → Magic Five wandert ins Adjektiv
+  </div>
+  <div id="luecke3-container"></div>
+  <div class="btn-row">
+    <button class="btn btn-show"  onclick="showLuecke(3)">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetLuecke(3)">↻ Neu starten</button>
+  </div>
+  <div class="score" id="score-l3"></div>
+</div>
+
+<!-- ══ TAB 6: PRAXIS ══ -->
+<div class="section" id="sec-5">
+  <div class="masterclass-intro">
+    <strong>🎯 Praxis</strong><br>
+    Strukturierte Muster — trainiere Nom., Akk. und Dativ mit allen drei Typen.
+  </div>
+
+  <!-- ÜBUNG 4: NEUSCHWANSTEIN -->
+  <div class="anzeige-block">
+    <h3>Auf Schloss Neuschwanstein</h3>
+    <div style="font-size:0.82rem; color:#888; margin-bottom:14px;">
+      Nom. m → Akk. m &nbsp;·&nbsp; Nom. f → Akk. f &nbsp;·&nbsp; Nom. n → Akk. n
+    </div>
+    <div style="line-height:3.4; font-size:0.97rem;">
+
+<span class="num">1.</span> Ein amerikanisch<input class="blank s" id="p1" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Tourist kauft ein<input class="blank s" id="p2" type="text" autocomplete="off" oninput="checkInput(this,'en')"> deutsch<input class="blank s" id="p3" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Reiseführer.<br>
+
+<span class="num">2.</span> Ein japanisch<input class="blank s" id="p4" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Touristin kauft ein<input class="blank s" id="p5" type="text" autocomplete="off" oninput="checkInput(this,'e')"> bunt<input class="blank s" id="p6" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Postkarte.<br>
+
+<span class="num">3.</span> Ein australisch<input class="blank s" id="p7" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Ehepaar kauft ein<input class="blank s" id="p8" type="text" autocomplete="off" oninput="checkInput(this,'')"> klein<input class="blank s" id="p9" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Schlossmodell.<br>
+
+<span class="num">4.</span> Ein kanadisch<input class="blank s" id="p10" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Student kauft ein<input class="blank s" id="p11" type="text" autocomplete="off" oninput="checkInput(this,'en')"> günstig<input class="blank s" id="p12" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Stadtplan.<br>
+
+<span class="num">5.</span> Ein brasilianisch<input class="blank s" id="p13" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Schülerin kauft ein<input class="blank s" id="p14" type="text" autocomplete="off" oninput="checkInput(this,'en')"> bayer<input class="blank s" id="p15" type="text" autocomplete="off" oninput="checkInput(this,'ischen')"> Kalender.<br>
+
+<span class="num">6.</span> Ein chinesisch<input class="blank s" id="p16" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Kinderpaar kauft ein<input class="blank s" id="p17" type="text" autocomplete="off" oninput="checkInput(this,'')"> groß<input class="blank s" id="p18" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Bilderbuch.<br>
+
+<span class="num">7.</span> Ein spanisch<input class="blank s" id="p19" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Rentner kauft ein<input class="blank s" id="p20" type="text" autocomplete="off" oninput="checkInput(this,'en')"> hübsch<input class="blank s" id="p21" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Kühlschrankmagneten.<br>
+
+<span class="num">8.</span> Ein französisch<input class="blank s" id="p22" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Lehrerin kauft ein<input class="blank s" id="p23" type="text" autocomplete="off" oninput="checkInput(this,'e')"> schön<input class="blank s" id="p24" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Tasse.<br>
+
+<span class="num">9.</span> Ein schwedisch<input class="blank s" id="p25" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Kind kauft ein<input class="blank s" id="p26" type="text" autocomplete="off" oninput="checkInput(this,'')"> gold<input class="blank s" id="p27" type="text" autocomplete="off" oninput="checkInput(this,'enes')"> Ritter-Spielzeug.<br>
+
+<span class="num">10.</span> Ein mexikanisch<input class="blank s" id="p28" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Fotograf kauft ein<input class="blank s" id="p29" type="text" autocomplete="off" oninput="checkInput(this,'en')"> teuer<input class="blank s" id="p30" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Kunstdruck.
+
+    </div>
+  </div>
+
+  <!-- ÜBUNG 5: GESPRÄCHE IM CLUB -->
+  <div class="anzeige-block">
+    <h3>Gespräche im Club</h3>
+    <div style="font-size:0.82rem; color:#888; margin-bottom:14px;">
+      Dativ nach: mit, in, an, bei, von, nach, seit, aus, zu, gegenüber
+    </div>
+    <div style="line-height:3.4; font-size:0.97rem;">
+
+<span class="num">1.</span> — Wer ist denn die Frau mit d<input class="blank s" id="q1" type="text" autocomplete="off" oninput="checkInput(this,'em')"> lang<input class="blank s" id="q2" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Kleid?<br>
+&nbsp;&nbsp;&nbsp;— Das ist Eva. Sie kommt aus ein<input class="blank s" id="q3" type="text" autocomplete="off" oninput="checkInput(this,'er')"> klein<input class="blank s" id="q4" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Stadt bei München.<br>
+
+<span class="num">2.</span> — Kennst du den Mann mit d<input class="blank s" id="q5" type="text" autocomplete="off" oninput="checkInput(this,'em')"> rot<input class="blank s" id="q6" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Schal?<br>
+&nbsp;&nbsp;&nbsp;— Ja, das ist Marco. Er arbeitet bei ein<input class="blank s" id="q7" type="text" autocomplete="off" oninput="checkInput(this,'er')"> groß<input class="blank s" id="q8" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Firma in Berlin.<br>
+
+<span class="num">3.</span> — Wer ist das Mädchen mit d<input class="blank s" id="q9" type="text" autocomplete="off" oninput="checkInput(this,'en')"> kurz<input class="blank s" id="q10" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Haaren?<br>
+&nbsp;&nbsp;&nbsp;— Das ist Lena. Sie wohnt in ein<input class="blank s" id="q11" type="text" autocomplete="off" oninput="checkInput(this,'em')"> alt<input class="blank s" id="q12" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Haus am See.<br>
+
+<span class="num">4.</span> — Siehst du den Typen mit d<input class="blank s" id="q13" type="text" autocomplete="off" oninput="checkInput(this,'er')"> schick<input class="blank s" id="q14" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Brille?<br>
+&nbsp;&nbsp;&nbsp;— Ja! Er kommt aus ein<input class="blank s" id="q15" type="text" autocomplete="off" oninput="checkInput(this,'em')"> reich<input class="blank s" id="q16" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Vorort von Hamburg.<br>
+
+<span class="num">5.</span> — Wer ist die Frau mit d<input class="blank s" id="q17" type="text" autocomplete="off" oninput="checkInput(this,'em')"> interessant<input class="blank s" id="q18" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Hut?<br>
+&nbsp;&nbsp;&nbsp;— Das ist Prof. Weber. Sie lehrt an ein<input class="blank s" id="q19" type="text" autocomplete="off" oninput="checkInput(this,'er')"> bekannt<input class="blank s" id="q20" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Universität in Wien.
+
+    </div>
+  </div>
+
+  <!-- ÜBUNG 7: EISIGE KÄLTE -->
+  <div class="anzeige-block">
+    <h3>Eisige Kälte — Wetteradjektive</h3>
+    <div style="font-size:0.82rem; color:#888; margin-bottom:14px;">
+      Kein Artikel → Magic Five wandert ins Adjektiv
+    </div>
+    <div style="line-height:3.4; font-size:0.97rem;">
+
+<span class="num">1.</span> Bei eisig<input class="blank s" id="r1" type="text" autocomplete="off" oninput="checkInput(this,'em')"> Wind und stark<input class="blank s" id="r2" type="text" autocomplete="off" oninput="checkInput(this,'em')"> Frost bleibt man lieber zu Hause.<br>
+
+<span class="num">2.</span> Nach lang<input class="blank s" id="r3" type="text" autocomplete="off" oninput="checkInput(this,'em')"> Regen kommt endlich wieder schön<input class="blank s" id="r4" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Wetter.<br>
+
+<span class="num">3.</span> Trotz dicht<input class="blank s" id="r5" type="text" autocomplete="off" oninput="checkInput(this,'en')"> Nebels fand er den Weg nach Hause.<br>
+
+<span class="num">4.</span> Frisch<input class="blank s" id="r6" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Wind vom Meer bringt kühl<input class="blank s" id="r7" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Luft ins Land.<br>
+
+<span class="num">5.</span> Bei strahlen<input class="blank s" id="r8" type="text" autocomplete="off" oninput="checkInput(this,'dem')"> Sonnenschein macht selbst lang<input class="blank s" id="r9" type="text" autocomplete="off" oninput="checkInput(this,'es')"> Warten Spaß.<br>
+
+<span class="num">6.</span> Wegen anhaltend<input class="blank s" id="r10" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Dürre leiden viele Regionen unter Wasserknappheit.<br>
+
+<span class="num">7.</span> Mit warm<input class="blank s" id="r11" type="text" autocomplete="off" oninput="checkInput(this,'em')"> Tee und heiß<input class="blank s" id="r12" type="text" autocomplete="off" oninput="checkInput(this,'er')"> Suppe lässt sich jed<input class="blank s" id="r13" type="text" autocomplete="off" oninput="checkInput(this,'er')"> kalt<input class="blank s" id="r14" type="text" autocomplete="off" oninput="checkInput(this,'e')"> Wintertag überstehen.
+
+    </div>
+    <div style="display:none;">
+      <!-- Neuschwanstein p1-p30 -->
+      <span class="sol" id="sol-p1">er</span><span class="sol" id="sol-p2">en</span><span class="sol" id="sol-p3">en</span>
+      <span class="sol" id="sol-p4">e</span><span class="sol" id="sol-p5">e</span><span class="sol" id="sol-p6">e</span>
+      <span class="sol" id="sol-p7">es</span><span class="sol" id="sol-p8">∅</span><span class="sol" id="sol-p9">es</span>
+      <span class="sol" id="sol-p10">er</span><span class="sol" id="sol-p11">en</span><span class="sol" id="sol-p12">en</span>
+      <span class="sol" id="sol-p13">e</span><span class="sol" id="sol-p14">en</span><span class="sol" id="sol-p15">ischen</span>
+      <span class="sol" id="sol-p16">es</span><span class="sol" id="sol-p17">∅</span><span class="sol" id="sol-p18">es</span>
+      <span class="sol" id="sol-p19">er</span><span class="sol" id="sol-p20">en</span><span class="sol" id="sol-p21">en</span>
+      <span class="sol" id="sol-p22">e</span><span class="sol" id="sol-p23">e</span><span class="sol" id="sol-p24">e</span>
+      <span class="sol" id="sol-p25">es</span><span class="sol" id="sol-p26">∅</span><span class="sol" id="sol-p27">enes</span>
+      <span class="sol" id="sol-p28">er</span><span class="sol" id="sol-p29">en</span><span class="sol" id="sol-p30">en</span>
+      <!-- Club q1-q20 -->
+      <span class="sol" id="sol-q1">em</span><span class="sol" id="sol-q2">en</span><span class="sol" id="sol-q3">er</span><span class="sol" id="sol-q4">en</span>
+      <span class="sol" id="sol-q5">em</span><span class="sol" id="sol-q6">en</span><span class="sol" id="sol-q7">er</span><span class="sol" id="sol-q8">en</span>
+      <span class="sol" id="sol-q9">en</span><span class="sol" id="sol-q10">en</span><span class="sol" id="sol-q11">em</span><span class="sol" id="sol-q12">en</span>
+      <span class="sol" id="sol-q13">er</span><span class="sol" id="sol-q14">en</span><span class="sol" id="sol-q15">em</span><span class="sol" id="sol-q16">en</span>
+      <span class="sol" id="sol-q17">em</span><span class="sol" id="sol-q18">en</span><span class="sol" id="sol-q19">er</span><span class="sol" id="sol-q20">en</span>
+      <!-- Eisige Kälte r1-r14 -->
+      <span class="sol" id="sol-r1">em</span><span class="sol" id="sol-r2">em</span><span class="sol" id="sol-r3">em</span><span class="sol" id="sol-r4">es</span>
+      <span class="sol" id="sol-r5">en</span><span class="sol" id="sol-r6">er</span><span class="sol" id="sol-r7">e</span>
+      <span class="sol" id="sol-r8">dem</span><span class="sol" id="sol-r9">es</span><span class="sol" id="sol-r10">er</span>
+      <span class="sol" id="sol-r11">em</span><span class="sol" id="sol-r12">er</span><span class="sol" id="sol-r13">er</span><span class="sol" id="sol-r14">e</span>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-show"  onclick="showPraxis()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetPraxis()">↻ Neu starten</button>
+  </div>
+  <div class="score" id="score-praxis"></div>
+</div>
+
+<!-- ══ TAB 7: MASTERCLASS ══ -->
+<div class="section" id="sec-6">
+  <div class="masterclass-intro">
+    <strong>🏆 Masterclass</strong><br>
+    Alle drei Typen gemischt. Ergänze Artikel- <em>und</em> Adjektivendungen.<br>
+    Denke zuerst: Welcher Kasus? Hat der Begleiter ein Magic Five?
+  </div>
+
+  <div class="anzeige-block">
+    <h3>Anzeige 1 — Wir suchen eine Wohnung</h3>
+    Wir sind eine jung<input class="blank s" id="m1" type="text" autocomplete="off"> Familie mit zwei klein<input class="blank s" id="m2" type="text" autocomplete="off"> Kindern.
+    Wir haben in München ein<input class="blank s" id="m3" type="text" autocomplete="off"> neu<input class="blank s" id="m4" type="text" autocomplete="off"> Job gefunden.
+    Jetzt suchen wir ein<input class="blank s" id="m5" type="text" autocomplete="off"> bezahlbar<input class="blank s" id="m6" type="text" autocomplete="off"> Wohnung.
+    Am liebsten würden wir in ein<input class="blank s" id="m7" type="text" autocomplete="off"> renoviert<input class="blank s" id="m8" type="text" autocomplete="off"> Altbau in ruhig<input class="blank s" id="m9" type="text" autocomplete="off">, aber zentral<input class="blank s" id="m10" type="text" autocomplete="off"> Lage wohnen.
+    Ein<input class="blank s" id="m11" type="text" autocomplete="off"> sonnig<input class="blank s" id="m12" type="text" autocomplete="off"> Balkon oder ein<input class="blank s" id="m13" type="text" autocomplete="off"> klein<input class="blank s" id="m14" type="text" autocomplete="off"> Terrasse wären auch nicht schlecht.
+    <div style="display:none;">
+      <span class="sol" id="sol-m1">e</span><span class="sol" id="sol-m2">en</span>
+      <span class="sol" id="sol-m3">en</span><span class="sol" id="sol-m4">en</span>
+      <span class="sol" id="sol-m5">e</span><span class="sol" id="sol-m6">e</span>
+      <span class="sol" id="sol-m7">em</span><span class="sol" id="sol-m8">en</span>
+      <span class="sol" id="sol-m9">er</span><span class="sol" id="sol-m10">er</span>
+      <span class="sol" id="sol-m11">en</span><span class="sol" id="sol-m12">en</span>
+      <span class="sol" id="sol-m13">e</span><span class="sol" id="sol-m14">e</span>
+    </div>
+  </div>
+
+  <div class="anzeige-block">
+    <h3>Anzeige 2 — Handwerker sucht Dach</h3>
+    Alleinstehend<input class="blank s" id="m15" type="text" autocomplete="off"> Handwerker sucht dringend ein<input class="blank s" id="m16" type="text" autocomplete="off"> neu<input class="blank s" id="m17" type="text" autocomplete="off"> Dach über dem Kopf.
+    Ein<input class="blank s" id="m18" type="text" autocomplete="off"> klein<input class="blank s" id="m19" type="text" autocomplete="off"> Zweizimmerwohnung wäre völlig ausreichend.
+    Auch ein<input class="blank s" id="m20" type="text" autocomplete="off"> größer<input class="blank s" id="m21" type="text" autocomplete="off"> Einzelzimmer mit ein<input class="blank s" id="m22" type="text" autocomplete="off"> klein<input class="blank s" id="m23" type="text" autocomplete="off"> Kochgelegenheit käme in Frage.
+    Kleiner<input class="blank s" id="m24" type="text" autocomplete="off"> Reparaturen im Haus oder gelegentlich<input class="blank s" id="m25" type="text" autocomplete="off"> Besorgungen kann ich gerne für Sie übernehmen.
+    <div style="display:none;">
+      <span class="sol" id="sol-m15">er</span><span class="sol" id="sol-m16">∅</span><span class="sol" id="sol-m17">es</span>
+      <span class="sol" id="sol-m18">e</span><span class="sol" id="sol-m19">e</span>
+      <span class="sol" id="sol-m20">∅</span><span class="sol" id="sol-m21">es</span><span class="sol" id="sol-m22">er</span><span class="sol" id="sol-m23">en</span>
+      <span class="sol" id="sol-m24">e</span><span class="sol" id="sol-m25">e</span>
+    </div>
+  </div>
+
+  <div class="anzeige-block">
+    <h3>Anzeige 3 — Junges Paar sucht Traumwohnung</h3>
+    Wir sind ein jung<input class="blank s" id="m26" type="text" autocomplete="off">, sympathisch<input class="blank s" id="m27" type="text" autocomplete="off"> Paar mit gut<input class="blank s" id="m28" type="text" autocomplete="off"> Manieren.
+    Wir suchen ein<input class="blank s" id="m29" type="text" autocomplete="off"> schön<input class="blank s" id="m30" type="text" autocomplete="off"> und hell<input class="blank s" id="m31" type="text" autocomplete="off"> Wohnung in bevorzugt<input class="blank s" id="m32" type="text" autocomplete="off"> Lage.
+    Finanziell<input class="blank s" id="m33" type="text" autocomplete="off"> Fragen sind für uns zweitrangig.
+    Wir stellen uns ein<input class="blank s" id="m34" type="text" autocomplete="off"> architektonisch anspruchsvoll<input class="blank s" id="m35" type="text" autocomplete="off"> Vier- bis Fünfzimmerwohnung angemessen<input class="blank s" id="m36" type="text" autocomplete="off"> Größe mit zwei gut ausgestattet<input class="blank s" id="m37" type="text" autocomplete="off"> Badezimmern vor.
+    Ein<input class="blank s" id="m38" type="text" autocomplete="off"> groß<input class="blank s" id="m39" type="text" autocomplete="off"> Balkon oder ein<input class="blank s" id="m40" type="text" autocomplete="off"> groß<input class="blank s" id="m41" type="text" autocomplete="off"> Dachterrasse dürfen auf keinen Fall fehlen.
+    <div style="display:none;">
+      <span class="sol" id="sol-m26">∅</span><span class="sol" id="sol-m27">es</span><span class="sol" id="sol-m28">en</span>
+      <span class="sol" id="sol-m29">e</span><span class="sol" id="sol-m30">e</span><span class="sol" id="sol-m31">e</span><span class="sol" id="sol-m32">er</span>
+      <span class="sol" id="sol-m33">e</span>
+      <span class="sol" id="sol-m34">e</span><span class="sol" id="sol-m35">e</span><span class="sol" id="sol-m36">er</span><span class="sol" id="sol-m37">en</span>
+      <span class="sol" id="sol-m38">∅</span><span class="sol" id="sol-m39">er</span><span class="sol" id="sol-m40">e</span><span class="sol" id="sol-m41">e</span>
+    </div>
+  </div>
+
+  <div class="anzeige-block">
+    <h3>Text — Touristenboom in der Hauptstadt</h3>
+    <div style="line-height:3.2; font-size:1rem;">
+Berlin gehört zu d<input class="blank s" id="t1" type="text" autocomplete="off" oninput="checkInput(this,'en')">
+beliebt<input class="blank s" id="t2" type="text" autocomplete="off" oninput="checkInput(this,'esten')">
+Reisezielen in Europa.
+Kein<input class="blank s" id="t3" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+ander<input class="blank s" id="t4" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Stadt in Deutschland zieht so viel<input class="blank s" id="t5" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+ausländisch<input class="blank s" id="t6" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Besucher an.
+
+In d<input class="blank s" id="t7" type="text" autocomplete="off" oninput="checkInput(this,'er')">
+erst<input class="blank s" id="t8" type="text" autocomplete="off" oninput="checkInput(this,'en')">
+Hälfte dies<input class="blank s" id="t9" type="text" autocomplete="off" oninput="checkInput(this,'es')">
+Jahres haben mehr als fünf Millionen Touristen d<input class="blank s" id="t10" type="text" autocomplete="off" oninput="checkInput(this,'ie')">
+deutsch<input class="blank s" id="t11" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Hauptstadt besucht.
+
+Besonders beliebt sind d<input class="blank s" id="t12" type="text" autocomplete="off" oninput="checkInput(this,'ie')">
+vielen historisch<input class="blank s" id="t13" type="text" autocomplete="off" oninput="checkInput(this,'en')">
+Sehenswürdigkeiten.
+Aber auch d<input class="blank s" id="t14" type="text" autocomplete="off" oninput="checkInput(this,'ie')">
+jung<input class="blank s" id="t15" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+und kreativ<input class="blank s" id="t16" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Szene der Stadt, d<input class="blank s" id="t17" type="text" autocomplete="off" oninput="checkInput(this,'as')">
+lebendig<input class="blank s" id="t18" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Nachtleben und d<input class="blank s" id="t19" type="text" autocomplete="off" oninput="checkInput(this,'ie')">
+zahlreich<input class="blank s" id="t20" type="text" autocomplete="off" oninput="checkInput(this,'en')">
+Museen locken Besucher aus all<input class="blank s" id="t21" type="text" autocomplete="off" oninput="checkInput(this,'er')">
+Welt an.
+
+Ein<input class="blank s" id="t22" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+besonder<input class="blank s" id="t23" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Attraktion ist d<input class="blank s" id="t24" type="text" autocomplete="off" oninput="checkInput(this,'as')">
+Reichstagsgebäude mit sein<input class="blank s" id="t25" type="text" autocomplete="off" oninput="checkInput(this,'er')">
+berühmt<input class="blank s" id="t26" type="text" autocomplete="off" oninput="checkInput(this,'en')">
+Glaskuppel, durch d<input class="blank s" id="t27" type="text" autocomplete="off" oninput="checkInput(this,'ie')">
+man einen wunderschön<input class="blank s" id="t28" type="text" autocomplete="off" oninput="checkInput(this,'en')">
+Blick auf d<input class="blank s" id="t29" type="text" autocomplete="off" oninput="checkInput(this,'ie')">
+ganz<input class="blank s" id="t30" type="text" autocomplete="off" oninput="checkInput(this,'e')">
+Stadt hat.
+    </div>
+    <div style="text-align:right; margin-top:8px;">
+      <span class="sol" id="sol-t1">en</span><span class="sol" id="sol-t2">esten</span>
+      <span class="sol" id="sol-t3">e</span><span class="sol" id="sol-t4">e</span>
+      <span class="sol" id="sol-t5">e</span><span class="sol" id="sol-t6">e</span>
+      <span class="sol" id="sol-t7">er</span><span class="sol" id="sol-t8">en</span>
+      <span class="sol" id="sol-t9">es</span><span class="sol" id="sol-t10">ie</span>
+      <span class="sol" id="sol-t11">e</span><span class="sol" id="sol-t12">ie</span>
+      <span class="sol" id="sol-t13">en</span><span class="sol" id="sol-t14">ie</span>
+      <span class="sol" id="sol-t15">e</span><span class="sol" id="sol-t16">e</span>
+      <span class="sol" id="sol-t17">as</span><span class="sol" id="sol-t18">e</span>
+      <span class="sol" id="sol-t19">ie</span><span class="sol" id="sol-t20">en</span>
+      <span class="sol" id="sol-t21">er</span><span class="sol" id="sol-t22">e</span>
+      <span class="sol" id="sol-t23">e</span><span class="sol" id="sol-t24">as</span>
+      <span class="sol" id="sol-t25">er</span><span class="sol" id="sol-t26">en</span>
+      <span class="sol" id="sol-t27">ie</span><span class="sol" id="sol-t28">en</span>
+      <span class="sol" id="sol-t29">ie</span><span class="sol" id="sol-t30">e</span>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-show"  onclick="showMasterAll()">👁 Lösungen</button>
+    <button class="btn btn-reset" onclick="resetMasterAll()">↻ Neu starten</button>
+  </div>
+  <div class="score" id="score-master"></div>
+</div>
+
+</div><!-- /container -->
+<script>
+// ── NAVIGATION ──
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active', i===idx));
+    document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+}
+function toggleHelp(idx) { document.getElementById('help-'+idx).classList.toggle('open'); }
+
+// ── ENTDECKUNG ──
+const ENT = [
+    {
+        satz: `D<span class="ka ka-r">er</span> alt<span class="ka-schwach">e</span> Mann schläft.`,
+        frage: `Wer trägt ein Magic Five?`,
+        opts: ['Der Begleiter (der)', 'Das Adjektiv (alte)'],
+        ok: 0,
+        fb: `✓ <strong>de<span class="ka ka-r">r</span></strong> trägt ein Magic Five (-r). → Adjektiv schwach: <em>alt<span class="ka-schwach">e</span></em>.`
+    },
+    {
+        satz: `Ein alt<span class="ka ka-r">er</span> Mann wartet.`,
+        frage: `Nominativ Maskulin bei 'ein' — wer trägt hier ein Magic Five?`,
+        opts: ['Der Begleiter (ein)', 'Das Adjektiv (alter)'],
+        ok: 1,
+        fb: `✓ <em>ein</em> hat hier keine Endung (∅) — kein Magic Five im Begleiter. → wandert ins Adjektiv: <strong>alt<span class="ka ka-r">er</span></strong>.`
+    },
+    {
+        satz: `Da<span class="ka ka-s">s</span> klein<span class="ka-schwach">e</span> Kind spielt.`,
+        frage: `Nominativ Neutrum. Wo steckt ein Magic Five?`,
+        opts: ['Im Begleiter (das)', 'Im Adjektiv (kleine)'],
+        ok: 0,
+        fb: `✓ <strong>da<span class="ka ka-s">s</span></strong> trägt ein Magic Five (-s). → Adjektiv schwach: <em>klein<span class="ka-schwach">e</span></em>.`
+    },
+    {
+        satz: `Frisch<span class="ka ka-e">e</span> Milch schmeckt gut.`,
+        frage: `Nominativ Feminin, kein Artikel — wer trägt ein Magic Five?`,
+        opts: ['Nichts — es gibt keinen Artikel', 'Das Adjektiv (frische)'],
+        ok: 1,
+        fb: `✓ Kein Begleiter → Magic Five wandert ins Adjektiv: <strong>frisch<span class="ka ka-e">e</span></strong> (-e für Nominativ F).`
+    },
+    {
+        satz: `Mein<span class="ka ka-e">e</span> jung<span class="ka-schwach">e</span> Schwester kommt.`,
+        frage: `Nominativ Feminin — trägt 'meine' ein Magic Five?`,
+        opts: ['Ja, meine trägt -e', 'Nein, das Adjektiv trägt -e'],
+        ok: 0,
+        fb: `✓ <em>mein<span class="ka ka-e">e</span></em> trägt ein Magic Five (-e). → Adjektiv schwach: <em>jung<span class="ka-schwach">e</span></em>.`
+    },
+    {
+        satz: `Ein jung<span class="ka ka-s">es</span> Kind schläft.`,
+        frage: `Nominativ Neutrum bei 'ein' — hat 'ein' hier ein Magic Five?`,
+        opts: ['Ja, ein trägt -s', 'Nein, ein hat keine Endung → Adjektiv trägt -s'],
+        ok: 1,
+        fb: `✓ <em>ein</em> hat keine Endung (∅) — kein Magic Five im Begleiter. → wandert ins Adjektiv: <strong>jung<span class="ka ka-s">es</span></strong>.`
+    },
+    {
+        satz: `De<span class="ka ka-n">n</span> alt<span class="ka-schwach">en</span> Mantel kaufe ich.`,
+        frage: `Akkusativ Maskulin. Wo steckt ein Magic Five?`,
+        opts: ['Im Begleiter (den)', 'Im Adjektiv (alten)'],
+        ok: 0,
+        fb: `✓ <strong>de<span class="ka ka-n">n</span></strong> trägt ein Magic Five (-n). → Adjektiv schwach: <em>alt<span class="ka-schwach">en</span></em>.`
+    },
+    {
+        satz: `Kalt<span class="ka ka-s">es</span> Wasser erfrischt.`,
+        frage: `Nominativ Neutrum, kein Artikel — welche Magic-Five-Endung trägt das Adjektiv?`,
+        opts: ['-e', '-es', '-em', '-en'],
+        ok: 1,
+        fb: `✓ Nominativ/Akkusativ Neutrum = Magic Five <strong>-s</strong>. Also: <strong>kalt<span class="ka ka-s">es</span></strong>.`
+    }
+];
+
+function buildEnt() {
+    const c = document.getElementById('ent-container');
+    c.innerHTML = '';
+    ENT.forEach((ex, i) => {
+        const d = document.createElement('div');
+        d.className = 'ent-ex';
+        d.innerHTML = `
+            <div class="ent-satz">${ex.satz}</div>
+            <div class="ent-frage">${ex.frage}</div>
+            <div class="mc-opts">
+                ${ex.opts.map((o,j)=>`<button class="mc-btn" onclick="answerMC(${i},${j})" id="mc-${i}-${j}">${o}</button>`).join('')}
+            </div>
+            <div class="mc-fb" id="mc-fb-${i}">${ex.fb}</div>`;
+        c.appendChild(d);
+    });
+}
+function answerMC(ei, oi) {
+    const ex = ENT[ei];
+    ex.opts.forEach((_, j) => {
+        const btn = document.getElementById(`mc-${ei}-${j}`);
+        btn.classList.add('disabled');
+        if (j === ex.ok) btn.classList.add('correct');
+        else if (j === oi) btn.classList.add('wrong');
+    });
+    document.getElementById(`mc-fb-${ei}`).classList.add('show');
+}
+
+// ── LÜCKENTEXT DATA ──
+const L1 = [
+    { id:'l1_1',  pre:`<span class="num">1.</span> D<span class="ka ka-r">er</span> neu`,        ans:'e',  sz:'s', post:` Lehrer kommt. <em style="color:#aaa;font-size:.8em">(Nom. m)</em>` },
+    { id:'l1_2',  pre:`<span class="num">2.</span> Di<span class="ka ka-e">e</span> jung`,        ans:'e',  sz:'s', post:` Frau arbeitet. <em style="color:#aaa;font-size:.8em">(Nom. f)</em>` },
+    { id:'l1_3',  pre:`<span class="num">3.</span> Da<span class="ka ka-s">s</span> klein`,       ans:'e',  sz:'s', post:` Kind schläft. <em style="color:#aaa;font-size:.8em">(Nom. n)</em>` },
+    { id:'l1_4',  pre:`<span class="num">4.</span> Di<span class="ka ka-e">e</span> alt`,         ans:'en', sz:'s', post:` Leute warten. <em style="color:#aaa;font-size:.8em">(Nom. Pl)</em>` },
+    { id:'l1_5',  pre:`<span class="num">5.</span> Ich sehe de<span class="ka ka-n">n</span> groß`, ans:'en', sz:'s', post:` Hund. <em style="color:#aaa;font-size:.8em">(Akk. m)</em>` },
+    { id:'l1_6',  pre:`<span class="num">6.</span> Ich kaufe di<span class="ka ka-e">e</span> rot`, ans:'e',  sz:'s', post:` Jacke. <em style="color:#aaa;font-size:.8em">(Akk. f)</em>` },
+    { id:'l1_7',  pre:`<span class="num">7.</span> Ich lese da<span class="ka ka-s">s</span> lang`, ans:'e',  sz:'s', post:` Buch. <em style="color:#aaa;font-size:.8em">(Akk. n)</em>` },
+    { id:'l1_8',  pre:`<span class="num">8.</span> Ich helfe de<span class="ka ka-m">m</span> alt`, ans:'en', sz:'s', post:` Mann. <em style="color:#aaa;font-size:.8em">(Dat. m)</em>` },
+    { id:'l1_9',  pre:`<span class="num">9.</span> Ich danke de<span class="ka ka-r">r</span> nett`, ans:'en', sz:'s', post:` Frau. <em style="color:#aaa;font-size:.8em">(Dat. f)</em>` },
+    { id:'l1_10', pre:`<span class="num">10.</span> Das Auto de<span class="ka ka-s">s</span> neu`,  ans:'en', sz:'s', post:` Lehrers ist teuer. <em style="color:#aaa;font-size:.8em">(Gen. m)</em>` },
+    { id:'l1_11', pre:`<span class="num">11.</span> Die Tasche de<span class="ka ka-r">r</span> jung`, ans:'en', sz:'s', post:` Frau. <em style="color:#aaa;font-size:.8em">(Gen. f)</em>` },
+    { id:'l1_12', pre:`<span class="num">12.</span> Dieser lustig`,                                  ans:'e',  sz:'s', post:` Film ist sehr bekannt. <em style="color:#aaa;font-size:.8em">(Nom. m)</em>` },
+];
+
+const L2 = [
+    { id:'l2_1',  pre:`<span class="num">1.</span> Ein alt`,            ans:'er', sz:'s', post:` Mann wartet. <em style="color:#aaa;font-size:.8em">(Nom. M — ein∅)</em>` },
+    { id:'l2_2',  pre:`<span class="num">2.</span> Ein jung`,           ans:'es', sz:'s', post:` Kind spielt. <em style="color:#aaa;font-size:.8em">(Nom. N — ein∅)</em>` },
+    { id:'l2_3',  pre:`<span class="num">3.</span> Mein alt`,           ans:'er', sz:'s', post:` Vater schläft. <em style="color:#aaa;font-size:.8em">(Nom. M — mein∅)</em>` },
+    { id:'l2_4',  pre:`<span class="num">4.</span> Mein neu`,           ans:'es', sz:'s', post:` Auto ist kaputt. <em style="color:#aaa;font-size:.8em">(Nom. N — mein∅)</em>` },
+    { id:'l2_5',  pre:`<span class="num">5.</span> Mein<span class="ka ka-e">e</span> jung`, ans:'e', sz:'s', post:` Schwester kommt. <em style="color:#aaa;font-size:.8em">(Nom. F — meine trägt -e)</em>` },
+    { id:'l2_6',  pre:`<span class="num">6.</span> Sein<span class="ka ka-e">e</span> alt`, ans:'e', sz:'s', post:` Mutter wohnt hier. <em style="color:#aaa;font-size:.8em">(Nom. F)</em>` },
+    { id:'l2_7',  pre:`<span class="num">7.</span> Ich sehe eine<span class="ka ka-n">n</span> groß`, ans:'en', sz:'s', post:` Hund. <em style="color:#aaa;font-size:.8em">(Akk. M — einen trägt -n)</em>` },
+    { id:'l2_8',  pre:`<span class="num">8.</span> Ich kaufe eine<span class="ka ka-n">n</span> rot`, ans:'en', sz:'s', post:` Mantel. <em style="color:#aaa;font-size:.8em">(Akk. M — einen trägt -n)</em>` },
+    { id:'l2_9',  pre:`<span class="num">9.</span> Er dankt seinem alt`, ans:'en', sz:'s', post:` Lehrer. <em style="color:#aaa;font-size:.8em">(Dat. M — seinem trägt -m)</em>` },
+    { id:'l2_10', pre:`<span class="num">9.</span> Ich helfe meine<span class="ka ka-r">r</span> jung`, ans:'en', sz:'s', post:` Mutter. <em style="color:#aaa;font-size:.8em">(Dat. F)</em>` },
+    { id:'l2_11', pre:`<span class="num">10.</span> Das ist die Idee meine<span class="ka ka-s">s</span> jung`, ans:'en', sz:'s', post:` Freundes. <em style="color:#aaa;font-size:.8em">(Gen. M)</em>` },
+    { id:'l2_12', pre:`<span class="num">11.</span> Mein<span class="ka ka-e">e</span> alt`, ans:'en', sz:'s', post:` Eltern leben in Berlin. <em style="color:#aaa;font-size:.8em">(Nom. Pl — meine trägt -e)</em>` },
+];
+
+const L3 = [
+    { id:'l3_1',  pre:`<span class="num">1.</span> Frisch`,   ans:'e',  sz:'s', post:` Milch ist gesund. <em style="color:#aaa;font-size:.8em">(Nom. F)</em>` },
+    { id:'l3_2',  pre:`<span class="num">2.</span> Kalt`,     ans:'es', sz:'s', post:` Wasser erfrischt. <em style="color:#aaa;font-size:.8em">(Nom. N)</em>` },
+    { id:'l3_3',  pre:`<span class="num">3.</span> Gut`,      ans:'er', sz:'s', post:` Kaffee macht munter. <em style="color:#aaa;font-size:.8em">(Nom. M)</em>` },
+    { id:'l3_4',  pre:`<span class="num">4.</span> Klein`,    ans:'e',  sz:'s', post:` Kinder spielen draußen. <em style="color:#aaa;font-size:.8em">(Nom. Pl)</em>` },
+    { id:'l3_5',  pre:`<span class="num">5.</span> Ich trinke gern kalt`, ans:'es', sz:'s', post:` Wasser. <em style="color:#aaa;font-size:.8em">(Akk. N)</em>` },
+    { id:'l3_6',  pre:`<span class="num">6.</span> Er mag frisch`,        ans:'e',  sz:'s', post:` Luft. <em style="color:#aaa;font-size:.8em">(Akk. F)</em>` },
+    { id:'l3_7',  pre:`<span class="num">7.</span> Wir trinken heiß`,     ans:'en', sz:'s', post:` Tee. <em style="color:#aaa;font-size:.8em">(Akk. M)</em>` },
+    { id:'l3_8',  pre:`<span class="num">8.</span> Mit frisch`,  ans:'em', sz:'s', post:` Brot schmeckt alles besser. <em style="color:#aaa;font-size:.8em">(Dat. N)</em>` },
+    { id:'l3_9',  pre:`<span class="num">9.</span> Mit gut`,    ans:'er', sz:'s', post:` Butter noch mehr. <em style="color:#aaa;font-size:.8em">(Dat. F)</em>` },
+    { id:'l3_10', pre:`<span class="num">10.</span> Wegen schlecht`, ans:'en', sz:'s', post:` Wetters blieben wir drin. <em style="color:#aaa;font-size:.8em">(Gen. N)</em>` },
+    { id:'l3_11', pre:`<span class="num">11.</span> Der Geruch frisch`, ans:'er', sz:'s', post:` Blumen ist wunderschön. <em style="color:#aaa;font-size:.8em">(Gen. Pl)</em>` },
+    { id:'l3_12', pre:`<span class="num">12.</span> Er spricht mit groß`, ans:'em', sz:'s', post:` Respekt von seinen Lehrern. <em style="color:#aaa;font-size:.8em">(Dat. M)</em>` },
+];
+
+const ALLE = { 1: L1, 2: L2, 3: L3 };
+
+function checkInput(inp, ans) {
+    var user = inp.value;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = user.toLowerCase();
+    var cmpAns  = ans.toLowerCase();
+    if (cmpUser === cmpAns) {
+        inp.classList.add('correct');
+    } else if (cmpAns.indexOf(cmpUser) === 0) {
+        /* Gültiges Präfix — noch am Tippen, kein Fehler */
+    } else {
+        inp.classList.add('wrong');
+    }
+}
+
+function buildLuecke(nr) {
+    const data = ALLE[nr];
+    const c = document.getElementById('luecke'+nr+'-container');
+    c.innerHTML = '';
+    data.forEach(ex => {
+        const d = document.createElement('div');
+        d.className = 'exercise';
+        d.innerHTML = `${ex.pre}<input class="blank ${ex.sz}" id="${ex.id}" type="text" autocomplete="off" spellcheck="false" oninput="checkInput(this,'${ex.ans}')">${ex.post} <span class="sol" id="sol-${ex.id}">✓ ${ex.ans}</span>`;
+        c.appendChild(d);
+    });
+}
+function checkLuecke(nr) {
+    let ok=0, total=ALLE[nr].length;
+    ALLE[nr].forEach(ex => {
+        const inp = document.getElementById(ex.id);
+        inp.classList.remove('correct','wrong');
+        if (inp.value.trim().toLowerCase() === ex.ans.toLowerCase()) { inp.classList.add('correct'); ok++; }
+        else inp.classList.add('wrong');
+    });
+    document.getElementById('score-l'+nr).textContent = `${ok} von ${total} richtig`;
+}
+function showLuecke(nr) {
+    ALLE[nr].forEach(ex => {
+        const inp = document.getElementById(ex.id);
+        inp.value = ex.ans; inp.classList.add('correct');
+        document.getElementById('sol-'+ex.id).style.display = 'inline';
+    });
+}
+function resetLuecke(nr) {
+    ALLE[nr].forEach(ex => {
+        const inp = document.getElementById(ex.id);
+        inp.value = ''; inp.classList.remove('correct','wrong');
+        document.getElementById('sol-'+ex.id).style.display = 'none';
+    });
+    document.getElementById('score-l'+nr).textContent = '';
+}
+
+// ── MASTERCLASS ──
+// Lösungen: Anzeige 1
+const MASTER = {
+    m1:'e',   m2:'en',  m3:'en', m4:'en', m5:'e',  m6:'e',
+    m7:'em',  m8:'en',  m9:'er', m10:'er',m11:'en',m12:'en',
+    m13:'e',  m14:'e',
+    // Anzeige 2: Alleinstehend[er] Handwerker / ein[∅] neu[es] Dach / Ein[e] klein[e] Wohnung /
+    // ein[∅] größer[es] Zimmer / mit ein[er] klein[en] Kochgelegenheit / Klein[e] / gelegentlich[e]
+    m15:'er', m16:'',   m17:'es', m18:'e', m19:'e', m20:'',
+    m21:'es', m22:'er', m23:'en', m24:'e', m25:'e',
+    // Anzeige 3: ein[∅] jung[es] Paar / mit gut[en] Manieren / eine schön[e] hell[e] Wohnung /
+    // bevorzugt[er] Lage / Finanziell[e] / eine anspruchsvoll[e] Wohnung / angemessen[er] Größe /
+    // gut ausgestattet[en] Bädern / Ein[∅] groß[er] Balkon / eine groß[e] Dachterrasse
+    m26:'',   m27:'es', m28:'en',m29:'e', m30:'e', m31:'e',
+    m32:'er', m33:'e',  m34:'e', m35:'e', m36:'er',m37:'en',
+    m38:'',   m39:'er', m40:'e', m41:'e'
+};
+
+// ── PRAXIS ──
+const PRAXIS = {
+    // Neuschwanstein
+    p1:'er',  p2:'en',  p3:'en',
+    p4:'e',   p5:'e',   p6:'e',
+    p7:'es',  p8:'',    p9:'es',
+    p10:'er', p11:'en', p12:'en',
+    p13:'e',  p14:'en', p15:'ischen',
+    p16:'es', p17:'',   p18:'es',
+    p19:'er', p20:'en', p21:'en',
+    p22:'e',  p23:'e',  p24:'e',
+    p25:'es', p26:'',   p27:'enes',
+    p28:'er', p29:'en', p30:'en',
+    // Gespräche im Club
+    q1:'em',  q2:'en',  q3:'er',  q4:'en',
+    q5:'em',  q6:'en',  q7:'er',  q8:'en',
+    q9:'en',  q10:'en', q11:'em', q12:'en',
+    q13:'er', q14:'en', q15:'em', q16:'en',
+    q17:'em', q18:'en', q19:'er', q20:'en',
+    // Eisige Kälte
+    r1:'em',  r2:'em',  r3:'em',  r4:'es',
+    r5:'en',  r6:'er',  r7:'e',
+    r8:'dem', r9:'es',  r10:'er',
+    r11:'em', r12:'er', r13:'er', r14:'e'
+};
+function showPraxis() {
+    Object.entries(PRAXIS).forEach(([id, ans]) => {
+        const inp = document.getElementById(id);
+        if (!inp) return;
+        inp.value = ans; inp.classList.remove('wrong'); inp.classList.add('correct');
+        const sol = document.getElementById('sol-'+id);
+        if (sol) sol.style.display = 'inline';
+    });
+}
+function resetPraxis() {
+    Object.keys(PRAXIS).forEach(id => {
+        const inp = document.getElementById(id);
+        if (!inp) return;
+        inp.value = ''; inp.classList.remove('correct','wrong');
+    });
+    document.getElementById('score-praxis').textContent = '';
+}
+
+const MASTER_T = {
+    t1:'en', t2:'esten', t3:'e', t4:'e', t5:'e', t6:'e',
+    t7:'er', t8:'en', t9:'es', t10:'ie', t11:'e',
+    t12:'ie', t13:'en', t14:'ie', t15:'e', t16:'e',
+    t17:'as', t18:'e', t19:'ie', t20:'en', t21:'er',
+    t22:'e', t23:'e', t24:'as', t25:'er', t26:'en',
+    t27:'ie', t28:'en', t29:'ie', t30:'e'
+};
+const MASTER_ALL = {...MASTER, ...MASTER_T};
+
+function initMasterInputs() {
+    Object.entries(MASTER_ALL).forEach(([id, ans]) => {
+        const inp = document.getElementById(id);
+        if (!inp) return;
+        inp.addEventListener('input', () => checkInput(inp, ans));
+    });
+}
+function showMasterAll() {
+    Object.entries(MASTER_ALL).forEach(([id, ans]) => {
+        const inp = document.getElementById(id);
+        if (!inp) return;
+        inp.value = ans; inp.classList.remove('wrong'); inp.classList.add('correct');
+        const sol = document.getElementById('sol-'+id);
+        if (sol) sol.style.display = 'inline';
+    });
+}
+function resetMasterAll() {
+    Object.keys(MASTER_ALL).forEach(id => {
+        const inp = document.getElementById(id);
+        if (!inp) return;
+        inp.value = ''; inp.classList.remove('correct','wrong');
+        const sol = document.getElementById('sol-'+id);
+        if (sol) sol.style.display = 'none';
+    });
+    document.getElementById('score-master').textContent = '';
+}
+
+// ── INIT ──
+buildEnt();
+buildLuecke(1);
+buildLuecke(2);
+buildLuecke(3);
+initMasterInputs();
+// Live-Check für Praxis
+Object.entries(PRAXIS).forEach(([id, ans]) => {
+    const inp = document.getElementById(id);
+    if (inp) inp.addEventListener('input', () => checkInput(inp, ans));
+});
+</script>
+
+<div style="text-align:center; padding:24px 20px 28px; border-top: 1px solid #e8e8e8; margin-top: 10px;">
+  <span style="color:#667eea; font-weight:700; font-size:0.85em; letter-spacing:0.03em;">© Frank Burkert</span>
+  <span style="color:#ccc; margin: 0 8px;">·</span>
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com" style="color:#667eea; font-size:0.85em; text-decoration:none; border-bottom: 1px solid #c5cafe; padding-bottom:1px;">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>

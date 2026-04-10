@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbraucherzentrale - Interaktive Übungen A1/A2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            background: #e9ecef;
+        }
+
+        .tab-button.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .exercise-section {
+            margin-bottom: 30px;
+        }
+
+        .exercise-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        /* Der-Die-Das Training */
+        .article-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .article-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .article-btn {
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .article-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .article-btn.selected {
+            background: #667eea;
+            color: white;
+        }
+
+        .article-btn.correct {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .article-btn.wrong {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .noun-word {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Lückentext */
+        .gap-sentence {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .gap-input {
+            padding: 5px 10px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-size: 16px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .gap-input.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .gap-input.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        /* Drag & Drop */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .category {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 150px;
+        }
+
+        .category-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .items-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .draggable-item {
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            cursor: move;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .draggable-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .draggable-item.correct {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .draggable-item.wrong {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        /* Satzbau */
+        .sentence-builder {
+            margin-bottom: 25px;
+        }
+
+        .word-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .word-tile {
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .word-tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sentence-area {
+            min-height: 60px;
+            padding: 15px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sentence-area.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .sentence-area.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .fixed-dot {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+
+        /* Multiple Choice */
+        .question-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .answer-option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .answer-option.selected {
+            border-color: #667eea;
+            background: #e8eeff;
+        }
+
+        .answer-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .answer-option.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .answer-option input[type="radio"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-check {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-solution {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-solution:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .feedback.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .feedback.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+    </style>
+<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770825192544&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2FFrankBurkert%2540fabdaf.onmicrosoft.com%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAMkADllMTBjZjM2LWQyYTMtNGJjNS1iZjQxLTU5M2VmZjQ0YTZmNgBGAAAAAABua1LSgAnKRIpv8vXZbc5PBwCGQnZZSHdASo4xVH7XGaZMAAAAAAEJAACGQnZZSHdASo4xVH7XGaZMAAMkwFjIAAABEgAQANAjXDbuz2tGvmXaLUydNHY%253D%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260130003.06%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770825192544&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Verbraucherzentrale</h1>
+            <p>Interaktive Übungen A1/A2</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">Der-Die-Das</button>
+            <button class="tab-button" onclick="switchTab(1)">Lückentext</button>
+            <button class="tab-button" onclick="switchTab(2)">Kategorien</button>
+            <button class="tab-button" onclick="switchTab(3)">Satzbau</button>
+            <button class="tab-button" onclick="switchTab(4)">Fragen</button>
+        </div>
+
+        <!-- Tab 1: Der-Die-Das Training -->
+        <div class="tab-content active">
+            <div class="exercise-section">
+                <h3>Wähle den richtigen Artikel</h3>
+                <div id="articles-container"></div>
+                <div id="articles-feedback"></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkArticles()">Überprüfen</button>
+                <button class="btn btn-solution" onclick="showArticlesSolution()">Lösung</button>
+                <button class="btn btn-reset" onclick="resetArticles()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: Lückentext -->
+        <div class="tab-content">
+            <div class="exercise-section">
+                <h3>Ergänze die fehlenden Wörter</h3>
+                <div id="gaps-container"></div>
+                <div id="gaps-feedback"></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkGaps()">Überprüfen</button>
+                <button class="btn btn-solution" onclick="showGapsSolution()">Lösung</button>
+                <button class="btn btn-reset" onclick="resetGaps()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Kategorisierung -->
+        <div class="tab-content">
+            <div class="exercise-section">
+                <h3>Sortiere die Themen in die richtigen Kategorien</h3>
+                <div class="items-pool" id="items-pool"></div>
+                <div class="categories" id="categories-container"></div>
+                <div id="categories-feedback"></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkCategories()">Überprüfen</button>
+                <button class="btn btn-solution" onclick="showCategoriesSolution()">Lösung</button>
+                <button class="btn btn-reset" onclick="resetCategories()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: Satzbau -->
+        <div class="tab-content">
+            <div class="exercise-section">
+                <h3>Baue korrekte Sätze</h3>
+                <div id="sentences-container"></div>
+                <div id="sentences-feedback"></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkSentences()">Überprüfen</button>
+                <button class="btn btn-solution" onclick="showSentencesSolution()">Lösung</button>
+                <button class="btn btn-reset" onclick="resetSentences()">Neu starten</button>
+            </div>
+        </div>
+
+        <!-- Tab 5: Multiple Choice -->
+        <div class="tab-content">
+            <div class="exercise-section">
+                <h3>Beantworte die Fragen zum Text</h3>
+                <div id="questions-container"></div>
+                <div id="questions-feedback"></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkQuestions()">Überprüfen</button>
+                <button class="btn btn-solution" onclick="showQuestionsSolution()">Lösung</button>
+                <button class="btn btn-reset" onclick="resetQuestions()">Neu starten</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(index) {
+            const buttons = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            buttons.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            
+            contents.forEach((content, i) => {
+                content.classList.toggle('active', i === index);
+            });
+        }
+
+        // ===================
+        // TAB 1: DER-DIE-DAS
+        // ===================
+        const articlesData = [
+            { word: 'Verbraucherzentrale', article: 'die' },
+            { word: 'Vertrag', article: 'der' },
+            { word: 'Problem', article: 'das' },
+            { word: 'Beratung', article: 'die' },
+            { word: 'Geschenkgutschein', article: 'der' },
+            { word: 'Tool', article: 'das' },
+            { word: 'Versicherung', article: 'die' },
+            { word: 'Kredit', article: 'der' },
+            { word: 'Konto', article: 'das' },
+            { word: 'Energie', article: 'die' },
+            { word: 'Angestellte', article: 'die' },
+            { word: 'Skandal', article: 'der' },
+            { word: 'Telefon', article: 'das' },
+            { word: 'Institution', article: 'die' },
+            { word: 'Konsument', article: 'der' },
+            { word: 'Essen', article: 'das' },
+            { word: 'Bank', article: 'die' },
+            { word: 'Resultat', article: 'das' }
+        ];
+
+        function initArticles() {
+            const container = document.getElementById('articles-container');
+            container.innerHTML = '';
+            
+            articlesData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'article-item';
+                div.innerHTML = `
+                    <div class="article-buttons">
+                        <button class="article-btn" data-index="${index}" data-article="der">der</button>
+                        <button class="article-btn" data-index="${index}" data-article="die">die</button>
+                        <button class="article-btn" data-index="${index}" data-article="das">das</button>
+                    </div>
+                    <div class="noun-word">${item.word}</div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.querySelectorAll('.article-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.dataset.index;
+                    document.querySelectorAll(`[data-index="${index}"]`).forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        function checkArticles() {
+            let correct = 0;
+            articlesData.forEach((item, index) => {
+                const buttons = document.querySelectorAll(`[data-index="${index}"]`);
+                const selectedBtn = Array.from(buttons).find(btn => btn.classList.contains('selected'));
+                
+                buttons.forEach(btn => {
+                    btn.classList.remove('correct', 'wrong');
+                    if (btn.dataset.article === item.article) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                if (selectedBtn && selectedBtn.dataset.article === item.article) {
+                    correct++;
+                } else if (selectedBtn) {
+                    selectedBtn.classList.add('wrong');
+                }
+            });
+
+            showFeedback('articles-feedback', correct, articlesData.length);
+        }
+
+        function showArticlesSolution() {
+            articlesData.forEach((item, index) => {
+                const buttons = document.querySelectorAll(`[data-index="${index}"]`);
+                buttons.forEach(btn => {
+                    btn.classList.remove('selected', 'correct', 'wrong');
+                    if (btn.dataset.article === item.article) {
+                        btn.classList.add('selected', 'correct');
+                    }
+                });
+            });
+        }
+
+        function resetArticles() {
+            document.querySelectorAll('.article-btn').forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'wrong');
+            });
+            document.getElementById('articles-feedback').innerHTML = '';
+        }
+
+        // ===================
+        // TAB 2: LÜCKENTEXT
+        // ===================
+        const gapsData = [
+            { text: 'Die Verbraucherzentrale kann Menschen {beraten} und unterstützen.', answer: 'beraten' },
+            { text: 'Manche Beratungen sind kostenlos, andere {kosten} etwas.', answer: 'kosten' },
+            { text: 'Volkswagen musste mehr als 240.000 Menschen {Geld} geben.', answer: 'Geld' },
+            { text: 'Die Verbraucherzentrale {schützt} vor kriminellen Personen.', answer: 'schützt' },
+            { text: 'Hüseyin kann die Preise nicht mehr {bezahlen}.', answer: 'bezahlen' },
+            { text: 'Maria will den {Vertrag} nicht mehr haben.', answer: 'Vertrag' },
+            { text: 'Das sind {Vereine}, die Menschen helfen.', answer: 'Vereine' },
+            { text: 'Angestellte können Fragen zu Finanzen {beantworten}.', answer: 'beantworten' },
+            { text: 'Viele Menschen {nutzen} das Angebot der Verbraucherzentrale.', answer: 'nutzen' },
+            { text: 'Die Institution {publiziert} fast jeden Tag Artikel.', answer: 'publiziert' },
+            { text: 'Die Verbraucherzentrale {klagt} gegen große Firmen.', answer: 'klagt' },
+            { text: 'Menschen können dort {Hilfe} bekommen.', answer: 'Hilfe' }
+        ];
+
+        function initGaps() {
+            const container = document.getElementById('gaps-container');
+            container.innerHTML = '';
+            
+            gapsData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'gap-sentence';
+                const parts = item.text.split(/\{.*?\}/);
+                div.innerHTML = `${parts[0]}<input type="text" class="gap-input" data-index="${index}" />${parts[1]}`;
+                container.appendChild(div);
+            });
+        }
+
+        function checkGaps() {
+            let correct = 0;
+            gapsData.forEach((item, index) => {
+                const input = document.querySelector(`.gap-input[data-index="${index}"]`);
+                const userAnswer = input.value.trim();
+                const correctAnswer = item.answer.toLowerCase();
+                
+                input.classList.remove('correct', 'wrong');
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    correct++;
+                } else {
+                    input.classList.add('wrong');
+                }
+            });
+
+            showFeedback('gaps-feedback', correct, gapsData.length);
+        }
+
+        function showGapsSolution() {
+            gapsData.forEach((item, index) => {
+                const input = document.querySelector(`.gap-input[data-index="${index}"]`);
+                input.value = item.answer;
+                input.classList.remove('wrong');
+                input.classList.add('correct');
+            });
+        }
+
+        function resetGaps() {
+            document.querySelectorAll('.gap-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'wrong');
+            });
+            document.getElementById('gaps-feedback').innerHTML = '';
+        }
+
+        // ===================
+        // TAB 3: KATEGORIEN
+        // ===================
+        const categoriesData = {
+            categories: ['Hilfe bei der Verbraucherzentrale', 'NICHT bei der Verbraucherzentrale'],
+            items: [
+                { text: 'Finanzen', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Versicherungen', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Auto reparieren', category: 'NICHT bei der Verbraucherzentrale' },
+                { text: 'Gesundheit', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Kochen lernen', category: 'NICHT bei der Verbraucherzentrale' },
+                { text: 'Telekommunikation', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Energie', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Ernährung', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Reisen', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Haare schneiden', category: 'NICHT bei der Verbraucherzentrale' },
+                { text: 'Kredite', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Bankkonten', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Kinder betreuen', category: 'NICHT bei der Verbraucherzentrale' },
+                { text: 'Online-Shopping', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Kaufverträge', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Tanzen lernen', category: 'NICHT bei der Verbraucherzentrale' },
+                { text: 'Fakeshops erkennen', category: 'Hilfe bei der Verbraucherzentrale' },
+                { text: 'Sport trainieren', category: 'NICHT bei der Verbraucherzentrale' }
+            ]
+        };
+
+        function initCategories() {
+            const pool = document.getElementById('items-pool');
+            const container = document.getElementById('categories-container');
+            
+            pool.innerHTML = '';
+            container.innerHTML = '';
+
+            categoriesData.items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'draggable-item';
+                div.draggable = true;
+                div.dataset.index = index;
+                div.textContent = item.text;
+                pool.appendChild(div);
+            });
+
+            categoriesData.categories.forEach((cat, index) => {
+                const div = document.createElement('div');
+                div.className = 'category';
+                div.dataset.category = index;
+                div.innerHTML = `<div class="category-title">${cat}</div>`;
+                container.appendChild(div);
+            });
+
+            setupDragAndDrop();
+        }
+
+        function setupDragAndDrop() {
+            let draggedItem = null;
+
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    draggedItem = this;
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+            });
+
+            const dropZones = [...document.querySelectorAll('.category'), document.getElementById('items-pool')];
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                });
+
+                zone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    if (draggedItem) {
+                        this.appendChild(draggedItem);
+                        draggedItem = null;
+                    }
+                });
+            });
+        }
+
+        function checkCategories() {
+            let correct = 0;
+            categoriesData.items.forEach((item, index) => {
+                const element = document.querySelector(`.draggable-item[data-index="${index}"]`);
+                const parent = element.parentElement;
+                
+                element.classList.remove('correct', 'wrong');
+                
+                if (parent.classList.contains('category')) {
+                    const categoryIndex = parent.dataset.category;
+                    const categoryName = categoriesData.categories[categoryIndex];
+                    
+                    if (categoryName === item.category) {
+                        element.classList.add('correct');
+                        correct++;
+                    } else {
+                        element.classList.add('wrong');
+                    }
+                }
+            });
+
+            showFeedback('categories-feedback', correct, categoriesData.items.length);
+        }
+
+        function showCategoriesSolution() {
+            categoriesData.items.forEach((item, index) => {
+                const element = document.querySelector(`.draggable-item[data-index="${index}"]`);
+                const targetCategoryIndex = categoriesData.categories.indexOf(item.category);
+                const targetCategory = document.querySelector(`.category[data-category="${targetCategoryIndex}"]`);
+                
+                element.classList.remove('wrong');
+                element.classList.add('correct');
+                targetCategory.appendChild(element);
+            });
+        }
+
+        function resetCategories() {
+            const pool = document.getElementById('items-pool');
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                item.classList.remove('correct', 'wrong');
+                pool.appendChild(item);
+            });
+            document.getElementById('categories-feedback').innerHTML = '';
+        }
+
+        // ===================
+        // TAB 4: SATZBAU
+        // ===================
+        const sentencesData = [
+            { 
+                parts: ['die Verbraucherzentrale', 'gibt', 'Hilfe'],
+                valid: [['die Verbraucherzentrale', 'gibt', 'Hilfe']]
+            },
+            { 
+                parts: ['Maria', 'hat', 'ein Problem', 'mit dem Vertrag'],
+                valid: [['Maria', 'hat', 'ein Problem', 'mit dem Vertrag']]
+            },
+            { 
+                parts: ['Volkswagen', 'musste', '240.000 Menschen', 'Geld', 'geben'],
+                valid: [['Volkswagen', 'musste', '240.000 Menschen', 'Geld', 'geben']]
+            },
+            {
+                parts: ['Hüseyin', 'kann', 'die Preise', 'nicht mehr', 'bezahlen'],
+                valid: [['Hüseyin', 'kann', 'die Preise', 'nicht mehr', 'bezahlen']]
+            },
+            {
+                parts: ['die Angestellten', 'beantworten', 'Fragen', 'zu Finanzen'],
+                valid: [['die Angestellten', 'beantworten', 'Fragen', 'zu Finanzen']]
+            },
+            {
+                parts: ['die Institution', 'publiziert', 'jeden Tag', 'Artikel'],
+                valid: [
+                    ['die Institution', 'publiziert', 'jeden Tag', 'Artikel'],
+                    ['jeden Tag', 'publiziert', 'die Institution', 'Artikel']
+                ]
+            },
+            {
+                parts: ['die Verbraucherzentrale', 'klagt', 'gegen große Firmen'],
+                valid: [['die Verbraucherzentrale', 'klagt', 'gegen große Firmen']]
+            },
+            {
+                parts: ['Menschen', 'können', 'in 200 Hilfezentren', 'Hilfe', 'bekommen'],
+                valid: [
+                    ['Menschen', 'können', 'in 200 Hilfezentren', 'Hilfe', 'bekommen'],
+                    ['in 200 Hilfezentren', 'können', 'Menschen', 'Hilfe', 'bekommen']
+                ]
+            },
+            {
+                parts: ['das Tool', 'erkennt', 'falsche Online-Shops'],
+                valid: [['das Tool', 'erkennt', 'falsche Online-Shops']]
+            }
+        ];
+
+        function initSentences() {
+            const container = document.getElementById('sentences-container');
+            container.innerHTML = '';
+            
+            sentencesData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'sentence-builder';
+                
+                const shuffled = [...item.parts].sort(() => Math.random() - 0.5);
+                
+                const poolHTML = shuffled.map(part => 
+                    `<div class="word-tile" draggable="true" data-sentence="${index}" data-orig="${part}">${part}</div>`
+                ).join('');
+                
+                div.innerHTML = `
+                    <div class="word-pool" data-sentence="${index}">${poolHTML}</div>
+                    <div class="sentence-area" data-sentence="${index}"><span class="fixed-dot">.</span></div>
+                `;
+                container.appendChild(div);
+            });
+
+            setupSentenceDragAndDrop();
+        }
+
+        function setupSentenceDragAndDrop() {
+            let draggedChip = null;
+
+            document.querySelectorAll('.word-tile').forEach(chip => {
+                chip.addEventListener('dragstart', function(e) {
+                    draggedChip = this;
+                    e.dataTransfer.effectAllowed = 'move';
+                    this.style.opacity = '0.4';
+                });
+
+                chip.addEventListener('dragend', function(e) {
+                    this.style.opacity = '1';
+                });
+            });
+
+            document.querySelectorAll('.sentence-area, .word-pool').forEach(zone => {
+                zone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                });
+
+                zone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    if (!draggedChip) return;
+
+                    const sentenceId = this.dataset.sentence;
+                    if (draggedChip.dataset.sentence !== sentenceId) return;
+
+                    if (this.classList.contains('word-pool')) {
+                        this.appendChild(draggedChip);
+                    } else if (this.classList.contains('sentence-area')) {
+                        const dot = this.querySelector('.fixed-dot');
+                        const chips = Array.from(this.querySelectorAll('.word-tile'));
+                        let inserted = false;
+
+                        for (const chip of chips) {
+                            const rect = chip.getBoundingClientRect();
+                            if (e.clientX < rect.left + rect.width / 2) {
+                                this.insertBefore(draggedChip, chip);
+                                inserted = true;
+                                break;
+                            }
+                        }
+
+                        if (!inserted) {
+                            this.insertBefore(draggedChip, dot);
+                        }
+                    }
+
+                    updateCaps(sentenceId);
+                    draggedChip = null;
+                });
+            });
+        }
+
+        function updateCaps(sentenceId) {
+            const row = document.querySelector(`.sentence-area[data-sentence="${sentenceId}"]`);
+            const bank = document.querySelector(`.word-pool[data-sentence="${sentenceId}"]`);
+            
+            [...row.querySelectorAll('.word-tile'), ...bank.querySelectorAll('.word-tile')].forEach(chip => {
+                if (chip.dataset.orig) {
+                    chip.textContent = chip.dataset.orig;
+                }
+            });
+
+            const first = row.querySelector('.word-tile');
+            if (first && first.textContent !== '.') {
+                first.textContent = first.textContent.charAt(0).toUpperCase() + first.textContent.slice(1);
+            }
+        }
+
+        function checkSentences() {
+            let correct = 0;
+            let total = 0;
+            
+            sentencesData.forEach((item, index) => {
+                total++;
+                const area = document.querySelector(`.sentence-area[data-sentence="${index}"]`);
+                const chips = area.querySelectorAll('.word-tile');
+                const userOrder = Array.from(chips).map(c => c.dataset.orig);
+                
+                area.classList.remove('correct', 'wrong');
+                
+                const isCorrect = item.valid.some(validOrder => 
+                    JSON.stringify(validOrder) === JSON.stringify(userOrder)
+                );
+
+                if (isCorrect) {
+                    area.classList.add('correct');
+                    correct++;
+                } else {
+                    area.classList.add('wrong');
+                }
+            });
+
+            showFeedback('sentences-feedback', correct, total);
+        }
+
+        function showSentencesSolution() {
+            sentencesData.forEach((item, index) => {
+                const area = document.querySelector(`.sentence-area[data-sentence="${index}"]`);
+                const pool = document.querySelector(`.word-pool[data-sentence="${index}"]`);
+                const dot = area.querySelector('.fixed-dot');
+                
+                pool.innerHTML = '';
+                area.innerHTML = '<span class="fixed-dot">.</span>';
+                area.classList.remove('wrong');
+                area.classList.add('correct');
+                
+                item.valid[0].forEach(part => {
+                    const chip = document.createElement('div');
+                    chip.className = 'word-tile';
+                    chip.draggable = true;
+                    chip.dataset.sentence = index;
+                    chip.dataset.orig = part;
+                    chip.textContent = part;
+                    area.insertBefore(chip, dot);
+                });
+
+                updateCaps(index);
+                setupSentenceDragAndDrop();
+            });
+        }
+
+        function resetSentences() {
+            initSentences();
+            document.getElementById('sentences-feedback').innerHTML = '';
+        }
+
+        // ===================
+        // TAB 5: FRAGEN
+        // ===================
+        const questionsData = [
+            {
+                question: 'Was macht die Verbraucherzentrale?',
+                options: ['Sie verkauft Produkte', 'Sie berät und hilft Menschen', 'Sie repariert Handys'],
+                correct: 1
+            },
+            {
+                question: 'Wie viele Bundesländer haben eine Verbraucherzentrale?',
+                options: ['Nur Berlin', 'Nur Bayern', 'Alle Bundesländer'],
+                correct: 2
+            },
+            {
+                question: 'Was ist der Fakeshop-Finder?',
+                options: ['Ein Tool gegen falsche Online-Shops', 'Eine Shopping-App', 'Ein Kreditrechner'],
+                correct: 0
+            },
+            {
+                question: 'Was war Hüseyins Problem?',
+                options: ['Er hat sein Handy verloren', 'Die Preise sind zu teuer', 'Er sucht Arbeit'],
+                correct: 1
+            },
+            {
+                question: 'Was hat Maria unterschrieben?',
+                options: ['Einen Mietvertrag', 'Einen Handyvertrag', 'Einen Kaufvertrag'],
+                correct: 1
+            },
+            {
+                question: 'Welche Beratungen sind immer kostenlos?',
+                options: ['Alle Beratungen', 'Manche Beratungen', 'Keine Beratungen'],
+                correct: 1
+            },
+            {
+                question: 'Wie viele Menschen bekamen Geld von Volkswagen?',
+                options: ['24.000', '240.000', '2.400.000'],
+                correct: 1
+            },
+            {
+                question: 'In wie vielen Hilfezentren kann man Beratung bekommen?',
+                options: ['Circa 200', 'Circa 100', 'Circa 50'],
+                correct: 0
+            },
+            {
+                question: 'Welche Institution gibt es in Österreich?',
+                options: ['Stiftung für Konsumentenschutz', 'Verein für Konsumenteninformation', 'Verbraucherzentrale'],
+                correct: 1
+            }
+        ];
+
+        function initQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            questionsData.forEach((item, qIndex) => {
+                const div = document.createElement('div');
+                div.className = 'question-block';
+                
+                const optionsHTML = item.options.map((option, oIndex) => `
+                    <label class="answer-option" data-question="${qIndex}" data-option="${oIndex}">
+                        <input type="radio" name="question${qIndex}" value="${oIndex}">
+                        <span>${option}</span>
+                    </label>
+                `).join('');
+                
+                div.innerHTML = `
+                    <div class="question-text">${qIndex + 1}. ${item.question}</div>
+                    ${optionsHTML}
+                `;
+                container.appendChild(div);
+            });
+
+            document.querySelectorAll('.answer-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const qIndex = this.dataset.question;
+                    document.querySelectorAll(`.answer-option[data-question="${qIndex}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    this.querySelector('input').checked = true;
+                });
+            });
+        }
+
+        function checkQuestions() {
+            let correct = 0;
+            questionsData.forEach((item, index) => {
+                const options = document.querySelectorAll(`.answer-option[data-question="${index}"]`);
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'wrong');
+                    const optIndex = parseInt(opt.dataset.option);
+                    if (optIndex === item.correct) {
+                        opt.classList.add('correct');
+                    }
+                });
+
+                if (selected && parseInt(selected.value) === item.correct) {
+                    correct++;
+                } else if (selected) {
+                    const wrongOpt = document.querySelector(`.answer-option[data-question="${index}"][data-option="${selected.value}"]`);
+                    wrongOpt.classList.add('wrong');
+                }
+            });
+
+            showFeedback('questions-feedback', correct, questionsData.length);
+        }
+
+        function showQuestionsSolution() {
+            questionsData.forEach((item, index) => {
+                const options = document.querySelectorAll(`.answer-option[data-question="${index}"]`);
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'wrong');
+                    const optIndex = parseInt(opt.dataset.option);
+                    if (optIndex === item.correct) {
+                        opt.classList.add('selected', 'correct');
+                        opt.querySelector('input').checked = true;
+                    }
+                });
+            });
+        }
+
+        function resetQuestions() {
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'wrong');
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            document.getElementById('questions-feedback').innerHTML = '';
+        }
+
+        // ===================
+        // FEEDBACK HELPER
+        // ===================
+        function showFeedback(elementId, correct, total) {
+            const feedback = document.getElementById(elementId);
+            const percentage = Math.round((correct / total) * 100);
+            
+            if (percentage === 100) {
+                feedback.innerHTML = `<div class="feedback success">✓ Perfekt! Alle ${total} Antworten sind richtig! (${percentage}%)</div>`;
+            } else if (percentage >= 70) {
+                feedback.innerHTML = `<div class="feedback success">Gut! ${correct} von ${total} richtig (${percentage}%)</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback error">${correct} von ${total} richtig (${percentage}%). Versuche es nochmal!</div>`;
+            }
+        }
+
+        // ===================
+        // INITIALIZATION
+        // ===================
+        window.addEventListener('DOMContentLoaded', function() {
+            initArticles();
+            initGaps();
+            initCategories();
+            initSentences();
+            initQuestions();
+        });
+    </script>
+</body>
+</html>
