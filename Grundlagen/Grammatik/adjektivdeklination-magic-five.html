@@ -81,11 +81,12 @@ h1 { text-align: center; font-size: 1.5rem;
     letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
 }
 .m5-row {
-    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+    align-items: flex-start;
 }
 .m5-card {
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    min-width: 72px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    min-width: 200px; max-width: 240px; flex: 1 1 200px;
 }
 .m5-pill {
     font-size: 2rem; font-weight: 900; border-radius: 10px;
@@ -98,7 +99,32 @@ h1 { text-align: center; font-size: 1.5rem;
 .m5-pill.s { background: #e67e22; }
 .m5-pill.m { background: #27ae60; }
 .m5-pill.n { background: #8e44ad; }
-.m5-kasus { color: #ccc; font-size: 0.7rem; text-align: center; line-height: 1.5; }
+.m5-trinities {
+    display: flex; flex-direction: column; gap: 7px;
+    width: 100%;
+}
+.m5-trinity {
+    display: flex; flex-direction: column; gap: 3px;
+    padding: 6px 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    border-left: 2px solid rgba(255,255,255,0.15);
+}
+.m5-tri-code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-weight: 700; font-size: 0.72rem;
+    color: #fff; letter-spacing: 1.5px;
+    align-self: flex-start;
+}
+.m5-tri-ex {
+    font-size: 0.75rem; color: #d4d4dc;
+    font-style: italic; line-height: 1.45;
+}
+.m5-tri-ex .sig-r { color: #ff7b6b; font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-e { color: #5fc7f7; font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-s { color: #ffae62; font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-m { color: #58c370; font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
 
 /* Pfanne SVG + Text */
 .pfanne-section {
@@ -339,26 +365,106 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   <div class="m5-panel">
     <div class="m5-panel-title">✦ Die Magic Five</div>
     <div class="m5-row">
+
+      <!-- -r -->
       <div class="m5-card">
         <div class="m5-pill r">-r</div>
-        <div class="m5-kasus">Nom. M<br>Dat. F<br>Gen. F · Gen. Pl</div>
+        <div class="m5-trinities">
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · S · N</span>
+            <span class="m5-tri-ex">De<span class="sig-r">r</span> alte Mann schläft.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · S · D</span>
+            <span class="m5-tri-ex">Er hilft de<span class="sig-r">r</span> jungen Frau.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · S · G</span>
+            <span class="m5-tri-ex">Die Farbe de<span class="sig-r">r</span> roten Rose.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">– · P · G</span>
+            <span class="m5-tri-ex">Die Namen de<span class="sig-r">r</span> alten Städte.</span>
+          </div>
+        </div>
       </div>
+
+      <!-- -e -->
       <div class="m5-card">
         <div class="m5-pill e">-e</div>
-        <div class="m5-kasus">Nom. F<br>Nom. N<br>Akk. F · Akk. N</div>
+        <div class="m5-trinities">
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · S · N</span>
+            <span class="m5-tri-ex">Di<span class="sig-e">e</span> junge Frau kommt.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · S · A</span>
+            <span class="m5-tri-ex">Ich kaufe di<span class="sig-e">e</span> rote Jacke.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">– · P · N</span>
+            <span class="m5-tri-ex">Di<span class="sig-e">e</span> kleinen Kinder spielen.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">– · P · A</span>
+            <span class="m5-tri-ex">Ich liebe di<span class="sig-e">e</span> langen Abende.</span>
+          </div>
+        </div>
       </div>
+
+      <!-- -s -->
       <div class="m5-card">
         <div class="m5-pill s">-s</div>
-        <div class="m5-kasus">Nom. N · Akk. N<br>Gen. M · Gen. N</div>
+        <div class="m5-trinities">
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · S · N</span>
+            <span class="m5-tri-ex">Da<span class="sig-s">s</span> kleine Kind schläft.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · S · A</span>
+            <span class="m5-tri-ex">Ich sehe da<span class="sig-s">s</span> alte Haus.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · S · G</span>
+            <span class="m5-tri-ex">Die Farbe de<span class="sig-s">s</span> blauen Himmels.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · S · G</span>
+            <span class="m5-tri-ex">Die Tür de<span class="sig-s">s</span> alten Hauses.</span>
+          </div>
+        </div>
       </div>
+
+      <!-- -m -->
       <div class="m5-card">
         <div class="m5-pill m">-m</div>
-        <div class="m5-kasus">Dat. M<br>Dat. N</div>
+        <div class="m5-trinities">
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · S · D</span>
+            <span class="m5-tri-ex">Er dankt de<span class="sig-m">m</span> alten Lehrer.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · S · D</span>
+            <span class="m5-tri-ex">In de<span class="sig-m">m</span> kleinen Haus wohnt er.</span>
+          </div>
+        </div>
       </div>
+
+      <!-- -n -->
       <div class="m5-card">
         <div class="m5-pill n">-n</div>
-        <div class="m5-kasus">Akk. M<br>Dat. F<br>Gen. M · Gen. N<br>Dat. Pl · Gen. Pl</div>
+        <div class="m5-trinities">
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · S · A</span>
+            <span class="m5-tri-ex">Ich sehe de<span class="sig-n">n</span> alten Mann.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">– · P · D</span>
+            <span class="m5-tri-ex">Er hilft de<span class="sig-n">n</span> alten Leuten.</span>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
