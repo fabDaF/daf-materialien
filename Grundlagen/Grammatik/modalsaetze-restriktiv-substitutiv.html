@@ -242,8 +242,6 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
   padding:5px 12px; border-radius:14px; cursor:pointer;
   font-weight:500; font-size:0.9em; transition:all 0.2s; user-select:none;
 }
-.wortbank-chip:hover { background:#667eea; color:white; }
-.wortbank-chip.used { opacity:0.35; text-decoration:line-through; cursor:default; pointer-events:none; }
 
 /* ── WORTBANK ── */
 .wortbank-label { font-weight:700; color:#667eea; font-size:0.85em; margin-bottom:8px; }
@@ -257,8 +255,6 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
   padding:5px 12px; border-radius:14px; cursor:pointer;
   font-weight:500; font-size:0.9em; transition:all 0.2s; user-select:none;
 }
-.wortbank-chip:hover { background:#667eea; color:white; }
-.wortbank-chip.used { opacity:0.35; text-decoration:line-through; cursor:default; pointer-events:none; }
 
 </style>
 </head>
@@ -679,7 +675,7 @@ function lueckeInit() {
 }
 
 function liveCheck(inp) {
-  var val = inp.value.trim().toLowerCase();
+  var val = inp.value.trim();
   var ans = (inp.dataset.answer || '').toLowerCase();
   inp.classList.remove('correct', 'wrong');
   if (val.length === 0) return;
@@ -1102,17 +1098,7 @@ function initWortbank() {
   for(var i=words.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=words[i];words[i]=words[j];words[j]=t;}
   words.forEach(function(w){
     var chip = document.createElement('span');
-    chip.className = 'wortbank-chip'; chip.textContent = w;
-    chip.addEventListener('click', function(){
-      if(chip.classList.contains('used')) return;
-      var focused = document.querySelector('#lueckenContainer input.blank:focus');
-      if(!focused) {
-        var empties = Array.from(document.querySelectorAll('#lueckenContainer input.blank')).filter(function(i){return !i.value;});
-        if(empties.length) focused = empties[0];
-      }
-      if(focused) { focused.value=w; focused.dispatchEvent(new Event('input')); focused.focus(); }
-    });
-    bank.appendChild(chip);
+    chip.className = 'wortbank-chip'; chip.textContent = w;    bank.appendChild(chip);
   });
 }
 function updateWortbankChips() {
