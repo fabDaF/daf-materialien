@@ -126,70 +126,25 @@ h1 { text-align: center; font-size: 1.5rem;
 .m5-tri-ex .sig-m { color: #58c370; font-weight: 800; font-style: normal; }
 .m5-tri-ex .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
 
-/* ── PLURAL-BLOCK: Genus verschwindet ── */
-.m5-plural-section {
-    background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
-    border-radius: 14px;
-    padding: 20px 16px 18px;
-    margin-bottom: 22px;
-    border-top: 1px solid rgba(255,255,255,0.10);
-}
-.m5-plural-title {
-    text-align: center; color: #aaa; font-size: 0.8rem;
-    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;
-}
-.m5-plural-claim {
-    text-align: center; color: #c5b8f8; font-size: 0.82rem;
-    line-height: 1.55; margin-bottom: 16px;
-}
-.m5-plural-claim strong { color: #f39c12; font-weight: 800; }
-.m5-plural-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-}
-@media(max-width:560px){ .m5-plural-grid { grid-template-columns: 1fr; } }
-.m5-pl-kasus {
-    background: rgba(255,255,255,0.04);
-    border-radius: 8px;
-    padding: 11px 13px 12px;
-    border-left: 3px solid rgba(255,255,255,0.15);
-}
-.m5-pl-kasus.pl-e { border-left-color: #5fc7f7; }
-.m5-pl-kasus.pl-n { border-left-color: #c08ee0; }
-.m5-pl-kasus.pl-r { border-left-color: #ff7b6b; }
-.m5-pl-head {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
-    padding-bottom: 7px; border-bottom: 1px dashed rgba(255,255,255,0.12);
-}
-.m5-pl-code {
-    font-family: 'SF Mono', Consolas, monospace;
-    font-weight: 700; font-size: 0.72rem;
-    color: #fff; letter-spacing: 1.5px;
-}
-.m5-pl-arrow { color: #777; font-size: 0.85rem; }
-.m5-pl-pill {
-    font-weight: 900; font-size: 0.85rem; border-radius: 5px;
-    padding: 1px 9px; color: #fff;
-}
-.m5-pl-pill.e { background: #2980b9; }
-.m5-pl-pill.n { background: #8e44ad; }
-.m5-pl-pill.r { background: #c0392b; }
-.m5-pl-items { display: flex; flex-direction: column; gap: 5px; }
-.m5-pl-item {
-    display: grid; grid-template-columns: 22px 1fr; gap: 7px;
+/* ── Plural-Trinity: drei Genus-Varianten in einer Trinity, alle gleiche Endung ── */
+.m5-trinity.tri-plural { gap: 5px; }
+.m5-trinity.tri-plural .m5-tri-code { color: #f39c12; }
+.m5-pl-sub {
+    display: grid; grid-template-columns: 14px 1fr; gap: 6px;
     align-items: baseline;
-    font-size: 0.74rem; color: #d4d4dc;
-    line-height: 1.45;
 }
-.m5-pl-tag {
+.m5-pl-sub-tag {
     font-family: 'SF Mono', Consolas, monospace;
-    font-weight: 700; font-size: 0.62rem;
-    color: #888; letter-spacing: 0.5px;
-    text-align: center;
+    font-weight: 700; font-size: 0.6rem;
+    color: #777; text-align: center; letter-spacing: 0.5px;
 }
-.m5-pl-sat { font-style: italic; }
-.m5-pl-sat .sig-r { color: #ff7b6b; font-weight: 800; font-style: normal; }
-.m5-pl-sat .sig-e { color: #5fc7f7; font-weight: 800; font-style: normal; }
-.m5-pl-sat .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
+.m5-pl-sub-ex {
+    font-size: 0.74rem; color: #d4d4dc;
+    font-style: italic; line-height: 1.4;
+}
+.m5-pl-sub-ex .sig-r { color: #ff7b6b; font-weight: 800; font-style: normal; }
+.m5-pl-sub-ex .sig-e { color: #5fc7f7; font-weight: 800; font-style: normal; }
+.m5-pl-sub-ex .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
 
 /* Pfanne SVG + Text */
 .pfanne-section {
@@ -447,6 +402,12 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             <span class="m5-tri-code">f · S · G</span>
             <span class="m5-tri-ex">Die Farbe de<span class="sig-r">r</span> roten Rose.</span>
           </div>
+          <div class="m5-trinity tri-plural">
+            <span class="m5-tri-code">P · G &nbsp;·&nbsp; m / f / n</span>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">die Hüte de<span class="sig-r">r</span> alten Männer</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">die Namen de<span class="sig-r">r</span> alten Städte</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">die Türen de<span class="sig-r">r</span> alten Häuser</span></div>
+          </div>
         </div>
       </div>
 
@@ -461,6 +422,18 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
           <div class="m5-trinity">
             <span class="m5-tri-code">f · S · A</span>
             <span class="m5-tri-ex">Ich kaufe di<span class="sig-e">e</span> rote Jacke.</span>
+          </div>
+          <div class="m5-trinity tri-plural">
+            <span class="m5-tri-code">P · N &nbsp;·&nbsp; m / f / n</span>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">Di<span class="sig-e">e</span> alten Männer schlafen.</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">Di<span class="sig-e">e</span> jungen Frauen kommen.</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">Di<span class="sig-e">e</span> kleinen Kinder spielen.</span></div>
+          </div>
+          <div class="m5-trinity tri-plural">
+            <span class="m5-tri-code">P · A &nbsp;·&nbsp; m / f / n</span>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">Ich sehe di<span class="sig-e">e</span> alten Männer.</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">Ich kaufe di<span class="sig-e">e</span> roten Jacken.</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">Ich sehe di<span class="sig-e">e</span> alten Häuser.</span></div>
           </div>
         </div>
       </div>
@@ -511,109 +484,11 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             <span class="m5-tri-code">m · S · A</span>
             <span class="m5-tri-ex">Ich sehe de<span class="sig-n">n</span> alten Mann.</span>
           </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Plural-Block: Genus verschwindet -->
-  <div class="m5-plural-section">
-    <div class="m5-plural-title">✦ Plural — das Genus verschwindet</div>
-    <div class="m5-plural-claim">
-      Aus <strong>3 × 2 × 4 = 24</strong> theoretischen Kombinationen werden im Plural nur noch <strong>4 Endungen</strong>:<br>
-      Egal ob der Singular maskulin, feminin oder neutral ist — im Plural sieht die Adjektivendung gleich aus.
-    </div>
-    <div class="m5-plural-grid">
-
-      <!-- P·N → -e -->
-      <div class="m5-pl-kasus pl-e">
-        <div class="m5-pl-head">
-          <span class="m5-pl-code">P · N</span>
-          <span class="m5-pl-arrow">→</span>
-          <span class="m5-pl-pill e">-e</span>
-        </div>
-        <div class="m5-pl-items">
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">m</span>
-            <span class="m5-pl-sat">Di<span class="sig-e">e</span> alten Männer schlafen.</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">f</span>
-            <span class="m5-pl-sat">Di<span class="sig-e">e</span> jungen Frauen kommen.</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">n</span>
-            <span class="m5-pl-sat">Di<span class="sig-e">e</span> kleinen Kinder spielen.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- P·A → -e -->
-      <div class="m5-pl-kasus pl-e">
-        <div class="m5-pl-head">
-          <span class="m5-pl-code">P · A</span>
-          <span class="m5-pl-arrow">→</span>
-          <span class="m5-pl-pill e">-e</span>
-        </div>
-        <div class="m5-pl-items">
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">m</span>
-            <span class="m5-pl-sat">Ich sehe di<span class="sig-e">e</span> alten Männer.</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">f</span>
-            <span class="m5-pl-sat">Ich kaufe di<span class="sig-e">e</span> roten Jacken.</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">n</span>
-            <span class="m5-pl-sat">Ich sehe di<span class="sig-e">e</span> alten Häuser.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- P·D → -n -->
-      <div class="m5-pl-kasus pl-n">
-        <div class="m5-pl-head">
-          <span class="m5-pl-code">P · D</span>
-          <span class="m5-pl-arrow">→</span>
-          <span class="m5-pl-pill n">-n</span>
-        </div>
-        <div class="m5-pl-items">
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">m</span>
-            <span class="m5-pl-sat">Er dankt de<span class="sig-n">n</span> alten Lehrern.</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">f</span>
-            <span class="m5-pl-sat">Er hilft de<span class="sig-n">n</span> jungen Frauen.</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">n</span>
-            <span class="m5-pl-sat">In de<span class="sig-n">n</span> kleinen Häusern wohnen sie.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- P·G → -r -->
-      <div class="m5-pl-kasus pl-r">
-        <div class="m5-pl-head">
-          <span class="m5-pl-code">P · G</span>
-          <span class="m5-pl-arrow">→</span>
-          <span class="m5-pl-pill r">-r</span>
-        </div>
-        <div class="m5-pl-items">
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">m</span>
-            <span class="m5-pl-sat">die Hüte de<span class="sig-r">r</span> alten Männer</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">f</span>
-            <span class="m5-pl-sat">die Namen de<span class="sig-r">r</span> alten Städte</span>
-          </div>
-          <div class="m5-pl-item">
-            <span class="m5-pl-tag">n</span>
-            <span class="m5-pl-sat">die Türen de<span class="sig-r">r</span> alten Häuser</span>
+          <div class="m5-trinity tri-plural">
+            <span class="m5-tri-code">P · D &nbsp;·&nbsp; m / f / n</span>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">Er dankt de<span class="sig-n">n</span> alten Lehrern.</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">Er hilft de<span class="sig-n">n</span> jungen Frauen.</span></div>
+            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">In de<span class="sig-n">n</span> kleinen Häusern wohnen sie.</span></div>
           </div>
         </div>
       </div>
