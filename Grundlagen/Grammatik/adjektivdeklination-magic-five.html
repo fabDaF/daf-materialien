@@ -126,25 +126,6 @@ h1 { text-align: center; font-size: 1.5rem;
 .m5-tri-ex .sig-m { color: #58c370; font-weight: 800; font-style: normal; }
 .m5-tri-ex .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
 
-/* ── Plural-Trinity: drei Genus-Varianten in einer Trinity, alle gleiche Endung ── */
-.m5-trinity.tri-plural { gap: 5px; }
-.m5-trinity.tri-plural .m5-tri-code { color: #f39c12; }
-.m5-pl-sub {
-    display: grid; grid-template-columns: 14px 1fr; gap: 6px;
-    align-items: baseline;
-}
-.m5-pl-sub-tag {
-    font-family: 'SF Mono', Consolas, monospace;
-    font-weight: 700; font-size: 0.6rem;
-    color: #777; text-align: center; letter-spacing: 0.5px;
-}
-.m5-pl-sub-ex {
-    font-size: 0.74rem; color: #d4d4dc;
-    font-style: italic; line-height: 1.4;
-}
-.m5-pl-sub-ex .sig-r { color: #ff7b6b; font-weight: 800; font-style: normal; }
-.m5-pl-sub-ex .sig-e { color: #5fc7f7; font-weight: 800; font-style: normal; }
-.m5-pl-sub-ex .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
 
 /* Pfanne SVG + Text */
 .pfanne-section {
@@ -402,11 +383,17 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             <span class="m5-tri-code">f · S · G</span>
             <span class="m5-tri-ex">Die Farbe de<span class="sig-r">r</span> roten Rose.</span>
           </div>
-          <div class="m5-trinity tri-plural">
-            <span class="m5-tri-code">P · G &nbsp;·&nbsp; m / f / n</span>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">die Namen de<span class="sig-r">r</span> alten Männer</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">die Namen de<span class="sig-r">r</span> jungen Frauen</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">die Namen de<span class="sig-r">r</span> kleinen Kinder</span></div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · P · G</span>
+            <span class="m5-tri-ex">die Namen de<span class="sig-r">r</span> alten Männer.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · P · G</span>
+            <span class="m5-tri-ex">die Namen de<span class="sig-r">r</span> jungen Frauen.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · P · G</span>
+            <span class="m5-tri-ex">die Namen de<span class="sig-r">r</span> kleinen Kinder.</span>
           </div>
         </div>
       </div>
@@ -423,17 +410,29 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             <span class="m5-tri-code">f · S · A</span>
             <span class="m5-tri-ex">Ich kaufe di<span class="sig-e">e</span> rote Jacke.</span>
           </div>
-          <div class="m5-trinity tri-plural">
-            <span class="m5-tri-code">P · N &nbsp;·&nbsp; m / f / n</span>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">Di<span class="sig-e">e</span> alten Männer kommen.</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">Di<span class="sig-e">e</span> jungen Frauen kommen.</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">Di<span class="sig-e">e</span> kleinen Kinder kommen.</span></div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · P · N</span>
+            <span class="m5-tri-ex">Di<span class="sig-e">e</span> alten Männer kommen.</span>
           </div>
-          <div class="m5-trinity tri-plural">
-            <span class="m5-tri-code">P · A &nbsp;·&nbsp; m / f / n</span>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">Ich sehe di<span class="sig-e">e</span> alten Männer.</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">Ich sehe di<span class="sig-e">e</span> jungen Frauen.</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">Ich sehe di<span class="sig-e">e</span> kleinen Kinder.</span></div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · P · N</span>
+            <span class="m5-tri-ex">Di<span class="sig-e">e</span> jungen Frauen kommen.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · P · N</span>
+            <span class="m5-tri-ex">Di<span class="sig-e">e</span> kleinen Kinder kommen.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · P · A</span>
+            <span class="m5-tri-ex">Ich sehe di<span class="sig-e">e</span> alten Männer.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · P · A</span>
+            <span class="m5-tri-ex">Ich sehe di<span class="sig-e">e</span> jungen Frauen.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · P · A</span>
+            <span class="m5-tri-ex">Ich sehe di<span class="sig-e">e</span> kleinen Kinder.</span>
           </div>
         </div>
       </div>
@@ -484,11 +483,17 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             <span class="m5-tri-code">m · S · A</span>
             <span class="m5-tri-ex">Ich sehe de<span class="sig-n">n</span> alten Mann.</span>
           </div>
-          <div class="m5-trinity tri-plural">
-            <span class="m5-tri-code">P · D &nbsp;·&nbsp; m / f / n</span>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">m</span><span class="m5-pl-sub-ex">Er hilft de<span class="sig-n">n</span> alten Männern.</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">f</span><span class="m5-pl-sub-ex">Er hilft de<span class="sig-n">n</span> jungen Frauen.</span></div>
-            <div class="m5-pl-sub"><span class="m5-pl-sub-tag">n</span><span class="m5-pl-sub-ex">Er hilft de<span class="sig-n">n</span> kleinen Kindern.</span></div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">m · P · D</span>
+            <span class="m5-tri-ex">Er hilft de<span class="sig-n">n</span> alten Männern.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">f · P · D</span>
+            <span class="m5-tri-ex">Er hilft de<span class="sig-n">n</span> jungen Frauen.</span>
+          </div>
+          <div class="m5-trinity">
+            <span class="m5-tri-code">n · P · D</span>
+            <span class="m5-tri-ex">Er hilft de<span class="sig-n">n</span> kleinen Kindern.</span>
           </div>
         </div>
       </div>
