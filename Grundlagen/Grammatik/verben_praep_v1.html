@@ -24,14 +24,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1a1a2
 .card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .card-nr{font-weight:700;color:#764ba2;font-size:1rem}
 .card-badge{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:3px 12px;border-radius:20px;font-size:.8rem;font-weight:600}
-.dl{display:flex;align-items:baseline;flex-wrap:wrap;margin-bottom:8px;line-height:2.1;font-size:1rem}
+.dl{margin-bottom:8px;line-height:2.1;font-size:1rem}
 .dl:last-child{margin-bottom:0}
-.sp{font-weight:700;color:#764ba2;min-width:26px;margin-right:5px}
+.sp{display:inline-block;font-weight:700;color:#764ba2;min-width:26px;margin-right:5px;vertical-align:baseline}
 .sp.b{color:#667eea}
-.ans-row{display:flex;align-items:baseline;flex-wrap:wrap;margin-bottom:0;line-height:2.1;font-size:1rem;gap:0}
-.hint{color:#888;font-style:italic;font-size:.92rem;margin-right:8px;white-space:nowrap}
-.arrow{color:#aaa;margin-right:6px;font-size:.9rem}
-input.bl{border:none;border-bottom:2.5px solid #667eea;background:transparent;font-size:1rem;font-family:inherit;padding:2px 4px;outline:none;text-align:center;transition:all .3s;margin:0 3px}
+.ans-row{margin-bottom:0;line-height:2.1;font-size:1rem}
+.hint{color:#888;font-style:italic;font-size:.92rem;margin-right:6px;white-space:nowrap}
+.arrow{color:#aaa;margin:0 6px;font-size:.9rem}
+input.bl{border:none;border-bottom:2.5px solid #667eea;background:transparent;font-size:1rem;font-family:inherit;padding:2px 4px;outline:none;text-align:center;transition:all .3s;margin:0 3px;vertical-align:baseline}
 input.bl:focus{border-bottom-color:#764ba2;background:#f8f7ff}
 input.bl.correct{border-bottom-color:#22c55e;background:#f0fdf4;color:#166534}
 input.bl.wrong{border-bottom-color:#ef4444;background:#fef2f2;color:#991b1b}
@@ -60,7 +60,7 @@ input.bl.s{width:55px;min-width:55px}input.bl.m{width:85px;min-width:85px}input.
 .hint{font-size:.82rem}
 }
 </style>
-<script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770641048883&amp;type=content-script&amp;dmn=attachments.office.net&amp;url=https%3A%2F%2Fattachments.office.net%2Fowa%2Funterricht%2540frankburkert-daf.de%2Fservice.svc%2Fs%2FGetFileAttachment%3Fid%3DAAkALgAAAAAAHYQDEapmEc2byACqAC%252FEWg0AhkJ2WUh3QEqOMVR%252B1xmmTAADJMHXigAAARIAEAAACSoQGonuSbdSziYSObLm%26X-OWA-CANARY%3DX-OWA-CANARY_cookie_is_null_or_empty%26owa%3Doutlook.office.com%26scriptVer%3D20260130003.05%26clientId%3D6D17AC99FB2D4C248333C87B2367E949%26origin%3D2%26isDownload%3Dtrue%26animation%3Dtrue&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="effe4261a99b4a978691d8a7129" src="//local.adguard.org?ts=1770641048883&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+</head>
 <body>
 <div class="header">
 <h1>Verben mit Präposition</h1>
@@ -518,7 +518,30 @@ function showSection(idx){
     document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
 }
 
+// ======== LIVE-FEEDBACK ========
+// Beim Tippen: wenn exakt richtig → grün, sonst neutral (rot wird zurückgesetzt).
+// Beim Verlassen (blur): wenn nicht leer und nicht richtig → rot.
+function setupLive(){
+    document.querySelectorAll('input.bl').forEach(inp=>{
+        inp.addEventListener('input',()=>{
+            inp.classList.remove('wrong');
+            const sol=norm(inp.dataset.sol);
+            const val=norm(inp.value);
+            if(val===sol) inp.classList.add('correct');
+            else inp.classList.remove('correct');
+        });
+        inp.addEventListener('blur',()=>{
+            const sol=norm(inp.dataset.sol);
+            const val=norm(inp.value);
+            if(val===''){inp.classList.remove('correct','wrong');return;}
+            if(val===sol){inp.classList.add('correct');inp.classList.remove('wrong');}
+            else{inp.classList.remove('correct');inp.classList.add('wrong');}
+        });
+    });
+}
+
 renderAll();
+setupLive();
 </script>
 </body>
 </html>
