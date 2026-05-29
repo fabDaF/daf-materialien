@@ -838,7 +838,7 @@ function renderMail() {
 function showMailLoesung() {
     document.querySelectorAll('.mail-blank').forEach(function(inp) {
         var user = inp.value.trim().toLowerCase();
-        var answer = inp.dataset.answer.toLowerCase();
+        var answer = inp.dataset.answer;
         var next = inp.nextElementSibling;
         if (next && next.classList && next.classList.contains('correction-hint')) next.remove();
         if (user === answer) {

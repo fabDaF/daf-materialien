@@ -451,7 +451,7 @@ function renderGaps() {
 function checkGaps() {
     let correct = 0, total = GAPS.length;
     document.querySelectorAll('#sec-1 input.blank').forEach(inp => {
-        const answer = inp.dataset.answer.toLowerCase().trim();
+        const answer = inp.dataset.answer.trim();
         const val = inp.value.trim();
         inp.classList.remove('correct', 'wrong');
         if (val === answer) { inp.classList.add('correct'); correct++; }

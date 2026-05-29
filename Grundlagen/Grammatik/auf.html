@@ -705,7 +705,7 @@ function renderExercises() {
 function checkAnswers(secIdx){
   const inputs = document.querySelectorAll(`input[data-sec-idx="${secIdx}"]`);
   inputs.forEach(inp=>{
-    const correct = inp.dataset.answer.toLowerCase();
+    const correct = inp.dataset.answer;
     const user = inp.value.trim().toLowerCase();
     inp.classList.remove('correct','incorrect');
     if(user === correct){

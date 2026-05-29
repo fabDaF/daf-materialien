@@ -705,7 +705,7 @@ function checkLuecken() {
   document.querySelectorAll('input.blank').forEach(inp => {
     inp.classList.remove('correct', 'wrong');
     const user = inp.value.trim();
-    const answer = inp.dataset.answer.toLowerCase();
+    const answer = inp.dataset.answer;
     total++;
     if (user === answer) {
       inp.classList.add('correct');
@@ -722,7 +722,7 @@ function showLueckenLoesung() {
   document.querySelectorAll('input.blank').forEach(inp => {
     total++;
     const user = inp.value.trim();
-    const answer = inp.dataset.answer.toLowerCase();
+    const answer = inp.dataset.answer;
     // Bereits vorhandene Hints entfernen
     const oldHint = inp.parentElement.querySelector('.correction-hint');
     if (oldHint) oldHint.remove();
