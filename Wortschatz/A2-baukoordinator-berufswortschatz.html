@@ -913,7 +913,6 @@ function initSchreibwerkstatt() {
         card.innerHTML = ''
             + '<div class="schreib-mini-titel">Aufgabe ' + a.nr + ' &middot; ' + a.titel + '</div>'
             + '<div class="schreib-mini-frage">' + a.frage + '</div>'
-            + '<div class="schreib-mini-beispiel">' + a.beispiel + '</div>'
             + '<textarea class="schreib-mini-textarea" data-aufgabe="' + a.nr + '" placeholder="Deine Antwort..."></textarea>'
             + '<div class="schreib-mini-zeile">'
             +   '<button class="btn-send" id="sw-btn-' + a.nr + '" onclick="schreibSendenEinzeln(' + a.nr + ')">&#128238; An Frank senden</button>'
