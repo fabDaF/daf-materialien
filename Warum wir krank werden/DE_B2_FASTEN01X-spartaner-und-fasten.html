@@ -878,16 +878,21 @@ function initMc() {
     var q = document.createElement('div'); q.className = 'mc-question';
     q.textContent = (qi+1) + '. ' + item.frage;
     var opts = document.createElement('div'); opts.className = 'mc-opts';
-    item.opts.forEach(function(o, oi) {
+    // Antwortoptionen mit ihrer Korrektheit koppeln und mischen (Fisher-Yates),
+    // damit die richtige Antwort NICHT immer an derselben Position steht.
+    var pairs = item.opts.map(function(o, oi){ return { text:o, correct: oi===item.correct }; });
+    for (var i=pairs.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=pairs[i]; pairs[i]=pairs[j]; pairs[j]=t; }
+    pairs.forEach(function(p) {
       var btn = document.createElement('button'); btn.className = 'mc-opt';
-      btn.textContent = o;
+      btn.textContent = p.text;
+      if(p.correct) btn.dataset.correct = '1';
       btn.addEventListener('click', function(){
         if(btn.disabled) return;
         timerAutoStart(4);
         var btns = opts.querySelectorAll('.mc-opt');
         btns.forEach(function(b){ b.disabled=true; });
-        if(oi===item.correct){ btn.classList.add('correct'); }
-        else { btn.classList.add('wrong'); btns[item.correct].classList.add('correct'); }
+        if(btn.dataset.correct==='1'){ btn.classList.add('correct'); }
+        else { btn.classList.add('wrong'); var c=opts.querySelector('.mc-opt[data-correct="1"]'); if(c) c.classList.add('correct'); }
         checkMcAllOk();
       });
       opts.appendChild(btn);
@@ -901,16 +906,14 @@ function checkMcAllOk(){
 }
 function showMcLoesung(){
   stopTimer(4);
-  document.querySelectorAll('#mcContainer .mc-item').forEach(function(item, qi){
+  document.querySelectorAll('#mcContainer .mc-item').forEach(function(item){
     var btns = item.querySelectorAll('.mc-opt');
     btns.forEach(function(b){b.disabled=true;});
-    btns[MC_DATA[qi].correct].classList.add('correct');
+    var c = item.querySelector('.mc-opt[data-correct="1"]'); if(c) c.classList.add('correct');
   });
 }
 function resetMc(){
-  document.querySelectorAll('#mcContainer .mc-opt').forEach(function(b){
-    b.disabled=false; b.classList.remove('correct','wrong');
-  });
+  initMc();        // neu aufbauen = Optionen neu mischen
   resetTimer(4);
 }
 
