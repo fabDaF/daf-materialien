@@ -1018,52 +1018,88 @@
         // TAB 5: FRAGEN
         // ===================
         const questionsData = [
-            {
-                question: 'Was macht die Verbraucherzentrale?',
-                options: ['Sie verkauft Produkte', 'Sie berät und hilft Menschen', 'Sie repariert Handys'],
-                correct: 1
-            },
-            {
-                question: 'Wie viele Bundesländer haben eine Verbraucherzentrale?',
-                options: ['Nur Berlin', 'Nur Bayern', 'Alle Bundesländer'],
-                correct: 2
-            },
-            {
-                question: 'Was ist der Fakeshop-Finder?',
-                options: ['Ein Tool gegen falsche Online-Shops', 'Eine Shopping-App', 'Ein Kreditrechner'],
-                correct: 0
-            },
-            {
-                question: 'Was war Hüseyins Problem?',
-                options: ['Er hat sein Handy verloren', 'Die Preise sind zu teuer', 'Er sucht Arbeit'],
-                correct: 1
-            },
-            {
-                question: 'Was hat Maria unterschrieben?',
-                options: ['Einen Mietvertrag', 'Einen Handyvertrag', 'Einen Kaufvertrag'],
-                correct: 1
-            },
-            {
-                question: 'Welche Beratungen sind immer kostenlos?',
-                options: ['Alle Beratungen', 'Manche Beratungen', 'Keine Beratungen'],
-                correct: 1
-            },
-            {
-                question: 'Wie viele Menschen bekamen Geld von Volkswagen?',
-                options: ['24.000', '240.000', '2.400.000'],
-                correct: 1
-            },
-            {
-                question: 'In wie vielen Hilfezentren kann man Beratung bekommen?',
-                options: ['Circa 200', 'Circa 100', 'Circa 50'],
-                correct: 0
-            },
-            {
-                question: 'Welche Institution gibt es in Österreich?',
-                options: ['Stiftung für Konsumentenschutz', 'Verein für Konsumenteninformation', 'Verbraucherzentrale'],
-                correct: 1
-            }
-        ];
+  {
+    "question": "Was macht die Verbraucherzentrale?",
+    "options": [
+      "Sie repariert Handys",
+      "Sie berät und hilft Menschen",
+      "Sie verkauft Produkte"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Wie viele Bundesländer haben eine Verbraucherzentrale?",
+    "options": [
+      "Nur Berlin",
+      "Nur Bayern",
+      "Alle Bundesländer"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Was ist der Fakeshop-Finder?",
+    "options": [
+      "Ein Kreditrechner",
+      "Ein Tool gegen falsche Online-Shops",
+      "Eine Shopping-App"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Was war Hüseyins Problem?",
+    "options": [
+      "Er sucht Arbeit",
+      "Die Preise sind zu teuer",
+      "Er hat sein Handy verloren"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Was hat Maria unterschrieben?",
+    "options": [
+      "Einen Handyvertrag",
+      "Einen Mietvertrag",
+      "Einen Kaufvertrag"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Welche Beratungen sind immer kostenlos?",
+    "options": [
+      "Keine Beratungen",
+      "Manche Beratungen",
+      "Alle Beratungen"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Wie viele Menschen bekamen Geld von Volkswagen?",
+    "options": [
+      "24.000",
+      "2.400.000",
+      "240.000"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In wie vielen Hilfezentren kann man Beratung bekommen?",
+    "options": [
+      "Circa 50",
+      "Circa 100",
+      "Circa 200"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Welche Institution gibt es in Österreich?",
+    "options": [
+      "Verein für Konsumenteninformation",
+      "Stiftung für Konsumentenschutz",
+      "Verbraucherzentrale"
+    ],
+    "correct": 0
+  }
+];
 
         function initQuestions() {
             const container = document.getElementById('questions-container');

@@ -568,26 +568,106 @@ renderLuecken();
 
 // ====== MULTIPLE-CHOICE (10) ======
 const MC_DATA=[
-    {q:"Was ist laut Text die weltweit führende Todesursache?",
-     opts:["Krebs","Herzerkrankungen","Diabetes","Infektionskrankheiten"],correct:1},
-    {q:"Wie viele Mechanismen beschreibt der Text, durch die Insulinresistenz den Blutdruck erhöht?",
-     opts:["Zwei","Drei","Vier","Fünf"],correct:2},
-    {q:"Was passiert, wenn Insulin die Nieren veranlasst, mehr Natrium festzuhalten?",
-     opts:["Der Blutdruck sinkt","Das Blutvolumen steigt und damit der Blutdruck","Die Nieren produzieren mehr Urin","Der Cholesterinspiegel steigt"],correct:1},
-    {q:"Welches Gas erweitert normalerweise die Blutgefäße und senkt den Blutdruck?",
-     opts:["Sauerstoff","Kohlendioxid","Stickstoffmonoxid (NO)","Wasserstoff"],correct:2},
-    {q:"Was ist der Unterschied zwischen LDL-Muster A und Muster B?",
-     opts:["A ist gefährlich, B ist harmlos","A besteht aus großen Partikeln (harmlos), B aus kleinen, dichten (gefährlich)","A hat mehr Cholesterin als B","A kommt nur bei Frauen vor, B nur bei Männern"],correct:1},
-    {q:"Was passiert mit Makrophagen, die oxidiertes Fett aufnehmen?",
-     opts:["Sie sterben sofort ab","Sie werden zu Schaumzellen","Sie werden zu roten Blutkörperchen","Sie verlassen den Körper"],correct:1},
-    {q:"Welche Wirkung hat Insulin bei insulinempfindlichen Personen?",
-     opts:["Es fördert Entzündungen","Es hat keine Wirkung","Es hemmt Entzündungen","Es erhöht den Blutdruck"],correct:2},
-    {q:"Welcher Kardiomyopathie-Typ steht am stärksten mit Insulinresistenz in Verbindung?",
-     opts:["Restriktive Kardiomyopathie","Hypertrophe Kardiomyopathie","Dilatative Kardiomyopathie","Ischämische Kardiomyopathie"],correct:2},
-    {q:"Was zeigt ein Triglyzerid-HDL-Verhältnis über 3 an?",
-     opts:["Gute Herzgesundheit","Hohe Wahrscheinlichkeit einer Insulinresistenz","Zu wenig Cholesterin","Vitamin-D-Mangel"],correct:1},
-    {q:"Was ist die Kernaussage des Fazits?",
-     opts:["Cholesterin ist die wichtigste Variable bei Herzerkrankungen","Medikamente sind die beste Lösung","Insulinresistenz ist die wichtigste Variable bei Herzerkrankungen","Sport allein reicht aus"],correct:2}
+  {
+    "q": "Was ist laut Text die weltweit führende Todesursache?",
+    "opts": [
+      "Diabetes",
+      "Herzerkrankungen",
+      "Infektionskrankheiten",
+      "Krebs"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Wie viele Mechanismen beschreibt der Text, durch die Insulinresistenz den Blutdruck erhöht?",
+    "opts": [
+      "Fünf",
+      "Zwei",
+      "Drei",
+      "Vier"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was passiert, wenn Insulin die Nieren veranlasst, mehr Natrium festzuhalten?",
+    "opts": [
+      "Der Blutdruck sinkt",
+      "Das Blutvolumen steigt und damit der Blutdruck",
+      "Die Nieren produzieren mehr Urin",
+      "Der Cholesterinspiegel steigt"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Welches Gas erweitert normalerweise die Blutgefäße und senkt den Blutdruck?",
+    "opts": [
+      "Sauerstoff",
+      "Wasserstoff",
+      "Kohlendioxid",
+      "Stickstoffmonoxid (NO)"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was ist der Unterschied zwischen LDL-Muster A und Muster B?",
+    "opts": [
+      "A hat mehr Cholesterin als B",
+      "A besteht aus großen Partikeln (harmlos), B aus kleinen, dichten (gefährlich)",
+      "A ist gefährlich, B ist harmlos",
+      "A kommt nur bei Frauen vor, B nur bei Männern"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was passiert mit Makrophagen, die oxidiertes Fett aufnehmen?",
+    "opts": [
+      "Sie werden zu roten Blutkörperchen",
+      "Sie werden zu Schaumzellen",
+      "Sie verlassen den Körper",
+      "Sie sterben sofort ab"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Welche Wirkung hat Insulin bei insulinempfindlichen Personen?",
+    "opts": [
+      "Es hemmt Entzündungen",
+      "Es hat keine Wirkung",
+      "Es erhöht den Blutdruck",
+      "Es fördert Entzündungen"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Welcher Kardiomyopathie-Typ steht am stärksten mit Insulinresistenz in Verbindung?",
+    "opts": [
+      "Ischämische Kardiomyopathie",
+      "Restriktive Kardiomyopathie",
+      "Dilatative Kardiomyopathie",
+      "Hypertrophe Kardiomyopathie"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was zeigt ein Triglyzerid-HDL-Verhältnis über 3 an?",
+    "opts": [
+      "Vitamin-D-Mangel",
+      "Zu wenig Cholesterin",
+      "Gute Herzgesundheit",
+      "Hohe Wahrscheinlichkeit einer Insulinresistenz"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was ist die Kernaussage des Fazits?",
+    "opts": [
+      "Cholesterin ist die wichtigste Variable bei Herzerkrankungen",
+      "Insulinresistenz ist die wichtigste Variable bei Herzerkrankungen",
+      "Medikamente sind die beste Lösung",
+      "Sport allein reicht aus"
+    ],
+    "correct": 1
+  }
 ];
 
 function renderMC(){

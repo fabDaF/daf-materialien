@@ -835,56 +835,106 @@ function resetLuecken() {
 
 // MULTIPLE-CHOICE
 const MC_DATA = [
-    {
-        q: "Wie viel Prozent der erwachsenen US-Amerikaner sind laut einer neueren Studie insulinresistent?",
-        opts: ["50 Prozent", "65 Prozent", "85 Prozent", "95 Prozent"],
-        correct: 2
-    },
-    {
-        q: "Welches Fach unterrichtete der Autor als Universitätsprofessor?",
-        opts: ["Biochemie", "Pathophysiologie", "Endokrinologie", "Kardiologie"],
-        correct: 1
-    },
-    {
-        q: "Wie viele Menschen leiden weltweit an der Alzheimerkrankheit?",
-        opts: ["10 Millionen", "20 Millionen", "50 Millionen", "100 Millionen"],
-        correct: 2
-    },
-    {
-        q: "Was war der ursprüngliche Forschungsschwerpunkt des Autors?",
-        opts: ["Insulinresistenz", "Anpassung der Muskulatur an sportliche Belastung", "Fettleibigkeit", "Diabetes"],
-        correct: 1
-    },
-    {
-        q: "Welches Gewebe sondert laut dem Text Hormone ab?",
-        opts: ["Muskelgewebe", "Nervengewebe", "Fettgewebe", "Knochengewebe"],
-        correct: 2
-    },
-    {
-        q: "Als Vorstufe welcher Krankheit galt Insulinresistenz früher hauptsächlich?",
-        opts: ["Typ-1-Diabetes", "Typ-2-Diabetes", "Alzheimerkrankheit", "Krebs"],
-        correct: 1
-    },
-    {
-        q: "Was ist laut Text die weltweit führende Todesursache?",
-        opts: ["Krebs", "Diabetes", "Alzheimerkrankheit", "Herz-Kreislauf-Erkrankungen"],
-        correct: 3
-    },
-    {
-        q: "Wie viele der folgenden Fragen muss man mit Ja beantworten, um mit Sicherheit insulinresistent zu sein?",
-        opts: ["Eine", "Zwei oder mehr", "Alle", "Mindestens fünf"],
-        correct: 1
-    },
-    {
-        q: "Welches Problem bei Männern über 45 Jahren wird im Text erwähnt?",
-        opts: ["Hoher Blutdruck", "Nicht optimaler Testosteronspiegel", "Diabetes", "Übergewicht"],
-        correct: 1
-    },
-    {
-        q: "Worauf beruht laut Autor der Inhalt seines Buches?",
-        opts: ["Seiner persönlichen Meinung", "Veröffentlichten wissenschaftlichen Erkenntnissen", "Erfahrungen seiner Patienten", "Traditioneller Medizin"],
-        correct: 1
-    }
+  {
+    "q": "Wie viel Prozent der erwachsenen US-Amerikaner sind laut einer neueren Studie insulinresistent?",
+    "opts": [
+      "65 Prozent",
+      "85 Prozent",
+      "95 Prozent",
+      "50 Prozent"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Welches Fach unterrichtete der Autor als Universitätsprofessor?",
+    "opts": [
+      "Kardiologie",
+      "Endokrinologie",
+      "Pathophysiologie",
+      "Biochemie"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Wie viele Menschen leiden weltweit an der Alzheimerkrankheit?",
+    "opts": [
+      "50 Millionen",
+      "100 Millionen",
+      "20 Millionen",
+      "10 Millionen"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was war der ursprüngliche Forschungsschwerpunkt des Autors?",
+    "opts": [
+      "Insulinresistenz",
+      "Anpassung der Muskulatur an sportliche Belastung",
+      "Fettleibigkeit",
+      "Diabetes"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Welches Gewebe sondert laut dem Text Hormone ab?",
+    "opts": [
+      "Nervengewebe",
+      "Fettgewebe",
+      "Knochengewebe",
+      "Muskelgewebe"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Als Vorstufe welcher Krankheit galt Insulinresistenz früher hauptsächlich?",
+    "opts": [
+      "Alzheimerkrankheit",
+      "Typ-1-Diabetes",
+      "Krebs",
+      "Typ-2-Diabetes"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was ist laut Text die weltweit führende Todesursache?",
+    "opts": [
+      "Herz-Kreislauf-Erkrankungen",
+      "Alzheimerkrankheit",
+      "Diabetes",
+      "Krebs"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Wie viele der folgenden Fragen muss man mit Ja beantworten, um mit Sicherheit insulinresistent zu sein?",
+    "opts": [
+      "Eine",
+      "Alle",
+      "Mindestens fünf",
+      "Zwei oder mehr"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Welches Problem bei Männern über 45 Jahren wird im Text erwähnt?",
+    "opts": [
+      "Diabetes",
+      "Übergewicht",
+      "Hoher Blutdruck",
+      "Nicht optimaler Testosteronspiegel"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Worauf beruht laut Autor der Inhalt seines Buches?",
+    "opts": [
+      "Erfahrungen seiner Patienten",
+      "Veröffentlichten wissenschaftlichen Erkenntnissen",
+      "Seiner persönlichen Meinung",
+      "Traditioneller Medizin"
+    ],
+    "correct": 1
+  }
 ];
 
 let mcState = { checked: false, selected: {} };

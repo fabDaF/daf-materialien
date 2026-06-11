@@ -535,16 +535,106 @@ function showLueckenLoesungen() {
 //  TAB 4: MULTIPLE CHOICE
 // ═══════════════════════════════════════════════════════════════════════
 var MC_DATA = [
-    { q: '1. Was ist laut Pape das Grundproblem mit Präzisionswaffen?', opts: ['Sie sind zu teuer für einen langen Krieg.', 'Sie treffen die Ziele, aber verändern nicht die Politik.', 'Sie können unterirdische Anlagen nicht zerstören.', 'Sie erfordern zu viele Bodentruppen.'], correct: 1 },
-    { q: '2. Warum verhandeln die USA nach der Bombardierung weiter mit dem Iran?', opts: ['Weil der Iran kapituliert hat und die Bedingungen klären will.', 'Weil die Bomben ihr eigentliches Ziel verfehlt haben — das angereicherte Uran fehlt.', 'Weil die USA einen Friedensvertrag unterzeichnen wollen.', 'Weil die Vereinten Nationen Verhandlungen angeordnet haben.'], correct: 1 },
-    { q: '3. Was zeigten die Satellitenbilder zwei Tage vor dem Angriff auf Fordo?', opts: ['Iranische Truppen in Kampfposition', 'Evakuierung der Zivilbevölkerung', 'Lastwagen, die Material von den Anlagen wegfuhren', 'Neue unterirdische Tunnelbauten'], correct: 2 },
-    { q: '4. Warum war die Fatwa des alten Obersten Führers so wichtig?', opts: ['Sie erlaubte dem Iran, Atomwaffen zu entwickeln.', 'Sie war ein religiöses Edikt gegen iranische Atomwaffen.', 'Sie verbot jede Zusammenarbeit mit dem Westen.', 'Sie rief zum Heiligen Krieg gegen Israel auf.'], correct: 1 },
-    { q: '5. Warum ist das Bild vom Jenga-Turm laut Pape falsch?', opts: ['Weil der Iran gar keine Führungsstruktur hat', 'Weil das Regime wie eine Matrix funktioniert — es passt sich an und füllt Lücken', 'Weil der Iran nur von einer einzigen Person geführt wird', 'Weil Jenga ein amerikanisches Spiel ist, das Iraner nicht kennen'], correct: 1 },
-    { q: '6. Was nennt Pape „horizontale Eskalation“?', opts: ['Die Vergrößerung der iranischen Armee', 'Angriffe auf die Nachbarländer und Verbündeten des Gegners', 'Die Ausweitung des Konflikts auf den Cyberraum', 'Den Einsatz von Bodentruppen statt Luftangriffen'], correct: 1 },
-    { q: '7. Was will der Iran mit den Drohnenangriffen auf die Golfstaaten erreichen?', opts: ['Die Ölproduktion vollständig stoppen', 'Territorien erobern', 'Dass diese Länder die Amerikaner aus ihrem Land werfen', 'Einen Weltkrieg auslösen'], correct: 2 },
-    { q: '8. Was passierte 2018 mit dem Obama-Deal?', opts: ['Obama hat ihn selbst aufgelöst.', 'Der Iran hat den Deal gebrochen.', 'Trump hat ihn einseitig zerrissen.', 'Der Deal lief planmäßig aus.'], correct: 2 },
-    { q: '9. Was ist laut Pape der größte Anreiz für den Iran, jetzt eine Atombombe zu bauen?', opts: ['Wirtschaftliche Vorteile durch Atomenergie', 'Die USA töten sie bereits — eine Bombe ist ihr bester Schutz.', 'China hat sie dazu aufgefordert.', 'Der neue Führer will seinen Vater übertreffen.'], correct: 1 },
-    { q: '10. Was empfiehlt Pape Präsident Trump?', opts: ['Sofort Bodentruppen entsenden.', 'Den Krieg auf China ausweiten.', 'Aufhören und verhandeln — so viel angereichertes Uran wie möglich aus dem Land schaffen.', 'Das iranische Regime durch eine Demokratie ersetzen.'], correct: 2 }
+  {
+    "q": "1. Was ist laut Pape das Grundproblem mit Präzisionswaffen?",
+    "opts": [
+      "Sie sind zu teuer für einen langen Krieg.",
+      "Sie treffen die Ziele, aber verändern nicht die Politik.",
+      "Sie können unterirdische Anlagen nicht zerstören.",
+      "Sie erfordern zu viele Bodentruppen."
+    ],
+    "correct": 1
+  },
+  {
+    "q": "2. Warum verhandeln die USA nach der Bombardierung weiter mit dem Iran?",
+    "opts": [
+      "Weil die Bomben ihr eigentliches Ziel verfehlt haben — das angereicherte Uran fehlt.",
+      "Weil die USA einen Friedensvertrag unterzeichnen wollen.",
+      "Weil der Iran kapituliert hat und die Bedingungen klären will.",
+      "Weil die Vereinten Nationen Verhandlungen angeordnet haben."
+    ],
+    "correct": 0
+  },
+  {
+    "q": "3. Was zeigten die Satellitenbilder zwei Tage vor dem Angriff auf Fordo?",
+    "opts": [
+      "Iranische Truppen in Kampfposition",
+      "Neue unterirdische Tunnelbauten",
+      "Lastwagen, die Material von den Anlagen wegfuhren",
+      "Evakuierung der Zivilbevölkerung"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "4. Warum war die Fatwa des alten Obersten Führers so wichtig?",
+    "opts": [
+      "Sie verbot jede Zusammenarbeit mit dem Westen.",
+      "Sie war ein religiöses Edikt gegen iranische Atomwaffen.",
+      "Sie rief zum Heiligen Krieg gegen Israel auf.",
+      "Sie erlaubte dem Iran, Atomwaffen zu entwickeln."
+    ],
+    "correct": 1
+  },
+  {
+    "q": "5. Warum ist das Bild vom Jenga-Turm laut Pape falsch?",
+    "opts": [
+      "Weil der Iran nur von einer einzigen Person geführt wird",
+      "Weil das Regime wie eine Matrix funktioniert — es passt sich an und füllt Lücken",
+      "Weil der Iran gar keine Führungsstruktur hat",
+      "Weil Jenga ein amerikanisches Spiel ist, das Iraner nicht kennen"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "6. Was nennt Pape „horizontale Eskalation“?",
+    "opts": [
+      "Die Vergrößerung der iranischen Armee",
+      "Angriffe auf die Nachbarländer und Verbündeten des Gegners",
+      "Den Einsatz von Bodentruppen statt Luftangriffen",
+      "Die Ausweitung des Konflikts auf den Cyberraum"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "7. Was will der Iran mit den Drohnenangriffen auf die Golfstaaten erreichen?",
+    "opts": [
+      "Territorien erobern",
+      "Einen Weltkrieg auslösen",
+      "Die Ölproduktion vollständig stoppen",
+      "Dass diese Länder die Amerikaner aus ihrem Land werfen"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "8. Was passierte 2018 mit dem Obama-Deal?",
+    "opts": [
+      "Trump hat ihn einseitig zerrissen.",
+      "Obama hat ihn selbst aufgelöst.",
+      "Der Iran hat den Deal gebrochen.",
+      "Der Deal lief planmäßig aus."
+    ],
+    "correct": 0
+  },
+  {
+    "q": "9. Was ist laut Pape der größte Anreiz für den Iran, jetzt eine Atombombe zu bauen?",
+    "opts": [
+      "Der neue Führer will seinen Vater übertreffen.",
+      "China hat sie dazu aufgefordert.",
+      "Die USA töten sie bereits — eine Bombe ist ihr bester Schutz.",
+      "Wirtschaftliche Vorteile durch Atomenergie"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "10. Was empfiehlt Pape Präsident Trump?",
+    "opts": [
+      "Aufhören und verhandeln — so viel angereichertes Uran wie möglich aus dem Land schaffen.",
+      "Den Krieg auf China ausweiten.",
+      "Sofort Bodentruppen entsenden.",
+      "Das iranische Regime durch eine Demokratie ersetzen."
+    ],
+    "correct": 0
+  }
 ];
 
 function initMc() {

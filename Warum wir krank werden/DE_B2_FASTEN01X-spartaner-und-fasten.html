@@ -529,36 +529,156 @@ var LUECKEN_DATA = [
 ];
 
 var MC_DATA = [
-  { frage:"Welche zentrale Frage stellt der Text?",
-    opts:["Wie viele Spartaner kämpften bei Thermopylen?","Ob ein an Hunger gewöhnter Körper leistungsfähiger sein kann","Wann die Spartaner ihre Mahlzeiten aßen","Wer den Nobelpreis 2016 bekam"], correct:1 },
-  { frage:"Wie alt waren die Jungen, als sie in die Agoge kamen?",
-    opts:["Drei Jahre","Sieben Jahre","Zwölf Jahre","Achtzehn Jahre"], correct:1 },
-  { frage:"Welche antiken Autoren beschrieben die Agoge?",
-    opts:["Homer und Sokrates","Xenophon und Plutarch","Aristoteles und Platon","Cäsar und Cicero"], correct:1 },
-  { frage:"Was bewirkt das Wachstumshormon im Nüchternzustand?",
-    opts:["Es baut Muskeln ab","Es schützt die Muskelmasse und fördert die Fettnutzung","Es erhöht den Insulinspiegel","Es macht müde"], correct:1 },
-  { frage:"Was geschieht mit dem Insulinspiegel beim Fasten?",
-    opts:["Er steigt stark an","Er sinkt, sodass der Körper Fett nutzt","Er bleibt unverändert","Er schwankt zufällig"], correct:1 },
-  { frage:"Was beschreibt die Autophagie?",
-    opts:["Den Aufbau von Fettreserven","Zellen bauen beschädigte Bestandteile ab und verwerten sie","Die Bildung von Zucker","Das Wachstum der Muskeln"], correct:1 },
-  { frage:"Wie geht der Text mit den Studienergebnissen um?",
-    opts:["Er stellt sie als endgültig bewiesen dar","Er mahnt zur Vorsicht, weil vieles nur an Mäusen gezeigt wurde","Er lehnt die Forschung ab","Er nennt keine Quellen"], correct:1 },
-  { frage:"Was bedeutet metabolische Flexibilität?",
-    opts:["Dass man sich viel bewegt","Dass der Körper leicht zwischen Zucker und Fett wechselt","Dass man flexible Arbeitszeiten hat","Dass die Muskeln dehnbar sind"], correct:1 },
-  { frage:"Womit wird das Fasten im Text verglichen?",
-    opts:["Mit einer Krankheit","Mit einem hormetischen Reiz wie Krafttraining oder Kälte","Mit einer Diät zum Abnehmen","Mit einem Medikament"], correct:1 },
-  { frage:"Welcher Botenstoff steigt im Nüchternzustand und schärft die Aufmerksamkeit?",
-    opts:["Insulin","Noradrenalin","Melatonin","Östrogen"], correct:1 },
-  { frage:"Wie nannten die Griechen den wachen, kämpferischen Zustand?",
-    opts:["Logos","Thymos","Pathos","Chronos"], correct:1 },
-  { frage:"Worin unterscheidet der Text akutes und chronisches Cortisol?",
-    opts:["Beide sind immer schädlich","Akut kann die Leistung verbessern, chronisch schadet dem Körper","Beide sind immer nützlich","Es gibt keinen Unterschied"], correct:1 },
-  { frage:"Warum passte der spartanische Tagesablauf gut zum Körper?",
-    opts:["Weil sie nie trainierten","Weil Hunger und Training morgens, Ruhe und Mahlzeit abends lagen","Weil sie dreimal täglich aßen","Weil sie nachts kämpften"], correct:1 },
-  { frage:"Welche Schlussfolgerung zieht der Text?",
-    opts:["Jeder sollte sofort fasten","Fasten ist nicht für jeden geeignet, aber der Körper ist anpassungsfähig","Die Spartaner waren unbesiegbar","Hunger ist immer schädlich"], correct:1 },
-  { frage:"Für wen kann Fasten laut Text schädlich sein?",
-    opts:["Für Sportler","Für Kinder, Schwangere oder kranke Menschen","Für alle Erwachsenen","Für niemanden"], correct:1 }
+  {
+    "frage": "Welche zentrale Frage stellt der Text?",
+    "opts": [
+      "Wie viele Spartaner kämpften bei Thermopylen?",
+      "Wann die Spartaner ihre Mahlzeiten aßen",
+      "Ob ein an Hunger gewöhnter Körper leistungsfähiger sein kann",
+      "Wer den Nobelpreis 2016 bekam"
+    ],
+    "correct": 2
+  },
+  {
+    "frage": "Wie alt waren die Jungen, als sie in die Agoge kamen?",
+    "opts": [
+      "Drei Jahre",
+      "Zwölf Jahre",
+      "Achtzehn Jahre",
+      "Sieben Jahre"
+    ],
+    "correct": 3
+  },
+  {
+    "frage": "Welche antiken Autoren beschrieben die Agoge?",
+    "opts": [
+      "Xenophon und Plutarch",
+      "Aristoteles und Platon",
+      "Homer und Sokrates",
+      "Cäsar und Cicero"
+    ],
+    "correct": 0
+  },
+  {
+    "frage": "Was bewirkt das Wachstumshormon im Nüchternzustand?",
+    "opts": [
+      "Es erhöht den Insulinspiegel",
+      "Es macht müde",
+      "Es baut Muskeln ab",
+      "Es schützt die Muskelmasse und fördert die Fettnutzung"
+    ],
+    "correct": 3
+  },
+  {
+    "frage": "Was geschieht mit dem Insulinspiegel beim Fasten?",
+    "opts": [
+      "Er steigt stark an",
+      "Er bleibt unverändert",
+      "Er sinkt, sodass der Körper Fett nutzt",
+      "Er schwankt zufällig"
+    ],
+    "correct": 2
+  },
+  {
+    "frage": "Was beschreibt die Autophagie?",
+    "opts": [
+      "Den Aufbau von Fettreserven",
+      "Die Bildung von Zucker",
+      "Zellen bauen beschädigte Bestandteile ab und verwerten sie",
+      "Das Wachstum der Muskeln"
+    ],
+    "correct": 2
+  },
+  {
+    "frage": "Wie geht der Text mit den Studienergebnissen um?",
+    "opts": [
+      "Er stellt sie als endgültig bewiesen dar",
+      "Er lehnt die Forschung ab",
+      "Er nennt keine Quellen",
+      "Er mahnt zur Vorsicht, weil vieles nur an Mäusen gezeigt wurde"
+    ],
+    "correct": 3
+  },
+  {
+    "frage": "Was bedeutet metabolische Flexibilität?",
+    "opts": [
+      "Dass die Muskeln dehnbar sind",
+      "Dass man flexible Arbeitszeiten hat",
+      "Dass der Körper leicht zwischen Zucker und Fett wechselt",
+      "Dass man sich viel bewegt"
+    ],
+    "correct": 2
+  },
+  {
+    "frage": "Womit wird das Fasten im Text verglichen?",
+    "opts": [
+      "Mit einer Krankheit",
+      "Mit einem Medikament",
+      "Mit einem hormetischen Reiz wie Krafttraining oder Kälte",
+      "Mit einer Diät zum Abnehmen"
+    ],
+    "correct": 2
+  },
+  {
+    "frage": "Welcher Botenstoff steigt im Nüchternzustand und schärft die Aufmerksamkeit?",
+    "opts": [
+      "Östrogen",
+      "Melatonin",
+      "Insulin",
+      "Noradrenalin"
+    ],
+    "correct": 3
+  },
+  {
+    "frage": "Wie nannten die Griechen den wachen, kämpferischen Zustand?",
+    "opts": [
+      "Thymos",
+      "Chronos",
+      "Logos",
+      "Pathos"
+    ],
+    "correct": 0
+  },
+  {
+    "frage": "Worin unterscheidet der Text akutes und chronisches Cortisol?",
+    "opts": [
+      "Beide sind immer schädlich",
+      "Es gibt keinen Unterschied",
+      "Akut kann die Leistung verbessern, chronisch schadet dem Körper",
+      "Beide sind immer nützlich"
+    ],
+    "correct": 2
+  },
+  {
+    "frage": "Warum passte der spartanische Tagesablauf gut zum Körper?",
+    "opts": [
+      "Weil sie nachts kämpften",
+      "Weil Hunger und Training morgens, Ruhe und Mahlzeit abends lagen",
+      "Weil sie nie trainierten",
+      "Weil sie dreimal täglich aßen"
+    ],
+    "correct": 1
+  },
+  {
+    "frage": "Welche Schlussfolgerung zieht der Text?",
+    "opts": [
+      "Die Spartaner waren unbesiegbar",
+      "Jeder sollte sofort fasten",
+      "Hunger ist immer schädlich",
+      "Fasten ist nicht für jeden geeignet, aber der Körper ist anpassungsfähig"
+    ],
+    "correct": 3
+  },
+  {
+    "frage": "Für wen kann Fasten laut Text schädlich sein?",
+    "opts": [
+      "Für Kinder, Schwangere oder kranke Menschen",
+      "Für Sportler",
+      "Für niemanden",
+      "Für alle Erwachsenen"
+    ],
+    "correct": 0
+  }
 ];
 
 var satzbauData = [

@@ -503,31 +503,56 @@ function resetLuecken(){
 
 /* ===== TEIL 4: MULTIPLE CHOICE ===== */
 const MC_DATA=[
-    {
-        q:"Was war im Jahr 1900 die häufigste Krankheitsursache?",
-        opts:["Herzerkrankungen","Infektionskrankheiten","Diabetes","Krebs"],
-        correct:1
-    },
-    {
-        q:"Was ist laut dem Text die Grundursache für viele chronische Erkrankungen?",
-        opts:["Zu wenig Bewegung","Genetische Faktoren","Insulinresistenz und Hyperinsulinämie","Luftverschmutzung"],
-        correct:2
-    },
-    {
-        q:"Auf welches Fachgebiet ist Dr. Jason Fung spezialisiert?",
-        opts:["Kardiologie (Herz)","Onkologie (Krebs)","Nephrologie (Nieren)","Neurologie (Gehirn)"],
-        correct:2
-    },
-    {
-        q:"Wie viel Prozent der erwachsenen US-Amerikaner könnten laut einer Studie insulinresistent sein?",
-        opts:["etwa 50 Prozent","etwa 65 Prozent","etwa 75 Prozent","nicht weniger als 85 Prozent"],
-        correct:3
-    },
-    {
-        q:"Was empfiehlt das Buch zur Bekämpfung der Insulinresistenz?",
-        opts:["Mehr Medikamente und Operationen","Veränderungen der Ernährung und Lebensführung","Mehr Kalorien sparen und joggen","Regelmäßige Arztbesuche und Implantate"],
-        correct:1
-    }
+  {
+    "q": "Was war im Jahr 1900 die häufigste Krankheitsursache?",
+    "opts": [
+      "Krebs",
+      "Infektionskrankheiten",
+      "Diabetes",
+      "Herzerkrankungen"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was ist laut dem Text die Grundursache für viele chronische Erkrankungen?",
+    "opts": [
+      "Genetische Faktoren",
+      "Zu wenig Bewegung",
+      "Luftverschmutzung",
+      "Insulinresistenz und Hyperinsulinämie"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Auf welches Fachgebiet ist Dr. Jason Fung spezialisiert?",
+    "opts": [
+      "Nephrologie (Nieren)",
+      "Onkologie (Krebs)",
+      "Neurologie (Gehirn)",
+      "Kardiologie (Herz)"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Wie viel Prozent der erwachsenen US-Amerikaner könnten laut einer Studie insulinresistent sein?",
+    "opts": [
+      "etwa 50 Prozent",
+      "etwa 65 Prozent",
+      "etwa 75 Prozent",
+      "nicht weniger als 85 Prozent"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was empfiehlt das Buch zur Bekämpfung der Insulinresistenz?",
+    "opts": [
+      "Mehr Medikamente und Operationen",
+      "Mehr Kalorien sparen und joggen",
+      "Regelmäßige Arztbesuche und Implantate",
+      "Veränderungen der Ernährung und Lebensführung"
+    ],
+    "correct": 3
+  }
 ];
 
 function renderMC(){

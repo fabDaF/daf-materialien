@@ -572,26 +572,106 @@ renderLuecken();
 
 // ====== MULTIPLE-CHOICE (10) ======
 const MC_DATA=[
-    {q:"Was ist die genaue Definition der Insulinresistenz laut Text?",
-     opts:["Wenn der Körper kein Insulin mehr produziert","Wenn eine normale Menge Insulin eine unterdurchschnittliche Reaktion hervorruft","Wenn der Blutzucker dauerhaft über 126 mg/dl liegt","Wenn die Bauchspeicheldrüse zu wenig Insulin bildet"],correct:1},
-    {q:"Warum bleibt die Insulinresistenz bei so vielen Menschen unerkannt?",
-     opts:["Weil es keine Tests dafür gibt","Weil die Symptome zu schmerzhaft sind","Weil sie nicht zwangsläufig den Blutglukosespiegel erhöht","Weil die Betroffenen nicht zum Arzt gehen"],correct:2},
-    {q:"Welcher Wert weicht bei einer Insulinresistenz als erstes ab?",
-     opts:["Der Blutdruck","Der Cholesterinspiegel","Der Blutglukosespiegel","Der Insulinspiegel"],correct:3},
-    {q:"Was ist MODY?",
-     opts:["Eine Form von Typ-2-Diabetes bei Erwachsenen","Ein Gendefekt-basierter Diabetes bei jungen Menschen","Ein anderes Wort für Insulinresistenz","Eine Wohlstandskrankheit bei Kindern"],correct:1},
-    {q:"Was ist der Unterschied zwischen Insulinresistenz und Typ-2-Diabetes laut Text?",
-     opts:["Es sind zwei völlig verschiedene Krankheiten","Typ-2-Diabetes ist fortgeschrittene Insulinresistenz mit Blutglukose über 126 mg/dl","Insulinresistenz betrifft nur Kinder, Typ-2-Diabetes nur Erwachsene","Typ-2-Diabetes hat nichts mit Insulin zu tun"],correct:1},
-    {q:"Welcher deutsche Wissenschaftler erkannte schon 1931 den Zusammenhang?",
-     opts:["Robert Koch","Albert Einstein","Wilhelm Falta","Rudolf Virchow"],correct:2},
-    {q:"Was bedeutet ‚hyperinsulinämisch'?",
-     opts:["Zu wenig Insulin im Blut","Zu viel Zucker im Blut","Zu viel Insulin im Blut","Normaler Insulinspiegel"],correct:2},
-    {q:"Wie lange kann sich die Entwicklung zur Insulinresistenz hinziehen?",
-     opts:["Einige Wochen","Einige Monate","Jahre bis Jahrzehnte","Nur wenige Tage"],correct:2},
-    {q:"Woran sterben die meisten Menschen mit Insulinresistenz laut Text?",
-     opts:["An Leberversagen","An Herzerkrankungen oder kardiovaskulären Komplikationen","An Typ-1-Diabetes","An Lungenerkrankungen"],correct:1},
-    {q:"Warum wäre es besser gewesen, Insulin statt Glukose zu messen?",
-     opts:["Insulin ist billiger zu messen","Insulin ermöglicht bis zu 20 Jahre frühere Vorhersagen","Glukose ist gar nicht messbar","Insulin ist leichter im Labor zu analysieren"],correct:1}
+  {
+    "q": "Was ist die genaue Definition der Insulinresistenz laut Text?",
+    "opts": [
+      "Wenn eine normale Menge Insulin eine unterdurchschnittliche Reaktion hervorruft",
+      "Wenn der Blutzucker dauerhaft über 126 mg/dl liegt",
+      "Wenn die Bauchspeicheldrüse zu wenig Insulin bildet",
+      "Wenn der Körper kein Insulin mehr produziert"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Warum bleibt die Insulinresistenz bei so vielen Menschen unerkannt?",
+    "opts": [
+      "Weil die Betroffenen nicht zum Arzt gehen",
+      "Weil sie nicht zwangsläufig den Blutglukosespiegel erhöht",
+      "Weil es keine Tests dafür gibt",
+      "Weil die Symptome zu schmerzhaft sind"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Welcher Wert weicht bei einer Insulinresistenz als erstes ab?",
+    "opts": [
+      "Der Blutdruck",
+      "Der Cholesterinspiegel",
+      "Der Insulinspiegel",
+      "Der Blutglukosespiegel"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was ist MODY?",
+    "opts": [
+      "Ein anderes Wort für Insulinresistenz",
+      "Eine Wohlstandskrankheit bei Kindern",
+      "Eine Form von Typ-2-Diabetes bei Erwachsenen",
+      "Ein Gendefekt-basierter Diabetes bei jungen Menschen"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was ist der Unterschied zwischen Insulinresistenz und Typ-2-Diabetes laut Text?",
+    "opts": [
+      "Es sind zwei völlig verschiedene Krankheiten",
+      "Typ-2-Diabetes ist fortgeschrittene Insulinresistenz mit Blutglukose über 126 mg/dl",
+      "Typ-2-Diabetes hat nichts mit Insulin zu tun",
+      "Insulinresistenz betrifft nur Kinder, Typ-2-Diabetes nur Erwachsene"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Welcher deutsche Wissenschaftler erkannte schon 1931 den Zusammenhang?",
+    "opts": [
+      "Wilhelm Falta",
+      "Albert Einstein",
+      "Robert Koch",
+      "Rudolf Virchow"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was bedeutet ‚hyperinsulinämisch'?",
+    "opts": [
+      "Normaler Insulinspiegel",
+      "Zu viel Zucker im Blut",
+      "Zu wenig Insulin im Blut",
+      "Zu viel Insulin im Blut"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Wie lange kann sich die Entwicklung zur Insulinresistenz hinziehen?",
+    "opts": [
+      "Nur wenige Tage",
+      "Einige Wochen",
+      "Einige Monate",
+      "Jahre bis Jahrzehnte"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Woran sterben die meisten Menschen mit Insulinresistenz laut Text?",
+    "opts": [
+      "An Lungenerkrankungen",
+      "An Leberversagen",
+      "An Herzerkrankungen oder kardiovaskulären Komplikationen",
+      "An Typ-1-Diabetes"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Warum wäre es besser gewesen, Insulin statt Glukose zu messen?",
+    "opts": [
+      "Glukose ist gar nicht messbar",
+      "Insulin ist leichter im Labor zu analysieren",
+      "Insulin ist billiger zu messen",
+      "Insulin ermöglicht bis zu 20 Jahre frühere Vorhersagen"
+    ],
+    "correct": 3
+  }
 ];
 
 function renderMC(){

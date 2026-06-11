@@ -709,17 +709,107 @@
         ];
 
         const MC_DATA = [
-            { q: "Was hat der Mensch laut Tucholsky neben zwei Beinen?", opts: ["Zwei Arme", "Zwei Überzeugungen", "Zwei Herzen", "Zwei Seelen"], correct: 1 },
-            { q: "Was ist die Überzeugung, die der Mensch hat, wenn es ihm schlecht geht?", opts: ["Philosophie", "Politik", "Religion", "Wissenschaft"], correct: 2 },
-            { q: "Warum hat der Mensch laut Tucholsky die Gesetze erfunden?", opts: ["Um Ordnung zu schaffen", "Weil er seiner Gattung nichts gönnt", "Zum Schutz der Schwachen", "Aus Langeweile"], correct: 1 },
-            { q: "Was empfiehlt Tucholsky bei Schmeicheleien?", opts: ["Dezent und zurückhaltend sein", "Ehrlich und direkt sein", "Drei Nummern gröber verfahren als man denkt", "Gar nicht schmeicheln"], correct: 2 },
-            { q: "Was sondert der Mensch laut Tucholsky manchmal ab?", opts: ["Schweiß", "Lyrik", "Tränen", "Weisheit"], correct: 1 },
-            { q: "Welche vier Organe sind laut Tucholsky lebenswichtig?", opts: ["Herz, Lunge, Leber, Niere", "Leber, Milz, Lunge, Fahne", "Gehirn, Herz, Lunge, Magen", "Auge, Ohr, Nase, Mund"], correct: 1 },
-            { q: "Was gibt es laut Tucholsky nicht?", opts: ["Menschen ohne Leber", "Menschen ohne Milz", "Menschen ohne Fahne", "Menschen ohne Lunge"], correct: 2 },
-            { q: "Was nennt Tucholsky \u201Einnere Einkehr\u201C?", opts: ["Meditation", "Wenn man fromm wird, weil man nicht mehr kann", "Urlaub", "Schlaf"], correct: 1 },
-            { q: "Warum möchte der Mensch nicht gern sterben?", opts: ["Er hat Angst vor Schmerzen", "Er weiß nicht, was dann kommt", "Er hat noch viel zu tun", "Er liebt das Leben zu sehr"], correct: 1 },
-            { q: "Was gibt es neben den Menschen laut dem letzten Absatz?", opts: ["Tiere und Pflanzen", "Engel und Teufel", "Sachsen und Amerikaner", "Götter und Dämonen"], correct: 2 }
-        ];
+  {
+    "q": "Was hat der Mensch laut Tucholsky neben zwei Beinen?",
+    "opts": [
+      "Zwei Herzen",
+      "Zwei Überzeugungen",
+      "Zwei Seelen",
+      "Zwei Arme"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was ist die Überzeugung, die der Mensch hat, wenn es ihm schlecht geht?",
+    "opts": [
+      "Wissenschaft",
+      "Religion",
+      "Politik",
+      "Philosophie"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Warum hat der Mensch laut Tucholsky die Gesetze erfunden?",
+    "opts": [
+      "Um Ordnung zu schaffen",
+      "Aus Langeweile",
+      "Zum Schutz der Schwachen",
+      "Weil er seiner Gattung nichts gönnt"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was empfiehlt Tucholsky bei Schmeicheleien?",
+    "opts": [
+      "Gar nicht schmeicheln",
+      "Ehrlich und direkt sein",
+      "Drei Nummern gröber verfahren als man denkt",
+      "Dezent und zurückhaltend sein"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was sondert der Mensch laut Tucholsky manchmal ab?",
+    "opts": [
+      "Tränen",
+      "Weisheit",
+      "Lyrik",
+      "Schweiß"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Welche vier Organe sind laut Tucholsky lebenswichtig?",
+    "opts": [
+      "Herz, Lunge, Leber, Niere",
+      "Leber, Milz, Lunge, Fahne",
+      "Auge, Ohr, Nase, Mund",
+      "Gehirn, Herz, Lunge, Magen"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was gibt es laut Tucholsky nicht?",
+    "opts": [
+      "Menschen ohne Fahne",
+      "Menschen ohne Milz",
+      "Menschen ohne Leber",
+      "Menschen ohne Lunge"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was nennt Tucholsky „innere Einkehr“?",
+    "opts": [
+      "Schlaf",
+      "Wenn man fromm wird, weil man nicht mehr kann",
+      "Urlaub",
+      "Meditation"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Warum möchte der Mensch nicht gern sterben?",
+    "opts": [
+      "Er hat noch viel zu tun",
+      "Er hat Angst vor Schmerzen",
+      "Er weiß nicht, was dann kommt",
+      "Er liebt das Leben zu sehr"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was gibt es neben den Menschen laut dem letzten Absatz?",
+    "opts": [
+      "Tiere und Pflanzen",
+      "Sachsen und Amerikaner",
+      "Götter und Dämonen",
+      "Engel und Teufel"
+    ],
+    "correct": 1
+  }
+];
 
         const SATZBAU = [
             { id: 1, parts: ["der Mensch", "hat", "zwei Beine", "und", "zwei Überzeugungen"], valid: [["der Mensch", "hat", "zwei Beine", "und", "zwei Überzeugungen"]] },

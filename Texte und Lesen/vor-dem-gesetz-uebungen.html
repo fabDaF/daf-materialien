@@ -699,17 +699,107 @@
         ];
 
         const MC_DATA = [
-            { q: "Wer kommt zum Türhüter?", opts: ["Ein Richter", "Ein Mann vom Lande", "Ein Priester", "Ein König"], correct: 1 },
-            { q: "Was möchte der Mann?", opts: ["Arbeit finden", "Den Türhüter sprechen", "Eintritt in das Gesetz", "Das Tor schließen"], correct: 2 },
-            { q: "Was antwortet der Türhüter auf die erste Bitte?", opts: ["Er darf sofort hinein", "Jetzt nicht, aber vielleicht später", "Der Eingang ist geschlossen", "Er muss bezahlen"], correct: 1 },
-            { q: "Warum entscheidet sich der Mann zu warten?", opts: ["Er hat keine Eile", "Der Türhüter sieht furchteinflößend aus", "Er will die anderen Türhüter sehen", "Er hat kein Geld"], correct: 1 },
-            { q: "Was tut der Mann, um hineinzukommen?", opts: ["Er kämpft mit dem Türhüter", "Er versucht, den Türhüter zu bestechen", "Er sucht einen anderen Eingang", "Er bittet andere um Hilfe"], correct: 1 },
-            { q: "Was sagt der Türhüter, wenn er die Bestechung annimmt?", opts: ["Danke, komm herein", "Ich nehme es nur an, damit du nichts versäumt zu haben glaubst", "Das reicht nicht", "Gib mir mehr"], correct: 1 },
-            { q: "Was passiert mit dem Mann im Laufe der Jahre?", opts: ["Er wird reich", "Er wird alt und schwach", "Er findet einen anderen Eingang", "Er wird zum Türhüter"], correct: 1 },
-            { q: "Was erkennt der Mann am Ende im Dunkel?", opts: ["Einen anderen Menschen", "Einen Glanz aus der Türe des Gesetzes", "Den Weg nach Hause", "Nichts"], correct: 1 },
-            { q: "Was ist die letzte Frage des Mannes?", opts: ["Wie heißt du?", "Warum hat niemand außer mir Einlass verlangt?", "Wann darf ich hinein?", "Gibt es ein anderes Tor?"], correct: 1 },
-            { q: "Was ist die Antwort des Türhüters am Ende?", opts: ["Du darfst jetzt hinein", "Dieser Eingang war nur für dich bestimmt", "Es gibt kein Gesetz", "Du hast zu lange gewartet"], correct: 1 }
-        ];
+  {
+    "q": "Wer kommt zum Türhüter?",
+    "opts": [
+      "Ein Mann vom Lande",
+      "Ein Priester",
+      "Ein König",
+      "Ein Richter"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was möchte der Mann?",
+    "opts": [
+      "Den Türhüter sprechen",
+      "Eintritt in das Gesetz",
+      "Das Tor schließen",
+      "Arbeit finden"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was antwortet der Türhüter auf die erste Bitte?",
+    "opts": [
+      "Er muss bezahlen",
+      "Jetzt nicht, aber vielleicht später",
+      "Der Eingang ist geschlossen",
+      "Er darf sofort hinein"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Warum entscheidet sich der Mann zu warten?",
+    "opts": [
+      "Der Türhüter sieht furchteinflößend aus",
+      "Er hat keine Eile",
+      "Er hat kein Geld",
+      "Er will die anderen Türhüter sehen"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was tut der Mann, um hineinzukommen?",
+    "opts": [
+      "Er kämpft mit dem Türhüter",
+      "Er versucht, den Türhüter zu bestechen",
+      "Er bittet andere um Hilfe",
+      "Er sucht einen anderen Eingang"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was sagt der Türhüter, wenn er die Bestechung annimmt?",
+    "opts": [
+      "Ich nehme es nur an, damit du nichts versäumt zu haben glaubst",
+      "Danke, komm herein",
+      "Das reicht nicht",
+      "Gib mir mehr"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was passiert mit dem Mann im Laufe der Jahre?",
+    "opts": [
+      "Er wird alt und schwach",
+      "Er findet einen anderen Eingang",
+      "Er wird zum Türhüter",
+      "Er wird reich"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was erkennt der Mann am Ende im Dunkel?",
+    "opts": [
+      "Den Weg nach Hause",
+      "Nichts",
+      "Einen Glanz aus der Türe des Gesetzes",
+      "Einen anderen Menschen"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was ist die letzte Frage des Mannes?",
+    "opts": [
+      "Warum hat niemand außer mir Einlass verlangt?",
+      "Gibt es ein anderes Tor?",
+      "Wann darf ich hinein?",
+      "Wie heißt du?"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Was ist die Antwort des Türhüters am Ende?",
+    "opts": [
+      "Dieser Eingang war nur für dich bestimmt",
+      "Du hast zu lange gewartet",
+      "Es gibt kein Gesetz",
+      "Du darfst jetzt hinein"
+    ],
+    "correct": 0
+  }
+];
 
         const SATZBAU = [
             { id: 1, parts: ["ein Mann", "kommt", "vom Lande", "zum Türhüter"], valid: [["ein Mann", "kommt", "vom Lande", "zum Türhüter"]] },

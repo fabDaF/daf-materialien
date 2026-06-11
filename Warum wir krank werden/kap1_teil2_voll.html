@@ -684,26 +684,106 @@ renderLuecken();
 
 // ====== MULTIPLE-CHOICE (10) ======
 const MC_DATA=[
-    {q:"Wie viel Prozent aller erwachsenen US-Bürger könnten laut Text insulinresistent sein?",
-     opts:["Ungefähr 50 Prozent","Bis zu 88 Prozent","Etwa 30 Prozent","Genau 10 Prozent"],correct:1},
-    {q:"Wo wird Insulin im menschlichen Körper gebildet?",
-     opts:["In der Leber","Im Gehirn","In der Bauchspeicheldrüse","Im Herzen"],correct:2},
-    {q:"Wie viel Prozent der von Insulinresistenz Betroffenen leben in Entwicklungsländern?",
-     opts:["50 Prozent","60 Prozent","80 Prozent","90 Prozent"],correct:2},
-    {q:"Was war Insulinresistenz früher?",
-     opts:["Eine Kinderkrankheit","Eine Tropenkrankheit","Eine Wohlstandskrankheit","Eine Infektionskrankheit"],correct:2},
-    {q:"Was ist Insulin?",
-     opts:["Ein Vitamin","Ein Hormon","Ein Enzym","Ein Mineral"],correct:1},
-    {q:"Was reguliert die Bauchspeicheldrüse am bekanntesten?",
-     opts:["Den Blutdruck","Die Körpertemperatur","Den Blutzuckerspiegel","Den Cholesterinspiegel"],correct:2},
-    {q:"Was passiert, wenn Insulin an eine Leberzelle bindet?",
-     opts:["Sie produziert Proteine","Sie produziert Fett","Sie stirbt ab","Sie teilt sich"],correct:1},
-    {q:"Was bedeutet Anabolismus?",
-     opts:["Stoffabbau – große Dinge kleiner machen","Stoffwechsel – Energie verbrennen","Stoffaufbau – kleinere Dinge größer machen","Stoffaustausch – Nährstoffe transportieren"],correct:2},
-    {q:"Was ist besonders an Insulin im Vergleich zu anderen Hormonen?",
-     opts:["Es wirkt nur auf ein Organ","Es wird nur einmal produziert","Es wirkt auf die Zellen aller Körpergewebe","Es ist das kleinste Hormon"],correct:2},
-    {q:"Was ist Insulinresistenz laut Text?",
-     opts:["Wenn der Körper zu viel Insulin produziert","Wenn Insulin nicht richtig arbeitet","Wenn die Bauchspeicheldrüse kein Insulin mehr bildet","Wenn man allergisch auf Insulin reagiert"],correct:1}
+  {
+    "q": "Wie viel Prozent aller erwachsenen US-Bürger könnten laut Text insulinresistent sein?",
+    "opts": [
+      "Bis zu 88 Prozent",
+      "Etwa 30 Prozent",
+      "Ungefähr 50 Prozent",
+      "Genau 10 Prozent"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Wo wird Insulin im menschlichen Körper gebildet?",
+    "opts": [
+      "In der Bauchspeicheldrüse",
+      "Im Herzen",
+      "In der Leber",
+      "Im Gehirn"
+    ],
+    "correct": 0
+  },
+  {
+    "q": "Wie viel Prozent der von Insulinresistenz Betroffenen leben in Entwicklungsländern?",
+    "opts": [
+      "50 Prozent",
+      "80 Prozent",
+      "90 Prozent",
+      "60 Prozent"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was war Insulinresistenz früher?",
+    "opts": [
+      "Eine Kinderkrankheit",
+      "Eine Wohlstandskrankheit",
+      "Eine Infektionskrankheit",
+      "Eine Tropenkrankheit"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was ist Insulin?",
+    "opts": [
+      "Ein Mineral",
+      "Ein Enzym",
+      "Ein Vitamin",
+      "Ein Hormon"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "Was reguliert die Bauchspeicheldrüse am bekanntesten?",
+    "opts": [
+      "Den Cholesterinspiegel",
+      "Den Blutdruck",
+      "Den Blutzuckerspiegel",
+      "Die Körpertemperatur"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was passiert, wenn Insulin an eine Leberzelle bindet?",
+    "opts": [
+      "Sie produziert Proteine",
+      "Sie stirbt ab",
+      "Sie produziert Fett",
+      "Sie teilt sich"
+    ],
+    "correct": 2
+  },
+  {
+    "q": "Was bedeutet Anabolismus?",
+    "opts": [
+      "Stoffaustausch – Nährstoffe transportieren",
+      "Stoffaufbau – kleinere Dinge größer machen",
+      "Stoffwechsel – Energie verbrennen",
+      "Stoffabbau – große Dinge kleiner machen"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was ist besonders an Insulin im Vergleich zu anderen Hormonen?",
+    "opts": [
+      "Es wirkt nur auf ein Organ",
+      "Es wirkt auf die Zellen aller Körpergewebe",
+      "Es ist das kleinste Hormon",
+      "Es wird nur einmal produziert"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "Was ist Insulinresistenz laut Text?",
+    "opts": [
+      "Wenn man allergisch auf Insulin reagiert",
+      "Wenn Insulin nicht richtig arbeitet",
+      "Wenn die Bauchspeicheldrüse kein Insulin mehr bildet",
+      "Wenn der Körper zu viel Insulin produziert"
+    ],
+    "correct": 1
+  }
 ];
 
 function renderMC(){

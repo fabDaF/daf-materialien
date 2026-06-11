@@ -517,16 +517,106 @@ function showLueckenLoesungen() {
 //  TAB 4: MULTIPLE CHOICE
 // ═══════════════════════════════════════════════════════════════════════
 var MC_DATA = [
-    { q: '1. Was hat Pape 2009 vorhergesagt?', opts: ['Dass China die USA militärisch angreifen wird.', 'Dass Amerikas Ära als einzige Supermacht zu Ende geht.', 'Dass die USA den Iran bombardieren werden.', 'Dass Europa zur neuen Supermacht wird.'], correct: 1 },
-    { q: '2. Was haben Trumps Zölle laut Pape bewirkt?', opts: ['Sie haben die amerikanische Wirtschaft gestärkt.', 'Sie haben China geschadet.', 'Sie haben China geholfen.', 'Sie hatten keine Wirkung.'], correct: 2 },
-    { q: '3. Was hat Pape in Wuhan beeindruckt?', opts: ['Die traditionelle chinesische Architektur', 'Die militärischen Anlagen', 'Die KI-Cluster, Robotik und die Anhebung von 9 Millionen Menschen', 'Die billigen Arbeitskräfte in den Fabriken'], correct: 2 },
-    { q: '4. Warum vergleicht Pape Wuhan mit Pittsburgh?', opts: ['Beide sind berühmt für ihre Sportteams.', 'Beide waren alte Stahlstädte — aber Wuhan hat sich transformiert, Pittsburgh nicht.', 'Beide haben dieselbe Einwohnerzahl.', 'Beide werden von der KI-Revolution bedroht.'], correct: 1 },
-    { q: '5. Was passiert laut Pape bei großen hegemonischen Verschiebungen?', opts: ['Es gibt immer einen friedlichen Übergang.', 'Die alte Supermacht wird automatisch stärker.', 'Es kommt oft zu enormen Spannungen und Gewalt.', 'Die Wirtschaft beider Länder wächst.'], correct: 2 },
-    { q: '6. Warum ist China laut Pape über den Krieg im Nahen Osten „begeistert“?', opts: ['Weil China billiges Öl aus dem Iran bekommt.', 'Weil die USA dort festgenagelt werden und China in Asien wachsen kann.', 'Weil China selbst im Nahen Osten expandieren will.', 'Weil der Krieg Chinas Militär testet.'], correct: 1 },
-    { q: '7. Was sagt Pape über die Standoff-Präzisionswaffen?', opts: ['Die USA haben genug davon für jeden Konflikt.', 'Sie werden nicht mehr gebraucht.', 'Den USA gehen sie aus — und sie brauchen sie für Taiwan.', 'China hat sie den USA gestohlen.'], correct: 2 },
-    { q: '8. Was meint Pape mit „Amerika schießt sich selbst in beide Füße“?', opts: ['Die USA testen neue Waffen an sich selbst.', 'Amerika schadet sich durch den Iran-Krieg und die Zölle mehr als China es könnte.', 'Amerikanische Soldaten verletzen sich beim Training.', 'Die USA haben ein Problem mit Waffengewalt im Inland.'], correct: 1 },
-    { q: '9. Was sind laut Pape die „Cluster“ in China?', opts: ['Militärbasen entlang der Küste', 'Ansammlungen von Firmen und Forschungseinrichtungen, die Millionen Menschen anheben', 'Geheime Atomwaffenlager', 'Traditionelle Dorfgemeinschaften'], correct: 1 },
-    { q: '10. Was ist laut Pape der eigentliche langfristige Preis von Trumps Politik?', opts: ['Höhere Benzinpreise in Amerika', 'Der Verlust von Arbeitsplätzen in der Autoindustrie', 'Die Erosion von Amerikas Position als Nummer eins der Welt', 'Ein Handelskrieg nur mit Europa'], correct: 2 }
+  {
+    "q": "1. Was hat Pape 2009 vorhergesagt?",
+    "opts": [
+      "Dass Europa zur neuen Supermacht wird.",
+      "Dass Amerikas Ära als einzige Supermacht zu Ende geht.",
+      "Dass die USA den Iran bombardieren werden.",
+      "Dass China die USA militärisch angreifen wird."
+    ],
+    "correct": 1
+  },
+  {
+    "q": "2. Was haben Trumps Zölle laut Pape bewirkt?",
+    "opts": [
+      "Sie haben China geholfen.",
+      "Sie hatten keine Wirkung.",
+      "Sie haben die amerikanische Wirtschaft gestärkt.",
+      "Sie haben China geschadet."
+    ],
+    "correct": 0
+  },
+  {
+    "q": "3. Was hat Pape in Wuhan beeindruckt?",
+    "opts": [
+      "Die traditionelle chinesische Architektur",
+      "Die militärischen Anlagen",
+      "Die billigen Arbeitskräfte in den Fabriken",
+      "Die KI-Cluster, Robotik und die Anhebung von 9 Millionen Menschen"
+    ],
+    "correct": 3
+  },
+  {
+    "q": "4. Warum vergleicht Pape Wuhan mit Pittsburgh?",
+    "opts": [
+      "Beide sind berühmt für ihre Sportteams.",
+      "Beide waren alte Stahlstädte — aber Wuhan hat sich transformiert, Pittsburgh nicht.",
+      "Beide werden von der KI-Revolution bedroht.",
+      "Beide haben dieselbe Einwohnerzahl."
+    ],
+    "correct": 1
+  },
+  {
+    "q": "5. Was passiert laut Pape bei großen hegemonischen Verschiebungen?",
+    "opts": [
+      "Es gibt immer einen friedlichen Übergang.",
+      "Es kommt oft zu enormen Spannungen und Gewalt.",
+      "Die Wirtschaft beider Länder wächst.",
+      "Die alte Supermacht wird automatisch stärker."
+    ],
+    "correct": 1
+  },
+  {
+    "q": "6. Warum ist China laut Pape über den Krieg im Nahen Osten „begeistert“?",
+    "opts": [
+      "Weil die USA dort festgenagelt werden und China in Asien wachsen kann.",
+      "Weil China billiges Öl aus dem Iran bekommt.",
+      "Weil China selbst im Nahen Osten expandieren will.",
+      "Weil der Krieg Chinas Militär testet."
+    ],
+    "correct": 0
+  },
+  {
+    "q": "7. Was sagt Pape über die Standoff-Präzisionswaffen?",
+    "opts": [
+      "Sie werden nicht mehr gebraucht.",
+      "China hat sie den USA gestohlen.",
+      "Den USA gehen sie aus — und sie brauchen sie für Taiwan.",
+      "Die USA haben genug davon für jeden Konflikt."
+    ],
+    "correct": 2
+  },
+  {
+    "q": "8. Was meint Pape mit „Amerika schießt sich selbst in beide Füße“?",
+    "opts": [
+      "Die USA haben ein Problem mit Waffengewalt im Inland.",
+      "Amerikanische Soldaten verletzen sich beim Training.",
+      "Die USA testen neue Waffen an sich selbst.",
+      "Amerika schadet sich durch den Iran-Krieg und die Zölle mehr als China es könnte."
+    ],
+    "correct": 3
+  },
+  {
+    "q": "9. Was sind laut Pape die „Cluster“ in China?",
+    "opts": [
+      "Militärbasen entlang der Küste",
+      "Ansammlungen von Firmen und Forschungseinrichtungen, die Millionen Menschen anheben",
+      "Geheime Atomwaffenlager",
+      "Traditionelle Dorfgemeinschaften"
+    ],
+    "correct": 1
+  },
+  {
+    "q": "10. Was ist laut Pape der eigentliche langfristige Preis von Trumps Politik?",
+    "opts": [
+      "Ein Handelskrieg nur mit Europa",
+      "Die Erosion von Amerikas Position als Nummer eins der Welt",
+      "Der Verlust von Arbeitsplätzen in der Autoindustrie",
+      "Höhere Benzinpreise in Amerika"
+    ],
+    "correct": 1
+  }
 ];
 
 function initMc() {
