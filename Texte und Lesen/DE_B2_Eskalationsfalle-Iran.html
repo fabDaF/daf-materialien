@@ -264,8 +264,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
                 <div class="drop-zone" data-cat="pl"><h3>Plural</h3></div>
             </div>
             <div class="btn-row">
-                <button class="btn btn-show" onclick="showGenusLoesungen()">Lösungen</button>
-                <button class="btn btn-reset" onclick="initGenus()">↺ Neustart</button>
+                <button onclick="showGenusLoesungen()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+                <button onclick="initGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
             </div>
             <div class="timer-display">
                 <span class="current-time">⏱ <span id="timer-2">00:00</span></span>
@@ -281,8 +281,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
             <p style="margin-bottom:14px; color:#555;">Ergänze die fehlenden Wörter aus dem Text.</p>
             <div id="luecken-area"></div>
             <div class="btn-row">
-                <button class="btn btn-show" onclick="showLueckenLoesungen()">Lösungen</button>
-                <button class="btn btn-reset" onclick="initLuecken()">↺ Neustart</button>
+                <button onclick="showLueckenLoesungen()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+                <button onclick="initLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
             </div>
             <div class="timer-display">
                 <span class="current-time">⏱ <span id="timer-3">00:00</span></span>
@@ -298,8 +298,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
             <p style="margin-bottom:14px; color:#555;">Wähle die richtige Antwort.</p>
             <div id="mc-area"></div>
             <div class="btn-row">
-                <button class="btn btn-show" onclick="showMcLoesungen()">Lösungen</button>
-                <button class="btn btn-reset" onclick="initMc()">↺ Neustart</button>
+                <button onclick="showMcLoesungen()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+                <button onclick="initMc()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
             </div>
             <div class="timer-display">
                 <span class="current-time">⏱ <span id="timer-4">00:00</span></span>
@@ -315,8 +315,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
             <p style="margin-bottom:14px; color:#555;">Ordne die Wörter zu einem korrekten Satz.</p>
             <div id="satzbauContainer"></div>
             <div class="btn-row">
-                <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">Lösungen</button>
-                <button class="btn btn-reset" onclick="initSatzbau()">↺ Neustart</button>
+                <button onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+                <button onclick="initSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
             </div>
             <div class="timer-display">
                 <span class="current-time">⏱ <span id="timer-5">00:00</span></span>
