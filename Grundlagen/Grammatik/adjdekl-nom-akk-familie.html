@@ -340,7 +340,7 @@ function initWortschatz() {
     container.innerHTML = '';
     shuffle(WORTSCHATZ).forEach(function(item) {
         var row = document.createElement('div');
-        row.className = 'vocab-item'; row.style.marginBottom = '0';
+        row.className = 'luecken-item'; row.style.marginBottom = '0';
         var prompt = document.createElement('div');
         prompt.style.cssText = 'font-weight:600; color:#667eea; margin-bottom:6px; font-size:1.05em;';
         prompt.textContent = item.en;
