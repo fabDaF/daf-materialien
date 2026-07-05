@@ -1009,10 +1009,10 @@
             sentencesData.forEach((item, index) => {
                 const area = document.querySelector(`.sentence-area[data-sentence="${index}"]`);
                 const pool = document.querySelector(`.word-pool[data-sentence="${index}"]`);
-                const dot = area.querySelector('.fixed-dot');
                 
                 pool.innerHTML = '';
                 area.innerHTML = '<span class="fixed-dot">.</span>';
+                const dot = area.querySelector('.fixed-dot');
                 area.classList.remove('wrong');
                 area.classList.add('correct');
                 

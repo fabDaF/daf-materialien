@@ -38,16 +38,6 @@ h1 { text-align: center; font-size: 1.5rem;
 .btn-reset { background: #fff; color: #888; border: 1px solid #ddd; }
 .score { text-align: center; margin-top: 12px; font-weight: 600; color: #667eea; }
 
-/* Help */
-.help-toggle { background: none; border: 1px solid #667eea; color: #667eea;
-               border-radius: 6px; padding: 4px 12px; font-size: 0.8rem;
-               cursor: pointer; margin-bottom: 14px; }
-.help-toggle:hover { background: #667eea; color: #fff; }
-.help-box { display: none; background: #f8f7ff; border-left: 3px solid #667eea;
-            padding: 12px 16px; margin-bottom: 16px; border-radius: 0 8px 8px 0;
-            font-size: 0.85rem; line-height: 1.7; }
-.help-box.open { display: block; }
-.help-box p { margin-bottom: 5px; }
 
 /* ── MAGIC FIVE FARBEN (nur für Endungen, nicht für Kasuslogik) ── */
 .m5-r { color: #c0392b; font-weight: 800; }
@@ -721,8 +711,6 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
 
 <!-- ══ TAB 3: TYP 1 ══ -->
 <div class="section" id="sec-2">
-  <button class="help-toggle" onclick="toggleHelp(2)">💡 Hilfe</button>
-
   <div class="luecke-intro">
     Begleiter hat ein Magic Five → Adjektiv schwach → nur <strong style="color:#2980b9;">-e</strong> oder <strong style="color:#7a6040;">-en</strong>
   </div>
@@ -773,8 +761,6 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
 
 <!-- ══ TAB 4: TYP 2 ══ -->
 <div class="section" id="sec-3">
-  <button class="help-toggle" onclick="toggleHelp(3)">💡 Hilfe</button>
-
   <div class="luecke-intro">
     Erst fragen: Hat <em>dieser</em> Begleiter hier ein Magic Five? → Dann ableiten.
   </div>
@@ -835,8 +821,6 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
 
 <!-- ══ TAB 5: TYP 3 ══ -->
 <div class="section" id="sec-4">
-  <button class="help-toggle" onclick="toggleHelp(4)">💡 Hilfe</button>
-
   <div class="luecke-intro">
     Kein Begleiter → Magic Five wandert ins Adjektiv
   </div>
@@ -1096,7 +1080,6 @@ function showSection(idx) {
     document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active', i===idx));
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
 }
-function toggleHelp(idx) { document.getElementById('help-'+idx).classList.toggle('open'); }
 
 // ── ENTDECKUNG ──
 const ENT = [
