@@ -3,97 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
 <title>Brief an eine Maschine – Interaktive Übungen</title>
-<style>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-page-a: #667eea;
+  --grad-page-b: #764ba2;
+  --sf-container: #fff;
+  --bd-27ae60: #27ae60;
+  --bd-667eea: #667eea;
+  --bd-764ba2: #764ba2;
+  --bd-ccc: #ccc;
+  --bd-ddd: #ddd;
+  --bd-e0e0e0: #e0e0e0;
+  --bd-e74c3c: #e74c3c;
+  --bd-f39c12: #f39c12;
+  --bg-667eea: #667eea;
+  --bg-95a5a6: #95a5a6;
+  --bg-eef0ff: #eef0ff;
+  --bg-f0f0f0: #f0f0f0;
+  --bg-f0f2ff: #f0f2ff;
+  --bg-f39c12: #f39c12;
+  --bg-f8f9ff: #f8f9ff;
+  --bg-fff: #fff;
+  --bg-fff9e6: #fff9e6;
+  --tx-241048: #241048;
+  --tx-27ae60: #27ae60;
+  --tx-333: #333;
+  --tx-34206b: #34206b;
+  --tx-555: #555;
+  --tx-666: #666;
+  --tx-667eea: #667eea;
+  --tx-777: #777;
+  --tx-aaa: #aaa;
+  --tx-e74c3c: #e74c3c;
+  --tx-fff: #fff;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;min-height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:18px}
-.container{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.2);overflow:hidden}
-h1{text-align:center;padding:22px 18px 4px;font-size:1.5em;color:#333}
-.subtitle{text-align:center;color:#666;font-size:.95em;padding:0 18px 14px}
+body{font-family:'Segoe UI',sans-serif;min-height:100vh;background:linear-gradient(135deg, var(--grad-page-a) 0%, var(--grad-page-b) 100%);padding:18px}
+.container{max-width:900px;margin:0 auto;background:var(--sf-container);border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.2);overflow:hidden}
+h1{text-align:center;padding:22px 18px 4px;font-size:1.5em;color:var(--tx-333)}
+.subtitle{text-align:center;color:var(--tx-666);font-size:.95em;padding:0 18px 14px}
 
 /* NAV */
-.nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px 14px;background:#f0f0f0;border-bottom:2px solid #e0e0e0}
-.nav-btn{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:.82em;background:#fff;border:2px solid #ddd;transition:.2s;text-align:center;flex:1 1 auto;min-width:100px}
-.nav-btn:hover{border-color:#667eea;background:#f8f9ff}
-.nav-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+.nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px 14px;background:var(--bg-f0f0f0);border-bottom:2px solid var(--bd-e0e0e0)}
+.nav-btn{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:.82em;background:var(--bg-fff);border:2px solid var(--bd-ddd);transition:.2s;text-align:center;flex:1 1 auto;min-width:100px}
+.nav-btn:hover{border-color:var(--bd-667eea);background:var(--bg-f8f9ff)}
+.nav-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:var(--tx-fff);border-color:transparent}
 
 /* SECTIONS */
 .section{display:none;padding:20px}
 .section.active{display:block}
-.section-title{font-size:1.15em;font-weight:700;color:#333;margin-bottom:6px}
-.section-intro{color:#666;font-size:.93em;margin-bottom:16px}
+.section-title{font-size:1.15em;font-weight:700;color:var(--tx-333);margin-bottom:6px}
+.section-intro{color:var(--tx-666);font-size:.93em;margin-bottom:16px}
 
 /* BUTTONS */
 .btn-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-.btn{padding:10px 20px;border:none;border-radius:8px;font-size:.95em;cursor:pointer;color:#fff;transition:.2s}
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:.95em;cursor:pointer;color:var(--tx-fff);transition:.2s}
 .btn:hover{opacity:.85}
-.btn-check{background:#667eea}
-.btn-show{background:#f39c12}
-.btn-reset{background:#95a5a6}
-.score{margin-top:10px;font-weight:700;color:#333;font-size:.95em}
+.btn-check{background:var(--bg-667eea)}
+.btn-show{background:var(--bg-f39c12)}
+.btn-reset{background:var(--bg-95a5a6)}
+.score{margin-top:10px;font-weight:700;color:var(--tx-333);font-size:.95em}
 
 /* VORENTLASTUNG */
-.vocab-card{background:#f8f9ff;border-left:4px solid #667eea;padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
-.vocab-term{font-weight:700;color:#333;font-size:1.05em}
-.vocab-def{color:#555;margin-top:4px;font-size:.95em}
-.vocab-example{color:#777;font-style:italic;margin-top:4px;font-size:.9em}
+.vocab-card{background:var(--bg-f8f9ff);border-left:4px solid var(--bd-667eea);padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.vocab-term{font-weight:700;color:var(--tx-333);font-size:1.05em}
+.vocab-def{color:var(--tx-555);margin-top:4px;font-size:.95em}
+.vocab-example{color:var(--tx-777);font-style:italic;margin-top:4px;font-size:.9em}
 
 /* ORIGINALTEXT */
-.text-block{background:#f8f9ff;border-radius:12px;padding:20px 24px;line-height:1.8;color:#333;font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
+.text-block{background:var(--bg-f8f9ff);border-radius:12px;padding:20px 24px;line-height:1.8;color:var(--tx-333);font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
 .text-block p{margin-bottom:14px;text-align:justify}
-.text-author{text-align:right;font-weight:700;margin-top:20px;color:#555}
+.text-author{text-align:right;font-weight:700;margin-top:20px;color:var(--tx-555)}
 
 /* Footer */
-.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
-.author-footer a { color: #aaa; }
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: var(--tx-aaa); }
+.author-footer a { color: var(--tx-aaa); }
 
 /* GENUS */
-.chip-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:12px;background:#f8f9ff;border-radius:10px;margin-bottom:16px}
-.chip{padding:8px 16px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:20px;cursor:grab;font-size:.92em;user-select:none;transition:.2s}
+.chip-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:12px;background:var(--bg-f8f9ff);border-radius:10px;margin-bottom:16px}
+.chip{padding:8px 16px;background:linear-gradient(135deg,#667eea,#764ba2);color:var(--tx-fff);border-radius:20px;cursor:grab;font-size:.92em;user-select:none;transition:.2s}
 .chip:active{cursor:grabbing;transform:scale(1.05)}
 .chip.correct{background:linear-gradient(135deg,#27ae60,#2ecc71)!important}
 .chip.wrong{background:linear-gradient(135deg,#e74c3c,#c0392b)!important}
 .categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
 @media(max-width:600px){.categories{grid-template-columns:repeat(2,1fr)}}
-.category{background:#f8f9ff;border:2px dashed #ccc;border-radius:10px;padding:10px;min-height:100px;transition:.2s}
-.category.drag-over{border-color:#667eea;background:#eef0ff}
-.category h3{text-align:center;color:#667eea;margin-bottom:8px;font-size:1em}
+.category{background:var(--bg-f8f9ff);border:2px dashed var(--bd-ccc);border-radius:10px;padding:10px;min-height:100px;transition:.2s}
+.category.drag-over{border-color:var(--bd-667eea);background:var(--bg-eef0ff)}
+.category h3{text-align:center;color:var(--tx-667eea);margin-bottom:8px;font-size:1em}
 .drop-zone{display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
 
 /* LÜCKENTEXT */
 .luecke-row{margin-bottom:14px;line-height:2.2;font-size:.97em}
 .nowrap-group{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
-input.blank{border:none;border-bottom:2px solid #667eea;outline:none;font-size:.95em;padding:2px 4px;background:transparent;text-align:center;font-family:inherit;transition:.2s}
-input.blank:focus{border-bottom-color:#764ba2;background:rgba(102,126,234,.05)}
-input.blank.correct{border-bottom-color:#27ae60;background:rgba(39,174,96,.08);color:#27ae60}
-input.blank.wrong{border-bottom-color:#e74c3c;background:rgba(231,76,60,.08);color:#e74c3c}
+input.blank{border:none;border-bottom:2px solid var(--bd-667eea);outline:none;font-size:.95em;padding:2px 4px;background:transparent;text-align:center;font-family:inherit;transition:.2s}
+input.blank:focus{border-bottom-color:var(--bd-764ba2);background:rgba(102,126,234,.05)}
+input.blank.correct{border-bottom-color:var(--bd-27ae60);background:rgba(39,174,96,.08);color:var(--tx-27ae60)}
+input.blank.wrong{border-bottom-color:var(--bd-e74c3c);background:rgba(231,76,60,.08);color:var(--tx-e74c3c)}
 input.blank.s{min-width:50px;width:50px}
 input.blank.m{min-width:90px;width:90px}
 input.blank.l{min-width:150px;width:150px}
 input.blank.xl{min-width:200px;width:200px}
-.sol{display:none;color:#27ae60;font-weight:700;font-size:.88em;margin-left:2px}
+.sol{display:none;color:var(--tx-27ae60);font-weight:700;font-size:.88em;margin-left:2px}
 
 /* MULTIPLE CHOICE */
-.mc-block{margin-bottom:18px;padding:14px;background:#f8f9ff;border-radius:10px}
-.mc-question{font-weight:700;color:#333;margin-bottom:10px;font-size:.97em}
+.mc-block{margin-bottom:18px;padding:14px;background:var(--bg-f8f9ff);border-radius:10px}
+.mc-question{font-weight:700;color:var(--tx-333);margin-bottom:10px;font-size:.97em}
 .mc-opts{display:flex;flex-direction:column;gap:6px}
-.mc-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
-.mc-opt:hover{border-color:#667eea;background:#f8f9ff}
-.mc-opt.selected{border-color:#667eea;background:rgba(102,126,234,.15)}
-.mc-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.1)}
-.mc-opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.1)}
+.mc-opt{padding:10px 16px;border:2px solid var(--bd-ddd);border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
+.mc-opt:hover{border-color:var(--bd-667eea);background:var(--bg-f8f9ff)}
+.mc-opt.selected{border-color:var(--bd-667eea);background:rgba(102,126,234,.15)}
+.mc-opt.correct{border-color:var(--bd-27ae60);background:rgba(39,174,96,.1)}
+.mc-opt.wrong{border-color:var(--bd-e74c3c);background:rgba(231,76,60,.1)}
 
 /* SATZBAU */
-.sb-exercise{margin-bottom:24px;padding:14px;background:#f8f9ff;border-radius:10px}
-.sb-label{font-weight:700;color:#555;margin-bottom:8px;font-size:.9em}
-.drop-row{display:flex;flex-wrap:wrap;gap:6px;min-height:48px;padding:10px;background:#fff;border:2px dashed #ccc;border-radius:8px;margin-bottom:8px;align-items:center}
-.drop-row.drag-over{border-color:#667eea;background:#f0f2ff}
+.sb-exercise{margin-bottom:24px;padding:14px;background:var(--bg-f8f9ff);border-radius:10px}
+.sb-label{font-weight:700;color:var(--tx-555);margin-bottom:8px;font-size:.9em}
+.drop-row{display:flex;flex-wrap:wrap;gap:6px;min-height:48px;padding:10px;background:var(--bg-fff);border:2px dashed var(--bd-ccc);border-radius:8px;margin-bottom:8px;align-items:center}
+.drop-row.drag-over{border-color:var(--bd-667eea);background:var(--bg-f0f2ff)}
 .drop-row .chip{font-size:.88em;padding:6px 14px}
 .drop-row .chip.correct{background:linear-gradient(135deg,#27ae60,#2ecc71)!important}
 .drop-row .chip.wrong{background:linear-gradient(135deg,#e74c3c,#c0392b)!important}
-.fixed-dot{font-weight:700;font-size:1.1em;color:#333;margin-left:2px}
+.fixed-dot{font-weight:700;font-size:1.1em;color:var(--tx-333);margin-left:2px}
 .sb-bank{display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
-.help-box{background:#fff9e6;border-left:4px solid #f39c12;padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:16px;font-size:.9em;color:#555;line-height:1.6}
+.help-box{background:var(--bg-fff9e6);border-left:4px solid var(--bd-f39c12);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:16px;font-size:.9em;color:var(--tx-555);line-height:1.6}
 
 /* FB-JUMPTOP - Nach-oben-Button (Glas-Look) */
 .fb-jumptop {
@@ -102,7 +138,7 @@ input.blank.xl{min-width:200px;width:200px}
   background: rgba(118, 75, 162, 0.26);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  color: #34206b; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
   padding: 15px 26px; font-size: 1.05em; font-weight: 800;
   letter-spacing: 0.2px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -114,9 +150,107 @@ input.blank.xl{min-width:200px;width:200px}
   z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
 }
 .fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: #241048; box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-page-a: #23263e;
+  --grad-page-b: #2f2440;
+  --sf-container: #23263a;
+  --bd-27ae60: #3f9d6d;
+  --bd-667eea: #7b88e8;
+  --bd-764ba2: #8a63b8;
+  --bd-ccc: #4a4e6a;
+  --bd-ddd: #3a3e58;
+  --bd-e0e0e0: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bd-f39c12: #c67f16;
+  --bg-667eea: #4a55b8;
+  --bg-95a5a6: #273839;
+  --bg-eef0ff: #262a44;
+  --bg-f0f0f0: #2a2d42;
+  --bg-f0f2ff: #262a44;
+  --bg-f39c12: #c67f16;
+  --bg-f8f9ff: #262a44;
+  --bg-fff: #262a44;
+  --bg-fff9e6: #3f3410;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-555: #b6bad0;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-777: #979cb8;
+  --tx-aaa: #6f7390;
+  --tx-e74c3c: #ef7365;
+}
+.tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+body { color: #c6cade; }
+button, input, select, textarea { color: inherit; }
+}
+:root[data-theme="dark"] {
+  --grad-page-a: #23263e;
+  --grad-page-b: #2f2440;
+  --sf-container: #23263a;
+  --bd-27ae60: #3f9d6d;
+  --bd-667eea: #7b88e8;
+  --bd-764ba2: #8a63b8;
+  --bd-ccc: #4a4e6a;
+  --bd-ddd: #3a3e58;
+  --bd-e0e0e0: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bd-f39c12: #c67f16;
+  --bg-667eea: #4a55b8;
+  --bg-95a5a6: #273839;
+  --bg-eef0ff: #262a44;
+  --bg-f0f0f0: #2a2d42;
+  --bg-f0f2ff: #262a44;
+  --bg-f39c12: #c67f16;
+  --bg-f8f9ff: #262a44;
+  --bg-fff: #262a44;
+  --bg-fff9e6: #3f3410;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-555: #b6bad0;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-777: #979cb8;
+  --tx-aaa: #6f7390;
+  --tx-e74c3c: #ef7365;
+}
+html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+html[data-theme="dark"] body { color: #c6cade; }
+html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
 </head>
 <body>
 <div class="container">
@@ -214,8 +348,8 @@ input.blank.xl{min-width:200px;width:200px}
     </div>
     <div class="btn-row">
         <button class="btn btn-check" onclick="checkGenus()">✔ Prüfen</button>
-        <button onclick="showGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-        <button onclick="resetGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+        <button onclick="showGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+        <button onclick="resetGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
     </div>
     <div class="score" id="genus-score"></div>
 </div>
@@ -227,8 +361,8 @@ input.blank.xl{min-width:200px;width:200px}
     <div id="luecken-area"></div>
     <div class="btn-row">
         <button class="btn btn-check" onclick="checkLuecken()">✔ Prüfen</button>
-        <button onclick="showLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-        <button onclick="resetLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+        <button onclick="showLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+        <button onclick="resetLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
     </div>
     <div class="score" id="luecken-score"></div>
 </div>
@@ -240,8 +374,8 @@ input.blank.xl{min-width:200px;width:200px}
     <div id="mc-area"></div>
     <div class="btn-row">
         <button class="btn btn-check" onclick="checkMC()">✔ Prüfen</button>
-        <button onclick="showMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-        <button onclick="resetMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+        <button onclick="showMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+        <button onclick="resetMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
     </div>
     <div class="score" id="mc-score"></div>
 </div>
@@ -254,8 +388,8 @@ input.blank.xl{min-width:200px;width:200px}
     <div id="sb-area"></div>
     <div class="btn-row">
         <button class="btn btn-check" onclick="checkSatzbau()">✔ Prüfen</button>
-        <button onclick="showSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-        <button onclick="resetSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+        <button onclick="showSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+        <button onclick="resetSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
     </div>
     <div class="score" id="sb-score"></div>
 </div>

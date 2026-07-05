@@ -3,105 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
 <title>Warum wir krank werden – Geleitwort</title>
-<style>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-page-a: #667eea;
+  --grad-page-b: #764ba2;
+  --sf-container: #fff;
+  --sf-pill: #fff;
+  --bd-27ae60: #27ae60;
+  --bd-333: #333;
+  --bd-667eea: #667eea;
+  --bd-764ba2: #764ba2;
+  --bd-bbb: #bbb;
+  --bd-ccc: #ccc;
+  --bd-ddd: #ddd;
+  --bd-e74c3c: #e74c3c;
+  --bg-27ae60: #27ae60;
+  --bg-5a6fd6: #5a6fd6;
+  --bg-667eea: #667eea;
+  --bg-7f8c8d: #7f8c8d;
+  --bg-95a5a6: #95a5a6;
+  --bg-e67e22: #e67e22;
+  --bg-e74c3c: #e74c3c;
+  --bg-e8ebff: #e8ebff;
+  --bg-f0f0f0: #f0f0f0;
+  --bg-f0f0f8: #f0f0f8;
+  --bg-f39c12: #f39c12;
+  --bg-f8f9fa: #f8f9fa;
+  --bg-f8f9ff: #f8f9ff;
+  --bg-fff: #fff;
+  --bg-fff3cd: #fff3cd;
+  --tx-241048: #241048;
+  --tx-27ae60: #27ae60;
+  --tx-333: #333;
+  --tx-34206b: #34206b;
+  --tx-555: #555;
+  --tx-666: #666;
+  --tx-667eea: #667eea;
+  --tx-777: #777;
+  --tx-856404: #856404;
+  --tx-e74c3c: #e74c3c;
+  --tx-fff: #fff;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
-.container{max-width: 1000px;margin:0 auto;background:#fff;border-radius: 12px;overflow: hidden; box-shadow:0 8px 32px rgba(0,0,0,.2)}
-h1{text-align:center;color:#333;font-size:1.5em;margin-bottom:4px}
-.subtitle{text-align:center;color:#666;margin-bottom:20px;font-size:.95em}
-.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg, var(--grad-page-a) 0%, var(--grad-page-b) 100%);min-height:100vh;padding:20px}
+.container{max-width: 1000px;margin:0 auto;background:var(--sf-container);border-radius: 12px;overflow: hidden; box-shadow:0 8px 32px rgba(0,0,0,.2)}
+h1{text-align:center;color:var(--tx-333);font-size:1.5em;margin-bottom:4px}
+.subtitle{text-align:center;color:var(--tx-666);margin-bottom:20px;font-size:.95em}
+.nav { display: flex; flex-wrap: nowrap; background: var(--bg-f8f9fa); border-top: 1px solid var(--bd-ddd); border-left: 1px solid var(--bd-ddd); border-right: 1px solid var(--bd-ddd); }
 
 
 
 .section{display:none}
 .section.active{display:block}
-h2{margin-bottom:14px;color:#333}
-.intro{margin-bottom:14px;color:#555;font-size:.95em}
+h2{margin-bottom:14px;color:var(--tx-333)}
+.intro{margin-bottom:14px;color:var(--tx-555);font-size:.95em}
 
 /* Vorentlastung */
-.vocab-card{background:#f8f9ff;border-left:4px solid #667eea;padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
-.vocab-term{font-weight:700;color:#333;font-size:1.05em}
-.vocab-def{color:#555;margin-top:4px;font-size:.95em}
-.vocab-example{color:#777;font-style:italic;margin-top:4px;font-size:.9em}
+.vocab-card{background:var(--bg-f8f9ff);border-left:4px solid var(--bd-667eea);padding:14px 18px;margin-bottom:12px;border-radius:0 8px 8px 0}
+.vocab-term{font-weight:700;color:var(--tx-333);font-size:1.05em}
+.vocab-def{color:var(--tx-555);margin-top:4px;font-size:.95em}
+.vocab-example{color:var(--tx-777);font-style:italic;margin-top:4px;font-size:.9em}
 
 /* Genus Drag & Drop */
-.chip-bank{min-height:50px;padding:10px;background:#f0f0f0;border-radius:8px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.chip{padding:8px 16px;border-radius:20px;background:#667eea;color:#fff;cursor:grab;user-select:none;font-size:.95em;transition:.2s}
+.chip-bank{min-height:50px;padding:10px;background:var(--bg-f0f0f0);border-radius:8px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{padding:8px 16px;border-radius:20px;background:var(--bg-667eea);color:var(--tx-fff);cursor:grab;user-select:none;font-size:.95em;transition:.2s}
 .chip:active{cursor:grabbing;transform:scale(1.05)}
-.chip.correct{background:#27ae60!important}
-.chip.wrong{background:#e74c3c!important}
-.chip.selected{outline:3px solid #333;outline-offset:2px}
+.chip.correct{background:var(--bg-27ae60)!important}
+.chip.wrong{background:var(--bg-e74c3c)!important}
+.chip.selected{outline:3px solid var(--bd-333);outline-offset:2px}
 .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
-.category{background:#f8f9ff;border-radius:8px;padding:12px;text-align:center;min-height:100px}
-.category h3{color:#667eea;margin-bottom:8px;font-size:1em}
-.drop-zone{min-height:50px;border:2px dashed #ccc;border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;transition:.2s}
-.drop-zone.over{border-color:#667eea;background:rgba(102,126,234,.1)}
+.category{background:var(--bg-f8f9ff);border-radius:8px;padding:12px;text-align:center;min-height:100px}
+.category h3{color:var(--tx-667eea);margin-bottom:8px;font-size:1em}
+.drop-zone{min-height:50px;border:2px dashed var(--bd-ccc);border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;transition:.2s}
+.drop-zone.over{border-color:var(--bd-667eea);background:rgba(102,126,234,.1)}
 
 /* Lückentext */
-.exercise-card{background:#f8f9ff;border-radius:12px;padding:16px;margin-bottom:12px}
-.sentence{font-size:1.05em;line-height:2.2;color:#333}
+.exercise-card{background:var(--bg-f8f9ff);border-radius:12px;padding:16px;margin-bottom:12px}
+.sentence{font-size:1.05em;line-height:2.2;color:var(--tx-333)}
 .nowrap-group{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
-input.blank{border:none;border-bottom:2px solid #667eea;background:transparent;text-align:center;font-size:1em;padding:2px 4px;outline:none;transition:.3s}
-input.blank:focus{border-bottom-color:#764ba2}
+input.blank{border:none;border-bottom:2px solid var(--bd-667eea);background:transparent;text-align:center;font-size:1em;padding:2px 4px;outline:none;transition:.3s}
+input.blank:focus{border-bottom-color:var(--bd-764ba2)}
 input.blank.s{min-width:50px;width:50px}
 input.blank.m{min-width:90px;width:90px}
 input.blank.l{min-width:150px;width:150px}
 input.blank.xl{min-width:200px;width:200px}
-input.blank.correct{border-bottom-color:#27ae60;color:#27ae60}
-input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
-.sol{display:none;color:#27ae60;font-weight:700;font-size:.9em}
+input.blank.correct{border-bottom-color:var(--bd-27ae60);color:var(--tx-27ae60)}
+input.blank.wrong{border-bottom-color:var(--bd-e74c3c);color:var(--tx-e74c3c)}
+.sol{display:none;color:var(--tx-27ae60);font-weight:700;font-size:.9em}
 
 /* Multiple Choice */
-.mc-question{font-weight:600;color:#333;margin-bottom:10px;font-size:1.05em}
+.mc-question{font-weight:600;color:var(--tx-333);margin-bottom:10px;font-size:1.05em}
 .mc-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.mc-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
-.mc-opt:hover{border-color:#667eea;background:#f8f9ff}
-.mc-opt.selected{border-color:#667eea;background:rgba(102,126,234,.15)}
-.mc-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.1)}
-.mc-opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.1)}
+.mc-opt{padding:10px 16px;border:2px solid var(--bd-ddd);border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em}
+.mc-opt:hover{border-color:var(--bd-667eea);background:var(--bg-f8f9ff)}
+.mc-opt.selected{border-color:var(--bd-667eea);background:rgba(102,126,234,.15)}
+.mc-opt.correct{border-color:var(--bd-27ae60);background:rgba(39,174,96,.1)}
+.mc-opt.wrong{border-color:var(--bd-e74c3c);background:rgba(231,76,60,.1)}
 
 /* Satzbau */
-.drop-row{min-height:50px;border:2px dashed #ccc;border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center;transition:.2s}
-.drop-row.over{border-color:#667eea;background:rgba(102,126,234,.1)}
-.fixed-dot{font-size:1.1em;font-weight:700;color:#333;padding:0 4px}
+.drop-row{min-height:50px;border:2px dashed var(--bd-ccc);border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center;transition:.2s}
+.drop-row.over{border-color:var(--bd-667eea);background:rgba(102,126,234,.1)}
+.fixed-dot{font-size:1.1em;font-weight:700;color:var(--tx-333);padding:0 4px}
 .sb-result{font-weight:700;margin-top:4px;font-size:.9em;min-height:1.2em}
-.sb-result.correct{color:#27ae60}
-.sb-result.wrong{color:#e74c3c}
+.sb-result.correct{color:var(--tx-27ae60)}
+.sb-result.wrong{color:var(--tx-e74c3c)}
 
 /* Buttons */
 .btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;color:#fff;transition:.2s}
-.btn-check{background:#667eea}.btn-check:hover{background:#5a6fd6}
-.btn-show{background:#f39c12}.btn-show:hover{background:#e67e22}
-.btn-reset{background:#95a5a6}.btn-reset:hover{background:#7f8c8d}
+.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;color:var(--tx-fff);transition:.2s}
+.btn-check{background:var(--bg-667eea)}.btn-check:hover{background:var(--bg-5a6fd6)}
+.btn-show{background:var(--bg-f39c12)}.btn-show:hover{background:var(--bg-e67e22)}
+.btn-reset{background:var(--bg-95a5a6)}.btn-reset:hover{background:var(--bg-7f8c8d)}
 
 /* Score */
-.score{text-align:center;font-weight:700;margin-top:14px;font-size:1.1em;color:#333;min-height:1.4em}
+.score{text-align:center;font-weight:700;margin-top:14px;font-size:1.1em;color:var(--tx-333);min-height:1.4em}
 
 /* Help box */
-.help-box{background:#fff3cd;border-radius:8px;padding:12px;margin-bottom:16px;font-size:.9em;color:#856404;line-height:1.6}
+.help-box{background:var(--bg-fff3cd);border-radius:8px;padding:12px;margin-bottom:16px;font-size:.9em;color:var(--tx-856404);line-height:1.6}
 
 /* Originaltext */
-.text-block{background:#f8f9ff;border-radius:12px;padding:20px 24px;line-height:1.8;color:#333;font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
+.text-block{background:var(--bg-f8f9ff);border-radius:12px;padding:20px 24px;line-height:1.8;color:var(--tx-333);font-size:.98em;max-height:70vh;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
 .text-block p{margin-bottom:14px;text-align:justify}
 .text-block em{font-style:italic}
-.text-author{text-align:right;font-weight:700;margin-top:20px;color:#555}
-.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.text-author{text-align:right;font-weight:700;margin-top:20px;color:var(--tx-555)}
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid var(--bd-ddd); border-bottom: 1px solid var(--bd-ddd); transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: var(--tx-666); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .nav-btn:last-child { border-right: none; }
-.nav-btn:hover { background: #e8ebff; color: #667eea; }
-.nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 700; }
+.nav-btn:hover { background: var(--bg-e8ebff); color: var(--tx-667eea); }
+.nav-btn.active { background: var(--sf-pill); color: var(--tx-667eea); border-bottom: 3px solid var(--bd-667eea); font-weight: 700; }
 @media (max-width: 600px) {
     .nav { flex-wrap: wrap; }
     .nav-btn { flex: 1 1 33%; font-size: 0.78em; padding: 10px 4px; }
-    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid var(--bd-ddd); }
 }
 
 /* FB-WORTBANK — universelle Lueckentext-Wortbank */
 .fb-wortbank-wrap{margin:14px 0 18px;}
 .fb-wortbank-label{display:none;}
-.fb-wortbank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:#f0f0f8;border-radius:10px;min-height:48px;border:1px dashed #bbb;}
-.fb-wortbank-chip{background:#fff;border:2px solid #667eea;color:#667eea;padding:5px 12px;border-radius:14px;font-weight:500;font-size:0.9em;user-select:none;}
+.fb-wortbank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:var(--bg-f0f0f8);border-radius:10px;min-height:48px;border:1px dashed var(--bd-bbb);}
+.fb-wortbank-chip{background:var(--bg-fff);border:2px solid var(--bd-667eea);color:var(--tx-667eea);padding:5px 12px;border-radius:14px;font-weight:500;font-size:0.9em;user-select:none;}
 .fb-wortbank-chip.used{opacity:0.35;text-decoration:line-through;}
 
 /* FB-JUMPTOP - Nach-oben-Button (Glas-Look) */
@@ -111,7 +154,7 @@ input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
   background: rgba(118, 75, 162, 0.26);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  color: #34206b; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
   padding: 15px 26px; font-size: 1.05em; font-weight: 800;
   letter-spacing: 0.2px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -123,9 +166,119 @@ input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
   z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
 }
 .fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: #241048; box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-page-a: #23263e;
+  --grad-page-b: #2f2440;
+  --sf-container: #23263a;
+  --sf-pill: #343a5e;
+  --bd-27ae60: #3f9d6d;
+  --bd-667eea: #7b88e8;
+  --bd-764ba2: #8a63b8;
+  --bd-bbb: #4a4e6a;
+  --bd-ccc: #4a4e6a;
+  --bd-ddd: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bg-27ae60: #2f9c5f;
+  --bg-5a6fd6: #1f2542;
+  --bg-667eea: #4a55b8;
+  --bg-7f8c8d: #293a3b;
+  --bg-95a5a6: #273839;
+  --bg-e67e22: #4b311a;
+  --bg-e74c3c: #b0453a;
+  --bg-e8ebff: #10163f;
+  --bg-f0f0f0: #2a2d42;
+  --bg-f0f0f8: #1d2032;
+  --bg-f39c12: #c67f16;
+  --bg-f8f9fa: #1d2032;
+  --bg-f8f9ff: #262a44;
+  --bg-fff: #262a44;
+  --bg-fff3cd: #413510;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-555: #b6bad0;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-777: #979cb8;
+  --tx-856404: #efd78f;
+  --tx-e74c3c: #ef7365;
+}
+.tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+body { color: #c6cade; }
+button, input, select, textarea { color: inherit; }
+}
+:root[data-theme="dark"] {
+  --grad-page-a: #23263e;
+  --grad-page-b: #2f2440;
+  --sf-container: #23263a;
+  --sf-pill: #343a5e;
+  --bd-27ae60: #3f9d6d;
+  --bd-667eea: #7b88e8;
+  --bd-764ba2: #8a63b8;
+  --bd-bbb: #4a4e6a;
+  --bd-ccc: #4a4e6a;
+  --bd-ddd: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bg-27ae60: #2f9c5f;
+  --bg-5a6fd6: #1f2542;
+  --bg-667eea: #4a55b8;
+  --bg-7f8c8d: #293a3b;
+  --bg-95a5a6: #273839;
+  --bg-e67e22: #4b311a;
+  --bg-e74c3c: #b0453a;
+  --bg-e8ebff: #10163f;
+  --bg-f0f0f0: #2a2d42;
+  --bg-f0f0f8: #1d2032;
+  --bg-f39c12: #c67f16;
+  --bg-f8f9fa: #1d2032;
+  --bg-f8f9ff: #262a44;
+  --bg-fff: #262a44;
+  --bg-fff3cd: #413510;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-555: #b6bad0;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-777: #979cb8;
+  --tx-856404: #efd78f;
+  --tx-e74c3c: #ef7365;
+}
+html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+html[data-theme="dark"] body { color: #c6cade; }
+html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
 </head>
 <body>
 <div class="container">
@@ -243,8 +396,8 @@ input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
 </div>
 <div class="btn-row">
     <button class="btn btn-check" onclick="checkGenus()">✓ Prüfen</button>
-    <button onclick="showGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
 </div>
 <div class="score" id="genus-score"></div>
 </div>
@@ -257,8 +410,8 @@ input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
 <div id="luecken-container"></div>
 <div class="btn-row">
     <button class="btn btn-check" onclick="checkLuecken()">✓ Prüfen</button>
-    <button onclick="showLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
 </div>
 <div class="score" id="luecken-score"></div>
 </div>
@@ -271,8 +424,8 @@ input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
 <div id="mc-container"></div>
 <div class="btn-row">
     <button class="btn btn-check" onclick="checkMC()">✓ Prüfen</button>
-    <button onclick="showMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
 </div>
 <div class="score" id="mc-score"></div>
 </div>
@@ -286,8 +439,8 @@ input.blank.wrong{border-bottom-color:#e74c3c;color:#e74c3c}
 <div id="sb-container"></div>
 <div class="btn-row">
     <button class="btn btn-check" onclick="checkSB()">✓ Prüfen</button>
-    <button onclick="showSB()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetSB()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showSB()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetSB()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
 </div>
 <div class="score" id="sb-score"></div>
 </div>

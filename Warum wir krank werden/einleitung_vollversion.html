@@ -3,32 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
 <title>Warum wir krank werden – Einleitung</title>
-<style>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-head-a: #667eea;
+  --grad-head-b: #764ba2;
+  --grad-page-a: #667eea;
+  --grad-page-b: #764ba2;
+  --sf-container: #fff;
+  --sf-pill: #fff;
+  --bd-27ae60: #27ae60;
+  --bd-667eea: #667eea;
+  --bd-bbb: #bbb;
+  --bd-ccc: #ccc;
+  --bd-ddd: #ddd;
+  --bd-e74c3c: #e74c3c;
+  --bd-f39c12: #f39c12;
+  --bg-27ae60: #27ae60;
+  --bg-5568d3: #5568d3;
+  --bg-667eea: #667eea;
+  --bg-7f8c8d: #7f8c8d;
+  --bg-95a5a6: #95a5a6;
+  --bg-d4f4dd: #d4f4dd;
+  --bg-e67e22: #e67e22;
+  --bg-e74c3c: #e74c3c;
+  --bg-e8ebff: #e8ebff;
+  --bg-e8f5e9: #e8f5e9;
+  --bg-f0f0f8: #f0f0f8;
+  --bg-f0f4ff: #f0f4ff;
+  --bg-f39c12: #f39c12;
+  --bg-f8f9fa: #f8f9fa;
+  --bg-f8f9ff: #f8f9ff;
+  --bg-ffd4d4: #ffd4d4;
+  --bg-fff: #fff;
+  --bg-fff3cd: #fff3cd;
+  --tx-241048: #241048;
+  --tx-27ae60: #27ae60;
+  --tx-333: #333;
+  --tx-34206b: #34206b;
+  --tx-555: #555;
+  --tx-666: #666;
+  --tx-667eea: #667eea;
+  --tx-777: #777;
+  --tx-fff: #fff;
+}
+
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
     font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    background:linear-gradient(135deg, var(--grad-page-a) 0%, var(--grad-page-b) 100%);
     min-height:100vh;
     padding:20px;
 }
 .container {
     max-width: 1000px;
     margin:0 auto;
-    background:#fff;
+    background:var(--sf-container);
     border-radius: 12px;
     box-shadow:0 10px 40px rgba(0,0,0,0.3);
     overflow: hidden;
 }
 .header {
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    color:#fff;
+    background:linear-gradient(135deg, var(--grad-head-a), var(--grad-head-b));
+    color:var(--tx-fff);
     padding:30px;
     text-align:center;
 }
 .header h1 { font-size:2em; margin-bottom:10px; }
 .header p { font-size:1.1em; opacity:0.95; }
-.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav { display: flex; flex-wrap: nowrap; background: var(--bg-f8f9fa); border-top: 1px solid var(--bd-ddd); border-left: 1px solid var(--bd-ddd); border-right: 1px solid var(--bd-ddd); }
 
 
 
@@ -39,40 +84,40 @@ body {
 }
 .section.active { display:block; }
 .section h2 {
-    color:#333;
+    color:var(--tx-333);
     margin-bottom:20px;
     font-size:1.6em;
 }
 .intro-text {
-    background:#f0f4ff;
-    border-left:4px solid #667eea;
+    background:var(--bg-f0f4ff);
+    border-left:4px solid var(--bd-667eea);
     padding:12px 16px;
     margin-bottom:20px;
     border-radius:0 8px 8px 0;
-    color:#555;
+    color:var(--tx-555);
     font-size:0.95em;
 }
 
 /* Vorentlastung */
 .vocab-card {
-    background:#f8f9ff;
-    border-left:4px solid #667eea;
+    background:var(--bg-f8f9ff);
+    border-left:4px solid var(--bd-667eea);
     padding:14px 18px;
     margin-bottom:12px;
     border-radius:0 8px 8px 0;
 }
 .vocab-term {
     font-weight:700;
-    color:#333;
+    color:var(--tx-333);
     font-size:1.05em;
 }
 .vocab-def {
-    color:#555;
+    color:var(--tx-555);
     margin-top:4px;
     font-size:0.95em;
 }
 .vocab-example {
-    color:#777;
+    color:var(--tx-777);
     font-style:italic;
     margin-top:4px;
     font-size:0.9em;
@@ -80,11 +125,11 @@ body {
 
 /* Originaltext */
 .text-block {
-    background:#f8f9ff;
+    background:var(--bg-f8f9ff);
     border-radius:12px;
     padding:20px 24px;
     line-height:1.8;
-    color:#333;
+    color:var(--tx-333);
     font-size:0.98em;
     max-height:70vh;
     overflow-y:auto;
@@ -99,14 +144,14 @@ body {
     text-align:right;
     font-weight:700;
     margin-top:20px;
-    color:#555;
+    color:var(--tx-555);
 }
 
 /* Genus */
 .chip-bank {
     min-height:60px;
-    background:#f8f9ff;
-    border:2px dashed #667eea;
+    background:var(--bg-f8f9ff);
+    border:2px dashed var(--bd-667eea);
     border-radius:8px;
     padding:10px;
     margin-bottom:20px;
@@ -122,20 +167,20 @@ body {
     margin-bottom:20px;
 }
 .category {
-    background:#f8f9ff;
+    background:var(--bg-f8f9ff);
     border-radius:8px;
     padding:12px;
 }
 .category h3 {
     text-align:center;
-    color:#667eea;
+    color:var(--tx-667eea);
     margin-bottom:8px;
     font-size:1.1em;
 }
 .drop-zone {
     min-height:80px;
-    background:#fff;
-    border:2px dashed #ccc;
+    background:var(--bg-fff);
+    border:2px dashed var(--bd-ccc);
     border-radius:6px;
     padding:8px;
     display:flex;
@@ -144,8 +189,8 @@ body {
     align-content:flex-start;
 }
 .chip {
-    background:#667eea;
-    color:#fff;
+    background:var(--bg-667eea);
+    color:var(--tx-fff);
     padding:8px 14px;
     border-radius:20px;
     cursor:move;
@@ -154,12 +199,12 @@ body {
     transition:all 0.2s;
 }
 .chip:hover { transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
-.chip.correct { background:#27ae60; }
-.chip.wrong { background:#e74c3c; }
+.chip.correct { background:var(--bg-27ae60); }
+.chip.wrong { background:var(--bg-e74c3c); }
 
 /* Lückentext */
 .exercise-item {
-    background:#f8f9ff;
+    background:var(--bg-f8f9ff);
     padding:15px;
     border-radius:8px;
     margin-bottom:15px;
@@ -167,7 +212,7 @@ body {
 }
 input.blank {
     border:none;
-    border-bottom:2px solid #667eea;
+    border-bottom:2px solid var(--bd-667eea);
     background:transparent;
     padding:2px 8px;
     font-size:1em;
@@ -179,11 +224,11 @@ input.blank.s { min-width:50px; width:50px; }
 input.blank.m { min-width:90px; width:90px; }
 input.blank.l { min-width:150px; width:150px; }
 input.blank.xl { min-width:200px; width:200px; }
-input.blank.correct { border-bottom-color:#27ae60; background:#d4f4dd; }
-input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
+input.blank.correct { border-bottom-color:var(--bd-27ae60); background:var(--bg-d4f4dd); }
+input.blank.wrong { border-bottom-color:var(--bd-e74c3c); background:var(--bg-ffd4d4); }
 .solution {
     display:none;
-    color:#27ae60;
+    color:var(--tx-27ae60);
     font-weight:600;
     margin-left:4px;
 }
@@ -191,14 +236,14 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
 
 /* Multiple-Choice */
 .mc-question {
-    background:#f8f9ff;
+    background:var(--bg-f8f9ff);
     padding:18px;
     border-radius:8px;
     margin-bottom:20px;
 }
 .mc-question-text {
     font-weight:600;
-    color:#333;
+    color:var(--tx-333);
     margin-bottom:12px;
     font-size:1.05em;
 }
@@ -209,40 +254,40 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
 }
 .mc-opt {
     padding:10px 16px;
-    border:2px solid #ddd;
+    border:2px solid var(--bd-ddd);
     border-radius:8px;
     cursor:pointer;
     transition:0.2s;
     font-size:0.95em;
 }
 .mc-opt:hover {
-    border-color:#667eea;
-    background:#f8f9ff;
+    border-color:var(--bd-667eea);
+    background:var(--bg-f8f9ff);
 }
 .mc-opt.selected {
-    border-color:#667eea;
+    border-color:var(--bd-667eea);
     background:rgba(102,126,234,0.15);
 }
 .mc-opt.correct {
-    border-color:#27ae60;
+    border-color:var(--bd-27ae60);
     background:rgba(39,174,96,0.1);
 }
 .mc-opt.wrong {
-    border-color:#e74c3c;
+    border-color:var(--bd-e74c3c);
     background:rgba(231,76,60,0.1);
 }
 
 /* Satzbau */
 .satzbau-item {
-    background:#f8f9ff;
+    background:var(--bg-f8f9ff);
     padding:15px;
     border-radius:8px;
     margin-bottom:20px;
 }
 .drop-row {
     min-height:50px;
-    background:#fff;
-    border:2px dashed #667eea;
+    background:var(--bg-fff);
+    border:2px dashed var(--bd-667eea);
     border-radius:8px;
     padding:10px;
     margin-bottom:10px;
@@ -254,12 +299,12 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
 .fixed-dot {
     font-size:1.5em;
     font-weight:700;
-    color:#333;
+    color:var(--tx-333);
     margin-left:2px;
 }
 .help-box {
-    background:#fff3cd;
-    border-left:4px solid #f39c12;
+    background:var(--bg-fff3cd);
+    border-left:4px solid var(--bd-f39c12);
     padding:12px 16px;
     margin-bottom:20px;
     border-radius:0 8px 8px 0;
@@ -282,39 +327,39 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
     font-size:1em;
     font-weight:600;
     transition:all 0.3s;
-    color:#fff;
+    color:var(--tx-fff);
 }
 .btn:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.2); }
-.btn-check { background:#667eea; }
-.btn-check:hover { background:#5568d3; }
-.btn-solution { background:#f39c12; }
-.btn-solution:hover { background:#e67e22; }
-.btn-reset { background:#95a5a6; }
-.btn-reset:hover { background:#7f8c8d; }
+.btn-check { background:var(--bg-667eea); }
+.btn-check:hover { background:var(--bg-5568d3); }
+.btn-solution { background:var(--bg-f39c12); }
+.btn-solution:hover { background:var(--bg-e67e22); }
+.btn-reset { background:var(--bg-95a5a6); }
+.btn-reset:hover { background:var(--bg-7f8c8d); }
 .score {
-    background:#e8f5e9;
-    color:#27ae60;
+    background:var(--bg-e8f5e9);
+    color:var(--tx-27ae60);
     padding:12px 20px;
     border-radius:8px;
     font-weight:600;
     font-size:1.05em;
     text-align:center;
 }
-.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid var(--bd-ddd); border-bottom: 1px solid var(--bd-ddd); transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: var(--tx-666); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .nav-btn:last-child { border-right: none; }
-.nav-btn:hover { background: #e8ebff; color: #667eea; }
-.nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 700; }
+.nav-btn:hover { background: var(--bg-e8ebff); color: var(--tx-667eea); }
+.nav-btn.active { background: var(--sf-pill); color: var(--tx-667eea); border-bottom: 3px solid var(--bd-667eea); font-weight: 700; }
 @media (max-width: 600px) {
     .nav { flex-wrap: wrap; }
     .nav-btn { flex: 1 1 33%; font-size: 0.78em; padding: 10px 4px; }
-    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid var(--bd-ddd); }
 }
 
 /* FB-WORTBANK — universelle Lueckentext-Wortbank */
 .fb-wortbank-wrap{margin:14px 0 18px;}
 .fb-wortbank-label{display:none;}
-.fb-wortbank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:#f0f0f8;border-radius:10px;min-height:48px;border:1px dashed #bbb;}
-.fb-wortbank-chip{background:#fff;border:2px solid #667eea;color:#667eea;padding:5px 12px;border-radius:14px;font-weight:500;font-size:0.9em;user-select:none;}
+.fb-wortbank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:var(--bg-f0f0f8);border-radius:10px;min-height:48px;border:1px dashed var(--bd-bbb);}
+.fb-wortbank-chip{background:var(--bg-fff);border:2px solid var(--bd-667eea);color:var(--tx-667eea);padding:5px 12px;border-radius:14px;font-weight:500;font-size:0.9em;user-select:none;}
 .fb-wortbank-chip.used{opacity:0.35;text-decoration:line-through;}
 
 /* FB-JUMPTOP - Nach-oben-Button (Glas-Look) */
@@ -324,7 +369,7 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
   background: rgba(118, 75, 162, 0.26);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  color: #34206b; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
   padding: 15px 26px; font-size: 1.05em; font-weight: 800;
   letter-spacing: 0.2px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -336,13 +381,141 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
   z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
 }
 .fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: #241048; box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
+
+/* FB-THEME-TOGGLE */
+.header { position: relative; }
+.theme-toggle {
+  position: absolute; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+  color: white; font-size: 1.05em; cursor: pointer; line-height: 1;
+  transition: background 0.2s; z-index: 5;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.3); }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-head-a: #4a52a8;
+  --grad-head-b: #5c4585;
+  --grad-page-a: #23263e;
+  --grad-page-b: #2f2440;
+  --sf-container: #23263a;
+  --sf-pill: #343a5e;
+  --bd-27ae60: #3f9d6d;
+  --bd-667eea: #7b88e8;
+  --bd-bbb: #4a4e6a;
+  --bd-ccc: #4a4e6a;
+  --bd-ddd: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bd-f39c12: #c67f16;
+  --bg-27ae60: #2f9c5f;
+  --bg-5568d3: #5a66cc;
+  --bg-667eea: #4a55b8;
+  --bg-7f8c8d: #293a3b;
+  --bg-95a5a6: #273839;
+  --bg-d4f4dd: #1a3823;
+  --bg-e67e22: #4b311a;
+  --bg-e74c3c: #b0453a;
+  --bg-e8ebff: #10163f;
+  --bg-e8f5e9: #1e3328;
+  --bg-f0f0f8: #1d2032;
+  --bg-f0f4ff: #242a45;
+  --bg-f39c12: #c67f16;
+  --bg-f8f9fa: #1d2032;
+  --bg-f8f9ff: #262a44;
+  --bg-ffd4d4: #411010;
+  --bg-fff: #262a44;
+  --bg-fff3cd: #413510;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-555: #b6bad0;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-777: #979cb8;
+}
+.tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+body { color: #c6cade; }
+button, input, select, textarea { color: inherit; }
+}
+:root[data-theme="dark"] {
+  --grad-head-a: #4a52a8;
+  --grad-head-b: #5c4585;
+  --grad-page-a: #23263e;
+  --grad-page-b: #2f2440;
+  --sf-container: #23263a;
+  --sf-pill: #343a5e;
+  --bd-27ae60: #3f9d6d;
+  --bd-667eea: #7b88e8;
+  --bd-bbb: #4a4e6a;
+  --bd-ccc: #4a4e6a;
+  --bd-ddd: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bd-f39c12: #c67f16;
+  --bg-27ae60: #2f9c5f;
+  --bg-5568d3: #5a66cc;
+  --bg-667eea: #4a55b8;
+  --bg-7f8c8d: #293a3b;
+  --bg-95a5a6: #273839;
+  --bg-d4f4dd: #1a3823;
+  --bg-e67e22: #4b311a;
+  --bg-e74c3c: #b0453a;
+  --bg-e8ebff: #10163f;
+  --bg-e8f5e9: #1e3328;
+  --bg-f0f0f8: #1d2032;
+  --bg-f0f4ff: #242a45;
+  --bg-f39c12: #c67f16;
+  --bg-f8f9fa: #1d2032;
+  --bg-f8f9ff: #262a44;
+  --bg-ffd4d4: #411010;
+  --bg-fff: #262a44;
+  --bg-fff3cd: #413510;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-555: #b6bad0;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-777: #979cb8;
+}
+html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+html[data-theme="dark"] body { color: #c6cade; }
+html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
 </head>
 <body>
 <div class="container">
     <div class="header">
+  <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
         <h1>Warum wir krank werden</h1>
         <p>Einleitung – Interaktive Übungen</p>
     </div>
@@ -505,7 +678,7 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
         <div class="controls">
             <button class="btn btn-check" onclick="checkGenus()">✓ Prüfen</button>
             <button class="btn btn-solution" onclick="showGenusSol()">Lösungen</button>
-            <button onclick="resetGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+            <button onclick="resetGenus()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
             <div class="score" id="genus-score" style="display:none;"></div>
         </div>
     </div>
@@ -520,7 +693,7 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
         <div class="controls">
             <button class="btn btn-check" onclick="checkLuecken()">✓ Prüfen</button>
             <button class="btn btn-solution" onclick="showLueckenSol()">Lösungen</button>
-            <button onclick="resetLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+            <button onclick="resetLuecken()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
             <div class="score" id="luecken-score" style="display:none;"></div>
         </div>
     </div>
@@ -535,7 +708,7 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
         <div class="controls">
             <button class="btn btn-check" onclick="checkMC()">✓ Prüfen</button>
             <button class="btn btn-solution" onclick="showMCSol()">Lösungen</button>
-            <button onclick="resetMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+            <button onclick="resetMC()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
             <div class="score" id="mc-score" style="display:none;"></div>
         </div>
     </div>
@@ -552,7 +725,7 @@ input.blank.wrong { border-bottom-color:#e74c3c; background:#ffd4d4; }
         <div class="controls">
             <button class="btn btn-check" onclick="checkSatzbau()">✓ Prüfen</button>
             <button class="btn btn-solution" onclick="showSatzbauSol()">Lösungen</button>
-            <button onclick="resetSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+            <button onclick="resetSatzbau()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
             <div class="score" id="satzbau-score" style="display:none;"></div>
         </div>
     </div>
