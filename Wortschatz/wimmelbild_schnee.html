@@ -3,17 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d6eef7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#223840" media="(prefers-color-scheme: dark)">
 <title>Draußen im Schnee – Interaktives Wimmelbild</title>
-<style>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-head-a: #1a7fa8;
+  --grad-head-b: #2d9bc4;
+  --grad-page-a: #d6eef7;
+  --grad-page-b: #e8f4f8;
+  --grad-page-c: #f0f7fa;
+  --sf-container: #fff;
+  --sf-input: white;
+  --sf-pill: #fff;
+  --bd-1a7fa8: #1a7fa8;
+  --bd-27ae60: #27ae60;
+  --bd-b0cdd8: #b0cdd8;
+  --bd-d1ecf5: #d1ecf5;
+  --bd-e0eff5: #e0eff5;
+  --bd-e67e22: #e67e22;
+  --bd-e74c3c: #e74c3c;
+  --bg-1a3a4a: #1a3a4a;
+  --bg-1a7fa8: #1a7fa8;
+  --bg-95a5a6: #95a5a6;
+  --bg-e0f0f5: #e0f0f5;
+  --bg-e67e22: #e67e22;
+  --bg-e8f4f8: #e8f4f8;
+  --bg-eafaf1: #eafaf1;
+  --bg-f0f7fa: #f0f7fa;
+  --bg-f8fbfc: #f8fbfc;
+  --bg-fdf0ef: #fdf0ef;
+  --bg-white: white;
+  --tx-1a3a4a: #1a3a4a;
+  --tx-1a6e3a: #1a6e3a;
+  --tx-1a7fa8: #1a7fa8;
+  --tx-241048: #241048;
+  --tx-2c3e50: #2c3e50;
+  --tx-2d6e8a: #2d6e8a;
+  --tx-34206b: #34206b;
+  --tx-5a7a8a: #5a7a8a;
+  --tx-999: #999;
+  --tx-b0cdd8: #b0cdd8;
+  --tx-c0392b: #c0392b;
+  --tx-white: white;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(180deg, #d6eef7 0%, #e8f4f8 40%, #f0f7fa 100%);
+    background: linear-gradient(180deg, var(--grad-page-a) 0%, var(--grad-page-b) 40%, var(--grad-page-c) 100%);
     min-height: 100vh;
     padding: 16px;
-    color: #2c3e50;
+    color: var(--tx-2c3e50);
     -webkit-user-select: none;
     user-select: none;
 }
@@ -21,15 +64,15 @@ body {
 .container {
     max-width: 960px;
     margin: 0 auto;
-    background: #fff;
+    background: var(--sf-container);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0,80,120,0.12);
     overflow: hidden;
 }
 
 .header {
-    background: linear-gradient(135deg, #1a7fa8 0%, #2d9bc4 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--grad-head-a) 0%, var(--grad-head-b) 100%);
+    color: var(--tx-white);
     padding: 24px 28px 18px;
     text-align: center;
     position: relative;
@@ -40,30 +83,30 @@ body {
 /* Navigation */
 .nav {
     display: flex;
-    background: #f0f7fa;
-    border-bottom: 2px solid #d1ecf5;
+    background: var(--bg-f0f7fa);
+    border-bottom: 2px solid var(--bd-d1ecf5);
 }
 .nav-btn {
     flex: 1; padding: 13px 8px; text-align: center;
     font-weight: 700; font-size: 13px; cursor: pointer;
     transition: all 0.25s; border-bottom: 3px solid transparent;
-    white-space: nowrap; color: #5a7a8a;
+    white-space: nowrap; color: var(--tx-5a7a8a);
 }
-.nav-btn:hover { background: #e0f0f5; }
-.nav-btn.active { color: #1a7fa8; border-bottom-color: #1a7fa8; background: white; }
+.nav-btn:hover { background: var(--bg-e0f0f5); }
+.nav-btn.active { color: var(--tx-1a7fa8); border-bottom-color: var(--bd-1a7fa8); background: var(--sf-pill); }
 
 .section { display: none; padding: 24px 24px 32px; }
 .section.active { display: block; }
-.section h2 { font-size: 20px; font-weight: 800; color: #1a7fa8; margin-bottom: 8px; }
+.section h2 { font-size: 20px; font-weight: 800; color: var(--tx-1a7fa8); margin-bottom: 8px; }
 
 /* ===== WIMMELBILD TAB ===== */
 .instructions {
-    background: #e8f4f8;
+    background: var(--bg-e8f4f8);
     padding: 10px 16px;
     border-radius: 10px;
     margin-bottom: 16px;
     font-size: 14px;
-    color: #2d6e8a;
+    color: var(--tx-2d6e8a);
     font-weight: 600;
     line-height: 1.5;
 }
@@ -73,8 +116,8 @@ body {
     width: 100%;
     border-radius: 14px;
     overflow: hidden;
-    border: 2px solid #d1ecf5;
-    background: #f8fbfc;
+    border: 2px solid var(--bd-d1ecf5);
+    background: var(--bg-f8fbfc);
 }
 .image-container img {
     display: block;
@@ -88,14 +131,14 @@ body {
     min-width: 90px;
     height: 28px;
     background: rgba(255,255,255,0.88);
-    border: 2px dashed #1a7fa8;
+    border: 2px dashed var(--bd-1a7fa8);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
     font-weight: 700;
-    color: #999;
+    color: var(--tx-999);
     cursor: default;
     transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     z-index: 10;
@@ -104,26 +147,26 @@ body {
 }
 .drop-zone.hover {
     background: rgba(26,127,168,0.15);
-    border-color: #e67e22;
+    border-color: var(--bd-e67e22);
     box-shadow: 0 0 12px rgba(230,126,34,0.4);
 }
 .drop-zone.filled {
     background: rgba(255,255,255,0.95);
-    border: 2px solid #1a7fa8;
-    color: #1a3a4a;
+    border: 2px solid var(--bd-1a7fa8);
+    color: var(--tx-1a3a4a);
     font-size: 12px;
     cursor: grab;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .drop-zone.correct {
     background: rgba(234,250,241,0.95);
-    border-color: #27ae60;
-    color: #1a6e3a;
+    border-color: var(--bd-27ae60);
+    color: var(--tx-1a6e3a);
 }
 .drop-zone.wrong {
     background: rgba(253,240,239,0.95);
-    border-color: #e74c3c;
-    color: #c0392b;
+    border-color: var(--bd-e74c3c);
+    color: var(--tx-c0392b);
 }
 
 /* Number badge on drop zone */
@@ -131,8 +174,8 @@ body {
     position: absolute;
     left: -10px; top: -10px;
     width: 20px; height: 20px;
-    background: #1a3a4a;
-    color: white;
+    background: var(--bg-1a3a4a);
+    color: var(--tx-white);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -146,14 +189,14 @@ body {
 .word-bank-label {
     font-weight: 800;
     font-size: 15px;
-    color: #1a7fa8;
+    color: var(--tx-1a7fa8);
     margin: 20px 0 10px;
 }
 
 .chip {
     padding: 6px 14px;
     background: linear-gradient(135deg, #1a7fa8, #2d9bc4);
-    color: white;
+    color: var(--tx-white);
     border-radius: 20px;
     font-size: 13px;
     font-weight: 700;
@@ -164,7 +207,7 @@ body {
 .chip:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,127,168,0.3); }
 .chip.dragging { opacity: 0.4; transform: scale(0.95); }
 .chip.selected {
-    outline: 3px solid #e67e22;
+    outline: 3px solid var(--bd-e67e22);
     outline-offset: 2px;
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(230,126,34,0.3);
@@ -179,64 +222,64 @@ body {
     transition: transform 0.15s, box-shadow 0.15s;
 }
 .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-.btn-check { background: #1a7fa8; color: white; }
-.btn-show { background: #e67e22; color: white; }
-.btn-reset { background: #95a5a6; color: white; }
+.btn-check { background: var(--bg-1a7fa8); color: var(--tx-white); }
+.btn-show { background: var(--bg-e67e22); color: var(--tx-white); }
+.btn-reset { background: var(--bg-95a5a6); color: var(--tx-white); }
 
 .score {
     margin-top: 14px; padding: 10px 16px;
-    background: #f0f7fa; border-radius: 10px;
+    background: var(--bg-f0f7fa); border-radius: 10px;
     font-weight: 700; font-size: 15px;
-    color: #1a7fa8; display: none;
+    color: var(--tx-1a7fa8); display: none;
 }
 
 /* ===== LÜCKEN TAB ===== */
 .exercise-item {
     margin-bottom: 14px; padding: 12px 16px;
-    background: #f8fbfc; border-radius: 12px;
-    border: 1px solid #e0eff5; line-height: 2.2; font-size: 15px;
+    background: var(--bg-f8fbfc); border-radius: 12px;
+    border: 1px solid var(--bd-e0eff5); line-height: 2.2; font-size: 15px;
 }
-.exercise-item .num-label { font-weight: 800; color: #1a7fa8; margin-right: 4px; }
+.exercise-item .num-label { font-weight: 800; color: var(--tx-1a7fa8); margin-right: 4px; }
 input.blank {
-    border: 2px solid #b0cdd8; border-radius: 8px;
+    border: 2px solid var(--bd-b0cdd8); border-radius: 8px;
     padding: 3px 10px; font-size: 14px;
     font-family: 'Nunito', sans-serif; font-weight: 600;
-    text-align: center; background: white;
+    text-align: center; background: var(--sf-input);
     transition: border-color 0.2s, background 0.2s; outline: none;
 }
-input.blank:focus { border-color: #1a7fa8; box-shadow: 0 0 0 3px rgba(26,127,168,0.15); }
-input.blank.correct { border-color: #27ae60; background: #eafaf1; color: #1a6e3a; }
-input.blank.wrong { border-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
+input.blank:focus { border-color: var(--bd-1a7fa8); box-shadow: 0 0 0 3px rgba(26,127,168,0.15); }
+input.blank.correct { border-color: var(--bd-27ae60); background: var(--bg-eafaf1); color: var(--tx-1a6e3a); }
+input.blank.wrong { border-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); color: var(--tx-c0392b); }
 input.blank.m { min-width: 130px; }
 input.blank.l { min-width: 170px; }
-.solution-text { display: none; color: #1a7fa8; font-weight: 700; font-size: 13px; }
+.solution-text { display: none; color: var(--tx-1a7fa8); font-weight: 700; font-size: 13px; }
 
 /* ===== ZUORDNUNG TAB ===== */
 .match-row {
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 10px; padding: 10px 16px;
-    background: #f8fbfc; border-radius: 12px;
-    border: 1px solid #e0eff5; flex-wrap: wrap; font-size: 15px;
+    background: var(--bg-f8fbfc); border-radius: 12px;
+    border: 1px solid var(--bd-e0eff5); flex-wrap: wrap; font-size: 15px;
 }
-.match-row .body-part { font-weight: 700; min-width: 150px; color: #2d6e8a; }
-.match-row .arrow { color: #b0cdd8; font-size: 18px; }
+.match-row .body-part { font-weight: 700; min-width: 150px; color: var(--tx-2d6e8a); }
+.match-row .arrow { color: var(--tx-b0cdd8); font-size: 18px; }
 select.match-select {
-    border: 2px solid #b0cdd8; border-radius: 8px;
+    border: 2px solid var(--bd-b0cdd8); border-radius: 8px;
     padding: 5px 10px; font-size: 14px;
     font-family: 'Nunito', sans-serif; font-weight: 600;
-    background: white; cursor: pointer; outline: none; min-width: 150px;
+    background: var(--bg-white); cursor: pointer; outline: none; min-width: 150px;
 }
-select.match-select.correct { border-color: #27ae60; background: #eafaf1; }
-select.match-select.wrong { border-color: #e74c3c; background: #fdf0ef; }
+select.match-select.correct { border-color: var(--bd-27ae60); background: var(--bg-eafaf1); }
+select.match-select.wrong { border-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); }
 input.artikel-input {
-    border: 2px solid #b0cdd8; border-radius: 8px;
+    border: 2px solid var(--bd-b0cdd8); border-radius: 8px;
     padding: 3px 8px; font-size: 14px;
     font-family: 'Nunito', sans-serif; font-weight: 600;
-    text-align: center; width: 55px; background: white; outline: none;
+    text-align: center; width: 55px; background: var(--bg-white); outline: none;
 }
-input.artikel-input.correct { border-color: #27ae60; background: #eafaf1; color: #1a6e3a; }
-input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
-.match-solution { display: none; font-weight: 700; color: #1a7fa8; font-size: 13px; }
+input.artikel-input.correct { border-color: var(--bd-27ae60); background: var(--bg-eafaf1); color: var(--tx-1a6e3a); }
+input.artikel-input.wrong { border-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); color: var(--tx-c0392b); }
+.match-solution { display: none; font-weight: 700; color: var(--tx-1a7fa8); font-size: 13px; }
 
 @media (max-width: 600px) {
     body { padding: 8px; }
@@ -256,7 +299,7 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
   background: rgba(118, 75, 162, 0.26);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  color: #34206b; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
   padding: 15px 26px; font-size: 1.05em; font-weight: 800;
   letter-spacing: 0.2px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -268,16 +311,134 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
   z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
 }
 .fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: #241048; box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
 
 /* FB-CHIP-WRAP */ .chip-bank .chip, .drop-zone .chip { white-space: normal; display: inline-block; text-align: left; max-width: 100%; overflow-wrap: break-word; }
+
+/* FB-THEME-TOGGLE */
+.header { position: relative; }
+.theme-toggle {
+  position: absolute; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+  color: white; font-size: 1.05em; cursor: pointer; line-height: 1;
+  transition: background 0.2s; z-index: 5;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.3); }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-head-a: #2c7896;
+  --grad-head-b: #2f84a3;
+  --grad-page-a: #223840;
+  --grad-page-b: #223a41;
+  --grad-page-c: #223942;
+  --sf-container: #23263a;
+  --sf-input: #1a1d2e;
+  --sf-pill: #343a5e;
+  --bd-1a7fa8: #2b5b6e;
+  --bd-27ae60: #3f9d6d;
+  --bd-b0cdd8: #3d545c;
+  --bd-d1ecf5: #2f5b6a;
+  --bd-e0eff5: #355764;
+  --bd-e67e22: #c67f16;
+  --bd-e74c3c: #b0584d;
+  --bg-95a5a6: #273839;
+  --bg-e0f0f5: #1c2f35;
+  --bg-e67e22: #4b311a;
+  --bg-e8f4f8: #1b2e34;
+  --bg-eafaf1: #193626;
+  --bg-f0f7fa: #1b2c33;
+  --bg-f8fbfc: #1d2b30;
+  --bg-fdf0ef: #391715;
+  --bg-white: #262a44;
+  --tx-1a3a4a: #a9cee1;
+  --tx-1a6e3a: #98e7b6;
+  --tx-1a7fa8: #82cdec;
+  --tx-241048: #d9cef8;
+  --tx-2c3e50: #afc1d3;
+  --tx-2d6e8a: #94c7dc;
+  --tx-34206b: #cbbcf6;
+  --tx-5a7a8a: #a1b7c2;
+  --tx-999: #7d8199;
+  --tx-c0392b: #e2887f;
+}
+:root:not([data-theme="light"]) .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+:root:not([data-theme="light"]) body { color: #c6cade; }
+:root:not([data-theme="light"]) button, :root:not([data-theme="light"]) input, :root:not([data-theme="light"]) select, :root:not([data-theme="light"]) textarea { color: inherit; }
+}
+:root[data-theme="dark"] {
+  --grad-head-a: #2c7896;
+  --grad-head-b: #2f84a3;
+  --grad-page-a: #223840;
+  --grad-page-b: #223a41;
+  --grad-page-c: #223942;
+  --sf-container: #23263a;
+  --sf-input: #1a1d2e;
+  --sf-pill: #343a5e;
+  --bd-1a7fa8: #2b5b6e;
+  --bd-27ae60: #3f9d6d;
+  --bd-b0cdd8: #3d545c;
+  --bd-d1ecf5: #2f5b6a;
+  --bd-e0eff5: #355764;
+  --bd-e67e22: #c67f16;
+  --bd-e74c3c: #b0584d;
+  --bg-95a5a6: #273839;
+  --bg-e0f0f5: #1c2f35;
+  --bg-e67e22: #4b311a;
+  --bg-e8f4f8: #1b2e34;
+  --bg-eafaf1: #193626;
+  --bg-f0f7fa: #1b2c33;
+  --bg-f8fbfc: #1d2b30;
+  --bg-fdf0ef: #391715;
+  --bg-white: #262a44;
+  --tx-1a3a4a: #a9cee1;
+  --tx-1a6e3a: #98e7b6;
+  --tx-1a7fa8: #82cdec;
+  --tx-241048: #d9cef8;
+  --tx-2c3e50: #afc1d3;
+  --tx-2d6e8a: #94c7dc;
+  --tx-34206b: #cbbcf6;
+  --tx-5a7a8a: #a1b7c2;
+  --tx-999: #7d8199;
+  --tx-c0392b: #e2887f;
+}
+html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+html[data-theme="dark"] body { color: #c6cade; }
+html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
+  <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
         <h1>❄️ Draußen im Schnee</h1>
         <p>Wörter lernen · Niveau A1 · Deutsch perfekt</p>
     </div>
@@ -315,7 +476,7 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
     <!-- TAB 2: LÜCKENTEXT -->
     <div class="section" id="sec-1">
         <h2>✏️ Es hat geschneit!</h2>
-        <p style="margin-bottom:14px; color:#5a7a8a; font-size:14px;">Viele Kinder freuen sich über frischen Schnee. Erwachsene nicht immer. Was passt?</p>
+        <p style="margin-bottom:14px; color:var(--tx-5a7a8a); font-size:14px;">Viele Kinder freuen sich über frischen Schnee. Erwachsene nicht immer. Was passt?</p>
         <div class="instructions">💡 Schlitten – Schneemann – Eiskratzer – Schneeschaufel – Streukies</div>
         <div id="gapExercises" style="margin-top:14px;"></div>
         <div class="btn-row">
@@ -329,7 +490,7 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
     <!-- TAB 3: WINTERKLEIDUNG -->
     <div class="section" id="sec-2">
         <h2>🧤 Winterkleidung</h2>
-        <p style="margin-bottom:14px; color:#5a7a8a; font-size:14px;">Was tragen viele Menschen im Winter? Verbinden Sie und ergänzen Sie den Artikel!</p>
+        <p style="margin-bottom:14px; color:var(--tx-5a7a8a); font-size:14px;">Was tragen viele Menschen im Winter? Verbinden Sie und ergänzen Sie den Artikel!</p>
         <div id="matchExercises"></div>
         <div class="btn-row">
             <button class="btn btn-check" onclick="checkMatch()">✓ Prüfen</button>

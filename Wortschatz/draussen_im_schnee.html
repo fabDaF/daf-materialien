@@ -3,32 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e8f4f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#223a41" media="(prefers-color-scheme: dark)">
 <title>Draußen im Schnee – Vokabelübungen</title>
-<style>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-head-a: #1a7fa8;
+  --grad-head-b: #2d9bc4;
+  --grad-page-a: #e8f4f8;
+  --grad-page-b: #d1ecf5;
+  --grad-page-c: #cce5f0;
+  --sf-container: #fff;
+  --sf-input: white;
+  --sf-pill: #fff;
+  --bd-1a7fa8: #1a7fa8;
+  --bd-27ae60: #27ae60;
+  --bd-2ecc71: #2ecc71;
+  --bd-3498db: #3498db;
+  --bd-9b59b6: #9b59b6;
+  --bd-b0cdd8: #b0cdd8;
+  --bd-c5cff5: #c5cff5;
+  --bd-d1ecf5: #d1ecf5;
+  --bd-e0eff5: #e0eff5;
+  --bd-e74c3c: #e74c3c;
+  --bg-1a7fa8: #1a7fa8;
+  --bg-2ecc71: #2ecc71;
+  --bg-3498db: #3498db;
+  --bg-95a5a6: #95a5a6;
+  --bg-e0f0f5: #e0f0f5;
+  --bg-e67e22: #e67e22;
+  --bg-e74c3c: #e74c3c;
+  --bg-eafaf1: #eafaf1;
+  --bg-f0f7fa: #f0f7fa;
+  --bg-f5f7ff: #f5f7ff;
+  --bg-f8fbfc: #f8fbfc;
+  --bg-fdf0ef: #fdf0ef;
+  --bg-white: white;
+  --tx-1a6e3a: #1a6e3a;
+  --tx-1a7fa8: #1a7fa8;
+  --tx-241048: #241048;
+  --tx-2c3e50: #2c3e50;
+  --tx-2d6e8a: #2d6e8a;
+  --tx-34206b: #34206b;
+  --tx-5a7a8a: #5a7a8a;
+  --tx-667eea: #667eea;
+  --tx-b0cdd8: #b0cdd8;
+  --tx-c0392b: #c0392b;
+  --tx-white: white;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf5 50%, #cce5f0 100%);
+    background: linear-gradient(135deg, var(--grad-page-a) 0%, var(--grad-page-b) 50%, var(--grad-page-c) 100%);
     min-height: 100vh;
     padding: 20px;
-    color: #2c3e50;
+    color: var(--tx-2c3e50);
 }
 
 .container {
     max-width: 900px;
     margin: 0 auto;
-    background: #fff;
+    background: var(--sf-container);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0,80,120,0.12);
     overflow: hidden;
 }
 
 .header {
-    background: linear-gradient(135deg, #1a7fa8 0%, #2d9bc4 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--grad-head-a) 0%, var(--grad-head-b) 100%);
+    color: var(--tx-white);
     padding: 28px 32px 20px;
     text-align: center;
     position: relative;
@@ -62,8 +109,8 @@ body {
 /* Navigation */
 .nav {
     display: flex;
-    background: #f0f7fa;
-    border-bottom: 2px solid #d1ecf5;
+    background: var(--bg-f0f7fa);
+    border-bottom: 2px solid var(--bd-d1ecf5);
     overflow-x: auto;
 }
 .nav-btn {
@@ -76,13 +123,13 @@ body {
     transition: all 0.25s;
     border-bottom: 3px solid transparent;
     white-space: nowrap;
-    color: #5a7a8a;
+    color: var(--tx-5a7a8a);
 }
-.nav-btn:hover { background: #e0f0f5; }
+.nav-btn:hover { background: var(--bg-e0f0f5); }
 .nav-btn.active {
-    color: #1a7fa8;
-    border-bottom-color: #1a7fa8;
-    background: white;
+    color: var(--tx-1a7fa8);
+    border-bottom-color: var(--bd-1a7fa8);
+    background: var(--sf-pill);
 }
 
 /* Sections */
@@ -91,13 +138,13 @@ body {
 .section h2 {
     font-size: 22px;
     font-weight: 800;
-    color: #1a7fa8;
+    color: var(--tx-1a7fa8);
     margin-bottom: 16px;
 }
 .section h3 {
     font-size: 17px;
     font-weight: 700;
-    color: #2d6e8a;
+    color: var(--tx-2d6e8a);
     margin: 18px 0 10px;
 }
 
@@ -109,7 +156,7 @@ body {
 .illustration-wrap img {
     max-width: 100%;
     border-radius: 12px;
-    border: 2px solid #d1ecf5;
+    border: 2px solid var(--bd-d1ecf5);
 }
 
 /* Vocabulary grid */
@@ -124,7 +171,7 @@ body {
     align-items: center;
     gap: 10px;
     padding: 8px 14px;
-    background: #f0f7fa;
+    background: var(--bg-f0f7fa);
     border-radius: 10px;
     font-size: 15px;
     border-left: 4px solid;
@@ -132,8 +179,8 @@ body {
 }
 .vocab-item:hover { transform: translateX(4px); }
 .vocab-item .num {
-    background: #1a7fa8;
-    color: white;
+    background: var(--bg-1a7fa8);
+    color: var(--tx-white);
     width: 26px; height: 26px;
     border-radius: 50%;
     display: flex;
@@ -143,10 +190,10 @@ body {
     font-weight: 800;
     flex-shrink: 0;
 }
-.vocab-item.der { border-left-color: #3498db; }
-.vocab-item.die { border-left-color: #e74c3c; }
-.vocab-item.das { border-left-color: #2ecc71; }
-.vocab-item.pl { border-left-color: #9b59b6; }
+.vocab-item.der { border-left-color: var(--bd-3498db); }
+.vocab-item.die { border-left-color: var(--bd-e74c3c); }
+.vocab-item.das { border-left-color: var(--bd-2ecc71); }
+.vocab-item.pl { border-left-color: var(--bd-9b59b6); }
 
 /* Legend */
 .legend {
@@ -166,47 +213,47 @@ body {
     width: 14px; height: 14px;
     border-radius: 3px;
 }
-.legend .dot.der { background: #3498db; }
-.legend .dot.die { background: #e74c3c; }
-.legend .dot.das { background: #2ecc71; }
+.legend .dot.der { background: var(--bg-3498db); }
+.legend .dot.die { background: var(--bg-e74c3c); }
+.legend .dot.das { background: var(--bg-2ecc71); }
 
 /* Gap-fill exercises */
 .exercise-item {
     margin-bottom: 16px;
     padding: 14px 18px;
-    background: #f8fbfc;
+    background: var(--bg-f8fbfc);
     border-radius: 12px;
-    border: 1px solid #e0eff5;
+    border: 1px solid var(--bd-e0eff5);
     line-height: 2.2;
     font-size: 16px;
 }
 .exercise-item .num-label {
     font-weight: 800;
-    color: #1a7fa8;
+    color: var(--tx-1a7fa8);
     margin-right: 6px;
 }
 input.blank {
-    border: 2px solid #b0cdd8;
+    border: 2px solid var(--bd-b0cdd8);
     border-radius: 8px;
     padding: 4px 10px;
     font-size: 15px;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     text-align: center;
-    background: white;
+    background: var(--sf-input);
     transition: border-color 0.2s, background 0.2s;
     outline: none;
     vertical-align: baseline;
 }
-input.blank:focus { border-color: #1a7fa8; box-shadow: 0 0 0 3px rgba(26,127,168,0.15); }
-input.blank.correct { border-color: #27ae60; background: #eafaf1; color: #1a6e3a; }
-input.blank.wrong { border-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
+input.blank:focus { border-color: var(--bd-1a7fa8); box-shadow: 0 0 0 3px rgba(26,127,168,0.15); }
+input.blank.correct { border-color: var(--bd-27ae60); background: var(--bg-eafaf1); color: var(--tx-1a6e3a); }
+input.blank.wrong { border-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); color: var(--tx-c0392b); }
 input.blank.m { min-width: 140px; }
 input.blank.l { min-width: 180px; }
 
 .solution-text {
     display: none;
-    color: #1a7fa8;
+    color: var(--tx-1a7fa8);
     font-weight: 700;
     font-size: 14px;
     margin-left: 2px;
@@ -219,36 +266,36 @@ input.blank.l { min-width: 180px; }
     gap: 12px;
     margin-bottom: 12px;
     padding: 12px 18px;
-    background: #f8fbfc;
+    background: var(--bg-f8fbfc);
     border-radius: 12px;
-    border: 1px solid #e0eff5;
+    border: 1px solid var(--bd-e0eff5);
     flex-wrap: wrap;
     font-size: 16px;
 }
 .match-row .body-part {
     font-weight: 700;
     min-width: 160px;
-    color: #2d6e8a;
+    color: var(--tx-2d6e8a);
 }
-.match-row .arrow { color: #b0cdd8; font-size: 20px; }
+.match-row .arrow { color: var(--tx-b0cdd8); font-size: 20px; }
 select.match-select {
-    border: 2px solid #b0cdd8;
+    border: 2px solid var(--bd-b0cdd8);
     border-radius: 8px;
     padding: 6px 12px;
     font-size: 15px;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
-    background: white;
+    background: var(--bg-white);
     cursor: pointer;
     outline: none;
     min-width: 160px;
 }
-select.match-select:focus { border-color: #1a7fa8; }
-select.match-select.correct { border-color: #27ae60; background: #eafaf1; }
-select.match-select.wrong { border-color: #e74c3c; background: #fdf0ef; }
+select.match-select:focus { border-color: var(--bd-1a7fa8); }
+select.match-select.correct { border-color: var(--bd-27ae60); background: var(--bg-eafaf1); }
+select.match-select.wrong { border-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); }
 
 input.artikel-input {
-    border: 2px solid #b0cdd8;
+    border: 2px solid var(--bd-b0cdd8);
     border-radius: 8px;
     padding: 4px 8px;
     font-size: 15px;
@@ -256,17 +303,17 @@ input.artikel-input {
     font-weight: 600;
     text-align: center;
     width: 60px;
-    background: white;
+    background: var(--bg-white);
     outline: none;
 }
-input.artikel-input:focus { border-color: #1a7fa8; }
-input.artikel-input.correct { border-color: #27ae60; background: #eafaf1; color: #1a6e3a; }
-input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
+input.artikel-input:focus { border-color: var(--bd-1a7fa8); }
+input.artikel-input.correct { border-color: var(--bd-27ae60); background: var(--bg-eafaf1); color: var(--tx-1a6e3a); }
+input.artikel-input.wrong { border-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); color: var(--tx-c0392b); }
 
 .match-solution {
     display: none;
     font-weight: 700;
-    color: #1a7fa8;
+    color: var(--tx-1a7fa8);
     font-size: 14px;
 }
 
@@ -277,21 +324,21 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
     margin-top: 24px;
     flex-wrap: wrap;
 }
-.btn { background: #f5f7ff; border: 1px solid #c5cff5; border-radius: 8px; padding: 6px 16px; font-size: 0.85em; color: #667eea; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn { background: var(--bg-f5f7ff); border: 1px solid var(--bd-c5cff5); border-radius: 8px; padding: 6px 16px; font-size: 0.85em; color: var(--tx-667eea); cursor: pointer; transition: all 0.15s; font-weight: 500; }
 .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-.btn-check { background: #1a7fa8; color: white; }
-.btn-show { background: #e67e22; color: white; }
-.btn-reset { background: #95a5a6; color: white; }
+.btn-check { background: var(--bg-1a7fa8); color: var(--tx-white); }
+.btn-show { background: var(--bg-e67e22); color: var(--tx-white); }
+.btn-reset { background: var(--bg-95a5a6); color: var(--tx-white); }
 
 /* Score */
 .score {
     margin-top: 14px;
     padding: 10px 16px;
-    background: #f0f7fa;
+    background: var(--bg-f0f7fa);
     border-radius: 10px;
     font-weight: 700;
     font-size: 15px;
-    color: #1a7fa8;
+    color: var(--tx-1a7fa8);
     display: none;
 }
 
@@ -312,7 +359,7 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
   background: rgba(118, 75, 162, 0.26);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  color: #34206b; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
   padding: 15px 26px; font-size: 1.05em; font-weight: 800;
   letter-spacing: 0.2px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -324,14 +371,142 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
   z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
 }
 .fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: #241048; box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
+
+/* FB-THEME-TOGGLE */
+.header { position: relative; }
+.theme-toggle {
+  position: absolute; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+  color: white; font-size: 1.05em; cursor: pointer; line-height: 1;
+  transition: background 0.2s; z-index: 5;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.3); }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-head-a: #2c7896;
+  --grad-head-b: #2f84a3;
+  --grad-page-a: #223a41;
+  --grad-page-b: #213840;
+  --grad-page-c: #213640;
+  --sf-container: #23263a;
+  --sf-input: #1a1d2e;
+  --sf-pill: #343a5e;
+  --bd-1a7fa8: #2b5b6e;
+  --bd-27ae60: #3f9d6d;
+  --bd-2ecc71: #2f6a48;
+  --bd-3498db: #2c536d;
+  --bd-9b59b6: #543b5e;
+  --bd-b0cdd8: #3d545c;
+  --bd-c5cff5: #4a5384;
+  --bd-d1ecf5: #2f5b6a;
+  --bd-e0eff5: #355764;
+  --bd-e74c3c: #b0584d;
+  --bg-2ecc71: #204730;
+  --bg-3498db: #1d3647;
+  --bg-95a5a6: #273839;
+  --bg-e0f0f5: #1c2f35;
+  --bg-e67e22: #4b311a;
+  --bg-e74c3c: #b0453a;
+  --bg-eafaf1: #193626;
+  --bg-f0f7fa: #1b2c33;
+  --bg-f5f7ff: #2a2e4a;
+  --bg-f8fbfc: #1d2b30;
+  --bg-fdf0ef: #391715;
+  --bg-white: #262a44;
+  --tx-1a6e3a: #98e7b6;
+  --tx-1a7fa8: #82cdec;
+  --tx-241048: #d9cef8;
+  --tx-2c3e50: #afc1d3;
+  --tx-2d6e8a: #94c7dc;
+  --tx-34206b: #cbbcf6;
+  --tx-5a7a8a: #a1b7c2;
+  --tx-667eea: #93a0f2;
+  --tx-c0392b: #e2887f;
+}
+:root:not([data-theme="light"]) .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+:root:not([data-theme="light"]) body { color: #c6cade; }
+:root:not([data-theme="light"]) button, :root:not([data-theme="light"]) input, :root:not([data-theme="light"]) select, :root:not([data-theme="light"]) textarea { color: inherit; }
+}
+:root[data-theme="dark"] {
+  --grad-head-a: #2c7896;
+  --grad-head-b: #2f84a3;
+  --grad-page-a: #223a41;
+  --grad-page-b: #213840;
+  --grad-page-c: #213640;
+  --sf-container: #23263a;
+  --sf-input: #1a1d2e;
+  --sf-pill: #343a5e;
+  --bd-1a7fa8: #2b5b6e;
+  --bd-27ae60: #3f9d6d;
+  --bd-2ecc71: #2f6a48;
+  --bd-3498db: #2c536d;
+  --bd-9b59b6: #543b5e;
+  --bd-b0cdd8: #3d545c;
+  --bd-c5cff5: #4a5384;
+  --bd-d1ecf5: #2f5b6a;
+  --bd-e0eff5: #355764;
+  --bd-e74c3c: #b0584d;
+  --bg-2ecc71: #204730;
+  --bg-3498db: #1d3647;
+  --bg-95a5a6: #273839;
+  --bg-e0f0f5: #1c2f35;
+  --bg-e67e22: #4b311a;
+  --bg-e74c3c: #b0453a;
+  --bg-eafaf1: #193626;
+  --bg-f0f7fa: #1b2c33;
+  --bg-f5f7ff: #2a2e4a;
+  --bg-f8fbfc: #1d2b30;
+  --bg-fdf0ef: #391715;
+  --bg-white: #262a44;
+  --tx-1a6e3a: #98e7b6;
+  --tx-1a7fa8: #82cdec;
+  --tx-241048: #d9cef8;
+  --tx-2c3e50: #afc1d3;
+  --tx-2d6e8a: #94c7dc;
+  --tx-34206b: #cbbcf6;
+  --tx-5a7a8a: #a1b7c2;
+  --tx-667eea: #93a0f2;
+  --tx-c0392b: #e2887f;
+}
+html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+html[data-theme="dark"] body { color: #c6cade; }
+html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
+  <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
         <h1>Draußen im Schnee</h1>
         <p>Wörter lernen · Niveau A1 · Deutsch perfekt</p>
     </div>
@@ -345,7 +520,7 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
     <!-- TAB 1: Wortschatz -->
     <div class="section active" id="sec-0">
         <h2>🖼️ Wortschatz: Draußen im Schnee</h2>
-        <p style="margin-bottom:14px; color:#5a7a8a;">Schauen Sie das Bild an. Welche Wörter kennen Sie schon?</p>
+        <p style="margin-bottom:14px; color:var(--tx-5a7a8a);">Schauen Sie das Bild an. Welche Wörter kennen Sie schon?</p>
 
         <div class="illustration-wrap">
             <img id="mainImage" alt="Draußen im Schnee – Illustration mit 16 nummerierten Wintervokabeln" />
@@ -363,15 +538,15 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
     <!-- TAB 2: Lückenübung -->
     <div class="section" id="sec-1">
         <h2>✏️ Es hat geschneit!</h2>
-        <p style="margin-bottom:16px; color:#5a7a8a;">Viele Kinder freuen sich über frischen Schnee. Erwachsene nicht immer. Was passt? Ergänzen Sie!</p>
-        <div style="background:#e8f4f8; padding:10px 16px; border-radius:10px; margin-bottom:18px; font-size:14px; font-weight:600; color:#2d6e8a;">
+        <p style="margin-bottom:16px; color:var(--tx-5a7a8a);">Viele Kinder freuen sich über frischen Schnee. Erwachsene nicht immer. Was passt? Ergänzen Sie!</p>
+        <div style="background:#e8f4f8; padding:10px 16px; border-radius:10px; margin-bottom:18px; font-size:14px; font-weight:600; color:var(--tx-2d6e8a);">
             💡 Wörter: Schlitten – Schneemann – Eiskratzer – Schneeschaufel – Streukies
         </div>
         <div id="gapExercises"></div>
         <div class="btn-row">
             <button class="btn btn-check" onclick="checkGaps()">✓ Prüfen</button>
-            <button onclick="showGapSolutions()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-            <button onclick="resetGaps()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+            <button onclick="showGapSolutions()" style="background:var(--bg-f5f7ff);border:1px solid var(--bd-c5cff5);border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+            <button onclick="resetGaps()" style="background:var(--bg-f5f7ff);border:1px solid var(--bd-c5cff5);border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
         </div>
         <div class="score" id="gapScore"></div>
     </div>
@@ -379,12 +554,12 @@ input.artikel-input.wrong { border-color: #e74c3c; background: #fdf0ef; color: #
     <!-- TAB 3: Zuordnung Winterkleidung -->
     <div class="section" id="sec-2">
         <h2>🧤 Winterkleidung</h2>
-        <p style="margin-bottom:16px; color:#5a7a8a;">Was tragen viele Menschen im Winter? Verbinden Sie und ergänzen Sie den Artikel!</p>
+        <p style="margin-bottom:16px; color:var(--tx-5a7a8a);">Was tragen viele Menschen im Winter? Verbinden Sie und ergänzen Sie den Artikel!</p>
         <div id="matchExercises"></div>
         <div class="btn-row">
             <button class="btn btn-check" onclick="checkMatch()">✓ Prüfen</button>
-            <button onclick="showMatchSolutions()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-            <button onclick="resetMatch()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+            <button onclick="showMatchSolutions()" style="background:var(--bg-f5f7ff);border:1px solid var(--bd-c5cff5);border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+            <button onclick="resetMatch()" style="background:var(--bg-f5f7ff);border:1px solid var(--bd-c5cff5);border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
         </div>
         <div class="score" id="matchScore"></div>
     </div>

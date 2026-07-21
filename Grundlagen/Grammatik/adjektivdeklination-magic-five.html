@@ -3,27 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
 <title>Adjektivdeklination – Magic Five</title>
-<style>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --sf-pill: #fff;
+  --bd-27ae60: #27ae60;
+  --bd-2ecc71: #2ecc71;
+  --bd-667eea: #667eea;
+  --bd-764ba2: #764ba2;
+  --bd-7c6cd4: #7c6cd4;
+  --bd-a9d4a9: #a9d4a9;
+  --bd-aed6f1: #aed6f1;
+  --bd-c5b8f8: #c5b8f8;
+  --bd-ccc: #ccc;
+  --bd-d7bde2: #d7bde2;
+  --bd-ddd: #ddd;
+  --bd-e0e0e0: #e0e0e0;
+  --bd-e74c3c: #e74c3c;
+  --bd-eee: #eee;
+  --bg-27ae60: #27ae60;
+  --bg-2980b9: #2980b9;
+  --bg-667eea: #667eea;
+  --bg-8e44ad: #8e44ad;
+  --bg-c0392b: #c0392b;
+  --bg-d8d8f8: #d8d8f8;
+  --bg-e0e0e0: #e0e0e0;
+  --bg-e67e22: #e67e22;
+  --bg-e8e4ff: #e8e4ff;
+  --bg-e8e8e8: #e8e8e8;
+  --bg-eaf4fb: #eaf4fb;
+  --bg-eafaf1: #eafaf1;
+  --bg-eef6ee: #eef6ee;
+  --bg-f0eeff: #f0eeff;
+  --bg-f0f0f0: #f0f0f0;
+  --bg-f0f2f5: #f0f2f5;
+  --bg-f5eef8: #f5eef8;
+  --bg-f8f7ff: #f8f7ff;
+  --bg-fafafa: #fafafa;
+  --bg-fdf0ef: #fdf0ef;
+  --bg-fef0ef: #fef0ef;
+  --bg-fff: #fff;
+  --tx-1a1a2e: #1a1a2e;
+  --tx-241048: #241048;
+  --tx-27ae60: #27ae60;
+  --tx-2980b9: #2980b9;
+  --tx-333: #333;
+  --tx-34206b: #34206b;
+  --tx-4a35a0: #4a35a0;
+  --tx-555: #555;
+  --tx-58c370: #58c370;
+  --tx-5fc7f7: #5fc7f7;
+  --tx-666: #666;
+  --tx-667eea: #667eea;
+  --tx-764ba2: #764ba2;
+  --tx-888: #888;
+  --tx-8e44ad: #8e44ad;
+  --tx-9ab: #9ab;
+  --tx-a78bfa: #a78bfa;
+  --tx-aaa: #aaa;
+  --tx-c0392b: #c0392b;
+  --tx-c08ee0: #c08ee0;
+  --tx-c5b8f8: #c5b8f8;
+  --tx-ccc: #ccc;
+  --tx-d4d4dc: #d4d4dc;
+  --tx-e67e22: #e67e22;
+  --tx-e74c3c: #e74c3c;
+  --tx-e8e0ff: #e8e0ff;
+  --tx-eee: #eee;
+  --tx-f39c12: #f39c12;
+  --tx-ff7b6b: #ff7b6b;
+  --tx-ffae62: #ffae62;
+  --tx-fff: #fff;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg-f0f2f5); color: var(--tx-1a1a2e); min-height: 100vh; }
 .container { max-width: 880px; margin: 0 auto; padding: 16px; }
 h1 { text-align: center; font-size: 1.5rem;
      background: linear-gradient(135deg, #667eea, #764ba2);
      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
      margin: 12px 0 4px; }
-.subtitle { text-align: center; color: #666; font-size: 0.88rem; margin-bottom: 16px; }
+.subtitle { text-align: center; color: var(--tx-666); font-size: 0.88rem; margin-bottom: 16px; }
 
 /* Nav */
 .nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 0; }
 .nav-btn { flex: 1; min-width: 90px; padding: 10px 6px; text-align: center;
-           background: #e8e8e8; border-radius: 8px 8px 0 0; cursor: pointer;
+           background: var(--bg-e8e8e8); border-radius: 8px 8px 0 0; cursor: pointer;
            font-size: 0.78rem; font-weight: 600; transition: all 0.2s;
            border-bottom: 3px solid transparent; line-height: 1.3; }
-.nav-btn:hover { background: #d8d8f8; }
-.nav-btn.active { background: #fff; border-bottom: 3px solid #667eea; color: #667eea; }
+.nav-btn:hover { background: var(--bg-d8d8f8); }
+.nav-btn.active { background: var(--sf-pill); border-bottom: 3px solid var(--bd-667eea); color: var(--tx-667eea); }
 
-.section { display: none; background: #fff; border-radius: 0 0 12px 12px;
+.section { display: none; background: var(--bg-fff); border-radius: 0 0 12px 12px;
            padding: 24px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 .section.active { display: block; }
 
@@ -31,29 +104,29 @@ h1 { text-align: center; font-size: 1.5rem;
 .btn-row { display: flex; gap: 6px; }
 .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9rem;
        font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.btn-check { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.btn-check { background: linear-gradient(135deg, #667eea, #764ba2); color: var(--tx-fff); }
 .btn-check:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
-.btn-show { background: #f0f0f0; color: #555; }
-.btn-show:hover { background: #e0e0e0; }
-.btn-reset { background: #fff; color: #888; border: 1px solid #ddd; }
-.score { text-align: center; margin-top: 12px; font-weight: 600; color: #667eea; }
+.btn-show { background: var(--bg-f0f0f0); color: var(--tx-555); }
+.btn-show:hover { background: var(--bg-e0e0e0); }
+.btn-reset { background: var(--bg-fff); color: var(--tx-888); border: 1px solid var(--bd-ddd); }
+.score { text-align: center; margin-top: 12px; font-weight: 600; color: var(--tx-667eea); }
 
 
 /* ── MAGIC FIVE FARBEN (nur für Endungen, nicht für Kasuslogik) ── */
-.m5-r { color: #c0392b; font-weight: 800; }
-.m5-e { color: #2980b9; font-weight: 800; }
-.m5-s { color: #e67e22; font-weight: 800; }
-.m5-m { color: #27ae60; font-weight: 800; }
-.m5-n { color: #8e44ad; font-weight: 800; }
+.m5-r { color: var(--tx-c0392b); font-weight: 800; }
+.m5-e { color: var(--tx-2980b9); font-weight: 800; }
+.m5-s { color: var(--tx-e67e22); font-weight: 800; }
+.m5-m { color: var(--tx-27ae60); font-weight: 800; }
+.m5-n { color: var(--tx-8e44ad); font-weight: 800; }
 
 /* Kasusanzeige-Unterstrich im Fließtext */
 .ka { font-weight: 800; border-bottom: 2.5px solid currentColor; padding-bottom: 1px; }
-.ka-r { color: #c0392b; }
-.ka-e { color: #2980b9; }
-.ka-s { color: #e67e22; }
-.ka-m { color: #27ae60; }
-.ka-n { color: #8e44ad; }
-.ka-schwach { color: #aaa; font-weight: 600; border-bottom: 1.5px dashed #ccc; padding-bottom: 1px; }
+.ka-r { color: var(--tx-c0392b); }
+.ka-e { color: var(--tx-2980b9); }
+.ka-s { color: var(--tx-e67e22); }
+.ka-m { color: var(--tx-27ae60); }
+.ka-n { color: var(--tx-8e44ad); }
+.ka-schwach { color: var(--tx-aaa); font-weight: 600; border-bottom: 1.5px dashed var(--bd-ccc); padding-bottom: 1px; }
 
 /* ══════════════════════════════════════
    TAB 1: ENTDECKUNG
@@ -67,7 +140,7 @@ h1 { text-align: center; font-size: 1.5rem;
     margin-bottom: 22px;
 }
 .m5-panel-title {
-    text-align: center; color: #aaa; font-size: 0.8rem;
+    text-align: center; color: var(--tx-aaa); font-size: 0.8rem;
     letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
 }
 .m5-row {
@@ -80,15 +153,15 @@ h1 { text-align: center; font-size: 1.5rem;
 }
 .m5-pill {
     font-size: 2rem; font-weight: 900; border-radius: 10px;
-    padding: 7px 20px; color: #fff;
+    padding: 7px 20px; color: var(--tx-fff);
     box-shadow: 0 4px 12px rgba(0,0,0,0.35);
     letter-spacing: 1px;
 }
-.m5-pill.r { background: #c0392b; }
-.m5-pill.e { background: #2980b9; }
-.m5-pill.s { background: #e67e22; }
-.m5-pill.m { background: #27ae60; }
-.m5-pill.n { background: #8e44ad; }
+.m5-pill.r { background: var(--bg-c0392b); }
+.m5-pill.e { background: var(--bg-2980b9); }
+.m5-pill.s { background: var(--bg-e67e22); }
+.m5-pill.m { background: var(--bg-27ae60); }
+.m5-pill.n { background: var(--bg-8e44ad); }
 .m5-trinities {
     display: flex; flex-direction: column; gap: 7px;
     width: 100%;
@@ -103,18 +176,18 @@ h1 { text-align: center; font-size: 1.5rem;
 .m5-tri-code {
     font-family: 'SF Mono', Consolas, monospace;
     font-weight: 700; font-size: 0.72rem;
-    color: #fff; letter-spacing: 1.5px;
+    color: var(--tx-fff); letter-spacing: 1.5px;
     align-self: flex-start;
 }
 .m5-tri-ex {
-    font-size: 0.75rem; color: #d4d4dc;
+    font-size: 0.75rem; color: var(--tx-d4d4dc);
     font-style: italic; line-height: 1.45;
 }
-.m5-tri-ex .sig-r { color: #ff7b6b; font-weight: 800; font-style: normal; }
-.m5-tri-ex .sig-e { color: #5fc7f7; font-weight: 800; font-style: normal; }
-.m5-tri-ex .sig-s { color: #ffae62; font-weight: 800; font-style: normal; }
-.m5-tri-ex .sig-m { color: #58c370; font-weight: 800; font-style: normal; }
-.m5-tri-ex .sig-n { color: #c08ee0; font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-r { color: var(--tx-ff7b6b); font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-e { color: var(--tx-5fc7f7); font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-s { color: var(--tx-ffae62); font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-m { color: var(--tx-58c370); font-weight: 800; font-style: normal; }
+.m5-tri-ex .sig-n { color: var(--tx-c08ee0); font-weight: 800; font-style: normal; }
 
 
 /* Pfanne SVG + Text */
@@ -123,10 +196,10 @@ h1 { text-align: center; font-size: 1.5rem;
     margin-bottom: 24px; flex-wrap: wrap; justify-content: center;
 }
 .pfanne-text {
-    flex: 1; min-width: 220px; font-size: 0.88rem; line-height: 1.8; color: #333; padding-top: 8px;
+    flex: 1; min-width: 220px; font-size: 0.88rem; line-height: 1.8; color: var(--tx-333); padding-top: 8px;
 }
 .pfanne-text .kern {
-    display: block; background: #f0eeff; border-left: 3px solid #667eea;
+    display: block; background: var(--bg-f0eeff); border-left: 3px solid var(--bd-667eea);
     padding: 8px 12px; border-radius: 0 8px 8px 0; margin-top: 10px; font-size: 0.85rem;
 }
 
@@ -138,10 +211,10 @@ h1 { text-align: center; font-size: 1.5rem;
 }
 .pfanne-label-top {
     text-align: center; font-weight: 800; font-size: 0.95rem;
-    color: #fff; margin-bottom: 6px; letter-spacing: 0.5px;
+    color: var(--tx-fff); margin-bottom: 6px; letter-spacing: 0.5px;
 }
 .pfanne-label-sub {
-    text-align: center; font-size: 0.75rem; color: #aaa; margin-bottom: 10px;
+    text-align: center; font-size: 0.75rem; color: var(--tx-aaa); margin-bottom: 10px;
 }
 .pfanne-table-wrap {
     position: relative;
@@ -161,35 +234,35 @@ h1 { text-align: center; font-size: 1.5rem;
 }
 .pfanne-table th {
     text-align: center; font-weight: 700; font-style: italic;
-    color: #aaa; padding: 3px 8px; font-size: 0.78rem;
+    color: var(--tx-aaa); padding: 3px 8px; font-size: 0.78rem;
 }
 .pfanne-table td {
     text-align: center; padding: 6px 10px; border-radius: 6px;
     font-weight: 700; min-width: 44px;
 }
 .pfanne-table .kasus-label {
-    text-align: left; font-weight: 600; color: #ccc;
+    text-align: left; font-weight: 600; color: var(--tx-ccc);
     font-size: 0.8rem; padding-left: 2px;
 }
 .td-e {
     background: rgba(255,255,255,0.92);
-    color: #2980b9; font-size: 1.05rem;
+    color: var(--tx-2980b9); font-size: 1.05rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 .td-en {
     background: rgba(255,255,255,0.08);
-    color: #9ab; font-size: 1.05rem;
+    color: var(--tx-9ab); font-size: 1.05rem;
 }
 .pfanne-legende {
-    text-align: center; font-size: 0.75rem; color: #aaa;
+    text-align: center; font-size: 0.75rem; color: var(--tx-aaa);
     margin-top: 8px; font-weight: 600;
 }
 
 /* Entdeckungs-MC */
 .ent-ex {
-    background: #fff; border-radius: 12px; padding: 18px 20px;
+    background: var(--bg-fff); border-radius: 12px; padding: 18px 20px;
     margin-bottom: 14px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid var(--bd-667eea);
     box-shadow: 0 2px 10px rgba(102,126,234,0.10);
     transition: box-shadow 0.2s, transform 0.2s;
 }
@@ -198,20 +271,20 @@ h1 { text-align: center; font-size: 1.5rem;
     transform: translateY(-1px);
 }
 .ent-satz { font-size: 1.1rem; line-height: 2.1; margin-bottom: 10px; }
-.ent-frage { font-size: 0.84rem; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+.ent-frage { font-size: 0.84rem; font-weight: 700; color: var(--tx-667eea); margin-bottom: 10px; }
 .mc-opts { display: flex; gap: 8px; flex-wrap: wrap; }
 .mc-btn {
-    padding: 8px 18px; border: 2px solid #7c6cd4; border-radius: 20px;
-    background: #fff; cursor: pointer; font-size: 0.87rem; font-weight: 600;
-    color: #4a35a0; transition: all 0.18s;
+    padding: 8px 18px; border: 2px solid var(--bd-7c6cd4); border-radius: 20px;
+    background: var(--bg-fff); cursor: pointer; font-size: 0.87rem; font-weight: 600;
+    color: var(--tx-4a35a0); transition: all 0.18s;
 }
-.mc-btn:hover { background: #667eea; border-color: #667eea; color: #fff; }
-.mc-btn.correct { border-color: #27ae60 !important; background: #eafaf1; color: #27ae60; }
-.mc-btn.wrong { border-color: #e74c3c !important; background: #fef0ef; color: #e74c3c; }
+.mc-btn:hover { background: var(--bg-667eea); border-color: var(--bd-667eea); color: var(--tx-fff); }
+.mc-btn.correct { border-color: var(--bd-27ae60) !important; background: var(--bg-eafaf1); color: var(--tx-27ae60); }
+.mc-btn.wrong { border-color: var(--bd-e74c3c) !important; background: var(--bg-fef0ef); color: var(--tx-e74c3c); }
 .mc-btn.disabled { pointer-events: none; opacity: 0.55; }
-.mc-fb { display: none; font-size: 0.83rem; color: #333; margin-top: 12px;
-         padding: 10px 14px; background: #eafaf1; border-radius: 8px;
-         border-left: 3px solid #27ae60; line-height: 1.65; }
+.mc-fb { display: none; font-size: 0.83rem; color: var(--tx-333); margin-top: 12px;
+         padding: 10px 14px; background: var(--bg-eafaf1); border-radius: 8px;
+         border-left: 3px solid var(--bd-27ae60); line-height: 1.65; }
 .mc-fb.show { display: block; }
 
 /* ══════════════════════════════════════
@@ -224,11 +297,11 @@ h1 { text-align: center; font-size: 1.5rem;
     margin-bottom: 24px;
 }
 .prinzip-box .pb-hauptsatz {
-    font-size: 1.25rem; font-weight: 800; color: #fff;
+    font-size: 1.25rem; font-weight: 800; color: var(--tx-fff);
     line-height: 1.6; letter-spacing: 0.3px;
 }
 .prinzip-box .pb-detail {
-    margin-top: 12px; font-size: 0.85rem; color: #aaa;
+    margin-top: 12px; font-size: 0.85rem; color: var(--tx-aaa);
     font-weight: 500; letter-spacing: 0.4px;
 }
 .pb-m5 {
@@ -238,30 +311,30 @@ h1 { text-align: center; font-size: 1.5rem;
 }
 .pb-pill {
     font-size: 0.95rem; font-weight: 900; border-radius: 5px;
-    padding: 1px 6px; color: #fff;
+    padding: 1px 6px; color: var(--tx-fff);
 }
-.pb-pill.r { background: #c0392b; }
-.pb-pill.e { background: #2980b9; }
-.pb-pill.s { background: #e67e22; }
-.pb-pill.m { background: #27ae60; }
-.pb-pill.n { background: #8e44ad; }
-.pb-wort { color: #e8e0ff; font-weight: 700; font-size: 1.05rem; }
-.pb-oder { color: #f39c12; font-weight: 900; font-size: 1.1rem; margin: 0 8px; }
-.pb-teil { color: #c5b8f8; font-weight: 700; font-size: 1.05rem; }
-.pb-nie { color: #e74c3c; font-weight: 700; font-size: 0.82rem; margin-top: 8px; letter-spacing: 0.3px; }
+.pb-pill.r { background: var(--bg-c0392b); }
+.pb-pill.e { background: var(--bg-2980b9); }
+.pb-pill.s { background: var(--bg-e67e22); }
+.pb-pill.m { background: var(--bg-27ae60); }
+.pb-pill.n { background: var(--bg-8e44ad); }
+.pb-wort { color: var(--tx-e8e0ff); font-weight: 700; font-size: 1.05rem; }
+.pb-oder { color: var(--tx-f39c12); font-weight: 900; font-size: 1.1rem; margin: 0 8px; }
+.pb-teil { color: var(--tx-c5b8f8); font-weight: 700; font-size: 1.05rem; }
+.pb-nie { color: var(--tx-e74c3c); font-weight: 700; font-size: 0.82rem; margin-top: 8px; letter-spacing: 0.3px; }
 
 .zwei-karten {
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
 }
 @media(max-width:520px){ .zwei-karten { grid-template-columns: 1fr; } }
 .karte { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.karte-head { padding: 12px 16px; color: #fff; font-weight: 700; font-size: 0.95rem; }
+.karte-head { padding: 12px 16px; color: var(--tx-fff); font-weight: 700; font-size: 0.95rem; }
 .karte-head.kasusanzeige-adj { background: linear-gradient(135deg, #c0392b, #e74c3c); }
 .karte-head.kasusanzeige-bgl { background: linear-gradient(135deg, #555, #777); }
-.karte-body { padding: 14px 16px; background: #fff; font-size: 0.9rem; line-height: 2; }
+.karte-body { padding: 14px 16px; background: var(--bg-fff); font-size: 0.9rem; line-height: 2; }
 
 .ableitung-title {
-    text-align: center; font-weight: 700; color: #555;
+    text-align: center; font-weight: 700; color: var(--tx-555);
     font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.8px;
     margin-bottom: 12px;
 }
@@ -269,11 +342,11 @@ h1 { text-align: center; font-size: 1.5rem;
     display: flex; align-items: flex-start; gap: 12px;
     padding: 12px 16px; border-radius: 10px; margin-bottom: 10px; flex-wrap: wrap;
 }
-.abl-t1 { background: #eaf4fb; border: 1.5px solid #aed6f1; }
-.abl-t2 { background: #f5eef8; border: 1.5px solid #d7bde2; }
-.abl-t3 { background: #eef6ee; border: 1.5px solid #a9d4a9; }
+.abl-t1 { background: var(--bg-eaf4fb); border: 1.5px solid var(--bd-aed6f1); }
+.abl-t2 { background: var(--bg-f5eef8); border: 1.5px solid var(--bd-d7bde2); }
+.abl-t3 { background: var(--bg-eef6ee); border: 1.5px solid var(--bd-a9d4a9); }
 .abl-bgl { font-weight: 700; font-size: 0.9rem; min-width: 160px; line-height: 1.6; }
-.abl-pfeil { color: #aaa; font-size: 1.1rem; padding-top: 2px; }
+.abl-pfeil { color: var(--tx-aaa); font-size: 1.1rem; padding-top: 2px; }
 .abl-folge { font-size: 0.88rem; line-height: 1.8; flex: 1; }
 .abl-bsp { font-size: 0.9rem; line-height: 2; margin-left: auto; text-align: right; }
 
@@ -281,55 +354,55 @@ h1 { text-align: center; font-size: 1.5rem;
    TABS 3–5: LÜCKENTEXT
 ══════════════════════════════════════ */
 .luecke-intro {
-    background: #f8f7ff; border-left: 3px solid #667eea;
+    background: var(--bg-f8f7ff); border-left: 3px solid var(--bd-667eea);
     border-radius: 0 8px 8px 0; padding: 10px 16px;
     margin-bottom: 18px; font-size: 0.87rem; line-height: 1.7;
 }
 .exercise {
-    background: #fafafa; border-radius: 10px; padding: 14px 16px;
-    margin-bottom: 10px; line-height: 2.6; font-size: 1rem; border: 1px solid #eee;
+    background: var(--bg-fafafa); border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 10px; line-height: 2.6; font-size: 1rem; border: 1px solid var(--bd-eee);
     transition: box-shadow 0.2s, border-color 0.2s;
 }
 .exercise:hover {
-    border-color: #c5b8f8;
+    border-color: var(--bd-c5b8f8);
     box-shadow: 0 2px 10px rgba(102,126,234,0.10);
 }
-.exercise .num { font-weight: 700; color: #764ba2; margin-right: 4px; }
+.exercise .num { font-weight: 700; color: var(--tx-764ba2); margin-right: 4px; }
 input.blank {
-    border: none; border-bottom: 2px solid #667eea; background: transparent;
+    border: none; border-bottom: 2px solid var(--bd-667eea); background: transparent;
     text-align: center; font-size: 0.95rem; font-family: inherit;
     outline: none; padding: 2px 3px; transition: all 0.25s;
     cursor: text; border-radius: 3px 3px 0 0;
 }
 input.blank:hover:not(.correct):not(.wrong) {
-    background: #e8e4ff; border-bottom-color: #764ba2;
+    background: var(--bg-e8e4ff); border-bottom-color: var(--bd-764ba2);
     box-shadow: 0 2px 0 0 #764ba2;
 }
-input.blank:focus { border-bottom-color: #764ba2; background: #f0eeff; border-radius: 3px 3px 0 0;
+input.blank:focus { border-bottom-color: var(--bd-764ba2); background: var(--bg-f0eeff); border-radius: 3px 3px 0 0;
     box-shadow: 0 3px 0 0 #764ba2; }
 input.blank.s { min-width: 36px; width: 40px; }
 input.blank.m { min-width: 70px; width: 80px; }
 input.blank.l { min-width: 110px; width: 120px; }
-input.blank.correct { border-bottom-color: #2ecc71; background: #eafaf1; color: #27ae60; }
-input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c0392b; }
-.sol { display: none; color: #27ae60; font-weight: 600; font-size: 0.8rem; }
+input.blank.correct { border-bottom-color: var(--bd-2ecc71); background: var(--bg-eafaf1); color: var(--tx-27ae60); }
+input.blank.wrong { border-bottom-color: var(--bd-e74c3c); background: var(--bg-fdf0ef); color: var(--tx-c0392b); }
+.sol { display: none; color: var(--tx-27ae60); font-weight: 600; font-size: 0.8rem; }
 
 /* ══════════════════════════════════════
    TAB 6: MASTERCLASS – Wohnungsanzeigen
 ══════════════════════════════════════ */
 .masterclass-intro {
     background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
-    color: #eee; border-radius: 12px; padding: 16px 20px;
+    color: var(--tx-eee); border-radius: 12px; padding: 16px 20px;
     margin-bottom: 20px; font-size: 0.88rem; line-height: 1.75;
 }
-.masterclass-intro strong { color: #a78bfa; }
+.masterclass-intro strong { color: var(--tx-a78bfa); }
 .anzeige-block {
-    background: #fafafa; border: 1px solid #e0e0e0; border-radius: 10px;
+    background: var(--bg-fafafa); border: 1px solid var(--bd-e0e0e0); border-radius: 10px;
     padding: 18px 20px; margin-bottom: 16px; font-size: 1rem; line-height: 3.0;
 }
 .anzeige-block h3 {
-    font-size: 0.88rem; font-weight: 700; color: #764ba2;
-    background: #f0eeff; border-radius: 6px; padding: 5px 12px;
+    font-size: 0.88rem; font-weight: 700; color: var(--tx-764ba2);
+    background: var(--bg-f0eeff); border-radius: 6px; padding: 5px 12px;
     display: inline-block; margin-bottom: 12px;
 }
 
@@ -340,7 +413,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   background: rgba(118, 75, 162, 0.26);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  color: #34206b; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
   padding: 15px 26px; font-size: 1.05em; font-weight: 800;
   letter-spacing: 0.2px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -352,11 +425,182 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
 }
 .fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: #241048; box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
+
+/* FB-THEME-TOGGLE (fixiert, Datei ohne Header) */
+.theme-toggle {
+  position: fixed; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(102,126,234,0.45); border: 1px solid rgba(255,255,255,0.4);
+  color: white; font-size: 1.05em; cursor: pointer; line-height: 1;
+  transition: background 0.2s; z-index: 50;
+}
+.theme-toggle:hover { background: rgba(102,126,234,0.7); }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --sf-pill: #343a5e;
+  --bd-27ae60: #3f9d6d;
+  --bd-2ecc71: #2f6a48;
+  --bd-667eea: #7b88e8;
+  --bd-764ba2: #8a63b8;
+  --bd-7c6cd4: #3b3366;
+  --bd-a9d4a9: #3d5c3d;
+  --bd-aed6f1: #2c536d;
+  --bd-c5b8f8: #362772;
+  --bd-ccc: #4a4e6a;
+  --bd-d7bde2: #543b5e;
+  --bd-ddd: #3a3e58;
+  --bd-e0e0e0: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bd-eee: #32365a;
+  --bg-27ae60: #2f9c5f;
+  --bg-667eea: #4a55b8;
+  --bg-8e44ad: #392641;
+  --bg-c0392b: #482420;
+  --bg-d8d8f8: #181839;
+  --bg-e0e0e0: #222331;
+  --bg-e67e22: #4b311a;
+  --bg-e8e4ff: #17103f;
+  --bg-e8e8e8: #212230;
+  --bg-eaf4fb: #172a38;
+  --bg-eafaf1: #193626;
+  --bg-eef6ee: #202f20;
+  --bg-f0eeff: #15103f;
+  --bg-f0f0f0: #2a2d42;
+  --bg-f0f2f5: #20262f;
+  --bg-f5eef8: #2b1e31;
+  --bg-f8f7ff: #150f3e;
+  --bg-fafafa: #20202e;
+  --bg-fdf0ef: #391715;
+  --bg-fef0ef: #3c1512;
+  --bg-fff: #262a44;
+  --tx-1a1a2e: #babad8;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-2980b9: #81bce3;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-4a35a0: #9d8eda;
+  --tx-555: #b6bad0;
+  --tx-58c370: #87d498;
+  --tx-5fc7f7: #70c4eb;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-764ba2: #b592d8;
+  --tx-888: #8e93b0;
+  --tx-8e44ad: #be8dd2;
+  --tx-9ab: #9dadbe;
+  --tx-aaa: #6f7390;
+  --tx-c0392b: #e2887f;
+  --tx-c08ee0: #b87fdc;
+  --tx-ccc: #5a5e78;
+  --tx-e67e22: #eda15c;
+  --tx-e74c3c: #ef7365;
+  --tx-f39c12: #edb95e;
+  --tx-ff7b6b: #eb7d70;
+  --tx-ffae62: #ebab70;
+}
+:root:not([data-theme="light"]) .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+:root:not([data-theme="light"]) body { color: #c6cade; }
+:root:not([data-theme="light"]) button, :root:not([data-theme="light"]) input, :root:not([data-theme="light"]) select, :root:not([data-theme="light"]) textarea { color: inherit; }
+}
+:root[data-theme="dark"] {
+  --sf-pill: #343a5e;
+  --bd-27ae60: #3f9d6d;
+  --bd-2ecc71: #2f6a48;
+  --bd-667eea: #7b88e8;
+  --bd-764ba2: #8a63b8;
+  --bd-7c6cd4: #3b3366;
+  --bd-a9d4a9: #3d5c3d;
+  --bd-aed6f1: #2c536d;
+  --bd-c5b8f8: #362772;
+  --bd-ccc: #4a4e6a;
+  --bd-d7bde2: #543b5e;
+  --bd-ddd: #3a3e58;
+  --bd-e0e0e0: #3a3e58;
+  --bd-e74c3c: #b0584d;
+  --bd-eee: #32365a;
+  --bg-27ae60: #2f9c5f;
+  --bg-667eea: #4a55b8;
+  --bg-8e44ad: #392641;
+  --bg-c0392b: #482420;
+  --bg-d8d8f8: #181839;
+  --bg-e0e0e0: #222331;
+  --bg-e67e22: #4b311a;
+  --bg-e8e4ff: #17103f;
+  --bg-e8e8e8: #212230;
+  --bg-eaf4fb: #172a38;
+  --bg-eafaf1: #193626;
+  --bg-eef6ee: #202f20;
+  --bg-f0eeff: #15103f;
+  --bg-f0f0f0: #2a2d42;
+  --bg-f0f2f5: #20262f;
+  --bg-f5eef8: #2b1e31;
+  --bg-f8f7ff: #150f3e;
+  --bg-fafafa: #20202e;
+  --bg-fdf0ef: #391715;
+  --bg-fef0ef: #3c1512;
+  --bg-fff: #262a44;
+  --tx-1a1a2e: #babad8;
+  --tx-241048: #d9cef8;
+  --tx-27ae60: #58c98b;
+  --tx-2980b9: #81bce3;
+  --tx-333: #d6d8e8;
+  --tx-34206b: #cbbcf6;
+  --tx-4a35a0: #9d8eda;
+  --tx-555: #b6bad0;
+  --tx-58c370: #87d498;
+  --tx-5fc7f7: #70c4eb;
+  --tx-666: #9ba0bd;
+  --tx-667eea: #93a0f2;
+  --tx-764ba2: #b592d8;
+  --tx-888: #8e93b0;
+  --tx-8e44ad: #be8dd2;
+  --tx-9ab: #9dadbe;
+  --tx-aaa: #6f7390;
+  --tx-c0392b: #e2887f;
+  --tx-c08ee0: #b87fdc;
+  --tx-ccc: #5a5e78;
+  --tx-e67e22: #eda15c;
+  --tx-e74c3c: #ef7365;
+  --tx-f39c12: #edb95e;
+  --tx-ff7b6b: #eb7d70;
+  --tx-ffae62: #ebab70;
+}
+html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+html[data-theme="dark"] body { color: #c6cade; }
+html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
 <div class="container">
 <h1>Adjektivdeklination</h1>
 <p class="subtitle">Die Magic Five stecken entweder im Begleiter oder im Adjektiv-Nomen — immer genau ein Magic Five</p>
@@ -562,13 +806,13 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             </tr>
           </tbody>
         </table>
-        <div class="pfanne-legende"><span style="color:#2980b9; font-weight:800;">-e</span> &nbsp;|&nbsp; <span style="color:#4a5a9a; font-weight:800;">-en</span></div>
+        <div class="pfanne-legende"><span style="color:var(--tx-2980b9); font-weight:800;">-e</span> &nbsp;|&nbsp; <span style="color:#4a5a9a; font-weight:800;">-en</span></div>
       </div>
     </div>
   </div>
 
   <!-- MC Entdeckung -->
-  <p style="font-weight:600; color:#555; font-size:0.88rem; margin-bottom:12px;">
+  <p style="font-weight:600; color:var(--tx-555); font-size:0.88rem; margin-bottom:12px;">
     🔍 Entdecke: Wo steckt die Magic Five?
   </p>
   <div id="ent-container"></div>
@@ -609,7 +853,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
     <div class="karte">
       <div class="karte-head kasusanzeige-bgl">Magic Five im Begleiter → Adjektiv <strong>schwach</strong></div>
       <div class="karte-body">
-        → Adjektiv nur <strong style="color:#2980b9;">-e</strong> oder <strong style="color:#7a6040;">-en</strong>.<br><br>
+        → Adjektiv nur <strong style="color:var(--tx-2980b9);">-e</strong> oder <strong style="color:#7a6040;">-en</strong>.<br><br>
         D<span class="ka ka-r">er</span> alt<span class="ka-schwach">e</span> Mann<br>
         Da<span class="ka ka-s">s</span> kalt<span class="ka-schwach">e</span> Wasser<br>
         Di<span class="ka ka-e">e</span> frisch<span class="ka-schwach">e</span> Milch
@@ -626,13 +870,13 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
         d<span class="ka ka-r">er</span> &nbsp; di<span class="ka ka-e">e</span> &nbsp; da<span class="ka ka-s">s</span><br>
         de<span class="ka ka-m">m</span> &nbsp; de<span class="ka ka-n">n</span>
       </div>
-      <span style="font-size:0.75rem; color:#888; font-weight:400;">bestimmter Artikel · dieser · jeder …</span>
+      <span style="font-size:0.75rem; color:var(--tx-888); font-weight:400;">bestimmter Artikel · dieser · jeder …</span>
     </div>
     <div class="abl-pfeil">→</div>
     <div class="abl-folge">
       Begleiter trägt <em>immer</em> ein Magic Five.<br>
       → Adjektiv immer <strong>schwach</strong>:<br>
-      <strong style="color:#2980b9;">-e</strong> &nbsp;oder&nbsp; <strong style="color:#7a6040;">-en</strong>
+      <strong style="color:var(--tx-2980b9);">-e</strong> &nbsp;oder&nbsp; <strong style="color:#7a6040;">-en</strong>
     </div>
     <div class="abl-bsp">
       d<span class="ka ka-r">er</span> alt<span class="ka-schwach">e</span> Mann<br>
@@ -646,43 +890,43 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   <div class="abl-row abl-t2" style="flex-wrap: nowrap; align-items: flex-start;">
     <div class="abl-bgl" style="min-width: 220px;">
       <div style="font-size:0.88rem; line-height:2.1;">
-        <span style="color:#888; font-size:0.78rem; display:block; margin-bottom:1px;">Possessiv</span>
+        <span style="color:var(--tx-888); font-size:0.78rem; display:block; margin-bottom:1px;">Possessiv</span>
         mein<span class="ka ka-r" style="font-size:0.85em;">-er</span>
         <span class="ka ka-e" style="font-size:0.85em;">-e</span>
         <span class="ka ka-s" style="font-size:0.85em;">-es</span>
         <span class="ka ka-m" style="font-size:0.85em;">-em</span>
         <span class="ka ka-n" style="font-size:0.85em;">-en</span>
-        · <span style="color:#c0392b; font-weight:900; font-size:0.82em;">∅</span><br>
-        <span style="color:#888; font-size:0.78rem; display:block; margin-bottom:1px;">unbestimmter Artikel</span>
+        · <span style="color:var(--tx-c0392b); font-weight:900; font-size:0.82em;">∅</span><br>
+        <span style="color:var(--tx-888); font-size:0.78rem; display:block; margin-bottom:1px;">unbestimmter Artikel</span>
         ein<span class="ka ka-r" style="font-size:0.85em;">-er</span>
         <span class="ka ka-e" style="font-size:0.85em;">-e</span>
         <span class="ka ka-s" style="font-size:0.85em;">-es</span>
         <span class="ka ka-m" style="font-size:0.85em;">-em</span>
         <span class="ka ka-n" style="font-size:0.85em;">-en</span>
-        · <span style="color:#c0392b; font-weight:900; font-size:0.82em;">∅</span><br>
-        <span style="color:#888; font-size:0.78rem; display:block; margin-bottom:1px;">Negation</span>
+        · <span style="color:var(--tx-c0392b); font-weight:900; font-size:0.82em;">∅</span><br>
+        <span style="color:var(--tx-888); font-size:0.78rem; display:block; margin-bottom:1px;">Negation</span>
         kein<span class="ka ka-r" style="font-size:0.85em;">-er</span>
         <span class="ka ka-e" style="font-size:0.85em;">-e</span>
         <span class="ka ka-s" style="font-size:0.85em;">-es</span>
         <span class="ka ka-m" style="font-size:0.85em;">-em</span>
         <span class="ka ka-n" style="font-size:0.85em;">-en</span>
-        · <span style="color:#c0392b; font-weight:900; font-size:0.82em;">∅</span>
+        · <span style="color:var(--tx-c0392b); font-weight:900; font-size:0.82em;">∅</span>
       </div>
     </div>
     <div class="abl-pfeil">→</div>
     <div class="abl-folge">
       Begleiter trägt <strong>immer</strong> ein Magic Five<br>
       → Adjektiv schwach.<br>
-      <span style="color:#c0392b; font-weight:700;">Ausnahme</span>: Nom. m &amp; Nom./Akk. n<br>
+      <span style="color:var(--tx-c0392b); font-weight:700;">Ausnahme</span>: Nom. m &amp; Nom./Akk. n<br>
       → Begleiter ∅ → Magic Five wandert ins Adjektiv.
     </div>
     <div class="abl-bsp">
-      mein<span class="ka ka-r">er</span> jung<span class="ka-schwach">en</span> Frau <span style="color:#aaa;font-size:0.75em;">(Dat. f)</span><br>
-      ein<span class="ka ka-e">e</span> jung<span class="ka-schwach">e</span> Frau <span style="color:#aaa;font-size:0.75em;">(Nom. f)</span><br>
-      kein<span class="ka ka-m">em</span> alt<span class="ka-schwach">en</span> Mann <span style="color:#aaa;font-size:0.75em;">(Dat. m)</span><br>
-      mein<span class="ka ka-s">es</span> gut<span class="ka-schwach">en</span> Freundes <span style="color:#aaa;font-size:0.75em;">(Gen. m)</span><br>
-      ein<span style="color:#c0392b; font-weight:900; font-size:0.85em;">∅</span> alt<span class="ka ka-r">er</span> Mann <span style="color:#aaa;font-size:0.75em;">(Nom. m → ∅)</span><br>
-      kein<span style="color:#c0392b; font-weight:900; font-size:0.85em;">∅</span> jung<span class="ka ka-s">es</span> Kind <span style="color:#aaa;font-size:0.75em;">(Nom. n → ∅)</span>
+      mein<span class="ka ka-r">er</span> jung<span class="ka-schwach">en</span> Frau <span style="color:var(--tx-aaa);font-size:0.75em;">(Dat. f)</span><br>
+      ein<span class="ka ka-e">e</span> jung<span class="ka-schwach">e</span> Frau <span style="color:var(--tx-aaa);font-size:0.75em;">(Nom. f)</span><br>
+      kein<span class="ka ka-m">em</span> alt<span class="ka-schwach">en</span> Mann <span style="color:var(--tx-aaa);font-size:0.75em;">(Dat. m)</span><br>
+      mein<span class="ka ka-s">es</span> gut<span class="ka-schwach">en</span> Freundes <span style="color:var(--tx-aaa);font-size:0.75em;">(Gen. m)</span><br>
+      ein<span style="color:var(--tx-c0392b); font-weight:900; font-size:0.85em;">∅</span> alt<span class="ka ka-r">er</span> Mann <span style="color:var(--tx-aaa);font-size:0.75em;">(Nom. m → ∅)</span><br>
+      kein<span style="color:var(--tx-c0392b); font-weight:900; font-size:0.85em;">∅</span> jung<span class="ka ka-s">es</span> Kind <span style="color:var(--tx-aaa);font-size:0.75em;">(Nom. n → ∅)</span>
     </div>
   </div>
 
@@ -690,9 +934,9 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   <div class="abl-row abl-t3">
     <div class="abl-bgl">
       <div style="font-size:1.05rem; line-height:1.7; margin-bottom:4px;">
-        — &nbsp;<span style="color:#aaa; font-size:0.9em;">(kein Artikel)</span>
+        — &nbsp;<span style="color:var(--tx-aaa); font-size:0.9em;">(kein Artikel)</span>
       </div>
-      <span style="font-size:0.75rem; color:#888; font-weight:400;">Typ 3</span>
+      <span style="font-size:0.75rem; color:var(--tx-888); font-weight:400;">Typ 3</span>
     </div>
     <div class="abl-pfeil">→</div>
     <div class="abl-folge">
@@ -700,11 +944,11 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
       → Adjektiv trägt alle fünf Magic Five.
     </div>
     <div class="abl-bsp">
-      gut<span class="ka ka-r">er</span> Wein <span style="color:#aaa;font-size:0.75em;">(Nom. m)</span><br>
-      frisch<span class="ka ka-e">e</span> Milch <span style="color:#aaa;font-size:0.75em;">(Nom. f)</span><br>
-      kalt<span class="ka ka-s">es</span> Wasser <span style="color:#aaa;font-size:0.75em;">(Nom. n)</span><br>
-      gut<span class="ka ka-m">em</span> Kaffee <span style="color:#aaa;font-size:0.75em;">(Dat. m)</span><br>
-      gut<span class="ka ka-n">en</span> Tag <span style="color:#aaa;font-size:0.75em;">(Akk. m)</span>
+      gut<span class="ka ka-r">er</span> Wein <span style="color:var(--tx-aaa);font-size:0.75em;">(Nom. m)</span><br>
+      frisch<span class="ka ka-e">e</span> Milch <span style="color:var(--tx-aaa);font-size:0.75em;">(Nom. f)</span><br>
+      kalt<span class="ka ka-s">es</span> Wasser <span style="color:var(--tx-aaa);font-size:0.75em;">(Nom. n)</span><br>
+      gut<span class="ka ka-m">em</span> Kaffee <span style="color:var(--tx-aaa);font-size:0.75em;">(Dat. m)</span><br>
+      gut<span class="ka ka-n">en</span> Tag <span style="color:var(--tx-aaa);font-size:0.75em;">(Akk. m)</span>
     </div>
   </div>
 </div>
@@ -712,7 +956,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
 <!-- ══ TAB 3: TYP 1 ══ -->
 <div class="section" id="sec-2">
   <div class="luecke-intro">
-    Begleiter hat ein Magic Five → Adjektiv schwach → nur <strong style="color:#2980b9;">-e</strong> oder <strong style="color:#7a6040;">-en</strong>
+    Begleiter hat ein Magic Five → Adjektiv schwach → nur <strong style="color:var(--tx-2980b9);">-e</strong> oder <strong style="color:#7a6040;">-en</strong>
   </div>
 
   <div style="display:flex; justify-content:center; margin-bottom:22px;">
@@ -746,15 +990,15 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
             </tr>
           </tbody>
         </table>
-        <div class="pfanne-legende"><span style="color:#2980b9; font-weight:800;">-e</span> &nbsp;|&nbsp; <span style="color:#4a5a9a; font-weight:800;">-en</span></div>
+        <div class="pfanne-legende"><span style="color:var(--tx-2980b9); font-weight:800;">-e</span> &nbsp;|&nbsp; <span style="color:#4a5a9a; font-weight:800;">-en</span></div>
       </div>
     </div>
   </div>
 
   <div id="luecke1-container"></div>
   <div class="btn-row">
-    <button onclick="showLuecke(1)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetLuecke(1)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showLuecke(1)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetLuecke(1)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
   </div>
   <div class="score" id="score-l1"></div>
 </div>
@@ -780,15 +1024,15 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
           <tbody>
             <tr>
               <td class="kasus-label">Nominativ</td>
-              <td style="background:#fdecea; color:#c0392b; font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-er</span></td>
-              <td style="background:#fdecea; color:#c0392b; font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-es</span></td>
+              <td style="background:#fdecea; color:var(--tx-c0392b); font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-er</span></td>
+              <td style="background:#fdecea; color:var(--tx-c0392b); font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-es</span></td>
               <td class="td-e">-e</td>
               <td class="td-en">-en</td>
             </tr>
             <tr>
               <td class="kasus-label">Akkusativ</td>
               <td class="td-en">-en</td>
-              <td style="background:#fdecea; color:#c0392b; font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-es</span></td>
+              <td style="background:#fdecea; color:var(--tx-c0392b); font-weight:900; font-size:1.05em;">∅→<span style="font-size:0.75em;">-es</span></td>
               <td class="td-e">-e</td>
               <td class="td-en">-en</td>
             </tr>
@@ -803,9 +1047,9 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
           </tbody>
         </table>
         <div class="pfanne-legende">
-          <span style="color:#2980b9; font-weight:800;">-e</span> &nbsp;|&nbsp;
+          <span style="color:var(--tx-2980b9); font-weight:800;">-e</span> &nbsp;|&nbsp;
           <span style="color:#4a5a9a; font-weight:800;">-en</span> &nbsp;|&nbsp;
-          <span style="color:#c0392b; font-weight:800;">∅ = Magic Five wandert ins Adjektiv</span>
+          <span style="color:var(--tx-c0392b); font-weight:800;">∅ = Magic Five wandert ins Adjektiv</span>
         </div>
       </div>
     </div>
@@ -813,8 +1057,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
 
   <div id="luecke2-container"></div>
   <div class="btn-row">
-    <button onclick="showLuecke(2)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetLuecke(2)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showLuecke(2)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetLuecke(2)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
   </div>
   <div class="score" id="score-l2"></div>
 </div>
@@ -826,8 +1070,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   </div>
   <div id="luecke3-container"></div>
   <div class="btn-row">
-    <button onclick="showLuecke(3)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetLuecke(3)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showLuecke(3)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetLuecke(3)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
   </div>
   <div class="score" id="score-l3"></div>
 </div>
@@ -842,7 +1086,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   <!-- ÜBUNG 4: NEUSCHWANSTEIN -->
   <div class="anzeige-block">
     <h3>Auf Schloss Neuschwanstein</h3>
-    <div style="font-size:0.82rem; color:#888; margin-bottom:14px;">
+    <div style="font-size:0.82rem; color:var(--tx-888); margin-bottom:14px;">
       Nom. m → Akk. m &nbsp;·&nbsp; Nom. f → Akk. f &nbsp;·&nbsp; Nom. n → Akk. n
     </div>
     <div style="line-height:3.4; font-size:0.97rem;">
@@ -873,7 +1117,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   <!-- ÜBUNG 5: GESPRÄCHE IM CLUB -->
   <div class="anzeige-block">
     <h3>Gespräche im Club</h3>
-    <div style="font-size:0.82rem; color:#888; margin-bottom:14px;">
+    <div style="font-size:0.82rem; color:var(--tx-888); margin-bottom:14px;">
       Dativ nach: mit, in, an, bei, von, nach, seit, aus, zu, gegenüber
     </div>
     <div style="line-height:3.4; font-size:0.97rem;">
@@ -899,7 +1143,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   <!-- ÜBUNG 7: EISIGE KÄLTE -->
   <div class="anzeige-block">
     <h3>Eisige Kälte — Wetteradjektive</h3>
-    <div style="font-size:0.82rem; color:#888; margin-bottom:14px;">
+    <div style="font-size:0.82rem; color:var(--tx-888); margin-bottom:14px;">
       Kein Artikel → Magic Five wandert ins Adjektiv
     </div>
     <div style="line-height:3.4; font-size:0.97rem;">
@@ -946,8 +1190,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdf0ef; color: #c
   </div>
 
   <div class="btn-row">
-    <button onclick="showPraxis()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetPraxis()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showPraxis()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetPraxis()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
   </div>
   <div class="score" id="score-praxis"></div>
 </div>
@@ -1067,8 +1311,8 @@ Stadt hat.
   </div>
 
   <div class="btn-row">
-    <button onclick="showMasterAll()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
-    <button onclick="resetMasterAll()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+    <button onclick="showMasterAll()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetMasterAll()" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
   </div>
   <div class="score" id="score-master"></div>
 </div>
@@ -1196,48 +1440,48 @@ function answerMC(ei, oi) {
 
 // ── LÜCKENTEXT DATA ──
 const L1 = [
-    { id:'l1_1',  pre:`<span class="num">1.</span> D<span class="ka ka-r">er</span> neu`,        ans:'e',  sz:'s', post:` Lehrer kommt. <em style="color:#aaa;font-size:.8em">(Nom. m)</em>` },
-    { id:'l1_2',  pre:`<span class="num">2.</span> Di<span class="ka ka-e">e</span> jung`,        ans:'e',  sz:'s', post:` Frau arbeitet. <em style="color:#aaa;font-size:.8em">(Nom. f)</em>` },
-    { id:'l1_3',  pre:`<span class="num">3.</span> Da<span class="ka ka-s">s</span> klein`,       ans:'e',  sz:'s', post:` Kind schläft. <em style="color:#aaa;font-size:.8em">(Nom. n)</em>` },
-    { id:'l1_4',  pre:`<span class="num">4.</span> Di<span class="ka ka-e">e</span> alt`,         ans:'en', sz:'s', post:` Leute warten. <em style="color:#aaa;font-size:.8em">(Nom. Pl)</em>` },
-    { id:'l1_5',  pre:`<span class="num">5.</span> Ich sehe de<span class="ka ka-n">n</span> groß`, ans:'en', sz:'s', post:` Hund. <em style="color:#aaa;font-size:.8em">(Akk. m)</em>` },
-    { id:'l1_6',  pre:`<span class="num">6.</span> Ich kaufe di<span class="ka ka-e">e</span> rot`, ans:'e',  sz:'s', post:` Jacke. <em style="color:#aaa;font-size:.8em">(Akk. f)</em>` },
-    { id:'l1_7',  pre:`<span class="num">7.</span> Ich lese da<span class="ka ka-s">s</span> lang`, ans:'e',  sz:'s', post:` Buch. <em style="color:#aaa;font-size:.8em">(Akk. n)</em>` },
-    { id:'l1_8',  pre:`<span class="num">8.</span> Ich helfe de<span class="ka ka-m">m</span> alt`, ans:'en', sz:'s', post:` Mann. <em style="color:#aaa;font-size:.8em">(Dat. m)</em>` },
-    { id:'l1_9',  pre:`<span class="num">9.</span> Ich danke de<span class="ka ka-r">r</span> nett`, ans:'en', sz:'s', post:` Frau. <em style="color:#aaa;font-size:.8em">(Dat. f)</em>` },
-    { id:'l1_10', pre:`<span class="num">10.</span> Das Auto de<span class="ka ka-s">s</span> neu`,  ans:'en', sz:'s', post:` Lehrers ist teuer. <em style="color:#aaa;font-size:.8em">(Gen. m)</em>` },
-    { id:'l1_11', pre:`<span class="num">11.</span> Die Tasche de<span class="ka ka-r">r</span> jung`, ans:'en', sz:'s', post:` Frau. <em style="color:#aaa;font-size:.8em">(Gen. f)</em>` },
-    { id:'l1_12', pre:`<span class="num">12.</span> Dieser lustig`,                                  ans:'e',  sz:'s', post:` Film ist sehr bekannt. <em style="color:#aaa;font-size:.8em">(Nom. m)</em>` },
+    { id:'l1_1',  pre:`<span class="num">1.</span> D<span class="ka ka-r">er</span> neu`,        ans:'e',  sz:'s', post:` Lehrer kommt. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. m)</em>` },
+    { id:'l1_2',  pre:`<span class="num">2.</span> Di<span class="ka ka-e">e</span> jung`,        ans:'e',  sz:'s', post:` Frau arbeitet. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. f)</em>` },
+    { id:'l1_3',  pre:`<span class="num">3.</span> Da<span class="ka ka-s">s</span> klein`,       ans:'e',  sz:'s', post:` Kind schläft. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. n)</em>` },
+    { id:'l1_4',  pre:`<span class="num">4.</span> Di<span class="ka ka-e">e</span> alt`,         ans:'en', sz:'s', post:` Leute warten. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. Pl)</em>` },
+    { id:'l1_5',  pre:`<span class="num">5.</span> Ich sehe de<span class="ka ka-n">n</span> groß`, ans:'en', sz:'s', post:` Hund. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. m)</em>` },
+    { id:'l1_6',  pre:`<span class="num">6.</span> Ich kaufe di<span class="ka ka-e">e</span> rot`, ans:'e',  sz:'s', post:` Jacke. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. f)</em>` },
+    { id:'l1_7',  pre:`<span class="num">7.</span> Ich lese da<span class="ka ka-s">s</span> lang`, ans:'e',  sz:'s', post:` Buch. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. n)</em>` },
+    { id:'l1_8',  pre:`<span class="num">8.</span> Ich helfe de<span class="ka ka-m">m</span> alt`, ans:'en', sz:'s', post:` Mann. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. m)</em>` },
+    { id:'l1_9',  pre:`<span class="num">9.</span> Ich danke de<span class="ka ka-r">r</span> nett`, ans:'en', sz:'s', post:` Frau. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. f)</em>` },
+    { id:'l1_10', pre:`<span class="num">10.</span> Das Auto de<span class="ka ka-s">s</span> neu`,  ans:'en', sz:'s', post:` Lehrers ist teuer. <em style="color:var(--tx-aaa);font-size:.8em">(Gen. m)</em>` },
+    { id:'l1_11', pre:`<span class="num">11.</span> Die Tasche de<span class="ka ka-r">r</span> jung`, ans:'en', sz:'s', post:` Frau. <em style="color:var(--tx-aaa);font-size:.8em">(Gen. f)</em>` },
+    { id:'l1_12', pre:`<span class="num">12.</span> Dieser lustig`,                                  ans:'e',  sz:'s', post:` Film ist sehr bekannt. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. m)</em>` },
 ];
 
 const L2 = [
-    { id:'l2_1',  pre:`<span class="num">1.</span> Ein alt`,            ans:'er', sz:'s', post:` Mann wartet. <em style="color:#aaa;font-size:.8em">(Nom. M — ein∅)</em>` },
-    { id:'l2_2',  pre:`<span class="num">2.</span> Ein jung`,           ans:'es', sz:'s', post:` Kind spielt. <em style="color:#aaa;font-size:.8em">(Nom. N — ein∅)</em>` },
-    { id:'l2_3',  pre:`<span class="num">3.</span> Mein alt`,           ans:'er', sz:'s', post:` Vater schläft. <em style="color:#aaa;font-size:.8em">(Nom. M — mein∅)</em>` },
-    { id:'l2_4',  pre:`<span class="num">4.</span> Mein neu`,           ans:'es', sz:'s', post:` Auto ist kaputt. <em style="color:#aaa;font-size:.8em">(Nom. N — mein∅)</em>` },
-    { id:'l2_5',  pre:`<span class="num">5.</span> Mein<span class="ka ka-e">e</span> jung`, ans:'e', sz:'s', post:` Schwester kommt. <em style="color:#aaa;font-size:.8em">(Nom. F — meine trägt -e)</em>` },
-    { id:'l2_6',  pre:`<span class="num">6.</span> Sein<span class="ka ka-e">e</span> alt`, ans:'e', sz:'s', post:` Mutter wohnt hier. <em style="color:#aaa;font-size:.8em">(Nom. F)</em>` },
-    { id:'l2_7',  pre:`<span class="num">7.</span> Ich sehe eine<span class="ka ka-n">n</span> groß`, ans:'en', sz:'s', post:` Hund. <em style="color:#aaa;font-size:.8em">(Akk. M — einen trägt -n)</em>` },
-    { id:'l2_8',  pre:`<span class="num">8.</span> Ich kaufe eine<span class="ka ka-n">n</span> rot`, ans:'en', sz:'s', post:` Mantel. <em style="color:#aaa;font-size:.8em">(Akk. M — einen trägt -n)</em>` },
-    { id:'l2_9',  pre:`<span class="num">9.</span> Er dankt seinem alt`, ans:'en', sz:'s', post:` Lehrer. <em style="color:#aaa;font-size:.8em">(Dat. M — seinem trägt -m)</em>` },
-    { id:'l2_10', pre:`<span class="num">9.</span> Ich helfe meine<span class="ka ka-r">r</span> jung`, ans:'en', sz:'s', post:` Mutter. <em style="color:#aaa;font-size:.8em">(Dat. F)</em>` },
-    { id:'l2_11', pre:`<span class="num">10.</span> Das ist die Idee meine<span class="ka ka-s">s</span> jung`, ans:'en', sz:'s', post:` Freundes. <em style="color:#aaa;font-size:.8em">(Gen. M)</em>` },
-    { id:'l2_12', pre:`<span class="num">11.</span> Mein<span class="ka ka-e">e</span> alt`, ans:'en', sz:'s', post:` Eltern leben in Berlin. <em style="color:#aaa;font-size:.8em">(Nom. Pl — meine trägt -e)</em>` },
+    { id:'l2_1',  pre:`<span class="num">1.</span> Ein alt`,            ans:'er', sz:'s', post:` Mann wartet. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. M — ein∅)</em>` },
+    { id:'l2_2',  pre:`<span class="num">2.</span> Ein jung`,           ans:'es', sz:'s', post:` Kind spielt. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. N — ein∅)</em>` },
+    { id:'l2_3',  pre:`<span class="num">3.</span> Mein alt`,           ans:'er', sz:'s', post:` Vater schläft. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. M — mein∅)</em>` },
+    { id:'l2_4',  pre:`<span class="num">4.</span> Mein neu`,           ans:'es', sz:'s', post:` Auto ist kaputt. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. N — mein∅)</em>` },
+    { id:'l2_5',  pre:`<span class="num">5.</span> Mein<span class="ka ka-e">e</span> jung`, ans:'e', sz:'s', post:` Schwester kommt. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. F — meine trägt -e)</em>` },
+    { id:'l2_6',  pre:`<span class="num">6.</span> Sein<span class="ka ka-e">e</span> alt`, ans:'e', sz:'s', post:` Mutter wohnt hier. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. F)</em>` },
+    { id:'l2_7',  pre:`<span class="num">7.</span> Ich sehe eine<span class="ka ka-n">n</span> groß`, ans:'en', sz:'s', post:` Hund. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. M — einen trägt -n)</em>` },
+    { id:'l2_8',  pre:`<span class="num">8.</span> Ich kaufe eine<span class="ka ka-n">n</span> rot`, ans:'en', sz:'s', post:` Mantel. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. M — einen trägt -n)</em>` },
+    { id:'l2_9',  pre:`<span class="num">9.</span> Er dankt seinem alt`, ans:'en', sz:'s', post:` Lehrer. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. M — seinem trägt -m)</em>` },
+    { id:'l2_10', pre:`<span class="num">9.</span> Ich helfe meine<span class="ka ka-r">r</span> jung`, ans:'en', sz:'s', post:` Mutter. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. F)</em>` },
+    { id:'l2_11', pre:`<span class="num">10.</span> Das ist die Idee meine<span class="ka ka-s">s</span> jung`, ans:'en', sz:'s', post:` Freundes. <em style="color:var(--tx-aaa);font-size:.8em">(Gen. M)</em>` },
+    { id:'l2_12', pre:`<span class="num">11.</span> Mein<span class="ka ka-e">e</span> alt`, ans:'en', sz:'s', post:` Eltern leben in Berlin. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. Pl — meine trägt -e)</em>` },
 ];
 
 const L3 = [
-    { id:'l3_1',  pre:`<span class="num">1.</span> Frisch`,   ans:'e',  sz:'s', post:` Milch ist gesund. <em style="color:#aaa;font-size:.8em">(Nom. F)</em>` },
-    { id:'l3_2',  pre:`<span class="num">2.</span> Kalt`,     ans:'es', sz:'s', post:` Wasser erfrischt. <em style="color:#aaa;font-size:.8em">(Nom. N)</em>` },
-    { id:'l3_3',  pre:`<span class="num">3.</span> Gut`,      ans:'er', sz:'s', post:` Kaffee macht munter. <em style="color:#aaa;font-size:.8em">(Nom. M)</em>` },
-    { id:'l3_4',  pre:`<span class="num">4.</span> Klein`,    ans:'e',  sz:'s', post:` Kinder spielen draußen. <em style="color:#aaa;font-size:.8em">(Nom. Pl)</em>` },
-    { id:'l3_5',  pre:`<span class="num">5.</span> Ich trinke gern kalt`, ans:'es', sz:'s', post:` Wasser. <em style="color:#aaa;font-size:.8em">(Akk. N)</em>` },
-    { id:'l3_6',  pre:`<span class="num">6.</span> Er mag frisch`,        ans:'e',  sz:'s', post:` Luft. <em style="color:#aaa;font-size:.8em">(Akk. F)</em>` },
-    { id:'l3_7',  pre:`<span class="num">7.</span> Wir trinken heiß`,     ans:'en', sz:'s', post:` Tee. <em style="color:#aaa;font-size:.8em">(Akk. M)</em>` },
-    { id:'l3_8',  pre:`<span class="num">8.</span> Mit frisch`,  ans:'em', sz:'s', post:` Brot schmeckt alles besser. <em style="color:#aaa;font-size:.8em">(Dat. N)</em>` },
-    { id:'l3_9',  pre:`<span class="num">9.</span> Mit gut`,    ans:'er', sz:'s', post:` Butter noch mehr. <em style="color:#aaa;font-size:.8em">(Dat. F)</em>` },
-    { id:'l3_10', pre:`<span class="num">10.</span> Wegen schlecht`, ans:'en', sz:'s', post:` Wetters blieben wir drin. <em style="color:#aaa;font-size:.8em">(Gen. N)</em>` },
-    { id:'l3_11', pre:`<span class="num">11.</span> Der Geruch frisch`, ans:'er', sz:'s', post:` Blumen ist wunderschön. <em style="color:#aaa;font-size:.8em">(Gen. Pl)</em>` },
-    { id:'l3_12', pre:`<span class="num">12.</span> Er spricht mit groß`, ans:'em', sz:'s', post:` Respekt von seinen Lehrern. <em style="color:#aaa;font-size:.8em">(Dat. M)</em>` },
+    { id:'l3_1',  pre:`<span class="num">1.</span> Frisch`,   ans:'e',  sz:'s', post:` Milch ist gesund. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. F)</em>` },
+    { id:'l3_2',  pre:`<span class="num">2.</span> Kalt`,     ans:'es', sz:'s', post:` Wasser erfrischt. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. N)</em>` },
+    { id:'l3_3',  pre:`<span class="num">3.</span> Gut`,      ans:'er', sz:'s', post:` Kaffee macht munter. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. M)</em>` },
+    { id:'l3_4',  pre:`<span class="num">4.</span> Klein`,    ans:'e',  sz:'s', post:` Kinder spielen draußen. <em style="color:var(--tx-aaa);font-size:.8em">(Nom. Pl)</em>` },
+    { id:'l3_5',  pre:`<span class="num">5.</span> Ich trinke gern kalt`, ans:'es', sz:'s', post:` Wasser. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. N)</em>` },
+    { id:'l3_6',  pre:`<span class="num">6.</span> Er mag frisch`,        ans:'e',  sz:'s', post:` Luft. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. F)</em>` },
+    { id:'l3_7',  pre:`<span class="num">7.</span> Wir trinken heiß`,     ans:'en', sz:'s', post:` Tee. <em style="color:var(--tx-aaa);font-size:.8em">(Akk. M)</em>` },
+    { id:'l3_8',  pre:`<span class="num">8.</span> Mit frisch`,  ans:'em', sz:'s', post:` Brot schmeckt alles besser. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. N)</em>` },
+    { id:'l3_9',  pre:`<span class="num">9.</span> Mit gut`,    ans:'er', sz:'s', post:` Butter noch mehr. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. F)</em>` },
+    { id:'l3_10', pre:`<span class="num">10.</span> Wegen schlecht`, ans:'en', sz:'s', post:` Wetters blieben wir drin. <em style="color:var(--tx-aaa);font-size:.8em">(Gen. N)</em>` },
+    { id:'l3_11', pre:`<span class="num">11.</span> Der Geruch frisch`, ans:'er', sz:'s', post:` Blumen ist wunderschön. <em style="color:var(--tx-aaa);font-size:.8em">(Gen. Pl)</em>` },
+    { id:'l3_12', pre:`<span class="num">12.</span> Er spricht mit groß`, ans:'em', sz:'s', post:` Respekt von seinen Lehrern. <em style="color:var(--tx-aaa);font-size:.8em">(Dat. M)</em>` },
 ];
 
 const ALLE = { 1: L1, 2: L2, 3: L3 };
@@ -1406,9 +1650,9 @@ Object.entries(PRAXIS).forEach(([id, ans]) => {
 </script>
 
 <div style="text-align:center; padding:24px 20px 28px; border-top: 1px solid #e8e8e8; margin-top: 10px;">
-  <span style="color:#667eea; font-weight:700; font-size:0.85em; letter-spacing:0.03em;">© Frank Burkert</span>
-  <span style="color:#ccc; margin: 0 8px;">·</span>
-  <a href="mailto:unterricht@frankburkert-daf.de" style="color:#667eea; font-size:0.85em; text-decoration:none; border-bottom: 1px solid #c5cafe; padding-bottom:1px;">unterricht@frankburkert-daf.de</a>
+  <span style="color:var(--tx-667eea); font-weight:700; font-size:0.85em; letter-spacing:0.03em;">© Frank Burkert</span>
+  <span style="color:var(--tx-ccc); margin: 0 8px;">·</span>
+  <a href="mailto:unterricht@frankburkert-daf.de" style="color:var(--tx-667eea); font-size:0.85em; text-decoration:none; border-bottom: 1px solid #c5cafe; padding-bottom:1px;">unterricht@frankburkert-daf.de</a>
 </div>
 
 <!-- FB-JUMPTOP -->
