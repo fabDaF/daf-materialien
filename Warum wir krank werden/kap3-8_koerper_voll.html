@@ -239,16 +239,16 @@ input.blank.no, input.blank.wrong   { border-bottom-color:var(--bd-e74c3c); colo
 /* ── MULTIPLE-CHOICE ── */
 .mc-item { background:var(--bg-f8f9ff); border:1px solid var(--bd-e0e7ff); border-left:4px solid var(--bd-667eea); border-radius:8px; padding:14px 16px; margin-bottom:10px; }
 .mc-question { font-size:1.05em; color:var(--tx-333); margin-bottom:10px; font-weight:500; line-height:1.5; }
-.mc-opts { display:flex; flex-wrap:wrap; gap:6px; }
+.mc-opts { display:flex; flex-direction:column; gap:8px; }
 .mc-opt {
-  padding:5px 14px; border-radius:20px; border:1.5px solid var(--bd-c5cae9);
-  background:var(--bg-fff); color:var(--tx-555); font-size:11px; font-weight:600; cursor:pointer;
-  transition:all 0.15s;
+  width:100%; text-align:left; padding:12px 16px; border-radius:10px;
+  border:1.5px solid var(--bd-c5cae9); background:var(--bg-fff); color:var(--tx-333);
+  font-size:1em; font-weight:500; line-height:1.45; cursor:pointer; transition:all 0.15s;
 }
-.mc-opt:hover { border-color:var(--bd-667eea); color:var(--tx-667eea); }
-.mc-opt.correct { background:var(--bg-27ae60); border-color:var(--bd-27ae60); color:var(--tx-white); }
-.mc-opt.wrong   { background:var(--bg-e74c3c); border-color:var(--bd-e74c3c); color:var(--tx-white); }
-.mc-opt:disabled, .mc-opt[disabled] { cursor:default; opacity:0.6; }
+.mc-opt:hover { border-color:var(--bd-667eea); background:var(--bg-f8f9ff); }
+.mc-opt.correct { background:var(--bg-e8f8f0); border-color:var(--bd-27ae60); color:var(--tx-27ae60); font-weight:700; }
+.mc-opt.wrong   { background:var(--bg-fdeaea); border-color:var(--bd-e74c3c); color:var(--tx-e74c3c); }
+.mc-opt:disabled, .mc-opt[disabled] { cursor:default; opacity:0.9; }
 
 /* ── SATZBAU ── */
 .satzbau-item { background:var(--bg-fafbff); border:1px solid var(--bd-e0e7ff); border-radius:12px; padding:16px; margin-bottom:16px; }
@@ -561,8 +561,8 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
   <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
   <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">☑️</span><span class="nav-label">Verständnis</span></div>
   <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
-  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
-  <div class="nav-btn" onclick="showSection(7)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+  <div class="nav-btn" onclick="showSection(7)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
@@ -732,24 +732,6 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 6: SCHREIBWERKSTATT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="sec-6">
-  <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/5387233/pexels-photo-5387233.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Person schreibt">
-  <div class="sec-inner">
-    <div class="section-title">📨 Schreibwerkstatt</div>
-    <div class="schreib-name-box">
-      <label for="sw-name">Bitte, hier deinen Namen eintragen.</label>
-      <input type="text" id="sw-name" placeholder="Vor- und Nachname" oninput="schreibNameSpeichern()">
-    </div>
-    <div id="schreibAufgabenContainer"></div>
-    <div class="schreib-sammel-row">
-      <button class="schreib-sammel-btn" onclick="schreibSendenAlle()">📨 Alle noch nicht gesendeten Antworten schicken</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
 <!-- SEC 7: WORTSCHATZ -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section" id="sec-7">
@@ -768,6 +750,24 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     </div>
     <div class="hilfe-box">Tippe Artikel, Wort und Plural. Nomen werden großgeschrieben.</div>
     <div id="wortschatzContainer"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SEC 6: SCHREIBWERKSTATT -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="sec-6">
+  <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/5387233/pexels-photo-5387233.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Person schreibt">
+  <div class="sec-inner">
+    <div class="section-title">📨 Schreibwerkstatt</div>
+    <div class="schreib-name-box">
+      <label for="sw-name">Bitte, hier deinen Namen eintragen.</label>
+      <input type="text" id="sw-name" placeholder="Vor- und Nachname" oninput="schreibNameSpeichern()">
+    </div>
+    <div id="schreibAufgabenContainer"></div>
+    <div class="schreib-sammel-row">
+      <button class="schreib-sammel-btn" onclick="schreibSendenAlle()">📨 Alle noch nicht gesendeten Antworten schicken</button>
+    </div>
   </div>
 </div>
 
