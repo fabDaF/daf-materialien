@@ -1603,7 +1603,7 @@ initSatzbau();
    hüllt Init/Lösung/Reset. Original-Logik für Sätze ohne row bleibt unberührt. */
 (function(){
   var CFG = {"bank":"sb-bank-","row":"sb-row-","fb":"sb-fb-","caps":true,"click":true,"tab":5};
-  var SBGAP = [{"i":0,"row":["_","_","_","die","_","Gesundheitsstörung","_"],"parts":["die","Insulinresistenz","ist","häufigste","weltweit"]},{"i":2,"row":["_","_","_","_","_","_","_","_","erhebliche","Fortschritte","_"],"parts":["die","Medizin","hat","in","den","letzten","hundert","Jahren","gemacht"]},{"i":3,"row":["_","_","_","der","_","_","tätig"],"parts":["ich","bin","in","biomedizinischen","Forschung"]}];
+  var SBGAP = [{"i":0,"row":["_","_","_","die","_","Gesundheitsstörung","_"],"parts":["die","Insulinresistenz","ist","häufigste","weltweit"]},{"i":1,"row":["_","_","_","_","_","_","_","_","_","Krebs"],"parts":["jedes","Jahr","sterben","weltweit","ungefähr","10","Millionen","Menschen","an"]},{"i":2,"row":["_","_","_","_","_","_","_","_","erhebliche","Fortschritte","_"],"parts":["die","Medizin","hat","in","den","letzten","hundert","Jahren","gemacht"]},{"i":3,"row":["_","_","_","der","_","_","tätig"],"parts":["ich","bin","in","biomedizinischen","Forschung"]},{"i":4,"row":["_","_","_","_","_","_","_"],"parts":["der","Körper","wird","bei","steigendem","Fettanteil","insulinresistent"]}];
   SBGAP.forEach(function(g){ var ex = satzbauData[g.i]; if (!ex) return;
     ex.row = g.row; ex.parts = g.parts;
     if (typeof ex.valid[0] === "string") ex.valid = [ex.valid];
