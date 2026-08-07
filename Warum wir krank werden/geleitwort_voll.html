@@ -1599,16 +1599,27 @@ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded'
     setTimeout(paintGenus,0);
     var opt=(e.target&&e.target.closest)?e.target.closest('.mc-opt'):null;
     if(!opt) return;
-    var opts=opt.parentNode; if(!opts||opts.getAttribute('data-fbdone')) return;
-    var data=(typeof MC_DATA!=='undefined')?MC_DATA:null;
-    var qi=parseInt(opts.getAttribute('data-qi'),10);
+    var opts=opt.parentNode; if(!opts) return;
+    var data=(typeof MC_DATA!=='undefined')?MC_DATA:null; if(!data) return;
+    /* data-qi/data-oi liegen je nach Datei auf der Option ODER auf dem Container —
+       beide Varianten lesen, sonst bleibt qi NaN und es gibt gar kein Feedback. */
+    var alle=Array.prototype.slice.call(opts.querySelectorAll('.mc-opt'));
+    var qEl=(opt.closest?opt.closest('[data-qi]'):null)||opts;
+    var qi=parseInt(qEl.getAttribute('data-qi'),10);
+    if(isNaN(qi)){
+      var gruppen=[];
+      Array.prototype.forEach.call(document.querySelectorAll('.mc-opt'),function(x){
+        if(gruppen.indexOf(x.parentNode)<0) gruppen.push(x.parentNode);
+      });
+      qi=gruppen.indexOf(opts);
+    }
     var oi=parseInt(opt.getAttribute('data-oi'),10);
-    if(!data||!data[qi]||isNaN(qi)||isNaN(oi)) return;
+    if(isNaN(oi)) oi=alle.indexOf(opt);
+    if(qi<0||isNaN(qi)||isNaN(oi)||!data[qi]) return;
     var correct=data[qi].correct;
-    Array.prototype.forEach.call(opts.querySelectorAll('.mc-opt'),function(x){x.classList.remove('correct','wrong');});
+    alle.forEach(function(x){x.classList.remove('correct','wrong');});
     if(oi===correct){ opt.classList.add('correct'); }
-    else{ opt.classList.add('wrong'); if(opts.children[correct]) opts.children[correct].classList.add('correct'); }
-    opts.setAttribute('data-fbdone','1'); opts.style.pointerEvents='none';
+    else{ opt.classList.add('wrong'); if(alle[correct]) alle[correct].classList.add('correct'); }
   });
 })();
 </script>
