@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signalendungen</title>
+<style>
+*{box-sizing:border-box}
+html{background:#d9c9ad}
+body{margin:0;min-height:100vh;font-family:"Times New Roman",Times,Georgia,serif;font-size:22px;color:#1a1410;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.30 0 0 0 0 0.18 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(ellipse at 20% 15%,#f3ead9 0%,rgba(243,234,217,0) 45%),
+ radial-gradient(ellipse at 80% 85%,#efe3cf 0%,rgba(239,227,207,0) 50%),
+ radial-gradient(ellipse at 60% 40%,#e2d2b6 0%,#d6c3a3 70%,#cbb593 100%)}
+.wrap{max-width:1240px;margin:0 auto;padding:18px 28px 60px;overflow-x:auto}
+.sheet.wide{font-size:.88em}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:8px;font-family:Georgia,serif;font-size:16px}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 22px;margin-bottom:10px;border-bottom:1.6px solid #1a1410;padding-bottom:8px}
+.top h1{font-size:26px;font-weight:normal;margin:0;letter-spacing:.02em}
+.tabs{display:flex;gap:4px;font-family:Georgia,serif}
+.tab{font:inherit;font-size:16px;padding:6px 14px;border:1px solid #6b5636;border-bottom:none;border-radius:6px 6px 0 0;background:rgba(246,238,223,.55);color:#4a3a28;cursor:pointer}
+.tab.on{background:#5a4326;color:#f6eedf;border-color:#3a2a16}
+.tab:focus-visible,.bar button:focus-visible{outline:2px solid #1a1410;outline-offset:2px}
+.panel[hidden]{display:none}
+.bar{justify-content:flex-end}
+.bar button{font:inherit;font-size:15px;padding:5px 12px;border:1px solid #6b5636;border-radius:4px;background:#f6eedf;color:#2a2018;cursor:pointer}
+.bar button:hover{background:#fff8ea}
+.bar button.primary{background:#5a4326;color:#f6eedf;border-color:#3a2a16}
+.seg{display:inline-flex;border:1px solid #6b5636;border-radius:4px;overflow:hidden}
+.seg label{padding:5px 10px;cursor:pointer;background:#f6eedf;font-size:15px}
+.seg label:has(input:checked){background:#5a4326;color:#f6eedf}
+.seg input{display:none}
+.hint{font-family:Georgia,serif;font-size:14px;color:#4a3a28;margin:0 0 14px;line-height:1.45}
+.status{font-size:16px;min-width:9em;text-align:right;font-family:Georgia,serif}
+.sheet{position:relative;padding:8px 0 20px}
+h2{font-style:italic;font-weight:normal;font-size:1.05em;text-align:center;margin:.2em 0 .6em}
+h3{font-weight:normal;font-size:1em;margin:.3em 0 .9em;text-align:center}
+.g{display:grid;row-gap:0;column-gap:.35em;align-items:center}
+.g>*{padding:.22em 0}
+.pre{justify-self:end;text-align:right}
+.post{justify-self:start;white-space:nowrap}
+.mid0{justify-self:center}
+.bx{display:inline-block;border-left:1.6px solid #1a1410;border-right:1.6px solid #1a1410;padding:.22em .18em!important;min-width:1.5em;text-align:center;align-self:stretch}
+.bx.top{border-top:1.6px solid #1a1410}
+.bx.bot{border-bottom:1.6px solid #1a1410}
+.bx.one{border-top:1.6px solid #1a1410;border-bottom:1.6px solid #1a1410}
+.bxr{display:inline-flex;align-items:center;gap:.18em;white-space:nowrap}
+.nb{display:inline-flex;align-items:center;padding:0!important;white-space:nowrap}
+.vline{border-left:1.6px solid #1a1410}
+.c{font-weight:normal;display:inline-block}
+.c.h{min-width:.6em}
+.c.u{text-decoration:underline}
+.c.h input{font:inherit;color:#1a1410;background:rgba(255,255,255,.55);border:none;border-bottom:1.6px solid #6b5636;border-radius:2px;padding:0 .1em;text-align:center;outline:none;min-width:1.4em}
+.c.h input:focus{background:rgba(255,255,255,.85);border-bottom-color:#1a1410}
+.c.ok input{background:#d4efd0;border-bottom-color:#2f7a2b;color:#1c4d1a}
+.c.bad input{background:#f4d0cc;border-bottom-color:#b3271e;color:#7a1a13}
+.c.peek input{color:#7a5a2a;font-style:italic}
+.tri{display:inline-block;width:0;height:0;border-left:.42em solid transparent;border-right:.42em solid transparent}
+.tri.dn{border-top:.7em solid}.tri.up{border-bottom:.7em solid}
+.tri.g{color:#4fc21e}.tri.b{color:#1e5fd6}.tri.y{color:#e0e01a}
+.kasus{position:absolute;left:50%;transform:translateX(-50%);font-size:1.8em;color:#fbf6ec;text-shadow:0 0 2px #1a1410,0 0 6px #1a1410,1px 1px 0 #1a1410}
+@media(max-width:820px){body{font-size:17px}.wrap{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>Signalendungen</h1>
+  <nav class="tabs"><button class="tab" data-k="nomakk">Nominativ / Akkusativ</button><button class="tab" data-k="dativ">Dativ</button><button class="tab" data-k="genitiv">Genitiv</button></nav>
+</header>
+<p class="hint">Bei jeder Runde fehlen andere Formen. Schreib die fehlenden Buchstaben oder Wörter in die Lücken – richtig wird grün, falsch wird rot. Doppelklick auf eine Lücke zeigt die Lösung (und versteckt sie wieder). Enter springt zur nächsten Lücke.</p>
+
+<section class="panel" data-k="nomakk" hidden>
+<div class="bar">
+  <span class="seg" title="Wie viele Lücken pro Runde?">
+    <label><input type="radio" name="share-nomakk" value="0.34" checked>wenig</label>
+    <label><input type="radio" name="share-nomakk" value="0.67">mittel</label>
+    <label><input type="radio" name="share-nomakk" value="1">alles</label>
+  </span>
+  <button class="bNew primary">Neue Runde</button>
+  <button class="bReveal">Alles zeigen</button>
+  <button class="bHide">Alles verstecken</button>
+  <span class="status"></span>
+</div>
+<div class="sheet wide">
+
+<div style="display:grid;grid-template-columns:auto 1fr;column-gap:.6em">
+  <div style="position:relative;width:1.6em">
+    <span style="position:absolute;top:3.2em;left:0;transform:rotate(-90deg) translate(-100%,0);transform-origin:left top;white-space:nowrap;color:#fbf6ec;text-shadow:0 0 2px #1a1410,0 0 5px #1a1410;font-weight:bold;font-size:1.05em">Nominativ</span>
+    <span style="position:absolute;bottom:0;left:0;transform:rotate(-90deg) translate(0,0);transform-origin:left bottom;white-space:nowrap;color:#fbf6ec;text-shadow:0 0 2px #1a1410,0 0 5px #1a1410;font-weight:bold;font-size:1.05em;margin-left:1.05em">Akkusativ</span>
+  </div>
+  <div>
+    <div style="display:grid;grid-template-columns:3fr 1fr;text-align:center;font-size:1.05em;margin-bottom:.2em"><span>Singular</span><span>Plural</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1.12fr;column-gap:.4em">
+      <div>
+<div>
+  <h3 style="margin-bottom:.4em">maskulin</h3>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span class="pre"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="r"></b></span><span class="post">Hut</span>
+<span class="pre"><b class="c" data-a="de"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post"><b class="c" data-a="alte"></b> Hut</span>
+<span class="pre"><b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post">Hut</span>
+<span class="pre"><b class="c" data-a="ein"></b> <b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post">Hut</span>
+<span class="pre"><b class="c" data-a="e"></b></span><span class="bx bot"><b class="c" data-a="r"></b></span><span class="post"></span>
+<span></span><span class="mid0"><span class="tri dn g"></span></span><span></span>
+  </div>
+  <div style="text-align:center;min-height:5.2em;display:flex;flex-direction:column;justify-content:center;gap:.5em;padding:.6em 0">
+    <div>(-) <span class="bx one"><b class="c" data-a="r"></b></span> (<b class="c" data-a="e"></b>)</div><div style='margin-left:2.6em'><span class="bx one"><b class="c" data-a="n"></b></span> (<b class="c" data-a="en"></b>)</div>
+  </div>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span></span><span class="mid0"><span class="tri up b"></span></span><span></span>
+<span class="pre"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="n"></b></span><span class="post">Hut</span>
+<span class="pre"><b class="c" data-a="de"></b></span><span class="bx mid"><b class="c" data-a="n"></b></span><span class="post"><b class="c" data-a="alten"></b> Hut</span>
+<span class="pre"><b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="n"></b></span><span class="post">Hut</span>
+<span class="pre"><b class="c" data-a="eine"></b> <b class="c" data-a="alten"></b></span><span class="bx mid"><b class="c" data-a="n"></b></span><span class="post">Hut</span>
+<span class="pre"><b class="c" data-a="ih"></b></span><span class="bx bot"><b class="c" data-a="n"></b></span><span class="post"></span>
+  </div>
+</div></div>
+      <div class="vline" style="padding-left:.6em">
+<div>
+  <h3 style="margin-bottom:.4em">neutrum</h3>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span class="pre"><b class="c" data-a="da"></b></span><span class="bx top"><b class="c" data-a="s"></b></span><span class="post">Ei</span>
+<span class="pre"><b class="c" data-a="da"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post"><b class="c" data-a="alte"></b> Ei</span>
+<span class="pre"><b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post">Ei</span>
+<span class="pre"><b class="c" data-a="ein"></b> <b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post">Ei</span>
+<span class="pre"><b class="c" data-a="e"></b></span><span class="bx bot"><b class="c" data-a="s"></b></span><span class="post"></span>
+<span></span><span class="mid0"><span class="tri dn g"></span></span><span></span>
+  </div>
+  <div style="text-align:center;min-height:5.2em;display:flex;flex-direction:column;justify-content:center;gap:.5em;padding:.6em 0">
+    <div>(-) <span class="bx one"><b class="c" data-a="s"></b></span> (<b class="c" data-a="e"></b>)</div>
+  </div>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span></span><span class="mid0"><span class="tri up b"></span></span><span></span>
+<span class="pre"><b class="c" data-a="da"></b></span><span class="bx top"><b class="c" data-a="s"></b></span><span class="post">Ei</span>
+<span class="pre"><b class="c" data-a="da"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post"><b class="c" data-a="alte"></b> Ei</span>
+<span class="pre"><b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post">Ei</span>
+<span class="pre"><b class="c" data-a="ein"></b> <b class="c" data-a="alte"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post">Ei</span>
+<span class="pre"><b class="c" data-a="e"></b></span><span class="bx bot"><b class="c" data-a="s"></b></span><span class="post"></span>
+  </div>
+</div></div>
+      <div class="vline" style="padding-left:.6em">
+<div>
+  <h3 style="margin-bottom:.4em">feminin</h3>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span class="pre"><b class="c" data-a="di"></b></span><span class="bx top"><b class="c" data-a="e"></b></span><span class="post">Uhr</span>
+<span class="pre"><b class="c" data-a="di"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post"><b class="c" data-a="alte"></b> Uhr</span>
+<span class="pre"><b class="c" data-a="alt"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post">Uhr</span>
+<span class="pre"><b class="c" data-a="eine"></b> <b class="c" data-a="alt"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post">Uhr</span>
+<span class="pre"><b class="c" data-a="si"></b></span><span class="bx bot"><b class="c" data-a="e"></b></span><span class="post"></span>
+<span></span><span class="mid0"><span class="tri dn g"></span></span><span></span>
+  </div>
+  <div style="text-align:center;min-height:5.2em;display:flex;flex-direction:column;justify-content:center;gap:.5em;padding:.6em 0">
+    <div><span class="bx one"><b class="c" data-a="e"></b></span> (<b class="c" data-a="e"></b>)</div>
+  </div>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span></span><span class="mid0"><span class="tri up b"></span></span><span></span>
+<span class="pre"><b class="c" data-a="di"></b></span><span class="bx top"><b class="c" data-a="e"></b></span><span class="post">Uhr</span>
+<span class="pre"><b class="c" data-a="di"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post"><b class="c" data-a="alte"></b> Uhr</span>
+<span class="pre"><b class="c" data-a="alt"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post">Uhr</span>
+<span class="pre"><b class="c" data-a="eine"></b> <b class="c" data-a="alt"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post">Uhr</span>
+<span class="pre"><b class="c" data-a="si"></b></span><span class="bx bot"><b class="c" data-a="e"></b></span><span class="post"></span>
+  </div>
+</div></div>
+      <div class="vline" style="padding-left:.6em;border-left-width:2.2px">
+<div>
+  <h3 style="margin-bottom:.4em">m n f</h3>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span class="pre"><b class="c" data-a="di"></b></span><span class="bx top"><b class="c" data-a="e"></b></span><span class="post">Dinge</span>
+<span class="pre"><b class="c" data-a="di"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post"><b class="c" data-a="alten"></b> Dinge</span>
+<span class="pre"><b class="c" data-a="alt"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post">Dinge</span>
+<span class="pre"></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post"></span>
+<span class="pre"><b class="c" data-a="si"></b></span><span class="bx bot"><b class="c" data-a="e"></b></span><span class="post"></span>
+<span></span><span class="mid0"><span class="tri dn g"></span></span><span></span>
+  </div>
+  <div style="text-align:center;min-height:5.2em;display:flex;flex-direction:column;justify-content:center;gap:.5em;padding:.6em 0">
+    <div><span class="bx one"><b class="c" data-a="e"></b></span> (<b class="c" data-a="en"></b>)</div>
+  </div>
+  <div class="g" style="grid-template-columns:6em auto 4.6em;justify-content:center">
+    <span></span><span class="mid0"><span class="tri up b"></span></span><span></span>
+<span class="pre"><b class="c" data-a="di"></b></span><span class="bx top"><b class="c" data-a="e"></b></span><span class="post">Dinge</span>
+<span class="pre"><b class="c" data-a="di"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post"><b class="c" data-a="alten"></b> Dinge</span>
+<span class="pre"><b class="c" data-a="alt"></b></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post">Dinge</span>
+<span class="pre"></span><span class="bx mid"><b class="c" data-a="e"></b></span><span class="post"></span>
+<span class="pre"><b class="c" data-a="si"></b></span><span class="bx bot"><b class="c" data-a="e"></b></span><span class="post"></span>
+  </div>
+</div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</section>
+
+
+<section class="panel" data-k="dativ" hidden>
+<div class="bar">
+  <span class="seg" title="Wie viele Lücken pro Runde?">
+    <label><input type="radio" name="share-dativ" value="0.34" checked>wenig</label>
+    <label><input type="radio" name="share-dativ" value="0.67">mittel</label>
+    <label><input type="radio" name="share-dativ" value="1">alles</label>
+  </span>
+  <button class="bNew primary">Neue Runde</button>
+  <button class="bReveal">Alles zeigen</button>
+  <button class="bHide">Alles verstecken</button>
+  <span class="status"></span>
+</div>
+<div class="sheet">
+
+<h2>Singular</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;column-gap:2.5em">
+  <div><h3>maskulin/neutrum</h3>
+<div class="g" style="grid-template-columns:auto auto auto auto">
+  <span>mit</span><span class="pre"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="m"></b></span><span class="post"><b class="c" data-a="netten"></b> Mann / Kind</span>
+  <span>mit</span><span class="pre"><b class="c" data-a="eine"></b></span><span class="bx mid"><b class="c" data-a="m"></b></span><span class="post"><b class="c" data-a="netten"></b> Mann / Kind</span>
+  <span>mit</span><span class="pre"><b class="c" data-a="schöne"></b></span><span class="bx mid"><b class="c" data-a="m"></b></span><span class="post">Mann / Kind</span>
+  <span>mit</span><span class="pre"><b class="c" data-a="ih"></b></span><span class="bx bot"><b class="c" data-a="m"></b></span><span class="post"></span>
+</div></div>
+  <div class="vline" style="padding-left:2.5em"><h3>feminin</h3>
+<div class="g" style="grid-template-columns:auto auto auto auto">
+  <span>mit</span><span class="pre"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="r"></b></span><span class="post"><b class="c" data-a="netten"></b> Frau</span>
+  <span>mit</span><span class="pre"><b class="c" data-a="eine"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post"><b class="c" data-a="netten"></b> Frau</span>
+  <span>mit</span><span class="pre"><b class="c" data-a="nette"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post">Frau</span>
+  <span>mit</span><span class="pre"><b class="c" data-a="ih"></b></span><span class="bx bot"><b class="c" data-a="r"></b></span><span class="post"></span>
+</div></div>
+</div>
+<div style="text-align:center;font-size:1.8em;color:#fbf6ec;text-shadow:0 0 2px #1a1410,0 0 6px #1a1410,1px 1px 0 #1a1410;margin:.15em 0 .1em">Dativ</div>
+<h2>Plural</h2>
+
+<div style="display:flex;align-items:stretch;white-space:nowrap"><span style="width:3em;padding:.22em 0">mit</span><span style="width:6.5em;text-align:right;padding:.22em .35em .22em 0"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="n"></b></span><span style="width:1.2em;display:flex;align-items:center"></span><span style="width:6em;display:flex;align-items:center"><b class="c" data-a="schönen"></b></span>
+  <span style="width:6em;display:flex;align-items:center">Männer<span class="bx top"><b class="c" data-a="n"></b></span></span><span style="width:1.5em;display:flex;align-items:center">/</span><span style="width:6em;display:flex;align-items:center">Kinder<span class="bx top"><b class="c" data-a="n"></b></span></span><span style="width:1.5em;display:flex;align-items:center">/</span><span style="width:5em;display:flex;align-items:center">Fraue<span class="bx top"><b class="c" data-a="n"></b></span></span></div>
+<div style="display:flex;align-items:stretch;white-space:nowrap"><span style="width:3em;padding:.22em 0">mit</span><span style="width:6.5em;text-align:right;padding:.22em .35em .22em 0"><b class="c" data-a="schöne"></b></span><span class="bx mid"><b class="c" data-a="n"></b></span><span style="width:1.2em;display:flex;align-items:center"></span><span style="width:6em;display:flex;align-items:center"></span>
+  <span style="width:6em;display:flex;align-items:center">Männer<span class="bx bot"><b class="c" data-a="n"></b></span></span><span style="width:1.5em;display:flex;align-items:center"></span><span style="width:6em;display:flex;align-items:center">Kinder<span class="bx bot"><b class="c" data-a="n"></b></span></span><span style="width:1.5em;display:flex;align-items:center">/</span><span style="width:5em;display:flex;align-items:center">Fraue<span class="bx bot"><b class="c" data-a="n"></b></span></span></div>
+<div style="display:flex;align-items:stretch;white-space:nowrap"><span style="width:3em;padding:.22em 0">mit</span><span style="width:6.5em;text-align:right;padding:.22em .35em .22em 0"><b class="c" data-a="ih"></b></span><span class="bx bot"><b class="c" data-a="n"></b></span><span style="width:1.2em;display:flex;align-items:center"></span><span style="width:2.6em;display:flex;align-items:center">e <span class="bx one"><b class="c" data-a="n"></b></span></span>
+  <span style="display:flex;align-items:center;width:17.9em">
+    <span style="width:0;height:0;border-top:.5em solid transparent;border-bottom:.5em solid transparent;border-right:1.1em solid #d41c1c"></span>
+    <span style="flex:1;border-top:2px solid #1a1410;height:0"></span>
+  </span></div>
+
+</div>
+</section>
+
+
+<section class="panel" data-k="genitiv" hidden>
+<div class="bar">
+  <span class="seg" title="Wie viele Lücken pro Runde?">
+    <label><input type="radio" name="share-genitiv" value="0.34" checked>wenig</label>
+    <label><input type="radio" name="share-genitiv" value="0.67">mittel</label>
+    <label><input type="radio" name="share-genitiv" value="1">alles</label>
+  </span>
+  <button class="bNew primary">Neue Runde</button>
+  <button class="bReveal">Alles zeigen</button>
+  <button class="bHide">Alles verstecken</button>
+  <span class="status"></span>
+</div>
+<div class="sheet">
+
+<h2>Singular</h2>
+<div style="display:grid;grid-template-columns:1.15fr 1fr;column-gap:2em">
+  <div><h3>maskulin/neutrum</h3>
+<div class="g" style="grid-template-columns:auto auto auto auto auto">
+  <span class="pre"><b class="c" data-a="de"></b></span><span class="bx top" id="g1"><b class="c" data-a="s"></b></span><span class="post"></span><span class="post nb">Manne<span class="bx top"><b class="c" data-a="s"></b></span></span><span class="post nb">/&nbsp;Kinde<span class="bx top" id="g3"><b class="c" data-a="s"></b></span></span>
+  <span class="pre"><b class="c" data-a="de"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post"><b class="c" data-a="netten"></b></span><span class="post nb">Manne<span class="bx mid"><b class="c" data-a="s"></b></span></span><span class="post nb">/&nbsp;Kinde<span class="bx mid"><b class="c" data-a="s"></b></span></span>
+  <span class="pre"><b class="c" data-a="eine"></b></span><span class="bx mid"><b class="c" data-a="s"></b></span><span class="post"><b class="c" data-a="netten"></b></span><span class="post nb">Manne<span class="bx mid"><b class="c" data-a="s"></b></span></span><span class="post nb">/&nbsp;Kinde<span class="bx mid"><b class="c" data-a="s"></b></span></span>
+  <span class="pre"></span><span class="bx bot"><b class="c" data-a="s"></b></span><span class="post"><b class="c" data-a="netten"></b></span><span class="post nb">Manne<span class="bx bot"><b class="c" data-a="s"></b></span></span><span class="post nb">/&nbsp;Kinde<span class="bx bot"><b class="c" data-a="s"></b></span></span>
+</div>
+<div id="brk" style="height:.6em;border-left:1.6px solid #1a1410;border-right:1.6px solid #1a1410;border-bottom:1.6px solid #1a1410"></div>
+<div id="wes" style="display:inline-block;text-align:center;margin-top:.1em">
+  <div style="margin-left:1em"><span class="tri dn y"></span><span class="tri dn y" style="margin-left:1.4em"></span></div>
+  <div style="white-space:nowrap">we <span class="bx one"><b class="c" data-a="s"></b></span> <span class="bx one"><b class="c" data-a="s"></b></span> en?</div>
+  <div style="margin-top:.4em;margin-right:1.6em"><b class="c u" data-a="s"></b>ein</div>
+</div>
+<script>
+window.layoutGen=function(){const a=document.getElementById('g1').getBoundingClientRect(),b=document.getElementById('g3').getBoundingClientRect(),
+brk=document.getElementById('brk'),p=brk.parentElement.getBoundingClientRect();
+const l=a.left+a.width/2-p.left,w=b.left+b.width/2-a.left-a.width/2;brk.style.marginLeft=l+'px';brk.style.width=w+'px';
+const wes=document.getElementById('wes');wes.style.marginLeft=(l+w/2-wes.offsetWidth/2)+'px';};
+</script></div>
+  <div class="vline" style="padding-left:3em"><h3>feminin</h3>
+<div class="g" style="grid-template-columns:auto auto auto">
+  <span class="pre"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="r"></b></span><span class="post" style="padding-left:1.5em">Frau</span>
+  <span class="pre"><b class="c" data-a="de"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post"><b class="c" data-a="netten"></b> Frau</span>
+  <span class="pre"><b class="c" data-a="eine"></b></span><span class="bx mid"><b class="c" data-a="r"></b></span><span class="post"><b class="c" data-a="netten"></b> Frau</span>
+  <span class="pre"><b class="c" data-a="nette"></b></span><span class="bx bot"><b class="c" data-a="r"></b></span><span class="post" style="padding-left:1.5em">Frau</span>
+</div>
+<div style="margin:2.9em 0 0 4.2em">ih<b class="c u" data-a="r"></b></div></div>
+</div>
+<div style="text-align:center;font-size:1.8em;color:#fbf6ec;text-shadow:0 0 2px #1a1410,0 0 6px #1a1410,1px 1px 0 #1a1410;margin:-1.6em 0 .3em;pointer-events:none">Genitiv</div>
+<h2>Plural</h2>
+
+<div class="g" style="grid-template-columns:auto auto auto auto;justify-content:center">
+  <span>(innerhalb)</span><span class="pre"><b class="c" data-a="de"></b></span><span class="bx top"><b class="c" data-a="r"></b></span><span class="post"><b class="c" data-a="alten"></b> Städte</span>
+  <span>(innerhalb)</span><span class="pre"><b class="c" data-a="alte"></b></span><span class="bx bot"><b class="c" data-a="r"></b></span><span class="post">Städte</span>
+  <span></span><span class="pre">ih</span><span class="bx one"><b class="c" data-a="r"></b></span><span></span>
+</div>
+
+</div>
+</section>
+
+</div>
+<script>
+function norm(s){return s.trim().toLowerCase().replace(/\s+/g,' ');}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function trainer(panel){
+  const cells=[...panel.querySelectorAll('.c')];
+  const status=panel.querySelector('.status');
+  let share=0.34;
+  const show=el=>{el.classList.remove('h','ok','bad','peek');el.textContent=el.dataset.a;};
+  const count=()=>{const h=cells.filter(el=>el.classList.contains('h'));const ok=h.filter(el=>el.classList.contains('ok')).length;status.textContent=h.length?`${ok} von ${h.length} richtig`:'';};
+  const live=el=>{const v=norm(el.querySelector('input').value);el.classList.remove('ok','bad');if(v)el.classList.add(v===norm(el.dataset.a)?'ok':'bad');count();};
+  const peek=el=>{const i=el.querySelector('input');if(!i)return;
+    if(el.classList.contains('peek')){i.value='';el.classList.remove('peek');}
+    else{i.value=el.dataset.a;el.classList.add('peek');el.classList.remove('ok','bad');}count();};
+  const hide=el=>{el.classList.add('h');el.textContent='';
+    const i=document.createElement('input');i.type='text';i.autocomplete='off';i.spellcheck=false;
+    i.style.width=(Math.max(el.dataset.a.length,1)+1.2)+'ch';
+    i.addEventListener('dblclick',()=>peek(el));
+    i.addEventListener('input',()=>{el.classList.remove('peek');live(el);});
+    i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const ins=[...panel.querySelectorAll('.c.h input')];const n=ins[ins.indexOf(i)+1];if(n)n.focus();}});
+    el.appendChild(i);};
+  const newRound=()=>{cells.forEach(show);const n=Math.max(1,Math.round(cells.length*share));shuffle(cells.slice()).slice(0,n).forEach(hide);count();
+    if(!panel.hidden){const f=panel.querySelector('.c.h input');if(f)f.focus();}};
+  panel.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',e=>{share=+e.target.value;newRound();}));
+  panel.querySelector('.bNew').onclick=newRound;
+  panel.querySelector('.bReveal').onclick=()=>cells.filter(el=>el.classList.contains('h')).forEach(el=>{if(!el.classList.contains('peek'))peek(el);});
+  panel.querySelector('.bHide').onclick=()=>{cells.filter(el=>el.classList.contains('h')).forEach(el=>{el.querySelector('input').value='';el.classList.remove('peek','ok','bad');});count();};
+  newRound();
+}
+const panels=[...document.querySelectorAll('.panel')];
+panels.forEach(trainer);
+const tabs=[...document.querySelectorAll('.tab')];
+function showTab(k){
+  tabs.forEach(t=>t.classList.toggle('on',t.dataset.k===k));
+  panels.forEach(p=>{p.hidden=p.dataset.k!==k;});
+  if(k==='genitiv'&&window.layoutGen)window.layoutGen();
+}
+tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.k)));
+window.addEventListener('resize',()=>{if(window.layoutGen&&!document.querySelector('.panel[data-k=genitiv]').hidden)window.layoutGen();});
+showTab('nomakk');
+</script>
+</body>
+</html>
