@@ -479,6 +479,12 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 /* FB-THEME-TOGGLE */
 .theme-toggle { position:fixed; top:14px; right:14px; width:40px; height:40px; border-radius:50%; background:rgba(102,126,234,0.45); border:1px solid rgba(255,255,255,0.45); color:#fff; font-size:1.1em; cursor:pointer; line-height:1; transition:background 0.2s; z-index:60; display:flex; align-items:center; justify-content:center; }
 .theme-toggle:hover { background:rgba(102,126,234,0.75); }
+
+/* FB-WORTBANK-STICKY — Wortbank bleibt beim Scrollen oben sichtbar, Story läuft darunter durch.
+   Voraussetzung: .container nutzt overflow:clip statt hidden (hidden bricht position:sticky). */
+.container { overflow: hidden; overflow: clip; }
+.wortbank { position: sticky; top: 0; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+@media (max-width: 600px) { .wortbank { padding: 8px; gap: 6px; } .wortbank-chip { padding: 3px 9px; font-size: 0.85em; } }
 </style>
 <script>/* FB-THEME-INIT */
 (function(){

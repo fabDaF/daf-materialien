@@ -660,6 +660,12 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .schreib-mini-textarea { background:var(--sw-paper); color:var(--sw-ink) !important; border:1.5px solid var(--sw-pbd); font-family:Georgia,'Times New Roman',serif; font-size:1.05em; line-height:1.75; padding:16px 18px; }
 .schreib-mini-textarea::placeholder { color:#a99a80; }
 .schreib-mini-textarea:focus { border-color:var(--sw-focus); box-shadow:0 0 0 3px rgba(150,120,70,0.14); }
+
+/* FB-WORTBANK-STICKY — Wortbank bleibt beim Scrollen oben sichtbar, Story läuft darunter durch.
+   Voraussetzung: .container nutzt overflow:clip statt hidden (hidden bricht position:sticky). */
+.container { overflow: hidden; overflow: clip; }
+.wortbank { position: sticky; top: 0; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+@media (max-width: 600px) { .wortbank { padding: 8px; gap: 6px; } .wortbank-chip { padding: 3px 9px; font-size: 0.85em; } }
 </style>
 <script>/* FB-THEME-INIT */
 (function(){
