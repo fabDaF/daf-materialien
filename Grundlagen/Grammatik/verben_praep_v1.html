@@ -76,6 +76,10 @@ body {
 }
 .header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: #fff; margin-bottom: 8px; border: none; padding: 0; }
 .header p { font-size: 1.1em; font-family: Georgia, 'Times New Roman', serif; color: rgba(255,255,255,0.9); margin: 0; }
+.serie { margin-top: 10px; font-size: 0.85em; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.serie a, .serie span { color: rgba(255,255,255,0.9); text-decoration: none; padding: 2px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.35); }
+.serie a:hover { background: rgba(255,255,255,0.18); }
+.serie .serie-akt { background: rgba(255,255,255,0.25); font-weight: 700; }
 .header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
 
 /* ===== NAV (Variante C: Aktiv-Pille) ===== */
@@ -513,6 +517,7 @@ html[data-theme="dark"] body { color: #c6cade; }
   <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
   <h1>Verben mit Präposition</h1>
   <p>B1 – Grammatik · Der Merk-Trick: Die Präposition steckt im Nomen</p>
+  <div class="serie"><span class="serie-akt">Original</span> <a href="verben-praep-teil1.html">Teil 1</a> <a href="verben-praep-teil2.html">Teil 2</a> <a href="verben-praep-teil3.html">Teil 3</a> <a href="verben-praep-teil4.html">Teil 4</a> <a href="verben-praep-teil5.html">Teil 5</a></div>
   <div class="big-emoji">🧠</div>
 </div>
 
