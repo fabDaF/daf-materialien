@@ -169,6 +169,25 @@ input.bl.l { width: 140px; }
 .celebrate { display: none; text-align: center; margin: 18px 0 4px; padding: 14px; border-radius: 10px; background: var(--ok-bg); color: var(--ok-tx); font-weight: 600; }
 .celebrate.show { display: block; }
 
+/* ===== EIGENES MERK-WORT IN DER KARTE ===== */
+.eigen-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 0.95rem; }
+.eigen-label { font-size: 0.8em; color: var(--ug-tx); background: var(--ug-bg); border-radius: 10px; padding: 1px 9px; font-weight: 600; }
+.eigen-praep { font-weight: 600; color: var(--text-2); }
+input.eg { border: none; border-bottom: 2px dashed var(--accent-line); background: transparent; font-size: 1rem; font-family: inherit; color: var(--text); padding: 2px 4px; outline: none; transition: all .25s; }
+input.eg:focus { border-bottom-color: var(--accent); border-bottom-style: solid; }
+input.eg.correct { border-bottom: 2px solid var(--ok-bd); background: var(--ok-bg); color: var(--ok-tx); }
+input.eg.wrong { border-bottom: 2px solid var(--err-bd); background: var(--err-bg); color: var(--err-tx); }
+input.eg.art { width: 62px; text-align: center; }
+input.eg.wort { width: 170px; }
+.eigen-status { font-size: 0.8em; color: var(--muted-2); }
+.eigen-row.locked { opacity: .45; }
+.eigen-row.locked input.eg { pointer-events: none; }
+.eigen-lock { display: none; font-size: 0.78em; color: var(--muted-2); }
+.eigen-row.locked .eigen-lock { display: inline; }
+.eigen-row.locked .eigen-status { display: none; }
+.eigen-status.ok { color: var(--ok-strong); font-weight: 600; }
+.eigen-status.no { color: var(--err-tx); }
+
 /* ===== QUIZ ===== */
 .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .quiz-card { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 18px; transition: all .3s; }
@@ -1026,6 +1045,7 @@ function renderAll(){
         const tag=line.ug?`<span class="ug-tag">umgangssprachlich</span>`:'';
         h+=`<div class="dl"><span class="sp${line.sp==='B'?' b':''}">${line.sp}</span><span class="dl-body">${tag}${renderSeg(sg,ex.id,li)}</span></div>`;
       });
+      h+=eigenRowHtml(ex);
       h+=`</div>`;
     });
     h+=`<div class="celebrate" id="cel-${si}"></div>`;
@@ -1075,7 +1095,9 @@ function updateProgress(si){
   DATA.filter(d=>d.s===si).forEach(ex=>{
     const c=document.getElementById(`card-${ex.id}`);
     const ins=c.querySelectorAll('input.bl');
-    c.classList.toggle('complete',[...ins].every(i=>i.classList.contains('correct')));
+    const fertig=[...ins].every(i=>i.classList.contains('correct'));
+    c.classList.toggle('complete',fertig);
+    if(typeof eigenFreigabe==='function') eigenFreigabe(c,fertig);
   });
   const cel=document.getElementById(`cel-${si}`);
   if(ok===total&&total>0){
@@ -1859,10 +1881,12 @@ function mwListeZeigen(){
   const l = mwListeLaden(), box = document.getElementById('mw-liste');
   if (!l.length){ box.innerHTML = '<div class="mw-leer">Noch keine eigenen Merk-Wörter gespeichert.</div>'; return; }
   box.innerHTML = `<table class="mw-tab"><thead><tr><th>Verb</th><th>Dein Merk-Wort</th><th>Dein Satz</th><th>Franks Merk-Wort</th><th></th></tr></thead><tbody>` +
-    l.map((x,i) => { const e = VAP.find(v => v.id === x.id); if (!e) return '';
-      const n = e.p.length, pre = x.wort.slice(0, n), rest = x.wort.slice(n);
+    l.map((x,i) => { const e = VAP.find(v => v.id === x.id); if (!e && !x.karte) return '';
+      const vp = e ? e.p : x.p, kk = e ? e.k : x.k, n = vp.length, pre = x.wort.slice(0, n), rest = x.wort.slice(n);
       const art = x.art === 'pl' ? 'die' : x.art;
-      return `<tr><td>${esc(e.v)} ${esc(e.p)}</td><td>${esc(art)} ${memoHtml(pre, rest, e.k)}</td><td>${esc(x.satz)}</td><td>${vapMemo(e)}</td><td>${x.gesendet ? '<span class="mw-gesendet">✓ gesendet</span>' : `<button class="mw-del" onclick="mwLoeschen(${i})" title="Löschen">✕</button>`}</td></tr>`; }).join('') +
+      const mein = x.karte ? `${esc(vp)} ${esc(art)} ${memoHtml(pre, rest, kk)}` : `${esc(art)} ${memoHtml(pre, rest, kk)}`;
+      const satz = x.karte ? '<span class="mw-leer">aus Übungskarte ' + esc(x.karte.slice(1)) + '</span>' : esc(x.satz);
+      return `<tr><td>${esc(e ? e.v : x.v)} ${esc(vp)}</td><td>${mein}</td><td>${satz}</td><td>${e ? vapMemo(e) : '–'}</td><td>${x.gesendet ? '<span class="mw-gesendet">✓ gesendet</span>' : `<button class="mw-del" onclick="mwLoeschen(${i})" title="Löschen">✕</button>`}</td></tr>`; }).join('') +
     `</tbody></table>`;
 }
 function mwSenden(){
@@ -1871,7 +1895,7 @@ function mwSenden(){
   if (!offen.length){ st.className = 'schreib-status info'; st.textContent = 'ℹ Keine neuen Merk-Wörter zum Senden.'; return; }
   if (schreibAktuellerName().length < 2){ st.className = 'schreib-status error'; st.textContent = '✗ Bitte oben deinen Namen eintragen.'; const n = document.getElementById('mw-name'); if (n){ n.focus(); n.classList.add('schreib-name-error'); setTimeout(()=>n.classList.remove('schreib-name-error'),3000);} return; }
   const subject = SCHREIB_CODE + ' · Merk-Werkstatt · ' + offen.length + ' Merk-Wörter · ' + schreibAktuellerName();
-  const message = offen.map(x => { const e = VAP.find(v => v.id === x.id); return `${e.v} ${e.p} + ${KASUS_TXT[e.k]}\nMerk-Wort: ${x.art==='pl'?'die':x.art} ${x.wort}\nSatz: ${x.satz}`; }).join('\n\n');
+  const message = offen.map(x => { const e = VAP.find(v => v.id === x.id); const v = e ? e.v : x.v, pp = e ? e.p : x.p, kk = e ? e.k : x.k; return x.karte ? `${v} ${pp} + ${KASUS_TXT[kk]}\nMerk-Wort (Übungskarte ${x.karte.slice(1)}): ${pp} ${x.art} ${x.wort}` : `${v} ${pp} + ${KASUS_TXT[kk]}\nMerk-Wort: ${x.art==='pl'?'die':x.art} ${x.wort}\nSatz: ${x.satz}`; }).join('\n\n');
   const btn = document.getElementById('mw-send'); btn.disabled = true; btn.innerHTML = '⏳ Wird gesendet …';
   schreibPostFormsubmit(subject, message, function(){
     btn.disabled = false; btn.innerHTML = '📨 Meine Merk-Wörter an Frank senden';
@@ -1906,9 +1930,79 @@ function initMerkWerkstatt(){
   mwVerbAnzeige(); mwListeZeigen();
 }
 
+// ======== EIGENES MERK-WORT DIREKT IN DEN ÜBUNGSKARTEN ========
+const EG_ART = {a:['den','die','das','einen','eine','ein'], d:['dem','der','den','einem','einer']};
+function eigenRowHtml(ex){
+  const ans = ex.L.find(l => l.ans); if (!ans) return '';
+  const franks = [];
+  ex.L.forEach(l => { if (l.ans) franks.push(l.mn + l.mr); else (l.sg||[]).forEach(g => { if (g.mn) franks.push(g.mn + g.mr); }); });
+  return `<div class="eigen-row locked" data-ex="${ex.id}" data-p="${esc(ans.sp)}" data-k="${ans.k}" data-v="${esc(ex.verb)}" data-franks="${esc(franks.join('|'))}">
+  <span class="eigen-label">💡 Dein eigenes Merk-Wort</span>
+  <span class="eigen-praep" id="eg-p-${ex.id}">…</span>
+  <input class="eg art" id="eg-a-${ex.id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Artikel">
+  <input class="eg wort" id="eg-w-${ex.id}" autocomplete="off" spellcheck="false" aria-label="Nomen">
+  <span class="eigen-status" id="eg-s-${ex.id}"></span><span class="eigen-lock">🔒 erst die Karte lösen</span></div>`;
+}
+function eigenCheck(row, beimVerlassen){
+  const id = row.dataset.ex, p = row.dataset.p, k = row.dataset.k;
+  const ai = document.getElementById('eg-a-'+id), wi = document.getElementById('eg-w-'+id), st = document.getElementById('eg-s-'+id);
+  const art = ai.value.trim().toLowerCase(), wort = wi.value.trim();
+  ai.classList.remove('correct','wrong'); wi.classList.remove('correct','wrong'); st.className = 'eigen-status'; st.textContent = '';
+  let artOk = false, wortOk = false; const msgs = [];
+  if (art){
+    if (EG_ART[k].includes(art)) { artOk = true; ai.classList.add('correct'); }
+    else if (!beimVerlassen && EG_ART[k].some(a => a.indexOf(art) === 0)) {}
+    else { ai.classList.add('wrong'); msgs.push(`Artikel passt nicht zum ${KASUS_TXT[k]}`); }
+  }
+  if (wort){
+    const low = wort.toLowerCase(), anf = MW_ANFANG[p] || [p];
+    const franks = row.dataset.franks.toLowerCase().split('|');
+    const tippt = !beimVerlassen && anf.some(a => a.indexOf(low) === 0);
+    if (franks.includes(low)) { wi.classList.add('wrong'); msgs.push('Das ist Franks Wort – finde ein eigenes!'); }
+    else if (anf.some(a => low.startsWith(a)) && low.length > p.length) {
+      if (/^[A-ZÄÖÜ]/.test(wort)) { wortOk = true; wi.classList.add('correct'); }
+      else { wi.classList.add('wrong'); msgs.push('Nomen schreibt man groß'); }
+    }
+    else if (!tippt) { wi.classList.add('wrong'); msgs.push(`Das Nomen muss mit „${p}“ beginnen`); }
+  }
+  if (msgs.length){ st.className = 'eigen-status no'; st.textContent = msgs.join(' · '); }
+  if (artOk && wortOk){ st.className = 'eigen-status ok'; st.textContent = '✓ in deiner Merk-Wort-Liste gespeichert'; eigenSpeichern(row, art, wort); }
+  return artOk && wortOk;
+}
+function eigenSpeichern(row, art, wort){
+  const l = mwListeLaden(), key = 'k' + row.dataset.ex;
+  const idx = l.findIndex(x => x.karte === key && !x.gesendet);
+  const e = VAP.find(v => v.v === row.dataset.v && v.p === row.dataset.p);
+  const eintrag = {karte:key, id: e ? e.id : null, v: row.dataset.v, p: row.dataset.p, k: row.dataset.k, art, wort, satz:'', gesendet:false};
+  if (idx >= 0) l[idx] = eintrag; else l.push(eintrag);
+  mwListeSpeichern(l);
+  if (typeof mwListeZeigen === 'function') mwListeZeigen();
+}
+function setupEigen(){
+  const l = mwListeLaden();
+  document.querySelectorAll('.eigen-row').forEach(row => {
+    const id = row.dataset.ex;
+    const x = l.filter(x => x.karte === 'k' + id).pop();
+    if (x){ document.getElementById('eg-a-'+id).value = x.art; document.getElementById('eg-w-'+id).value = x.wort; eigenCheck(row, true); }
+    ['eg-a-','eg-w-'].forEach(pre => {
+      const inp = document.getElementById(pre + id);
+      inp.addEventListener('input', () => eigenCheck(row, false));
+      inp.addEventListener('blur', () => eigenCheck(row, true));
+    });
+  });
+}
+
+function eigenFreigabe(card, offen){
+  const row = card.querySelector('.eigen-row'); if (!row) return;
+  row.classList.toggle('locked', !offen);
+  row.querySelectorAll('input.eg').forEach(i => i.disabled = !offen);
+  document.getElementById('eg-p-' + row.dataset.ex).textContent = offen ? row.dataset.p : '…';
+}
+
 
 renderAll();
 setupLive();
+setupEigen();
 renderQuiz();
 initTrainer();
 initMerkWerkstatt();
