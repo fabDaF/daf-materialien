@@ -169,6 +169,34 @@ input.bl.l { width: 140px; }
 .celebrate { display: none; text-align: center; margin: 18px 0 4px; padding: 14px; border-radius: 10px; background: var(--ok-bg); color: var(--ok-tx); font-weight: 600; }
 .celebrate.show { display: block; }
 
+/* ===== QUIZ ===== */
+.quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.quiz-card { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 18px; transition: all .3s; }
+.quiz-card.done.k-a { border-left-color: var(--akk); background: var(--card-soft); }
+.quiz-card.done.k-d { border-left-color: var(--dat); background: var(--card-soft); }
+.quiz-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.quiz-card.done .card-nr::after { content: ' ✓'; color: var(--ok-strong); }
+.quiz-fehler { font-size: 0.75em; color: var(--err-tx); }
+.quiz-verb { font-family: Georgia, 'Times New Roman', serif; font-size: 1.3em; color: var(--text); margin: 2px 0 2px; line-height: 1.6; }
+.quiz-slot { display: inline-block; min-width: 2.4em; text-align: center; border-bottom: 2px dashed var(--accent-line); color: var(--faint); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.8em; font-weight: 700; padding: 0 4px; }
+.quiz-slot.filled { border-bottom-style: solid; border-bottom-color: var(--ok-bd); color: var(--ok-tx); }
+.quiz-slot.filled.k-a { color: var(--akk); border-bottom-color: var(--akk); }
+.quiz-slot.filled.k-d { color: var(--dat); border-bottom-color: var(--dat); }
+.quiz-plus { color: var(--faint); font-size: 0.8em; }
+.quiz-hint { font-size: 0.85em; color: var(--muted-2); font-style: italic; margin-bottom: 2px; }
+.quiz-step { display: flex; align-items: center; gap: 10px; margin-top: 10px; transition: opacity .25s; }
+.quiz-step.locked { opacity: .35; pointer-events: none; }
+.quiz-label { flex: 0 0 82px; font-size: 0.78em; color: var(--muted-2); text-transform: uppercase; letter-spacing: .4px; }
+.mc-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.mc-opt { font-size: 11px; font-weight: 600; font-family: inherit; padding: 5px 13px; border-radius: 20px; border: 1.5px solid var(--accent-line); background: var(--card); color: var(--accent); cursor: pointer; transition: all .15s; }
+.mc-opt:hover:not(:disabled) { background: var(--accent); color: #fff; border-color: var(--accent); }
+.mc-opt:disabled { cursor: default; opacity: .45; }
+.mc-opt.ok { background: var(--ok-bg); border-color: var(--ok-bd); color: var(--ok-tx); opacity: 1; }
+.mc-opt.no { background: var(--err-bg); border-color: var(--err-bd); color: var(--err-tx); text-decoration: line-through; }
+.quiz-memo { font-size: 0.85em; color: var(--muted); margin-top: 8px; min-height: 0; }
+.quiz-memo:empty { display: none; }
+@media (max-width: 700px) { .quiz-grid { grid-template-columns: 1fr; } }
+
 /* ===== SCHREIBWERKSTATT ===== */
 .schreib-name-box { background: var(--warn-bg); border: 1.5px solid var(--warn-bd); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; }
 .schreib-label { display: block; font-size: 0.88em; color: var(--warn-tx); margin-bottom: 6px; font-weight: 600; }
@@ -420,15 +448,19 @@ html[data-theme="dark"] body { color: #c6cade; }
   <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📦</span><span class="nav-label">Sache</span></div>
   <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">👤</span><span class="nav-label">Person</span></div>
   <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">⏱</span><span class="nav-label">Perfekt</span></div>
-  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
+  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🎯</span><span class="nav-label">Quiz</span></div>
+  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
 </div>
 
 <div class="section active" id="sec-0"><div class="sec-inner" id="inner-0"></div></div>
 <div class="section" id="sec-1"><div class="sec-inner" id="inner-1"></div></div>
 <div class="section" id="sec-2"><div class="sec-inner" id="inner-2"></div></div>
 
-<!-- ===== TAB 4 — SCHREIBWERKSTATT ===== -->
-<div class="section" id="sec-3"><div class="sec-inner">
+<!-- ===== TAB 4 — QUIZ ===== -->
+<div class="section" id="sec-3"><div class="sec-inner" id="inner-3"></div></div>
+
+<!-- ===== TAB 5 — SCHREIBWERKSTATT ===== -->
+<div class="section" id="sec-4"><div class="sec-inner">
   <h2>📨 Schreibwerkstatt – Eigene Sätze</h2>
   <div class="sec-legend">
     <strong>Satzbau:</strong> Verb + <strong>da(r) + Präposition</strong>, + Nebensatz mit <em>dass / ob / wie / W-Wort</em> – oder: , + <strong>zu + Infinitiv</strong><br>
@@ -904,7 +936,7 @@ function renderAll(){
 }
 
 // ======== TIMER ========
-const timers=[{start:0,iv:null,running:false,elapsed:0,usedSolution:false},{start:0,iv:null,running:false,elapsed:0,usedSolution:false},{start:0,iv:null,running:false,elapsed:0,usedSolution:false}];
+const timers=[0,1,2,3].map(()=>({start:0,iv:null,running:false,elapsed:0,usedSolution:false}));
 const BEST_KEY='verben_praep_v1_best_';
 function fmt(sec){return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
 function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
@@ -973,10 +1005,12 @@ function setupLive(){
 }
 function showLoesung(si){
   timers[si].usedSolution=true;stopTimer(si);
+  if(si===3){quizLoesung();return;}
   document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{inp.value=inp.dataset.sol;inp.classList.remove('wrong');inp.classList.add('correct');});
   updateProgress(si);
 }
 function resetTab(si){
+  if(si===3){timers[3].done=false;renderQuiz();return;}
   document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{inp.value='';inp.classList.remove('correct','wrong');});
   timers[si].done=false;
   document.getElementById(`cel-${si}`).classList.remove('show');
@@ -987,6 +1021,141 @@ function showSection(idx){
   document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ======== QUIZ: Präposition + Kasus ========
+// p = Präposition, k = Kasus (a/d), x = ebenfalls mögliche Präpositionen (nie als falscher Distraktor anbieten),
+// h = Bedeutungshinweis, m = Merk-Wort aus den Übungen [Artikel, Präfix, Rest]
+const QUIZ = [
+{v:"warten",                p:"auf",  k:"a", m:["der","Auf","zug"]},
+{v:"denken",                p:"an",   k:"a", x:["über"], m:["das","An","gebot"]},
+{v:"sich freuen",           p:"auf",  k:"a", x:["über"], h:"etwas, das noch kommt", m:["der","Auf","enthalt"]},
+{v:"sich freuen",           p:"über", k:"a", x:["auf"],  h:"etwas, das schon passiert ist", m:["die","Über","raschung"]},
+{v:"sich ärgern",           p:"über", k:"a", m:["die","Über","stunden"]},
+{v:"hoffen",                p:"auf",  k:"a", m:["der","Auf","stieg"]},
+{v:"sich interessieren",    p:"für",  k:"a", m:["der","Führ","erschein"]},
+{v:"sich erinnern",         p:"an",   k:"a", m:["die","An","kunft"]},
+{v:"achten",                p:"auf",  k:"a", m:["die","Auf","gabe"]},
+{v:"träumen",               p:"von",  k:"d", m:["das","Fon","due"]},
+{v:"fragen",                p:"nach", k:"d", x:["um"], m:["die","Nach","richt"]},
+{v:"anfangen",              p:"mit",  k:"d", m:["das","Mit","tagessen"]},
+{v:"sich fürchten",         p:"vor",  k:"d", m:["das","Vor","stellungsgespräch"]},
+{v:"sich erkundigen",       p:"nach", k:"d", x:["bei"], m:["der","Nach","tzug"]},
+{v:"sich beschäftigen",     p:"mit",  k:"d", m:["die","Mit","teilung"]},
+{v:"gehören",               p:"zu",   k:"d", m:["der","Zu","cker"]},
+{v:"lachen",                p:"über", k:"a", m:["der","Über","setzer"]},
+{v:"kämpfen",               p:"für",  k:"a", x:["um","gegen","mit"], m:["die","Für","stin"]},
+{v:"sich treffen",          p:"mit",  k:"d", x:["in","an","vor","bei","zu"], m:["der","Mit","arbeiter"]},
+{v:"sich streiten",         p:"mit",  k:"d", x:["über","um","wegen"], m:["der","Mit","schüler"]},
+{v:"sich verabreden",       p:"mit",  k:"d", x:["zu","in","an","für"], m:["die","Mit","arbeiterin"]},
+{v:"sich informieren",      p:"über", k:"a", x:["bei"], m:["die","Über","nachtung"]},
+{v:"sich kümmern",          p:"um",   k:"a", m:["der","Um","zug"]},
+{v:"sich bedanken",         p:"für",  k:"a", x:["bei"], m:["die","Führ","ung"]},
+{v:"sich beschweren",       p:"über", k:"a", x:["bei"], m:["die","Über","nachtung"]},
+{v:"sich gewöhnen",         p:"an",   k:"a", m:["die","An","forderungen"]},
+{v:"es geht",               p:"um",   k:"a", m:["der","Um","weltschutz"]},
+{v:"sich entscheiden",      p:"für",  k:"a", x:["gegen"], m:["die","Für","sorge"]}
+];
+const QUIZ_POOL = ["auf","an","über","für","um","von","mit","nach","vor","zu","bei","in","aus"];
+let quizOrder = [];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function quizOptions(q){
+  const verboten=new Set([q.p].concat(q.x||[]));
+  const dist=shuffle(QUIZ_POOL.filter(p=>!verboten.has(p))).slice(0,3);
+  return shuffle(dist.concat([q.p]));
+}
+function renderQuiz(){
+  const box=document.getElementById('inner-3');
+  quizOrder=shuffle(QUIZ.map((q,i)=>i));
+  let h=`<h2>🎯 Quiz – Präposition und Kasus</h2>
+<div class="sec-desc">Welche Präposition gehört zum Verb? Und welcher Kasus folgt? Klick zuerst die Präposition, dann den Kasus.</div>
+<div class="control-bar">
+  <div class="btn-row">
+    <button onclick="showLoesung(3)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetTab(3); resetTimer(3);" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+  </div>
+  <div class="timer-display">
+    <span class="current-time">⏱ <span id="timer-3">00:00</span></span>
+    <span class="best-time">🏆 <span id="best-3">--:--</span></span>
+  </div>
+</div>
+<div class="progress" id="prog-3"><div class="progress-track"><div class="progress-fill" id="progfill-3"></div></div><div class="progress-text" id="progtext-3"></div></div>
+<div class="quiz-grid">`;
+  quizOrder.forEach((qi,n)=>{
+    const q=QUIZ[qi];
+    h+=`<div class="quiz-card" id="qz-${qi}" data-fehler="0">
+  <div class="quiz-head"><span class="card-nr">${String(n+1).padStart(2,'0')}</span><span class="quiz-fehler" id="qzf-${qi}"></span></div>
+  <div class="quiz-verb">${esc(q.v)} <span class="quiz-slot" id="qzp-${qi}">?</span> <span class="quiz-plus">+</span> <span class="quiz-slot" id="qzk-${qi}">?</span></div>
+  ${q.h?`<div class="quiz-hint">(${esc(q.h)})</div>`:''}
+  <div class="quiz-step"><span class="quiz-label">Präposition</span><div class="mc-opts">${quizOptions(q).map(p=>`<button class="mc-opt" onclick="quizPraep(${qi},this,'${p}')">${p}</button>`).join('')}</div></div>
+  <div class="quiz-step quiz-kasus locked" id="qzks-${qi}"><span class="quiz-label">Kasus</span><div class="mc-opts"><button class="mc-opt" onclick="quizKasus(${qi},this,'a')">Akkusativ</button><button class="mc-opt" onclick="quizKasus(${qi},this,'d')">Dativ</button></div></div>
+  <div class="quiz-memo" id="qzm-${qi}"></div>
+</div>`;
+  });
+  h+=`</div><div class="celebrate" id="cel-3"></div>`;
+  box.innerHTML=h;
+  showBest(3);updateQuizProgress();
+}
+function quizFehler(qi){
+  const c=document.getElementById(`qz-${qi}`);
+  const n=+c.dataset.fehler+1;c.dataset.fehler=n;
+  document.getElementById(`qzf-${qi}`).textContent=n===1?'1 Fehlversuch':n+' Fehlversuche';
+}
+function quizPraep(qi,btn,p){
+  const q=QUIZ[qi];startTimer(3);
+  if(btn.disabled) return;
+  if(p===q.p){
+    btn.classList.add('ok');
+    btn.parentNode.querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);
+    const s=document.getElementById(`qzp-${qi}`);s.textContent=q.p;s.classList.add('filled');
+    document.getElementById(`qzks-${qi}`).classList.remove('locked');
+  } else { btn.classList.add('no');btn.disabled=true;quizFehler(qi); }
+}
+function quizKasus(qi,btn,k){
+  const q=QUIZ[qi];
+  if(btn.disabled||document.getElementById(`qzks-${qi}`).classList.contains('locked')) return;
+  startTimer(3);
+  if(k===q.k){
+    btn.classList.add('ok');
+    btn.parentNode.querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);
+    quizFertig(qi);
+  } else { btn.classList.add('no');btn.disabled=true;quizFehler(qi); }
+}
+function quizFertig(qi){
+  const q=QUIZ[qi], c=document.getElementById(`qz-${qi}`);
+  const s=document.getElementById(`qzk-${qi}`);
+  s.textContent=q.k==='a'?'Akk.':'Dat.';s.classList.add('filled',q.k==='a'?'k-a':'k-d');
+  c.classList.add('done',q.k==='a'?'k-a':'k-d');
+  if(q.m) document.getElementById(`qzm-${qi}`).innerHTML=`Merk-Wort: ${esc(q.m[0])} ${memoHtml(q.m[1],q.m[2],q.k)}`;
+  updateQuizProgress();
+}
+function updateQuizProgress(){
+  const total=QUIZ.length, done=document.querySelectorAll('#sec-3 .quiz-card.done').length;
+  const fehlerfrei=[...document.querySelectorAll('#sec-3 .quiz-card.done')].filter(c=>c.dataset.fehler==='0').length;
+  document.getElementById('progfill-3').style.width=(done/total*100)+'%';
+  document.getElementById('progtext-3').innerHTML=`<strong>${done}</strong> von ${total} Verben gelöst · ${fehlerfrei} davon im ersten Versuch`;
+  document.getElementById('prog-3').classList.toggle('done',done===total);
+  const cel=document.getElementById('cel-3'), t=timers[3];
+  if(done===total&&!t.done){
+    stopTimer(3);t.done=true;
+    if(!t.usedSolution){
+      let msg=`🎉 Alle ${total} Verben gelöst – ${fehlerfrei} ohne Fehler!`;
+      if(t.elapsed>0){msg+=` Deine Zeit: ${fmt(t.elapsed)}`;const best=lsGet(BEST_KEY+3);if(!best||t.elapsed<+best){lsSet(BEST_KEY+3,t.elapsed);msg+=' – neue Bestzeit! 🏆';showBest(3);}}
+      cel.textContent=msg;cel.classList.add('show');
+    }
+  } else if(done<total) cel.classList.remove('show');
+}
+function quizLoesung(){
+  QUIZ.forEach((q,qi)=>{
+    const c=document.getElementById(`qz-${qi}`); if(c.classList.contains('done')) return;
+    c.dataset.fehler='L';
+    c.querySelectorAll('.quiz-step').forEach(st=>st.classList.remove('locked'));
+    c.querySelectorAll('.quiz-step')[0].querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;if(b.textContent===q.p)b.classList.add('ok');});
+    c.querySelectorAll('.quiz-step')[1].querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;if((b.textContent==='Akkusativ')===(q.k==='a'))b.classList.add('ok');});
+    const s=document.getElementById(`qzp-${qi}`);s.textContent=q.p;s.classList.add('filled');
+    quizFertig(qi);
+  });
+}
+
 
 /* ===== SCHREIBWERKSTATT (B1) – Eigene Sätze mit Satz-Check ===== */
 var SCHREIB_NAME_KEY      = 'schreibwerkstatt_B1_VERBPRAEP_name';
@@ -1352,6 +1521,7 @@ function schreibLeeren() {
 
 renderAll();
 setupLive();
+renderQuiz();
 </script>
 
 <!-- FB-JUMPTOP -->
