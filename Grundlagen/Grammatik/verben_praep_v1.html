@@ -1329,6 +1329,7 @@ function schreibVerbOptionen(sel) {
   var V = window.VAP_VERBEN || []; if (!V.length) return;
   var alt = sel.value, html = '';
   [1,2,3,4,5,0].forEach(function (t) {
+    if (window.VAP_TEIL && t !== window.VAP_TEIL) return;
     var liste = V.filter(function (e) { return e.t === t; });
     if (!liste.length) return;
     html += '<optgroup label="' + (t ? 'Teil ' + t : 'Weitere Verben') + '">' + liste.map(function (e) {
@@ -1338,6 +1339,7 @@ function schreibVerbOptionen(sel) {
   });
   sel.innerHTML = html;
   sel.value = alt || 'sich ärgern über';
+  if (sel.selectedIndex < 0 && sel.options.length) sel.selectedIndex = 0;
 }
 
 function schreibVerbFuer(nr) {
@@ -1391,7 +1393,7 @@ function initSchreibwerkstatt() {
     if (savedName) nameInp.value = savedName;
     nameInp.addEventListener('input', function () { lsSet(SCHREIB_NAME_KEY, nameInp.value); });
   }
-  document.querySelectorAll('.verb-select').forEach(function (sel) {
+  document.querySelectorAll('select[id^="sw-verb-"]').forEach(function (sel) {
     var nr = sel.dataset.aufgabe;
     var sv = lsGet(SCHREIB_VERB_PREFIX + nr);
     schreibVerbOptionen(sel);
@@ -1819,6 +1821,7 @@ function initTrainer(){
   trLaden();
   const sel = document.getElementById('tr-teil');
   sel.innerHTML = [1,2,3,4,5].map(t => `<option value="${t}">Teil ${t} (${VAP.filter(e=>e.t===t).length} Verben)</option>`).join('') + `<option value="alle">Alle ${VAP.filter(e=>e.t>0).length} Verben</option>`;
+  if (window.VAP_TEIL) sel.value = String(window.VAP_TEIL);
   sel.addEventListener('change', () => trStart(false));
   document.getElementById('tr-richtung').addEventListener('change', () => trStart(false));
   trStart(false);
@@ -1953,6 +1956,7 @@ function initMerkWerkstatt(){
     mwName.addEventListener('input', () => { swName.value = mwName.value; lsSet(SCHREIB_NAME_KEY, mwName.value); });
     swName.addEventListener('input', () => { mwName.value = swName.value; });
   }
+  if (window.VAP_TEIL){ const erst = VAP.find(e => e.t === window.VAP_TEIL); if (erst) sel.value = String(erst.id); }
   mwVerbAnzeige(); mwListeZeigen();
 }
 
