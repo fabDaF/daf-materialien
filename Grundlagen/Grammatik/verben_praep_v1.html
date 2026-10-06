@@ -10,89 +10,243 @@
 :root {
   --grad-head-a: #667eea;
   --grad-head-b: #764ba2;
-  --bd-22c55e: #22c55e;
-  --bd-667eea: #667eea;
-  --bd-764ba2: #764ba2;
-  --bd-ddd: #ddd;
-  --bd-ef4444: #ef4444;
-  --bg-eef1ff: #eef1ff;
-  --bg-f0f0ff: #f0f0ff;
-  --bg-f0f2f5: #f0f2f5;
-  --bg-f0fdf4: #f0fdf4;
-  --bg-f5f5f5: #f5f5f5;
-  --bg-f8f7ff: #f8f7ff;
-  --bg-fef2f2: #fef2f2;
-  --bg-fff: #fff;
-  --tx-166534: #166534;
-  --tx-1a1a2e: #1a1a2e;
-  --tx-22c55e: #22c55e;
-  --tx-241048: #241048;
-  --tx-2563eb: #2563eb;
+  --page-a: #667eea;
+  --page-b: #764ba2;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card-soft: #f8f9ff;
+  --nav-band: #eef0fb;
+  --nav-hover: #e1e5fb;
+  --line: #e9ecef;
+  --line-soft: #e0e4ff;
+  --text: #1a1a2e;
+  --text-2: #444;
+  --muted: #666;
+  --muted-2: #888;
+  --faint: #aaa;
+  --accent: #667eea;
+  --accent-2: #764ba2;
+  --accent-soft: #f0f4ff;
+  --accent-soft-2: #f5f7ff;
+  --accent-line: #c5cff5;
+  --ok-bd: #22c55e;
+  --ok-bg: #f0fdf4;
+  --ok-tx: #166534;
+  --ok-strong: #16a34a;
+  --err-bd: #ef4444;
+  --err-bg: #fef2f2;
+  --err-tx: #991b1b;
+  --akk: #2563eb;
+  --akk-bg: #e8efff;
+  --dat: #dc2626;
+  --dat-bg: #fdeaea;
+  --warn-bg: #fffaf0;
+  --warn-bd: #ffd699;
+  --warn-tx: #b15c00;
+  --ug-bg: #fff4e0;
+  --ug-tx: #a35a00;
+  --info-bg: #e3f2fd;
+  --info-bd: #2196f3;
+  --info-tx: #0d47a1;
+  --sent-bg: #f1f8e9;
+  --sent-bd: #689f38;
+  --sent-tx: #33691e;
   --tx-34206b: #34206b;
-  --tx-555: #555;
-  --tx-666: #666;
-  --tx-667eea: #667eea;
-  --tx-764ba2: #764ba2;
-  --tx-888: #888;
-  --tx-991b1b: #991b1b;
-  --tx-aaa: #aaa;
-  --tx-dc2626: #dc2626;
-  --tx-fff: #fff;
+  --tx-241048: #241048;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-f0f2f5);color:var(--tx-1a1a2e);min-height:100vh}
-.header{background:linear-gradient(135deg, var(--grad-head-a), var(--grad-head-b));color:var(--tx-fff);padding:28px 20px 22px;text-align:center}
-.header h1{font-size:1.5rem;margin-bottom:4px}
-.header p{font-size:.95rem;opacity:.9}
-.container{max-width:820px;margin:0 auto;padding:16px}
-.nav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
-.nav-btn{padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:600;background:var(--bg-fff);color:var(--tx-555);border:2px solid var(--bd-ddd);transition:all .2s;user-select:none}
-.nav-btn:hover{border-color:var(--bd-667eea);color:var(--tx-667eea)}
-.nav-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:var(--tx-fff);border-color:transparent}
-.section{display:none}.section.active{display:block}
-.sec-title{font-size:1.1rem;font-weight:700;color:var(--tx-667eea);margin-bottom:6px}
-.sec-desc{font-size:.88rem;color:var(--tx-666);margin-bottom:18px;line-height:1.5}
-.help-box{background:var(--bg-eef1ff);border-left:4px solid var(--bd-667eea);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px;font-size:.85rem;line-height:1.7}
-.help-box strong{color:var(--tx-667eea)}
-.card{background:var(--bg-fff);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.card-nr{font-weight:700;color:var(--tx-764ba2);font-size:1rem}
-.card-badge{background:linear-gradient(135deg,#667eea,#764ba2);color:var(--tx-fff);padding:3px 12px;border-radius:20px;font-size:.8rem;font-weight:600}
-.dl{margin-bottom:8px;line-height:2.1;font-size:1rem}
-.dl:last-child{margin-bottom:0}
-.sp{display:inline-block;font-weight:700;color:var(--tx-764ba2);min-width:26px;margin-right:5px;vertical-align:baseline}
-.sp.b{color:var(--tx-667eea)}
-.ans-row{margin-bottom:0;line-height:2.1;font-size:1rem}
-.hint{color:var(--tx-888);font-style:italic;font-size:.92rem;margin-right:6px;white-space:nowrap}
-.arrow{color:var(--tx-aaa);margin:0 6px;font-size:.9rem}
-input.bl{border:none;border-bottom:2.5px solid var(--bd-667eea);background:transparent;font-size:1rem;font-family:inherit;padding:2px 4px;outline:none;text-align:center;transition:all .3s;margin:0 3px;vertical-align:baseline}
-input.bl:focus{border-bottom-color:var(--bd-764ba2);background:var(--bg-f8f7ff)}
-input.bl.correct{border-bottom-color:var(--bd-22c55e);background:var(--bg-f0fdf4);color:var(--tx-166534)}
-input.bl.wrong{border-bottom-color:var(--bd-ef4444);background:var(--bg-fef2f2);color:var(--tx-991b1b)}
-input.bl.s{width:65px;min-width:65px}
-input.bl.m{width:105px;min-width:105px}
-input.bl.l{width:140px;min-width:140px}
-.sol{display:none;font-weight:600;color:var(--tx-22c55e);margin:0 3px;font-size:.92rem}
-.sol.visible{display:inline}
-.nw{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
-.memo-akk{color:var(--tx-2563eb);font-weight:700}
-.memo-dat{color:var(--tx-dc2626);font-weight:700}
-.noun-fixed{margin-left:3px}
-.btn-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-.btn{padding:11px 22px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-check{background:linear-gradient(135deg,#667eea,#764ba2);color:var(--tx-fff)}
-.btn-check:hover{opacity:.9;transform:translateY(-1px)}
-.btn-show{background:var(--bg-fff);color:var(--tx-667eea);border:2px solid var(--bd-667eea)}
-.btn-show:hover{background:var(--bg-f0f0ff)}
-.btn-reset{background:var(--bg-fff);color:var(--tx-888);border:2px solid var(--bd-ddd)}
-.btn-reset:hover{background:var(--bg-f5f5f5)}
-.score{margin-top:14px;font-size:.9rem;color:var(--tx-555);font-weight:600;min-height:24px}
-.score span{color:var(--tx-667eea)}
-@media(max-width:600px){
-.header h1{font-size:1.25rem}.card{padding:14px}
-input.bl.s{width:55px;min-width:55px}input.bl.m{width:85px;min-width:85px}input.bl.l{width:115px;min-width:115px}
-.hint{font-size:.82rem}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--page-a) 0%, var(--page-b) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 1000px; margin: 0 auto; background: var(--surface);
+  border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: linear-gradient(135deg, var(--grad-head-a) 0%, var(--grad-head-b) 100%);
+  color: #fff; padding: 30px; text-align: center; position: relative;
+}
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: #fff; margin-bottom: 8px; border: none; padding: 0; }
+.header p { font-size: 1.1em; font-family: Georgia, 'Times New Roman', serif; color: rgba(255,255,255,0.9); margin: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+
+/* ===== NAV (Variante C: Aktiv-Pille) ===== */
+.nav {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  background: var(--nav-band); padding: 6px;
+  border-bottom: 2px solid var(--line);
+}
+.nav-btn {
+  flex: 1 1 auto; min-width: 64px; padding: 12px 8px;
+  border: none; background: none; cursor: pointer;
+  font-weight: 500; color: var(--muted); transition: all 0.2s; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  user-select: none;
+}
+.nav-btn:hover { background: var(--nav-hover); color: var(--accent); }
+.nav-btn.active { background: var(--surface); color: var(--accent); font-weight: 700; box-shadow: 0 1px 4px rgba(102,126,234,.25); }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+
+/* ===== SECTIONS ===== */
+.section { display: none; }
+.section.active { display: block; }
+.sec-inner { padding: 28px 30px; }
+.sec-inner h2 { font-family: Georgia, 'Times New Roman', serif; color: var(--accent-2); font-size: 1.45em; margin-bottom: 6px; }
+.sec-desc { font-size: 0.95em; color: var(--muted); margin-bottom: 16px; line-height: 1.55; }
+
+/* ===== CONTROL-BAR ===== */
+.control-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; padding: 6px 12px; background: var(--card-soft); border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: var(--accent-soft-2); border: 1px solid var(--accent-line); border-radius: 8px; padding: 6px 16px; font-size: 0.85em; color: var(--accent); cursor: pointer; transition: all 0.15s; font-weight: 500; font-family: inherit; }
+.btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: var(--faint); font-variant-numeric: tabular-nums; }
+
+/* ===== FORTSCHRITT ===== */
+.progress { margin: -6px 0 20px; }
+.progress-track { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 3px; transition: width .35s; }
+.progress-text { font-size: 0.82em; color: var(--muted-2); margin-top: 6px; font-variant-numeric: tabular-nums; }
+.progress-text strong { color: var(--accent); }
+.progress.done .progress-fill { background: var(--ok-strong); }
+.progress.done .progress-text { color: var(--ok-strong); font-weight: 600; }
+
+/* ===== LEGENDE (kein Kasten) ===== */
+.sec-legend { font-size: 0.9em; color: var(--text-2); line-height: 1.8; margin-bottom: 20px; }
+.sec-legend strong { color: var(--accent); }
+.sec-legend .muster { font-family: Georgia, 'Times New Roman', serif; font-size: 1.08em; color: var(--text); }
+.legend { display: inline-flex; gap: 8px; flex-wrap: wrap; vertical-align: middle; }
+.chip-akk, .chip-dat { display: inline-block; padding: 1px 10px; border-radius: 12px; font-size: 0.88em; font-weight: 700; }
+.chip-akk { background: var(--akk-bg); color: var(--akk); }
+.chip-dat { background: var(--dat-bg); color: var(--dat); }
+
+/* ===== ÜBUNGSKARTEN ===== */
+.card {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--akk);
+  border-radius: 10px; padding: 16px 20px 14px; margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04); transition: border-color .3s, box-shadow .3s;
+}
+.card.k-d { border-left-color: var(--dat); }
+.card.complete { box-shadow: 0 0 0 2px var(--ok-bg), 0 2px 10px rgba(34,197,94,.18); }
+.card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.card-nr { font-weight: 700; color: var(--faint); font-size: 0.9em; font-variant-numeric: tabular-nums; }
+.card.complete .card-nr::after { content: ' ✓'; color: var(--ok-strong); }
+.card-badge { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; padding: 3px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 600; }
+.dl, .ans-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; line-height: 2.15; font-size: 1.02rem; }
+.dl:last-child, .ans-row:last-child { margin-bottom: 0; }
+.dl-body { flex: 1; min-width: 0; }
+.sp { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 0.78em; font-weight: 700; color: #fff; background: var(--accent-2); transform: translateY(-1px); }
+.sp.b { background: var(--accent); }
+.ug-tag { display: inline-block; font-size: 0.72em; font-weight: 600; color: var(--ug-tx); background: var(--ug-bg); border-radius: 10px; padding: 1px 8px; margin-right: 6px; vertical-align: 2px; letter-spacing: .2px; }
+.hint { color: var(--muted-2); font-style: italic; font-size: 0.93em; margin-right: 4px; white-space: nowrap; }
+.arrow { color: var(--faint); margin: 0 4px; }
+.nw { display: inline-flex; align-items: baseline; white-space: nowrap; }
+.noun-fixed { margin-left: 3px; white-space: nowrap; }
+.memo-akk, .memo-dat { font-weight: 700; }
+.memo-akk { color: var(--akk); box-shadow: inset 0 -0.38em 0 var(--akk-bg); }
+.memo-dat { color: var(--dat); box-shadow: inset 0 -0.38em 0 var(--dat-bg); }
+
+input.bl {
+  border: none; border-bottom: 2.5px solid var(--accent); background: transparent;
+  font-size: 1rem; font-family: inherit; color: var(--text); padding: 2px 4px; outline: none;
+  text-align: center; transition: all .25s; margin: 0 3px; vertical-align: baseline; border-radius: 4px 4px 0 0;
+}
+input.bl:focus { border-bottom-color: var(--accent-2); background: var(--accent-soft); }
+input.bl.correct { border-bottom-color: var(--ok-bd); background: var(--ok-bg); color: var(--ok-tx); }
+input.bl.wrong { border-bottom-color: var(--err-bd); background: var(--err-bg); color: var(--err-tx); }
+input.bl.s { width: 65px; }
+input.bl.m { width: 105px; }
+input.bl.l { width: 140px; }
+
+.celebrate { display: none; text-align: center; margin: 18px 0 4px; padding: 14px; border-radius: 10px; background: var(--ok-bg); color: var(--ok-tx); font-weight: 600; }
+.celebrate.show { display: block; }
+
+/* ===== SCHREIBWERKSTATT ===== */
+.schreib-name-box { background: var(--warn-bg); border: 1.5px solid var(--warn-bd); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; }
+.schreib-label { display: block; font-size: 0.88em; color: var(--warn-tx); margin-bottom: 6px; font-weight: 600; }
+.schreib-name { width: 100%; max-width: 320px; padding: 10px 14px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: border-color 0.2s; background: var(--card); color: var(--text); }
+.schreib-name:focus { border-color: var(--accent); }
+.schreib-name.schreib-name-error { border-color: var(--err-bd); box-shadow: 0 0 0 2px rgba(198,40,40,0.15); animation: schreib-name-shake 0.4s; }
+.shake { animation: schreib-name-shake 0.4s; }
+@keyframes schreib-name-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+
+.schreib-aufgabe-karte { background: var(--card-soft); padding: 18px 22px 18px 24px; margin-bottom: 18px; border-radius: 10px; border-left: 4px solid var(--accent); transition: all 0.25s; }
+.schreib-aufgabe-karte.gesendet { background: var(--sent-bg); border-left-color: var(--sent-bd); }
+.schreib-aufgabe-nr { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85em; padding: 2px 10px; border-radius: 12px; margin-right: 8px; vertical-align: middle; }
+.schreib-aufgabe-karte.gesendet .schreib-aufgabe-nr { background: var(--sent-bd); }
+.schreib-aufgabe-titel { font-weight: 700; color: var(--accent-2); font-size: 1.0em; vertical-align: middle; }
+.schreib-aufgabe-frage { color: var(--text-2); font-size: 0.95em; line-height: 1.55; margin: 8px 0 10px; }
+.verb-zeile { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; font-size: 0.9em; color: var(--muted); }
+.verb-chip { display: inline-block; padding: 3px 12px; border-radius: 14px; font-weight: 700; font-size: 0.95em; }
+.verb-chip.k-a { background: var(--akk-bg); color: var(--akk); }
+.verb-chip.k-d { background: var(--dat-bg); color: var(--dat); }
+.verb-select { padding: 6px 10px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 0.95em; background: var(--card); color: var(--text); cursor: pointer; }
+.schreib-mini-textarea {
+  width: 100%; min-height: 240px; padding: 14px 16px;
+  border: 1.5px solid var(--accent-line); border-radius: 8px;
+  font-family: inherit; font-size: 1.02em; line-height: 1.6;
+  outline: none; resize: vertical; background: var(--card); color: var(--text);
+}
+.schreib-mini-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(102,126,234,0.15); }
+.satz-check { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.sc-item { font-size: 0.8em; padding: 3px 10px; border-radius: 12px; background: var(--line); color: var(--muted-2); transition: all .2s; }
+.sc-item::before { content: '○ '; }
+.sc-item.ok { background: var(--ok-bg); color: var(--ok-tx); font-weight: 600; }
+.sc-item.ok::before { content: '✓ '; }
+.schreib-mini-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 10px; }
+.schreib-mini-meta { font-size: 0.82em; color: var(--muted-2); }
+.schreib-mini-meta strong { color: var(--accent); font-weight: 700; }
+.schreib-mini-status { font-size: 0.82em; color: var(--sent-bd); font-weight: 600; margin-left: 8px; }
+.schreib-mini-status.error { color: var(--err-tx); }
+.schreib-mini-btn { padding: 7px 14px; border-radius: 6px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); font-size: 0.85em; font-weight: 600; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-family: inherit; }
+.schreib-mini-btn:hover:not(:disabled) { background: var(--accent); color: #fff; box-shadow: 0 2px 6px rgba(102,126,234,0.3); }
+.schreib-mini-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.schreib-mini-btn.gesendet { border-color: var(--sent-bd); color: var(--sent-bd); background: var(--sent-bg); }
+.schreib-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+.schreib-btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 0.95em; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
+.schreib-btn-primary { background: var(--accent); color: #fff; }
+.schreib-btn-primary:hover:not(:disabled) { box-shadow: 0 4px 12px rgba(102,126,234,0.35); transform: translateY(-1px); }
+.schreib-btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+.schreib-btn-ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent-line); }
+.schreib-btn-ghost:hover { background: var(--accent-soft-2); border-color: var(--accent); }
+.schreib-status { margin-top: 14px; padding: 12px 16px; border-radius: 8px; font-size: 0.92em; line-height: 1.5; display: none; }
+.schreib-status.success { display: block; background: var(--ok-bg); border-left: 4px solid var(--ok-bd); color: var(--ok-tx); }
+.schreib-status.error { display: block; background: var(--err-bg); border-left: 4px solid var(--err-bd); color: var(--err-tx); }
+.schreib-status.info { display: block; background: var(--info-bg); border-left: 4px solid var(--info-bd); color: var(--info-tx); }
+.schreib-fb { display: flex; flex-direction: column; gap: 8px; }
+.schreib-fb-titel { font-weight: 700; font-size: 1em; color: var(--err-tx); }
+.schreib-fb-text { color: var(--text-2); font-size: 0.92em; line-height: 1.5; }
+.schreib-fb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.schreib-fb-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 8px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); font-size: 0.9em; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.schreib-fb-btn:hover { background: var(--accent); color: #fff; }
+.schreib-fb-btn-prim { background: var(--accent); color: #fff; }
+.schreib-fb-hilfe { color: var(--muted); font-size: 0.86em; font-style: italic; margin-top: 4px; }
+
+/* ===== FOOTER ===== */
+.author-footer { text-align: center; padding: 16px 16px 22px; font-size: 0.8rem; color: var(--faint); }
+.author-footer a { color: var(--faint); }
+.author-name { font-weight: 700; }
+
+@media (max-width: 600px) {
+  body { padding: 8px; }
+  .header { padding: 24px 52px; }
+  .header h1 { font-size: 1.6em; }
+  .header p { font-size: 0.98em; }
+  .sec-inner { padding: 18px 14px; }
+  .card { padding: 14px 12px 12px; }
+  .dl, .ans-row { gap: 6px; font-size: 0.98rem; }
+  input.bl.s { width: 55px; } input.bl.m { width: 85px; } input.bl.l { width: 115px; }
+  .hint { font-size: 0.85em; }
+  .schreib-aufgabe-karte { padding: 14px 14px 14px 16px; }
+  .schreib-name-box { padding: 12px 14px; }
 }
 
 /* FB-JUMPTOP - Nach-oben-Button (Glas-Look) */
@@ -118,7 +272,6 @@ input.bl.s{width:55px;min-width:55px}input.bl.m{width:85px;min-width:85px}input.
 @media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
 
 /* FB-THEME-TOGGLE */
-.header { position: relative; }
 .theme-toggle {
   position: absolute; top: 14px; right: 14px;
   width: 38px; height: 38px; border-radius: 50%;
@@ -133,72 +286,100 @@ input.bl.s{width:55px;min-width:55px}input.bl.m{width:85px;min-width:85px}input.
 :root:not([data-theme="light"]) {
   --grad-head-a: #4a52a8;
   --grad-head-b: #5c4585;
-  --bd-22c55e: #2c6d44;
-  --bd-667eea: #7b88e8;
-  --bd-764ba2: #8a63b8;
-  --bd-ddd: #3a3e58;
-  --bd-ef4444: #732626;
-  --bg-eef1ff: #262a44;
-  --bg-f0f0ff: #10103e;
-  --bg-f0f2f5: #20262f;
-  --bg-f0fdf4: #153920;
-  --bg-f5f5f5: #20212e;
-  --bg-f8f7ff: #150f3e;
-  --bg-fef2f2: #3b1313;
-  --bg-fff: #262a44;
-  --tx-166534: #9ae9b8;
-  --tx-1a1a2e: #babad8;
-  --tx-22c55e: #7ae8a2;
-  --tx-241048: #d9cef8;
-  --tx-2563eb: #7097eb;
+  --page-a: #1b1e33;
+  --page-b: #2a1f3d;
+  --surface: #20243a;
+  --card: #262a44;
+  --card-soft: #2a2f4c;
+  --nav-band: #1a1d30;
+  --nav-hover: #2c3152;
+  --line: #3a3e58;
+  --line-soft: #3a3e58;
+  --text: #dcdff0;
+  --text-2: #c6cade;
+  --muted: #9ba0bd;
+  --muted-2: #8e93b0;
+  --faint: #6f7390;
+  --accent: #93a0f2;
+  --accent-2: #b592d8;
+  --accent-soft: #2b3052;
+  --accent-soft-2: #2b3052;
+  --accent-line: #4a5080;
+  --ok-bd: #2c6d44;
+  --ok-bg: #153920;
+  --ok-tx: #9ae9b8;
+  --ok-strong: #7ae8a2;
+  --err-bd: #b04444;
+  --err-bg: #3b1313;
+  --err-tx: #ea8787;
+  --akk: #8fb2ff;
+  --akk-bg: #1f2c52;
+  --dat: #ff9a9a;
+  --dat-bg: #4a1f24;
+  --warn-bg: #3a2e1a;
+  --warn-bd: #7a5a20;
+  --warn-tx: #f0c070;
+  --ug-bg: #45331a;
+  --ug-tx: #f3c27a;
+  --info-bg: #142a44;
+  --info-bd: #2f6fb0;
+  --info-tx: #9fcaf5;
+  --sent-bg: #1f3320;
+  --sent-bd: #7cbf4a;
+  --sent-tx: #b5e08f;
   --tx-34206b: #cbbcf6;
-  --tx-555: #b6bad0;
-  --tx-666: #9ba0bd;
-  --tx-667eea: #93a0f2;
-  --tx-764ba2: #b592d8;
-  --tx-888: #8e93b0;
-  --tx-991b1b: #ea8787;
-  --tx-aaa: #6f7390;
-  --tx-dc2626: #e87272;
+  --tx-241048: #d9cef8;
 }
-:root:not([data-theme="light"]) .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
 :root:not([data-theme="light"]) body { color: #c6cade; }
-:root:not([data-theme="light"]) button, :root:not([data-theme="light"]) input, :root:not([data-theme="light"]) select, :root:not([data-theme="light"]) textarea { color: inherit; }
 }
 :root[data-theme="dark"] {
   --grad-head-a: #4a52a8;
   --grad-head-b: #5c4585;
-  --bd-22c55e: #2c6d44;
-  --bd-667eea: #7b88e8;
-  --bd-764ba2: #8a63b8;
-  --bd-ddd: #3a3e58;
-  --bd-ef4444: #732626;
-  --bg-eef1ff: #262a44;
-  --bg-f0f0ff: #10103e;
-  --bg-f0f2f5: #20262f;
-  --bg-f0fdf4: #153920;
-  --bg-f5f5f5: #20212e;
-  --bg-f8f7ff: #150f3e;
-  --bg-fef2f2: #3b1313;
-  --bg-fff: #262a44;
-  --tx-166534: #9ae9b8;
-  --tx-1a1a2e: #babad8;
-  --tx-22c55e: #7ae8a2;
-  --tx-241048: #d9cef8;
-  --tx-2563eb: #7097eb;
+  --page-a: #1b1e33;
+  --page-b: #2a1f3d;
+  --surface: #20243a;
+  --card: #262a44;
+  --card-soft: #2a2f4c;
+  --nav-band: #1a1d30;
+  --nav-hover: #2c3152;
+  --line: #3a3e58;
+  --line-soft: #3a3e58;
+  --text: #dcdff0;
+  --text-2: #c6cade;
+  --muted: #9ba0bd;
+  --muted-2: #8e93b0;
+  --faint: #6f7390;
+  --accent: #93a0f2;
+  --accent-2: #b592d8;
+  --accent-soft: #2b3052;
+  --accent-soft-2: #2b3052;
+  --accent-line: #4a5080;
+  --ok-bd: #2c6d44;
+  --ok-bg: #153920;
+  --ok-tx: #9ae9b8;
+  --ok-strong: #7ae8a2;
+  --err-bd: #b04444;
+  --err-bg: #3b1313;
+  --err-tx: #ea8787;
+  --akk: #8fb2ff;
+  --akk-bg: #1f2c52;
+  --dat: #ff9a9a;
+  --dat-bg: #4a1f24;
+  --warn-bg: #3a2e1a;
+  --warn-bd: #7a5a20;
+  --warn-tx: #f0c070;
+  --ug-bg: #45331a;
+  --ug-tx: #f3c27a;
+  --info-bg: #142a44;
+  --info-bd: #2f6fb0;
+  --info-tx: #9fcaf5;
+  --sent-bg: #1f3320;
+  --sent-bd: #7cbf4a;
+  --sent-tx: #b5e08f;
   --tx-34206b: #cbbcf6;
-  --tx-555: #b6bad0;
-  --tx-666: #9ba0bd;
-  --tx-667eea: #93a0f2;
-  --tx-764ba2: #b592d8;
-  --tx-888: #8e93b0;
-  --tx-991b1b: #ea8787;
-  --tx-aaa: #6f7390;
-  --tx-dc2626: #e87272;
+  --tx-241048: #d9cef8;
 }
-html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
 html[data-theme="dark"] body { color: #c6cade; }
-html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
 </style>
 <script>/* FB-THEME-INIT */
 (function(){
@@ -226,23 +407,118 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 </script>
 </head>
 <body>
+<div class="container">
+
 <div class="header">
   <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
-<h1>Verben mit Präposition</h1>
-<p>Lückenübung – Ergänze die Präpositionen und Artikel</p>
+  <h1>Verben mit Präposition</h1>
+  <p>B1 – Grammatik · Der Merk-Trick: Die Präposition steckt im Nomen</p>
+  <div class="big-emoji">🧠</div>
 </div>
-<div class="container">
+
 <div class="nav">
-<div class="nav-btn active" onclick="showSection(0)">📝 a) Sache</div>
-<div class="nav-btn" onclick="showSection(1)">👤 b) Person</div>
-<div class="nav-btn" onclick="showSection(2)">⏱ c) Perfekt</div>
+  <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📦</span><span class="nav-label">Sache</span></div>
+  <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">👤</span><span class="nav-label">Person</span></div>
+  <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">⏱</span><span class="nav-label">Perfekt</span></div>
+  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
 </div>
-<div class="section active" id="sec-0"></div>
-<div class="section" id="sec-1"></div>
-<div class="section" id="sec-2"></div>
+
+<div class="section active" id="sec-0"><div class="sec-inner" id="inner-0"></div></div>
+<div class="section" id="sec-1"><div class="sec-inner" id="inner-1"></div></div>
+<div class="section" id="sec-2"><div class="sec-inner" id="inner-2"></div></div>
+
+<!-- ===== TAB 4 — SCHREIBWERKSTATT ===== -->
+<div class="section" id="sec-3"><div class="sec-inner">
+  <h2>📨 Schreibwerkstatt – Eigene Sätze</h2>
+  <div class="sec-legend">
+    <strong>Satzbau:</strong> Verb + <strong>da(r) + Präposition</strong>, + Nebensatz mit <em>dass / ob / wie / W-Wort</em> – oder: , + <strong>zu + Infinitiv</strong><br>
+    <strong>Muster:</strong> <span class="muster">Ich warte <span class="memo-akk">darauf</span>, dass der Aufzug kommt.</span>
+  </div>
+  <div class="schreib-name-box">
+    <label class="schreib-label" for="sw-name">Bitte, hier deinen Namen eintragen.</label>
+    <input type="text" id="sw-name" class="schreib-name" autocomplete="name" required>
+  </div>
+    <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">1</span><span class="schreib-aufgabe-titel">Worauf ich warte</span>
+    <div class="schreib-aufgabe-frage">Worauf wartest du gerade – im Beruf, in der Familie oder im Alltag? Schreib 2–4 Sätze mit Pronominaladverb und Nebensatz (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">warten auf</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="1" data-titel="Worauf ich warte" data-verb="warten auf"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-1">Verb</span><span class="sc-item" id="sc-da-1">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-1">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-1">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-1">0</strong><span class="schreib-mini-status" id="sw-status-1"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-1" onclick="schreibSendenEinzeln(1)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">2</span><span class="schreib-aufgabe-titel">Eine Geschichte erzählen</span>
+    <div class="schreib-aufgabe-frage">Wovon erzählst du gern, wenn du Freunde triffst – von einer Reise, von deiner ersten Liebe, von einem Erfolg? Schreib 2–4 Sätze mit Pronominaladverb und einem „wie“- oder „dass“-Satz (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-d">erzählen von</span><span class="verb-chip k-d">+ Dativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="2" data-titel="Eine Geschichte erzählen" data-verb="erzählen von"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-2">Verb</span><span class="sc-item" id="sc-da-2">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-2">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-2">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-2">0</strong><span class="schreib-mini-status" id="sw-status-2"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-2" onclick="schreibSendenEinzeln(2)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">3</span><span class="schreib-aufgabe-titel">Ein Gesprächsthema</span>
+    <div class="schreib-aufgabe-frage">Worüber sprichst du gern – im Deutschkurs, bei der Arbeit oder mit Freunden? Erkläre in 2–4 Sätzen, worüber und warum. Benutze das Pronominaladverb und einen Nebensatz mit „wie“, „ob“ oder „dass“ (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">sprechen über</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="3" data-titel="Ein Gesprächsthema" data-verb="sprechen über"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-3">Verb</span><span class="sc-item" id="sc-da-3">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-3">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-3">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-3">0</strong><span class="schreib-mini-status" id="sw-status-3"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-3" onclick="schreibSendenEinzeln(3)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">4</span><span class="schreib-aufgabe-titel">Vorfreude</span>
+    <div class="schreib-aufgabe-frage">Worauf freust du dich in den nächsten Wochen? Schreib 2–4 Sätze – mindestens einmal mit „zu“ + Infinitiv (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">sich freuen auf</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="4" data-titel="Vorfreude" data-verb="sich freuen auf"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-4">Verb</span><span class="sc-item" id="sc-da-4">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-4">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-4">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-4">0</strong><span class="schreib-mini-status" id="sw-status-4"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-4" onclick="schreibSendenEinzeln(4)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">5</span><span class="schreib-aufgabe-titel">Deine Wahl</span>
+    <div class="schreib-aufgabe-frage">Wähle ein Verb aus der Liste und schreib 2–4 Sätze über dich: Was ärgert dich, woran erinnerst du dich, wovon träumst du? Pronominaladverb + Nebensatz oder „zu“ + Infinitiv (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile"><label for="sw-verb-5">Verb:</label><select class="verb-select" id="sw-verb-5" data-aufgabe="5"><option value="warten auf">warten auf</option><option value="erzählen von">erzählen von</option><option value="sprechen über">sprechen über</option><option value="sich freuen auf">sich freuen auf</option><option value="sich freuen über">sich freuen über</option><option value="denken an">denken an</option><option value="sich erinnern an">sich erinnern an</option><option value="sich ärgern über" selected>sich ärgern über</option><option value="hoffen auf">hoffen auf</option><option value="achten auf">achten auf</option><option value="sich interessieren für">sich interessieren für</option><option value="sich bedanken für">sich bedanken für</option><option value="sich entscheiden für">sich entscheiden für</option><option value="sich kümmern um">sich kümmern um</option><option value="sich gewöhnen an">sich gewöhnen an</option><option value="sich beschweren über">sich beschweren über</option><option value="träumen von">träumen von</option><option value="fragen nach">fragen nach</option><option value="sich erkundigen nach">sich erkundigen nach</option><option value="anfangen mit">anfangen mit</option><option value="sich beschäftigen mit">sich beschäftigen mit</option><option value="sich fürchten vor">sich fürchten vor</option></select><span class="verb-chip k-a" id="sw-verbkasus-5">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="5" data-titel="Deine Wahl"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-5">Verb</span><span class="sc-item" id="sc-da-5">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-5">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-5">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-5">0</strong><span class="schreib-mini-status" id="sw-status-5"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-5" onclick="schreibSendenEinzeln(5)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-actions">
+    <button class="schreib-btn schreib-btn-primary" id="sw-btn-all" onclick="schreibSendenAlleNochOffenen()">📨 Alle noch nicht gesendeten Antworten schicken</button>
+    <button class="schreib-btn schreib-btn-ghost" onclick="schreibKopieren()">📋 Alles kopieren</button>
+    <button class="schreib-btn schreib-btn-ghost" onclick="schreibLeeren()">🗑 Zurücksetzen</button>
+  </div>
+  <div class="schreib-status" id="sw-status"></div>
+</div></div>
+
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:unterricht@frankburkert-daf.de">unterricht@frankburkert-daf.de</a>
 </div>
+</div><!-- /container -->
+
 <script>
-// k:"a"=Akkusativ(blau), k:"d"=Dativ(rot)
+// k:"a"=Akkusativ(blau), k:"d"=Dativ(rot) · ug:1 = umgangssprachliche Zeile (Demonstrativpronomen)
 const DATA = [
 // ========== SECTION 0: SACHE (15) ==========
 // --- Akkusativ ---
@@ -359,6 +635,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Lachst du "},{b:"über",z:"m"},{t:" deinen Lehrer?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"über ihn",z:"m"},{t:" lache ich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"über den",z:"m"},{t:" lache ich nicht."}]},
   {sp:"A",sg:[{b:"Über wen",z:"m"},{t:" lachst du denn?"}]},
   {ans:1,ha:"der",hn:"Übersetzer",mn:"Über",mr:"setzer",k:"a",sp:"über",sa:"den"}
 ]},
@@ -366,6 +643,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Denkst du "},{b:"an",z:"s"},{t:" deine Schwester?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"an sie",z:"m"},{t:" denke ich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"an die",z:"m"},{t:" denke ich nicht."}]},
   {sp:"A",sg:[{b:"An wen",z:"m"},{t:" denkst du denn?"}]},
   {ans:1,ha:"der",hn:"Anwalt",mn:"An",mr:"walt",k:"a",sp:"an",sa:"den"}
 ]},
@@ -373,6 +651,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Erinnerst du dich "},{b:"an",z:"s"},{t:" deinen Lehrer?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"an ihn",z:"m"},{t:" erinnere ich mich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"an den",z:"m"},{t:" erinnere ich mich nicht."}]},
   {sp:"A",sg:[{b:"An wen",z:"m"},{t:" erinnerst du dich denn?"}]},
   {ans:1,ha:"die",hn:"Angestellte",mn:"An",mr:"gestellte",k:"a",sp:"an",sa:"die"}
 ]},
@@ -380,6 +659,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Freust du dich "},{b:"über",z:"m"},{t:" deinen Bruder?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"über ihn",z:"m"},{t:" freue ich mich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"über den",z:"m"},{t:" freue ich mich nicht."}]},
   {sp:"A",sg:[{b:"Über wen",z:"m"},{t:" freust du dich denn?"}]},
   {ans:1,ha:"die",hn:"Übersetzerin",mn:"Über",mr:"setzerin",k:"a",sp:"über",sa:"die"}
 ]},
@@ -387,6 +667,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Kämpfst du "},{b:"für",z:"s"},{t:" deinen Chef?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"für ihn",z:"m"},{t:" kämpfe ich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"für den",z:"m"},{t:" kämpfe ich nicht."}]},
   {sp:"A",sg:[{b:"Für wen",z:"m"},{t:" kämpfst du denn?"}]},
   {ans:1,ha:"die",hn:"Fürstin",mn:"Für",mr:"stin",k:"a",sp:"für",sa:"die"}
 ]},
@@ -395,6 +676,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Sprichst du "},{b:"mit",z:"s"},{t:" deiner Kollegin?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"mit ihr",z:"m"},{t:" spreche ich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"mit der",z:"m"},{t:" spreche ich nicht."}]},
   {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" sprichst du denn?"}]},
   {ans:1,ha:"der",hn:"Mitbewohner",mn:"Mit",mr:"bewohner",k:"d",sp:"mit",sa:"dem"}
 ]},
@@ -402,6 +684,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Triffst du dich "},{b:"mit",z:"s"},{t:" deinem Freund?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"mit ihm",z:"m"},{t:" treffe ich mich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"mit dem",z:"m"},{t:" treffe ich mich nicht."}]},
   {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" triffst du dich denn?"}]},
   {ans:1,ha:"die",hn:"Mitarbeiterin",mn:"Mit",mr:"arbeiterin",k:"d",sp:"mit",sa:"der"}
 ]},
@@ -409,6 +692,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Streitest du dich "},{b:"mit",z:"s"},{t:" deinem Bruder?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"mit ihm",z:"m"},{t:" streite ich mich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"mit dem",z:"m"},{t:" streite ich mich nicht."}]},
   {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" streitest du dich denn?"}]},
   {ans:1,ha:"der",hn:"Mitschüler",mn:"Mit",mr:"schüler",k:"d",sp:"mit",sa:"dem"}
 ]},
@@ -416,6 +700,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Verabredest du dich "},{b:"mit",z:"s"},{t:" deiner Schwester?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"mit ihr",z:"m"},{t:" verabrede ich mich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"mit der",z:"m"},{t:" verabrede ich mich nicht."}]},
   {sp:"A",sg:[{b:"Mit wem",z:"m"},{t:" verabredest du dich denn?"}]},
   {ans:1,ha:"der",hn:"Mitarbeiter",mn:"Mit",mr:"arbeiter",k:"d",sp:"mit",sa:"dem"}
 ]},
@@ -423,6 +708,7 @@ const DATA = [
  L:[
   {sp:"A",sg:[{t:"Erkundigst du dich "},{b:"nach",z:"m"},{t:" deinem Vater?"}]},
   {sp:"B",sg:[{t:"Nein, "},{b:"nach ihm",z:"m"},{t:" erkundige ich mich nicht."}]},
+  {sp:"B",ug:1,sg:[{t:"Nein, "},{b:"nach dem",z:"m"},{t:" erkundige ich mich nicht."}]},
   {sp:"A",sg:[{b:"Nach wem",z:"m"},{t:" erkundigst du dich denn?"}]},
   {ans:1,ha:"die",hn:"Nachbarin",mn:"Nach",mr:"barin",k:"d",sp:"nach",sa:"der"}
 ]},
@@ -539,170 +825,530 @@ const DATA = [
 ];
 
 const SEC_META = [
-{title:"a) Verben mit Präposition – Sache",
- desc:"Ergänze die Präposition, das Pronominaladverb (da+Präp), das Fragewort (wo+Präp) und beantworte mit dem richtigen Kasus.",
- help:`<strong>Muster:</strong> warten <strong>auf</strong> → da<strong>r</strong>auf / wo<strong>r</strong>auf<br>
-<strong>Tipp:</strong> Beginnt die Präposition mit Vokal → <strong>r</strong> einfügen: an → da<strong>r</strong>an, wo<strong>r</strong>an<br>
-<strong>Farben:</strong> <span class="memo-akk">■ blau = Akkusativ</span> &nbsp; <span class="memo-dat">■ rot = Dativ</span>`},
-{title:"b) Verben mit Präposition – Person",
- desc:"Bei Personen: Präposition + Pronomen (ihn/sie/ihm/ihr) und Fragewort mit wen/wem. Beantworte mit dem richtigen Kasus.",
- help:`<strong>Muster:</strong> lachen <strong>über</strong> (Akk.) → über <strong>ihn</strong> / über <strong>wen</strong><br>
-<strong>Tipp:</strong> Akkusativ → <strong>wen?</strong> / Dativ → <strong>wem?</strong><br>
-<strong>Farben:</strong> <span class="memo-akk">■ blau = Akkusativ</span> &nbsp; <span class="memo-dat">■ rot = Dativ</span>`},
-{title:"c) Verben mit Präposition – Perfekt",
- desc:"Wie a), aber im Perfekt. Achte auf haben oder sein!",
- help:`<strong>Muster:</strong> Hast du <strong>nach</strong> dem Nachtisch gefragt? → da<strong>nach</strong> / wo<strong>nach</strong><br>
-<strong>Achtung:</strong> Partizip steht am Satzende! Meistens mit <strong>haben</strong>, selten mit <strong>sein</strong>.<br>
-<strong>Farben:</strong> <span class="memo-akk">■ blau = Akkusativ</span> &nbsp; <span class="memo-dat">■ rot = Dativ</span>`}
+{title:"📦 Verben mit Präposition – Sache",
+ desc:"Ergänze die Präposition, das Pronominaladverb (da + Präp.), das Fragewort (wo + Präp.) und beantworte mit dem richtigen Kasus.",
+ help:`<strong>Merk-Trick:</strong> Die Präposition steckt im Nomen: warten <strong>auf</strong> → die <span class="memo-akk">Auf</span>gabe · fragen <strong>nach</strong> → die <span class="memo-dat">Nach</span>richt &nbsp; <span class="legend"><span class="chip-akk">blau = Akkusativ</span><span class="chip-dat">rot = Dativ</span></span>`},
+{title:"👤 Verben mit Präposition – Person",
+ desc:"Bei Personen: Präposition + Pronomen (ihn/sie/ihm/ihr) und Fragewort mit wen/wem. Im Gespräch sagt man oft auch den/die/dem/der (orange Zeile) – beides ist richtig.",
+ help:`<strong>Umgangssprachlich:</strong> über ihn → über <strong>den</strong> · an sie → an <strong>die</strong> · mit ihm → mit <strong>dem</strong> · mit ihr → mit <strong>der</strong> &nbsp; <span class="legend"><span class="chip-akk">blau = Akkusativ</span><span class="chip-dat">rot = Dativ</span></span>`},
+{title:"⏱ Verben mit Präposition – Perfekt",
+ desc:"Wie bei den Sachen, aber im Perfekt. Achte auf haben oder sein!",
+ help:`<span class="legend"><span class="chip-akk">blau = Akkusativ</span><span class="chip-dat">rot = Dativ</span></span>`}
 ];
 
 // ======== RENDER ========
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function memoHtml(mn,mr,k){
-    const cls = k==='a'?'memo-akk':'memo-dat';
-    return `<span class="${cls}">${esc(mn)}</span>${esc(mr)}`;
+  const cls = k==='a'?'memo-akk':'memo-dat';
+  return `<span class="${cls}">${esc(mn)}</span>${esc(mr)}`;
 }
-
+function blankHtml(bid,sol,z){
+  return `<input class="bl ${z}" id="${bid}" data-sol="${esc(sol)}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+}
 function renderSeg(sg,exId,lineIdx){
-    let h='';
-    for(let i=0;i<sg.length;i++){
-        const s=sg[i];
-        if(s.t!==undefined){
-            // check if next is blank and this has no trailing space (nowrap)
-            const nx=sg[i+1];
-            if(nx&&nx.b!==undefined&&s.t.length>0&&!s.t.endsWith(' ')){
-                const bid=`i-${exId}-${lineIdx}-${i+1}`;
-                h+=`<span class="nw">${esc(s.t)}<input class="bl ${nx.z}" id="${bid}" data-sol="${nx.b}" autocomplete="off" spellcheck="false"><span class="sol" id="s-${bid}">${esc(nx.b)}</span></span>`;
-                sg[i+1]._sk=1;
-            } else {
-                h+=esc(s.t);
-            }
-        } else if(s.b!==undefined&&!s._sk){
-            const bid=`i-${exId}-${lineIdx}-${i}`;
-            h+=`<input class="bl ${s.z}" id="${bid}" data-sol="${s.b}" autocomplete="off" spellcheck="false">`;
-            h+=`<span class="sol" id="s-${bid}">${esc(s.b)}</span>`;
-        } else if(s.mn!==undefined){
-            h+=memoHtml(s.mn,s.mr,s.k);
-        }
+  let h='';
+  for(let i=0;i<sg.length;i++){
+    const s=sg[i];
+    if(s.t!==undefined){
+      const nx=sg[i+1];
+      if(nx&&nx.b!==undefined&&s.t.length>0&&!s.t.endsWith(' ')){
+        h+=`<span class="nw">${esc(s.t)}${blankHtml(`i-${exId}-${lineIdx}-${i+1}`,nx.b,nx.z)}</span>`;
+        nx._sk=1;
+      } else h+=esc(s.t);
+    } else if(s.b!==undefined&&!s._sk){
+      h+=blankHtml(`i-${exId}-${lineIdx}-${i}`,s.b,s.z);
+    } else if(s.mn!==undefined){
+      h+=memoHtml(s.mn,s.mr,s.k);
     }
-    return h;
+  }
+  return h;
 }
-
-function renderAnswer(a,exId){
-    const cls=a.k==='a'?'memo-akk':'memo-dat';
-    const pid=`i-${exId}-3-0`;
-    const aid=`i-${exId}-3-1`;
-    return `<div class="ans-row">
-<span class="sp b">B:</span>
-<span class="hint">(${esc(a.ha)} ${esc(a.hn)})</span>
-<span class="arrow">→</span>
-<input class="bl m" id="${pid}" data-sol="${a.sp}" autocomplete="off" spellcheck="false"><span class="sol" id="s-${pid}">${esc(a.sp)}</span>
-<input class="bl s" id="${aid}" data-sol="${a.sa}" autocomplete="off" spellcheck="false"><span class="sol" id="s-${aid}">${esc(a.sa)}</span>
-<span class="noun-fixed"><span class="${cls}">${esc(a.mn)}</span>${esc(a.mr)}.</span>
-</div>`;
+function renderAnswer(a,exId,li){
+  return `<div class="ans-row"><span class="sp b">B</span><span class="dl-body">
+<span class="hint">(${esc(a.ha)} ${esc(a.hn)})</span><span class="arrow">→</span>
+<span class="nw">${blankHtml(`i-${exId}-${li}-0`,a.sp,'m')}${blankHtml(`i-${exId}-${li}-1`,a.sa,'s')}</span>
+<span class="noun-fixed">${memoHtml(a.mn,a.mr,a.k)}.</span></span></div>`;
 }
-
 function renderAll(){
-    for(let si=0;si<3;si++){
-        const sec=document.getElementById(`sec-${si}`);
-        const m=SEC_META[si];
-        const exs=DATA.filter(d=>d.s===si);
-        let h=`<div class="sec-title">${m.title}</div>
-<div class="sec-desc">${m.desc}</div>`;
-        exs.forEach(ex=>{
-            h+=`<div class="card">`;
-            h+=`<div class="card-hdr"><span class="card-nr">${String(ex.id).padStart(2,'0')}.</span><span class="card-badge">${esc(ex.verb)}</span></div>`;
-            ex.L.forEach((line,li)=>{
-                if(line.ans){
-                    h+=renderAnswer(line,ex.id);
-                } else {
-                    const spCls=line.sp==='B'?'sp b':'sp';
-                    // clone segments to avoid mutation issues
-                    const sg=line.sg.map(s=>({...s}));
-                    h+=`<div class="dl"><span class="${spCls}">${line.sp}:</span>${renderSeg(sg,ex.id,li)}</div>`;
-                }
-            });
-            h+=`</div>`;
-        });
-        h+=`<div class="btn-row">
-<button class="btn btn-check" onclick="check(${si})">✓ Prüfen</button>
-<button onclick="show(${si})" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">💡 Lösungen</button>
-<button onclick="reset(${si})" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:var(--tx-667eea);cursor:pointer;font-weight:600;">↺ Neustart</button>
-</div><div class="score" id="sc-${si}"></div>`;
-        sec.innerHTML=h;
+  for(let si=0;si<3;si++){
+    const box=document.getElementById(`inner-${si}`);
+    const m=SEC_META[si];
+    let h=`<h2>${m.title}</h2>
+<div class="sec-desc">${m.desc}</div>
+<div class="control-bar">
+  <div class="btn-row">
+    <button onclick="showLoesung(${si})" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetTab(${si}); resetTimer(${si});" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+  </div>
+  <div class="timer-display">
+    <span class="current-time">⏱ <span id="timer-${si}">00:00</span></span>
+    <span class="best-time">🏆 <span id="best-${si}">--:--</span></span>
+  </div>
+</div>
+<div class="progress" id="prog-${si}"><div class="progress-track"><div class="progress-fill" id="progfill-${si}"></div></div><div class="progress-text" id="progtext-${si}"></div></div>
+<div class="sec-legend">${m.help}</div>`;
+    DATA.filter(d=>d.s===si).forEach(ex=>{
+      h+=`<div class="card ${ex.k==='d'?'k-d':'k-a'}" id="card-${ex.id}">`;
+      h+=`<div class="card-hdr"><span class="card-nr">${String(ex.id).padStart(2,'0')}</span><span class="card-badge">${esc(ex.verb)}</span></div>`;
+      ex.L.forEach((line,li)=>{
+        if(line.ans){ h+=renderAnswer(line,ex.id,li); return; }
+        const sg=line.sg.map(s=>({...s}));
+        const tag=line.ug?`<span class="ug-tag">umgangssprachlich</span>`:'';
+        h+=`<div class="dl"><span class="sp${line.sp==='B'?' b':''}">${line.sp}</span><span class="dl-body">${tag}${renderSeg(sg,ex.id,li)}</span></div>`;
+      });
+      h+=`</div>`;
+    });
+    h+=`<div class="celebrate" id="cel-${si}"></div>`;
+    box.innerHTML=h;
+  }
+}
+
+// ======== TIMER ========
+const timers=[{start:0,iv:null,running:false,elapsed:0,usedSolution:false},{start:0,iv:null,running:false,elapsed:0,usedSolution:false},{start:0,iv:null,running:false,elapsed:0,usedSolution:false}];
+const BEST_KEY='verben_praep_v1_best_';
+function fmt(sec){return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
+function startTimer(si){
+  const t=timers[si]; if(t.running||t.done) return;
+  t.running=true; t.start=Date.now()-t.elapsed*1000;
+  t.iv=setInterval(()=>{t.elapsed=Math.floor((Date.now()-t.start)/1000);document.getElementById(`timer-${si}`).textContent=fmt(t.elapsed)},500);
+}
+function stopTimer(si){const t=timers[si];if(t.iv)clearInterval(t.iv);t.iv=null;t.running=false;}
+function resetTimer(si){
+  stopTimer(si);const t=timers[si];t.elapsed=0;t.done=false;t.usedSolution=false;
+  document.getElementById(`timer-${si}`).textContent='00:00';
+}
+function showBest(si){const b=lsGet(BEST_KEY+si);document.getElementById(`best-${si}`).textContent=b?fmt(+b):'--:--'}
+
+// ======== LIVE-FEEDBACK (Präfix-Regel) ========
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ')}
+function liveCheck(inp,onBlur){
+  const sol=norm(inp.dataset.sol), raw=inp.value, val=norm(raw);
+  inp.classList.remove('correct','wrong');
+  if(val==='') return;
+  if(val===sol){inp.classList.add('correct');return;}
+  // Präfix: solange das Getippte ein Anfang der Lösung ist → neutral
+  const typed=raw.toLowerCase().replace(/^\s+/,'').replace(/\s+/g,' ');
+  if(!onBlur && sol.indexOf(typed)===0) return;
+  inp.classList.add('wrong');
+}
+function updateProgress(si){
+  const inputs=[...document.querySelectorAll(`#sec-${si} input.bl`)];
+  const ok=inputs.filter(i=>i.classList.contains('correct')).length;
+  const total=inputs.length;
+  document.getElementById(`progfill-${si}`).style.width=(total?ok/total*100:0)+'%';
+  document.getElementById(`progtext-${si}`).innerHTML=`<strong>${ok}</strong> von ${total} Lücken richtig`;
+  const prog=document.getElementById(`prog-${si}`);
+  prog.classList.toggle('done',ok===total&&total>0);
+  DATA.filter(d=>d.s===si).forEach(ex=>{
+    const c=document.getElementById(`card-${ex.id}`);
+    const ins=c.querySelectorAll('input.bl');
+    c.classList.toggle('complete',[...ins].every(i=>i.classList.contains('correct')));
+  });
+  const cel=document.getElementById(`cel-${si}`);
+  if(ok===total&&total>0){
+    const t=timers[si];
+    if(!t.done){
+      stopTimer(si);t.done=true;
+      let msg='🎉 Alle Lücken richtig!';
+      if(!t.usedSolution&&t.elapsed>0){
+        msg+=` Deine Zeit: ${fmt(t.elapsed)}`;
+        const best=lsGet(BEST_KEY+si);
+        if(!best||t.elapsed<+best){lsSet(BEST_KEY+si,t.elapsed);msg+=' – neue Bestzeit! 🏆';showBest(si);}
+      }
+      if(!t.usedSolution){cel.textContent=msg;cel.classList.add('show');}
     }
+  } else cel.classList.remove('show');
 }
-
-// ======== LOGIC ========
-function norm(s){return s.trim().toLowerCase().replace(/\s+/g,' ')}
-
-function check(si){
-    const inputs=document.querySelectorAll(`#sec-${si} input.bl`);
-    let c=0,t=inputs.length;
-    inputs.forEach(inp=>{
-        inp.classList.remove('correct','wrong');
-        const sol=norm(inp.dataset.sol);
-        const val=norm(inp.value);
-        if(val===sol){inp.classList.add('correct');c++}
-        else if(val!=='')inp.classList.add('wrong');
-    });
-    const pct=t?Math.round(c/t*100):0;
-    let msg=`Ergebnis: <span>${c}</span> von <span>${t}</span> richtig (${pct}%)`;
-    if(pct===100) msg+=` &nbsp;🎉 Perfekt!`;
-    else if(pct>=80) msg+=` &nbsp;👏 Sehr gut!`;
-    else if(pct>=60) msg+=` &nbsp;👍 Gut!`;
-    else msg+=` &nbsp;💪 Weiter üben!`;
-    document.getElementById(`sc-${si}`).innerHTML=msg;
-}
-
-function show(si){
-    const inputs=document.querySelectorAll(`#sec-${si} input.bl`);
-    inputs.forEach(inp=>{
-        inp.classList.remove('correct','wrong');
-        inp.value=inp.dataset.sol;
-        inp.classList.add('correct');
-        const sol=document.getElementById(`s-${inp.id}`);
-        if(sol)sol.classList.add('visible');
-    });
-    document.getElementById(`sc-${si}`).innerHTML='';
-}
-
-function reset(si){
-    const inputs=document.querySelectorAll(`#sec-${si} input.bl`);
-    inputs.forEach(inp=>{
-        inp.value='';inp.classList.remove('correct','wrong');
-        const sol=document.getElementById(`s-${inp.id}`);
-        if(sol)sol.classList.remove('visible');
-    });
-    document.getElementById(`sc-${si}`).innerHTML='';
-}
-
-function showSection(idx){
-    document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
-    document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
-}
-
-// ======== LIVE-FEEDBACK ========
-// Beim Tippen: wenn exakt richtig → grün, sonst neutral (rot wird zurückgesetzt).
-// Beim Verlassen (blur): wenn nicht leer und nicht richtig → rot.
 function setupLive(){
-    document.querySelectorAll('input.bl').forEach(inp=>{
-        inp.addEventListener('input',()=>{
-            inp.classList.remove('wrong');
-            const sol=norm(inp.dataset.sol);
-            const val=norm(inp.value);
-            if(val===sol) inp.classList.add('correct');
-            else inp.classList.remove('correct');
-        });
-        inp.addEventListener('blur',()=>{
-            const sol=norm(inp.dataset.sol);
-            const val=norm(inp.value);
-            if(val===''){inp.classList.remove('correct','wrong');return;}
-            if(val===sol){inp.classList.add('correct');inp.classList.remove('wrong');}
-            else{inp.classList.remove('correct');inp.classList.add('wrong');}
-        });
+  for(let si=0;si<3;si++){
+    document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{
+      inp.addEventListener('input',()=>{startTimer(si);liveCheck(inp,false);updateProgress(si);});
+      inp.addEventListener('blur',()=>{liveCheck(inp,true);updateProgress(si);});
     });
+    showBest(si);updateProgress(si);
+  }
 }
+function showLoesung(si){
+  timers[si].usedSolution=true;stopTimer(si);
+  document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{inp.value=inp.dataset.sol;inp.classList.remove('wrong');inp.classList.add('correct');});
+  updateProgress(si);
+}
+function resetTab(si){
+  document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{inp.value='';inp.classList.remove('correct','wrong');});
+  timers[si].done=false;
+  document.getElementById(`cel-${si}`).classList.remove('show');
+  updateProgress(si);
+}
+function showSection(idx){
+  document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===== SCHREIBWERKSTATT (B1) – Eigene Sätze mit Satz-Check ===== */
+var SCHREIB_NAME_KEY      = 'schreibwerkstatt_B1_VERBPRAEP_name';
+var SCHREIB_KEY_PREFIX    = 'schreibwerkstatt_B1_VERBPRAEP_';
+var SCHREIB_SENT_PREFIX   = 'schreibwerkstatt_B1_VERBPRAEP_sent_';
+var SCHREIB_VERB_PREFIX   = 'schreibwerkstatt_B1_VERBPRAEP_verb_';
+var FORMSUBMIT_ENDPOINT  = 'https://api.web3forms.com/submit';
+var FORMSUBMIT_ACCESS_KEY = 'e96ea83f-67e2-4fff-81df-76fee86a09ff';
+var FORMSUBMIT_MAILTO    = 'unterricht@frankburkert-daf.de';
+var SCHREIB_LEKTION       = 'B1 – Grammatik · Verben mit Präposition';
+var SCHREIB_CODE          = 'B1 Verben mit Präposition';
+var SCHREIB_MIN_CHARS     = 12;
+var SCHREIB_ZIEL_WOERTER  = 30;
+
+// Verb-Lexikon für den Satz-Check: da-Form + Wortstämme (alle Formen inkl. Perfekt/Präteritum)
+var VERB_LEX = {
+  'warten auf':            { k:'a', da:'darauf',  st:['wart'] },
+  'erzählen von':          { k:'d', da:'davon',   st:['erzähl'] },
+  'sprechen über':         { k:'a', da:'darüber', st:['sprech','sprich','sprach','gesproch'] },
+  'sich freuen auf':       { k:'a', da:'darauf',  st:['freu'] },
+  'sich freuen über':      { k:'a', da:'darüber', st:['freu'] },
+  'denken an':             { k:'a', da:'daran',   st:['denk','dach','gedacht'] },
+  'sich erinnern an':      { k:'a', da:'daran',   st:['erinner'] },
+  'sich ärgern über':      { k:'a', da:'darüber', st:['ärger'] },
+  'hoffen auf':            { k:'a', da:'darauf',  st:['hoff'] },
+  'achten auf':            { k:'a', da:'darauf',  st:['acht'] },
+  'sich interessieren für':{ k:'a', da:'dafür',   st:['interessier'] },
+  'sich bedanken für':     { k:'a', da:'dafür',   st:['bedank'] },
+  'sich entscheiden für':  { k:'a', da:'dafür',   st:['entscheid','entschied'] },
+  'sich kümmern um':       { k:'a', da:'darum',   st:['kümmer'] },
+  'sich gewöhnen an':      { k:'a', da:'daran',   st:['gewöhn'] },
+  'sich beschweren über':  { k:'a', da:'darüber', st:['beschwer'] },
+  'träumen von':           { k:'d', da:'davon',   st:['träum'] },
+  'fragen nach':           { k:'d', da:'danach',  st:['frag'] },
+  'sich erkundigen nach':  { k:'d', da:'danach',  st:['erkundig'] },
+  'anfangen mit':          { k:'d', da:'damit',   st:['fang','fäng','fing'] },
+  'sich beschäftigen mit': { k:'d', da:'damit',   st:['beschäftig'] },
+  'sich fürchten vor':     { k:'d', da:'davor',   st:['fürcht'] }
+};
+
+function schreibVerbFuer(nr) {
+  var sel = document.getElementById('sw-verb-' + nr);
+  if (sel) return sel.value;
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  return ta ? ta.dataset.verb : '';
+}
+
+// ---- Satz-Check (nur Hilfe – blockiert den Versand nie) ----
+var SC_NS = '(?:dass|ob|wie|wann|warum|weshalb|wieso|wo|woher|wohin|wor\\S*|wo[bcdfghklmnpstvz]\\S*|was|wer|wen|wem|wessen|welche\\S*)';
+var SC_PRAEP = '(?:(?:mit|von|über|an|auf|für|nach|zu|bei|um|vor|aus|in)\\s+)?';
+function schreibSatzCheck(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  if (!ta) return;
+  var lex = VERB_LEX[schreibVerbFuer(nr)];
+  var txt = ta.value;
+  var low = txt.toLowerCase();
+  var res = { verb:false, da:false, ns:false, len:false };
+  if (lex) {
+    res.verb = lex.st.some(function (s) { return low.indexOf(s) !== -1; });
+    var daRe = new RegExp('(^|[^a-zäöüß])' + lex.da + '(?![a-zäöüß])', 'i');
+    res.da = daRe.test(txt);
+    var nsRe = new RegExp(lex.da + '\\s*,\\s*' + SC_PRAEP + SC_NS + '(?![a-zäöüß])', 'i');
+    var zuRe = new RegExp(lex.da + '\\s*,[^.!?]*?(\\bzu\\s+[a-zäöüß]+n\\b|[a-zäöüß]+zu[a-zäöüß]*n\\b)', 'i');
+    res.ns = nsRe.test(txt) || zuRe.test(txt);
+  }
+  var words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  res.len = words >= SCHREIB_ZIEL_WOERTER;
+  ['verb','da','ns','len'].forEach(function (key) {
+    var el = document.getElementById('sc-' + key + '-' + nr);
+    if (el) el.classList.toggle('ok', res[key]);
+  });
+  return res;
+}
+
+function schreibVerbChipAktualisieren(nr) {
+  var sel = document.getElementById('sw-verb-' + nr);
+  if (!sel) return;
+  var lex = VERB_LEX[sel.value];
+  sel.className = 'verb-select';
+  var hint = document.getElementById('sw-verbkasus-' + nr);
+  if (hint && lex) { hint.className = 'verb-chip k-' + lex.k; hint.textContent = lex.k === 'a' ? '+ Akkusativ' : '+ Dativ'; }
+}
+
+function initSchreibwerkstatt() {
+  var nameInp = document.getElementById('sw-name');
+  if (nameInp) {
+    var savedName = lsGet(SCHREIB_NAME_KEY);
+    if (savedName) nameInp.value = savedName;
+    nameInp.addEventListener('input', function () { lsSet(SCHREIB_NAME_KEY, nameInp.value); });
+  }
+  document.querySelectorAll('.verb-select').forEach(function (sel) {
+    var nr = sel.dataset.aufgabe;
+    var sv = lsGet(SCHREIB_VERB_PREFIX + nr);
+    if (sv && VERB_LEX[sv]) sel.value = sv;
+    schreibVerbChipAktualisieren(nr);
+    sel.addEventListener('change', function () {
+      lsSet(SCHREIB_VERB_PREFIX + nr, sel.value);
+      schreibVerbChipAktualisieren(nr);
+      schreibSatzCheck(nr);
+    });
+  });
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe;
+    var saved = lsGet(SCHREIB_KEY_PREFIX + nr);
+    if (saved) ta.value = saved;
+    schreibUpdateCount(ta);
+    schreibSatzCheck(nr);
+    var sentInfo = lsGet(SCHREIB_SENT_PREFIX + nr);
+    if (sentInfo) schreibKarteAlsGesendetMarkieren(nr, sentInfo, true);
+    ta.addEventListener('input', function () {
+      schreibUpdateCount(ta);
+      schreibSatzCheck(nr);
+      lsSet(SCHREIB_KEY_PREFIX + nr, ta.value);
+      var btn = document.getElementById('sw-send-' + nr);
+      if (btn && btn.classList.contains('gesendet')) { btn.classList.remove('gesendet'); btn.innerHTML = '📨 Erneut senden'; }
+      var st = document.getElementById('sw-status-' + nr);
+      if (st && st.classList.contains('error')) { st.classList.remove('error'); st.textContent = ''; }
+    });
+  });
+}
+
+function schreibUpdateCount(ta) {
+  var nr = ta.dataset.aufgabe;
+  var text = ta.value.trim();
+  var words = text ? text.split(/\s+/).filter(function (w) { return w.length > 0; }).length : 0;
+  var wc = document.querySelector('.wc-' + nr);
+  if (wc) wc.textContent = words;
+}
+
+function schreibKarteAlsGesendetMarkieren(nr, info, beimLaden) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var karte = ta && ta.closest('.schreib-aufgabe-karte');
+  if (karte) karte.classList.add('gesendet');
+  var btn = document.getElementById('sw-send-' + nr);
+  if (btn) { btn.classList.add('gesendet'); btn.innerHTML = beimLaden ? '✓ schon gesendet · erneut senden' : '✓ gesendet · erneut senden'; }
+  var status = document.getElementById('sw-status-' + nr);
+  if (status) { status.classList.remove('error'); status.textContent = '✓ ' + info; }
+}
+
+function schreibStatusZeigen(typ, text) {
+  var box = document.getElementById('sw-status');
+  if (!box) return;
+  box.className = 'schreib-status ' + typ;
+  box.innerHTML = text;
+}
+
+function schreibAktuellerName() {
+  var nameInp = document.getElementById('sw-name');
+  return (nameInp && nameInp.value || '').trim();
+}
+
+function schreibNamePflicht() {
+  if (schreibAktuellerName().length < 2) {
+    var nameInp = document.getElementById('sw-name');
+    if (nameInp) {
+      nameInp.classList.add('schreib-name-error');
+      try { nameInp.focus(); nameInp.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+      setTimeout(function () { nameInp.classList.remove('schreib-name-error'); }, 3000);
+    }
+    return false;
+  }
+  return true;
+}
+
+function schreibToFormData(obj) {
+  var fd = new FormData();
+  Object.keys(obj).forEach(function (k) { fd.append(k, obj[k]); });
+  return fd;
+}
+
+function schreibPostFormsubmit(subject, message, onOk, onErr) {
+  return fetch(FORMSUBMIT_ENDPOINT, {
+    method: 'POST',
+    body: schreibToFormData({
+      access_key: FORMSUBMIT_ACCESS_KEY,
+      name: schreibAktuellerName(),
+      subject: subject,
+      from_name: 'fabDaF Schreibwerkstatt',
+      lektion: SCHREIB_LEKTION,
+      message: message
+    })
+  })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP_' + r.status); return r.json(); })
+    .then(function (data) {
+      var ok = data && (data.success === true || data.success === 'true');
+      if (!ok) {
+        var code = 'API_ERROR';
+        var apiMsg = (data && data.message) || '';
+        if (/[Aa]ctivat|domain|access[\s_-]?key/.test(apiMsg)) code = 'NOT_ACTIVATED';
+        var err = new Error(code);
+        err.apiMessage = apiMsg;
+        throw err;
+      }
+      onOk(data);
+    })
+    .catch(onErr);
+}
+
+function schreibFehlerErklaerung(err) {
+  var code = (err && err.message) || '';
+  if (code === 'NOT_ACTIVATED') return 'Der Versand-Endpunkt ist gerade nicht freigeschaltet (das passiert manchmal bei Adress-Wechsel auf Franks Seite).';
+  if (code.indexOf('HTTP_') === 0) return 'Der Server hat eine technische Antwort gegeben (' + code.replace('HTTP_', 'HTTP ') + '), die nicht „erfolgreich“ bedeutet.';
+  if (code === 'API_ERROR') return 'Der Versand-Dienst hat „nicht erfolgreich“ zurückgemeldet' + (err && err.apiMessage ? ' („' + err.apiMessage + '“)' : '') + '.';
+  return 'Es gab ein Netz- oder Browser-Problem beim Senden – keine Server-Antwort.';
+}
+
+function schreibBlock(nr, text) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var titel = (ta && ta.dataset.titel) || ('Aufgabe ' + nr);
+  var res = schreibSatzCheck(nr) || {};
+  var check = 'Satz-Check: ' + (res.verb ? '✓' : '✗') + ' Verb · ' + (res.da ? '✓' : '✗') + ' Pronominaladverb · ' + (res.ns ? '✓' : '✗') + ' Nebensatz/zu';
+  return '=== Aufgabe ' + nr + ': ' + titel + ' (Verb: ' + schreibVerbFuer(nr) + ') ===\n' + check + '\n\n' + text;
+}
+
+function schreibKopierenEinzeln(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  if (!ta) return;
+  var name = schreibAktuellerName() || '(kein Name eingetragen)';
+  var text = 'Lektion: ' + SCHREIB_LEKTION + '\nName: ' + name + '\n\n' + schreibBlock(nr, ta.value.trim());
+  var st = document.getElementById('sw-status-' + nr);
+  function fertig(ok) {
+    if (!st) return;
+    if (ok) { st.classList.remove('error'); st.innerHTML = '✓ In die Zwischenablage kopiert. Jetzt in deine Mail oder deinen Chat einfügen und an Frank schicken.'; }
+    else { st.classList.add('error'); st.innerHTML = '✗ Kopieren ging nicht – markier den Text in der Box selbst und nutz „Kopieren“ deines Browsers.'; }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { fertig(true); }, function () { fertig(false); });
+  } else {
+    try { var tmp = document.createElement('textarea'); tmp.value = text; document.body.appendChild(tmp); tmp.select(); document.execCommand('copy'); document.body.removeChild(tmp); fertig(true); }
+    catch (e) { fertig(false); }
+  }
+}
+
+function schreibZeigeFehler(nr, err, subject, message) {
+  var st = document.getElementById('sw-status-' + nr);
+  if (!st) return;
+  var mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+  st.classList.add('error');
+  st.innerHTML =
+    '<div class="schreib-fb">' +
+      '<div class="schreib-fb-titel">⚠ Online-Versand hat nicht geklappt — dein Text ist sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Du verlierst nichts – wähle einen der drei Wege, damit Frank deine Antwort trotzdem bekommt:</div>' +
+      '<div class="schreib-fb-actions">' +
+        '<a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 In Mail-Programm öffnen</a>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibKopierenEinzeln(\'' + nr + '\')">📋 In Zwischenablage</button>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibSendenEinzeln(\'' + nr + '\')">🔄 Nochmal versuchen</button>' +
+      '</div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div>' +
+    '</div>';
+}
+
+function schreibZeigeFehlerSammel(err, subject, message) {
+  var mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+  schreibStatusZeigen('error',
+    '<div class="schreib-fb">' +
+      '<div class="schreib-fb-titel">⚠ Sammel-Versand hat nicht geklappt — alle Antworten sind sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Wähle einen Weg:</div>' +
+      '<div class="schreib-fb-actions">' +
+        '<a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 Alle als eine Mail öffnen</a>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibKopieren()">📋 Alles in Zwischenablage</button>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibSendenAlleNochOffenen()">🔄 Nochmal versuchen</button>' +
+      '</div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div>' +
+    '</div>');
+}
+
+function schreibSendenEinzeln(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var btn = document.getElementById('sw-send-' + nr);
+  if (!ta || !btn) return;
+  if (!schreibNamePflicht()) {
+    var stN = document.getElementById('sw-status-' + nr);
+    if (stN) { stN.classList.add('error'); stN.textContent = 'Bitte zuerst deinen Namen oben eintragen.'; }
+    return;
+  }
+  var text = ta.value.trim();
+  if (text.length < SCHREIB_MIN_CHARS) {
+    var st = document.getElementById('sw-status-' + nr);
+    if (st) { st.classList.add('error'); st.textContent = 'noch zu kurz – schreib bitte etwas mehr'; }
+    return;
+  }
+  var titel = ta.dataset.titel || ('Aufgabe ' + nr);
+  var subject = SCHREIB_CODE + ' · Aufgabe ' + nr + ' · ' + titel + ' · ' + schreibAktuellerName();
+  var message = schreibBlock(nr, text);
+  btn.disabled = true;
+  var origLabel = btn.innerHTML;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  schreibPostFormsubmit(subject, message,
+    function () {
+      btn.disabled = false;
+      var jetzt = new Date();
+      var info = 'gesendet um ' + String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0');
+      lsSet(SCHREIB_SENT_PREFIX + nr, info);
+      schreibKarteAlsGesendetMarkieren(nr, info, false);
+    },
+    function (err) { btn.disabled = false; btn.innerHTML = origLabel; schreibZeigeFehler(nr, err, subject, message); });
+}
+
+function schreibSendenAlleNochOffenen() {
+  var btn = document.getElementById('sw-btn-all');
+  if (!schreibNamePflicht()) { schreibStatusZeigen('error', '✗ Bitte zuerst deinen Namen oben eintragen.'); return; }
+  var offene = [];
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe, text = ta.value.trim();
+    if (text.length >= SCHREIB_MIN_CHARS && !lsGet(SCHREIB_SENT_PREFIX + nr)) offene.push({ nr: nr, text: text });
+  });
+  if (offene.length === 0) {
+    schreibStatusZeigen('info', 'ℹ Es gibt nichts Neues zu senden — alle Antworten sind entweder leer/sehr kurz oder bereits gesendet.');
+    return;
+  }
+  var subject = SCHREIB_CODE + ' · ' + offene.length + ' Antworten · ' + schreibAktuellerName();
+  var message = offene.map(function (o) { return schreibBlock(o.nr, o.text); }).join('\n\n');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  schreibStatusZeigen('info', '⏳ ' + offene.length + ' Antworten werden übermittelt …');
+  schreibPostFormsubmit(subject, message,
+    function () {
+      btn.disabled = false;
+      btn.innerHTML = '📨 Alle noch nicht gesendeten Antworten schicken';
+      var jetzt = new Date();
+      var info = 'gesendet um ' + String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0');
+      offene.forEach(function (o) { lsSet(SCHREIB_SENT_PREFIX + o.nr, info); schreibKarteAlsGesendetMarkieren(o.nr, info, false); });
+      schreibStatusZeigen('success', '✓ <strong>' + offene.length + ' Antworten übermittelt.</strong> Frank meldet sich.');
+    },
+    function (err) { btn.disabled = false; btn.innerHTML = '📨 Alle noch nicht gesendeten Antworten schicken'; schreibZeigeFehlerSammel(err, subject, message); });
+}
+
+function schreibKopieren() {
+  var teile = ['Lektion: ' + SCHREIB_LEKTION, 'Name: ' + (schreibAktuellerName() || '(kein Name)'), ''];
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var text = ta.value.trim();
+    if (text.length >= SCHREIB_MIN_CHARS) { teile.push(schreibBlock(ta.dataset.aufgabe, text)); teile.push(''); }
+  });
+  if (teile.length <= 3) { schreibStatusZeigen('info', 'ℹ Noch nichts zum Kopieren — schreib mindestens eine Antwort.'); return; }
+  var alles = teile.join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(alles).then(
+      function () { schreibStatusZeigen('success', '✓ In Zwischenablage kopiert. Du kannst es jetzt in deine Mail einfügen.'); },
+      function () { schreibStatusZeigen('error', '✗ Kopieren fehlgeschlagen. Bitte den Text manuell markieren.'); });
+  } else schreibStatusZeigen('error', '✗ Dein Browser unterstützt das automatische Kopieren nicht.');
+}
+
+function schreibLeeren() {
+  if (!confirm('Wirklich ALLE Antworten zurücksetzen? Auch die schon gesendeten Markierungen werden entfernt.')) return;
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe;
+    ta.value = '';
+    lsDel(SCHREIB_KEY_PREFIX + nr); lsDel(SCHREIB_SENT_PREFIX + nr);
+    schreibUpdateCount(ta); schreibSatzCheck(nr);
+    var karte = ta.closest('.schreib-aufgabe-karte');
+    if (karte) karte.classList.remove('gesendet');
+    var btn = document.getElementById('sw-send-' + nr);
+    if (btn) { btn.classList.remove('gesendet'); btn.innerHTML = '📨 An Frank senden'; }
+    var st = document.getElementById('sw-status-' + nr);
+    if (st) { st.className = 'schreib-mini-status'; st.textContent = ''; }
+  });
+  schreibStatusZeigen('info', 'ℹ Alle Antworten zurückgesetzt.');
+}
+(function(){ function r(){ try{ initSchreibwerkstatt(); }catch(e){ console.error(e); } }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', r); else r(); })();
+/* ===== Ende Schreibwerkstatt ===== */
+
 
 renderAll();
 setupLive();
@@ -722,6 +1368,47 @@ setupLive();
   window.addEventListener('resize', toggle);
   document.querySelectorAll('.nav-btn').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(toggle, 60); }); });
   setTimeout(toggle, 80);
+})();
+</script>
+
+<!-- FB-NAME-REQUIRED: Namenspflicht beim Senden (2026-07-16) -->
+<script>
+(function(){
+  if (window.__fbNameRequired) return; window.__fbNameRequired = true;
+  function nameInput(){ return document.getElementById('schreib-name') || document.getElementById('sw-name') || document.querySelector('input.schreib-name'); }
+  function nameVal(){ var i = nameInput(); return i ? (i.value || '').trim() : ''; }
+  function blockUI(){
+    var inp = nameInput();
+    if (!inp) return;
+    try { inp.focus(); } catch(e){}
+    var box = (inp.closest && inp.closest('.schreib-name-box, .schreib-name-block')) || inp.parentNode;
+    if (box){ box.classList.add('shake'); setTimeout(function(){ box.classList.remove('shake'); }, 500); }
+    var hint = document.getElementById('fb-name-hint');
+    if (hint){ hint.textContent = '⚠️ Bitte trage oben deinen Namen ein — ohne Namen kann der Text nicht gesendet werden.'; hint.style.color = '#c0392b'; }
+    if (inp.scrollIntoView) inp.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  // Trigger umschließen (deckt ALLE Generationen ab, auch die ohne schreibPostFormsubmit):
+  ['schreibSendenEinzeln', 'schreibSendenAlleNochOffenen'].forEach(function(fn){
+    if (typeof window[fn] === 'function'){
+      var _o = window[fn];
+      window[fn] = function(){ if (nameVal().length < 2){ blockUI(); return; } return _o.apply(this, arguments); };
+    }
+  });
+  // Belt-and-suspenders: Choke-Point (falls ein Sende-Pfad nicht über die Trigger läuft):
+  if (typeof window.schreibPostFormsubmit === 'function') {
+    var _origPost = window.schreibPostFormsubmit;
+    window.schreibPostFormsubmit = function(subject, message, onOk, onErr){
+      if (nameVal().length < 2){ blockUI(); if (typeof onErr === 'function') onErr(new Error('NAME_MISSING')); return; }
+      return _origPost.apply(this, arguments);
+    };
+  }
+  if (typeof window.schreibFehlerErklaerung === 'function') {
+    var _origFehler = window.schreibFehlerErklaerung;
+    window.schreibFehlerErklaerung = function(err){
+      if (err && err.message === 'NAME_MISSING') return 'Bitte trage oben im Namensfeld deinen Namen ein — ohne Namen kann der Text nicht gesendet werden.';
+      return _origFehler.apply(this, arguments);
+    };
+  }
 })();
 </script>
 
