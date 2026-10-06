@@ -197,6 +197,59 @@ input.bl.l { width: 140px; }
 .quiz-memo:empty { display: none; }
 @media (max-width: 700px) { .quiz-grid { grid-template-columns: 1fr; } }
 
+/* ===== TRAINER ===== */
+.tr-steuerung { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 0.9em; color: var(--muted); }
+.tr-steuerung label { display: flex; align-items: center; gap: 8px; }
+.tr-stat { display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
+.tr-faecher { display: flex; gap: 10px; align-items: flex-end; }
+.tr-fach { text-align: center; width: 46px; }
+.tr-fach-bar { height: 46px; background: var(--line); border-radius: 6px; display: flex; align-items: flex-end; overflow: hidden; }
+.tr-fach-bar div { width: 100%; background: linear-gradient(180deg, var(--accent), var(--accent-2)); transition: height .3s; }
+.tr-fach-zahl { font-size: 0.85em; font-weight: 700; color: var(--accent); margin-top: 3px; }
+.tr-fach-label { font-size: 0.7em; color: var(--muted-2); }
+.tr-faellig { font-size: 0.9em; color: var(--muted); padding-bottom: 18px; }
+.tr-faellig strong { color: var(--accent); }
+.tr-karte { background: var(--card-soft); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 12px; padding: 22px 26px; min-height: 220px; }
+.tr-meta { font-size: 0.78em; color: var(--muted-2); margin-bottom: 10px; }
+.tr-frage { font-family: Georgia, 'Times New Roman', serif; font-size: 1.6em; color: var(--text); line-height: 1.7; }
+.tr-frage input.bl { font-size: 0.75em; font-family: 'Segoe UI', system-ui, sans-serif; }
+.tr-frage-memo { font-size: 2em; }
+.tr-verbzeile { margin: 8px 0; }
+.tr-verbzeile input.bl { font-size: 1.15em; width: 260px; text-align: left; }
+.tr-loesung { margin-top: 14px; font-size: 0.98em; color: var(--text-2); line-height: 1.8; }
+.tr-loesung:empty { display: none; }
+.tr-aktion { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.tr-urteil { font-weight: 600; font-size: 0.9em; }
+.tr-urteil.ok { color: var(--ok-strong); }
+.tr-urteil.no { color: var(--warn-tx); }
+.tr-leer { text-align: center; color: var(--text-2); padding: 30px 10px; font-size: 1.05em; }
+.tr-leer-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.tr-fuss { text-align: right; margin-top: 10px; }
+.mw-link { background: none; border: none; color: var(--muted-2); font-size: 0.8em; text-decoration: underline; cursor: pointer; font-family: inherit; }
+
+/* ===== MERK-WERKSTATT ===== */
+.mw-form { background: var(--card-soft); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; }
+.mw-zeile { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.mw-zeile > label { flex: 0 0 90px; font-size: 0.82em; color: var(--muted-2); text-transform: uppercase; letter-spacing: .4px; }
+.mw-zeile-satz { align-items: flex-start; }
+.mw-verbinfo { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.mw-input { padding: 8px 12px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 1em; background: var(--card); color: var(--text); min-width: 220px; outline: none; }
+.mw-input:focus, .mw-satz:focus { border-color: var(--accent); }
+.mw-satz { flex: 1; min-width: 240px; min-height: 90px; padding: 10px 12px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 1em; line-height: 1.5; background: var(--card); color: var(--text); resize: vertical; outline: none; }
+.mw-btns { margin-top: 14px; }
+.mw-h3 { font-family: Georgia, 'Times New Roman', serif; color: var(--accent-2); margin: 26px 0 10px; font-size: 1.15em; }
+.mw-tab { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+.mw-tab th { text-align: left; font-size: 0.78em; color: var(--muted-2); font-weight: 600; text-transform: uppercase; letter-spacing: .3px; padding: 6px 8px; border-bottom: 2px solid var(--line); }
+.mw-tab td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--text); }
+.mw-del { background: none; border: none; color: var(--muted-2); cursor: pointer; font-size: 0.95em; }
+.mw-gesendet { font-size: 0.8em; color: var(--sent-bd); white-space: nowrap; }
+.mw-leer { color: var(--muted-2); font-size: 0.9em; font-style: italic; }
+@media (max-width: 600px) {
+  .tr-karte { padding: 16px 14px; } .tr-frage { font-size: 1.3em; } .tr-frage-memo { font-size: 1.6em; }
+  .tr-verbzeile input.bl { width: 100%; } .mw-zeile > label { flex-basis: 100%; } .mw-input { min-width: 0; flex: 1; }
+  .mw-tab thead { display: none; } .mw-tab tr { display: block; border-bottom: 1px solid var(--line); padding: 6px 0; } .mw-tab td { display: block; border: none; padding: 2px 4px; }
+}
+
 /* ===== SCHREIBWERKSTATT ===== */
 .schreib-name-box { background: var(--warn-bg); border: 1.5px solid var(--warn-bd); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; }
 .schreib-label { display: block; font-size: 0.88em; color: var(--warn-tx); margin-bottom: 6px; font-weight: 600; }
@@ -449,7 +502,9 @@ html[data-theme="dark"] body { color: #c6cade; }
   <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">👤</span><span class="nav-label">Person</span></div>
   <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">⏱</span><span class="nav-label">Perfekt</span></div>
   <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🎯</span><span class="nav-label">Quiz</span></div>
-  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
+  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">🔁</span><span class="nav-label">Trainer</span></div>
+  <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">💡</span><span class="nav-label">Merk-Werkstatt</span></div>
+  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
 </div>
 
 <div class="section active" id="sec-0"><div class="sec-inner" id="inner-0"></div></div>
@@ -459,8 +514,50 @@ html[data-theme="dark"] body { color: #c6cade; }
 <!-- ===== TAB 4 — QUIZ ===== -->
 <div class="section" id="sec-3"><div class="sec-inner" id="inner-3"></div></div>
 
-<!-- ===== TAB 5 — SCHREIBWERKSTATT ===== -->
+<!-- ===== TAB 5 — TRAINER ===== -->
 <div class="section" id="sec-4"><div class="sec-inner">
+  <h2>🔁 Wiederholungstrainer</h2>
+  <div class="sec-desc">Karteikarten in zwei Richtungen. Was du sicher weißt, kommt erst nach Tagen wieder – was du noch nicht weißt, gleich noch einmal. Dein Lernstand bleibt in diesem Browser gespeichert.</div>
+  <div class="tr-steuerung">
+    <label>Teil <select class="verb-select" id="tr-teil"></select></label>
+    <label>Richtung <select class="verb-select" id="tr-richtung">
+      <option value="A">Verb → Präposition + Kasus</option>
+      <option value="B">Merk-Wort → Verb</option>
+      <option value="mix">Gemischt</option>
+    </select></label>
+  </div>
+  <div class="tr-stat"><div class="tr-faecher" id="tr-faecher"></div><div class="tr-faellig" id="tr-faellig"></div></div>
+  <div class="tr-karte" id="tr-karte"></div>
+  <div class="tr-fuss"><button class="mw-link" onclick="trZuruecksetzen()">Lernstand zurücksetzen</button></div>
+</div></div>
+
+<!-- ===== TAB 6 — MERK-WERKSTATT ===== -->
+<div class="section" id="sec-5"><div class="sec-inner">
+  <h2>💡 Merk-Werkstatt – deine eigenen Merk-Wörter</h2>
+  <div class="sec-desc">Selbst gefundene Merk-Wörter bleiben am besten hängen. Wähle ein Verb, finde ein Nomen, das mit der Präposition beginnt, und bilde einen Satz damit.</div>
+  <div class="schreib-name-box">
+    <label class="schreib-label" for="mw-name">Bitte, hier deinen Namen eintragen.</label>
+    <input type="text" id="mw-name" class="schreib-name" autocomplete="name">
+  </div>
+  <div class="mw-form">
+    <div class="mw-zeile"><label for="mw-verb">Verb</label><select class="verb-select" id="mw-verb"></select><span id="mw-verbinfo" class="mw-verbinfo"></span></div>
+    <div class="mw-zeile"><label for="mw-wort">Merk-Wort</label>
+      <select class="verb-select" id="mw-art"><option value="der">der</option><option value="die">die</option><option value="das">das</option><option value="pl">die (Plural)</option></select>
+      <input type="text" id="mw-wort" class="mw-input" autocomplete="off" spellcheck="false"></div>
+    <div class="mw-zeile mw-zeile-satz"><label for="mw-satz">Dein Satz</label><textarea id="mw-satz" class="mw-satz"></textarea></div>
+    <div class="satz-check">
+      <span class="sc-item" id="mwc-anfang">Merk-Wort beginnt mit der Präposition</span><span class="sc-item" id="mwc-gross">Nomen groß</span><span class="sc-item" id="mwc-verb">Verb im Satz</span><span class="sc-item" id="mwc-kasus">Präposition + richtiger Kasus</span>
+    </div>
+    <div class="mw-btns"><button class="schreib-btn schreib-btn-primary" id="mw-save" onclick="mwSpeichern()" disabled>➕ Merk-Wort speichern</button></div>
+  </div>
+  <h3 class="mw-h3">Meine Merk-Wörter</h3>
+  <div id="mw-liste"></div>
+  <div class="schreib-actions"><button class="schreib-btn schreib-btn-primary" id="mw-send" onclick="mwSenden()">📨 Meine Merk-Wörter an Frank senden</button></div>
+  <div class="schreib-status" id="mw-status"></div>
+</div></div>
+
+<!-- ===== TAB 7 — SCHREIBWERKSTATT ===== -->
+<div class="section" id="sec-6"><div class="sec-inner">
   <h2>📨 Schreibwerkstatt – Eigene Sätze</h2>
   <div class="sec-legend">
     <strong>Satzbau:</strong> Verb + <strong>da(r) + Präposition</strong>, + Nebensatz mit <em>dass / ob / wie / W-Wort</em> – oder: , + <strong>zu + Infinitiv</strong><br>
@@ -549,6 +646,7 @@ html[data-theme="dark"] body { color: #c6cade; }
 </div>
 </div><!-- /container -->
 
+<script src="verben-praep-daten.js"></script>
 <script>
 // k:"a"=Akkusativ(blau), k:"d"=Dativ(rot) · ug:1 = umgangssprachliche Zeile (Demonstrativpronomen)
 const DATA = [
@@ -1519,9 +1617,300 @@ function schreibLeeren() {
 /* ===== Ende Schreibwerkstatt ===== */
 
 
+// ======== GEMEINSAME HELFER (Serie) ========
+const VAP = (window.VAP_VERBEN || []);
+const KASUS_TXT = {a:'Akkusativ', d:'Dativ'};
+function vapVerbLabel(e){ return e.v + (e.p2 ? ` (${e.p2} jdm.)` : ''); }
+function vapArtikel(e){
+  const [art] = e.m, k = e.k;
+  if (e.pl) return k==='a' ? 'die' : 'den';
+  if (art==='der') return k==='a' ? 'den' : 'dem';
+  if (art==='die') return k==='a' ? 'die' : 'der';
+  return k==='a' ? 'das' : 'dem';
+}
+const VAP_KONTR = {'zu dem':'zum','zu der':'zur','von dem':'vom','bei dem':'beim','an dem':'am','in dem':'im'};
+function vapPhrase(e){ // „auf den Aufzug“ / „zum Zubehör“
+  const pa = e.p + ' ' + vapArtikel(e);
+  const lead = VAP_KONTR[pa] || pa;
+  return `${esc(lead)} ${memoHtml(e.m[1], e.m[2], e.k)}`;
+}
+function vapMemo(e){ return `${esc(e.m[0])} ${memoHtml(e.m[1], e.m[2], e.k)}`; }
+function vapNorm(s){ return String(s).trim().toLowerCase().replace(/\s+/g,' '); }
+function vapVerbOhneSich(v){ return v.replace(/^sich /,''); }
+
+// ======== WIEDERHOLUNGSTRAINER (Leitner, 5 Fächer) ========
+const TR_KEY = 'vap_trainer_v1';
+const TR_TAGE = {1:0, 2:1, 3:3, 4:7, 5:14};
+let trStand = {}, trQueue = [], trPos = 0, trKarte = null, trFehler = false, trRunde = {ok:0, total:0};
+function trHeute(){ return Math.floor(Date.now()/864e5); }
+function trLaden(){ try { trStand = JSON.parse(localStorage.getItem(TR_KEY) || '{}') || {}; } catch(e){ trStand = {}; } }
+function trSpeichern(){ try { localStorage.setItem(TR_KEY, JSON.stringify(trStand)); } catch(e){} }
+function trKartenId(dir, e){ return dir + e.id; }
+function trInfo(id){ return trStand[id] || {b:1, due:0}; }
+function trFilter(){
+  const teil = document.getElementById('tr-teil').value;
+  return VAP.filter(e => teil==='alle' || String(e.t)===teil);
+}
+function trRichtungen(){
+  const r = document.getElementById('tr-richtung').value;
+  return r==='mix' ? ['A','B'] : [r];
+}
+function trAlleKarten(){
+  const out = [];
+  trFilter().forEach(e => trRichtungen().forEach(d => out.push({dir:d, e})));
+  return out;
+}
+function trStatistik(){
+  const karten = trAlleKarten(), heute = trHeute();
+  const faecher = [0,0,0,0,0,0];
+  let faellig = 0;
+  karten.forEach(c => { const i = trInfo(trKartenId(c.dir,c.e)); faecher[i.b]++; if (i.due <= heute) faellig++; });
+  const max = Math.max(1, ...faecher.slice(1));
+  document.getElementById('tr-faecher').innerHTML = [1,2,3,4,5].map(b =>
+    `<div class="tr-fach"><div class="tr-fach-bar"><div style="height:${faecher[b]/max*100}%"></div></div><div class="tr-fach-zahl">${faecher[b]}</div><div class="tr-fach-label">Fach ${b}</div></div>`).join('');
+  document.getElementById('tr-faellig').innerHTML = `<strong>${faellig}</strong> von ${karten.length} Karten heute fällig`;
+  return faellig;
+}
+function trStart(alle){
+  const heute = trHeute();
+  let karten = trAlleKarten();
+  if (!alle) karten = karten.filter(c => trInfo(trKartenId(c.dir,c.e)).due <= heute);
+  trQueue = shuffle(karten).slice(0, 15);
+  trPos = 0; trRunde = {ok:0, total:trQueue.length};
+  trZeige();
+}
+function trZeige(){
+  const box = document.getElementById('tr-karte');
+  trStatistik();
+  if (!trQueue.length || trPos >= trQueue.length){
+    const fertig = trRunde.total > 0;
+    box.innerHTML = `<div class="tr-leer">${fertig ? `🎉 Runde geschafft – ${trRunde.ok} von ${trRunde.total} Karten auf Anhieb gewusst.` : '🎉 Für heute ist in diesem Teil nichts mehr fällig.'}
+      <div class="tr-leer-btns"><button class="mc-opt" onclick="trStart(false)">Fällige Karten üben</button><button class="mc-opt" onclick="trStart(true)">Alle Karten dieses Teils üben</button></div></div>`;
+    return;
+  }
+  trKarte = trQueue[trPos]; trFehler = false;
+  const e = trKarte.e;
+  const kopf = `<div class="tr-meta">Karte ${trPos+1} von ${trQueue.length} · Fach ${trInfo(trKartenId(trKarte.dir,e)).b} · ${esc(VAP_GRUPPEN[e.g]||'')}</div>`;
+  if (trKarte.dir === 'A'){
+    box.innerHTML = `${kopf}
+      <div class="tr-frage">${esc(vapVerbLabel(e))} <input class="bl m" id="tr-in" autocomplete="off" autocapitalize="off" spellcheck="false"> + <span class="quiz-slot" id="tr-kslot">?</span></div>
+      ${e.h ? `<div class="quiz-hint">(${esc(e.h)})</div>` : ''}
+      <div class="quiz-step quiz-kasus locked" id="tr-ks"><span class="quiz-label">Kasus</span><div class="mc-opts"><button class="mc-opt" onclick="trKasus(this,'a')">Akkusativ</button><button class="mc-opt" onclick="trKasus(this,'d')">Dativ</button></div></div>
+      <div class="tr-loesung" id="tr-loesung"></div>
+      <div class="tr-aktion" id="tr-aktion"><button class="mc-opt tr-zeig" onclick="trZeigLoesung()">🙈 Weiß ich nicht – zeigen</button></div>`;
+    const inp = document.getElementById('tr-in');
+    inp.dataset.sol = e.p;
+    inp.addEventListener('input', () => {
+      liveCheck(inp, false);
+      if (inp.classList.contains('wrong')) trFehler = true;
+      if (inp.classList.contains('correct')){ inp.disabled = true; document.getElementById('tr-ks').classList.remove('locked'); }
+    });
+    inp.addEventListener('blur', () => { if (!inp.disabled && inp.value.trim()) { liveCheck(inp, true); if (inp.classList.contains('wrong')) trFehler = true; } });
+    setTimeout(() => inp.focus(), 50);
+  } else {
+    box.innerHTML = `${kopf}
+      <div class="tr-frage tr-frage-memo">${vapMemo(e)}</div>
+      <div class="quiz-hint">Welches Verb gehört zu diesem Merk-Wort? (Infinitiv)</div>
+      <div class="tr-verbzeile"><input class="bl l" id="tr-in" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      <div class="tr-loesung" id="tr-loesung"></div>
+      <div class="tr-aktion" id="tr-aktion"><button class="mc-opt tr-zeig" onclick="trZeigLoesung()">🙈 Weiß ich nicht – zeigen</button></div>`;
+    const inp = document.getElementById('tr-in');
+    inp.addEventListener('input', () => {
+      const val = vapNorm(inp.value), sol = vapNorm(vapVerbOhneSich(e.v)), solS = vapNorm(e.v);
+      inp.classList.remove('correct','wrong');
+      if (!val) return;
+      if (val === sol || val === solS){ inp.classList.add('correct'); inp.disabled = true; trRichtig(); return; }
+      if (sol.indexOf(val)===0 || solS.indexOf(val)===0) return;
+      inp.classList.add('wrong'); trFehler = true;
+    });
+    setTimeout(() => inp.focus(), 50);
+  }
+}
+function trKasus(btn, k){
+  if (document.getElementById('tr-ks').classList.contains('locked') || btn.disabled) return;
+  const e = trKarte.e;
+  if (k === e.k){
+    btn.classList.add('ok'); btn.parentNode.querySelectorAll('.mc-opt').forEach(b => b.disabled = true);
+    const s = document.getElementById('tr-kslot'); s.textContent = k==='a' ? 'Akk.' : 'Dat.'; s.classList.add('filled', 'k-'+k);
+    trRichtig();
+  } else { btn.classList.add('no'); btn.disabled = true; trFehler = true; }
+}
+function trLoesungHtml(e){
+  return `<div class="tr-loes-zeile"><strong>${esc(vapVerbLabel(e))} ${esc(e.p)}</strong> + ${KASUS_TXT[e.k]}${e.p2 ? ` · ${esc(e.p2)} + ${KASUS_TXT[e.k2]} (Person)` : ''}</div>
+          <div class="tr-loes-zeile">Merk-Wort: ${vapPhrase(e)}</div>`;
+}
+function trRichtig(){
+  const e = trKarte.e;
+  document.getElementById('tr-loesung').innerHTML = trLoesungHtml(e);
+  trBewerten(!trFehler);
+}
+function trZeigLoesung(){
+  trFehler = true;
+  const e = trKarte.e;
+  const inp = document.getElementById('tr-in'); if (inp){ inp.value = trKarte.dir==='A' ? e.p : e.v; inp.disabled = true; inp.classList.add('wrong'); }
+  document.getElementById('tr-loesung').innerHTML = trLoesungHtml(e);
+  trBewerten(false);
+}
+function trBewerten(ok){
+  const id = trKartenId(trKarte.dir, trKarte.e), info = trInfo(id), heute = trHeute();
+  if (ok){ info.b = Math.min(5, info.b + 1); info.due = heute + TR_TAGE[info.b]; trRunde.ok++; }
+  else { info.b = 1; info.due = heute; trQueue.splice(Math.min(trQueue.length, trPos + 4), 0, trKarte); }
+  trStand[id] = info; trSpeichern(); trStatistik();
+  const naechste = info.due > heute ? (TR_TAGE[info.b] === 1 ? 'morgen' : `in ${TR_TAGE[info.b]} Tagen`) : 'gleich noch einmal';
+  document.getElementById('tr-aktion').innerHTML =
+    `<span class="tr-urteil ${ok ? 'ok' : 'no'}">${ok ? '✓ Gewusst' : '↺ Kommt wieder'} – nächste Wiederholung ${naechste}</span>
+     <button class="schreib-btn schreib-btn-primary" id="tr-weiter" onclick="trWeiter()">Weiter →</button>`;
+  setTimeout(() => { const w = document.getElementById('tr-weiter'); if (w) w.focus(); }, 50);
+}
+function trWeiter(){ trPos++; trZeige(); }
+function trZuruecksetzen(){
+  if (!confirm('Lernstand des Trainers wirklich löschen? Alle Karten wandern zurück in Fach 1.')) return;
+  trStand = {}; trSpeichern(); trStart(false);
+}
+function initTrainer(){
+  trLaden();
+  const sel = document.getElementById('tr-teil');
+  sel.innerHTML = [1,2,3,4,5].map(t => `<option value="${t}">Teil ${t} (${VAP.filter(e=>e.t===t).length} Verben)</option>`).join('') + `<option value="alle">Alle ${VAP.length} Verben</option>`;
+  sel.addEventListener('change', () => trStart(false));
+  document.getElementById('tr-richtung').addEventListener('change', () => trStart(false));
+  trStart(false);
+}
+
+// ======== MERK-WERKSTATT (eigene Merk-Wörter) ========
+const MW_KEY = 'vap_merkwoerter_v1';
+const MW_SENT_KEY = 'vap_merkwoerter_v1_sent';
+const MW_ANFANG = {von:['von','fon','phon','vonn'], 'für':['für','führ','führ','fur'], 'über':['über','üb']};
+const MW_TRENNBAR = ['teil','nach','zu','an','auf','aus','ein','ab'];
+const MW_UNREGEL = {denken:['dach','denk'], sprechen:['sprech','sprich','sprach','sproch'], bitten:['bitt','bat','beten'], gehen:['geh','ging','gang'], helfen:['helf','hilf','half','holf'], fangen:['fang','fäng','fing'], nehmen:['nehm','nimm','nahm','nomm'], kommen:['komm','kam'], halten:['halt','hält','hielt'], treffen:['treff','triff','traf','troff'], streiten:['streit','stritt'], wissen:['wiss','weiß','wuss'], sein:['bin','bist','ist','sind','seid','war','gewes'], werden:['werd','wird','wirst','wurd','word'], sterben:['sterb','stirb','starb','storb'], geraten:['gerat','gerät','geriet'], schreiben:['schreib','schrieb'], riechen:['riech','roch'], erkennen:['erkenn','erkann'], verstehen:['versteh','verstand'], bestehen:['besteh','bestand'], leiden:['leid','litt'], laden:['lad','läd','lud'], geben:['geb','gib','gab'], entscheiden:['entscheid','entschied'], entschließen:['entschließ','entschloss'], verlassen:['verlass','verläss','verließ'], erfahren:['erfahr','erfähr','erfuhr'], vergleichen:['vergleich','verglich'], hängen:['häng','hing'], schauen:['schau'], wenden:['wend','wand'], sagen:['sag'], unterhalten:['unterhalt','unterhält','unterhielt'], schützen:['schütz']};
+function mwVerbStaemme(v){
+  let base = vapVerbOhneSich(v).split(' ').pop();
+  let pref = MW_TRENNBAR.find(p => base.startsWith(p) && base.length > p.length + 3 && !['antworten','anrufen'].includes(base));
+  if (pref && !['nachdenken'].includes(base)) base = base.slice(pref.length);
+  if (base === 'nachdenken') base = 'denken';
+  if (MW_UNREGEL[base] && MW_UNREGEL[base].length) return MW_UNREGEL[base];
+  const st = base.replace(/(eln|ern)$/, m => m.slice(0,2)).replace(/en$|n$/, '');
+  return [st];
+}
+function mwAktuell(){ return VAP.find(e => String(e.id) === document.getElementById('mw-verb').value); }
+function mwAnfangOk(e, wort){
+  const w = wort.trim().toLowerCase();
+  const erlaubt = MW_ANFANG[e.p] || [e.p];
+  return w.length > e.p.length && erlaubt.some(a => w.startsWith(a));
+}
+function mwDetOk(det, art, k){
+  const d = det.toLowerCase();
+  if (art === 'pl') return k==='a' ? /^(die|meine|deine|seine|ihre|unsere|eure|keine|diese|alle)$/.test(d) : /en$/.test(d);
+  if (k === 'd') return art === 'die' ? /er$/.test(d) : /em$/.test(d);
+  if (art === 'der') return /en$/.test(d);
+  if (art === 'die') return /^(die|eine|meine|deine|seine|ihre|unsere|eure|keine|diese|jede)$/.test(d);
+  return /^(das|ein|mein|dein|sein|ihr|unser|euer|kein|dieses|jedes)$/.test(d);
+}
+const MW_KONTR = {zum:['zu','d','mn'], vom:['von','d','mn'], beim:['bei','d','mn'], am:['an','d','mn'], im:['in','d','mn'], zur:['zu','d','f'], ans:['an','a','n'], ins:['in','a','n'], aufs:['auf','a','n'], 'übers':['über','a','n'], ums:['um','a','n'], 'fürs':['für','a','n']};
+function mwKontraktionOk(kontr, art, k, p){
+  const m = MW_KONTR[kontr.toLowerCase()]; if (!m || m[0] !== p || m[1] !== k) return false;
+  if (m[2] === 'mn') return art === 'der' || art === 'das';
+  if (m[2] === 'f') return art === 'die';
+  return art === 'das';
+}
+function mwCheck(){
+  const e = mwAktuell(); if (!e) return {};
+  const art = document.getElementById('mw-art').value;
+  const wort = document.getElementById('mw-wort').value.trim();
+  const satz = document.getElementById('mw-satz').value;
+  const r = {anfang:false, gross:false, verb:false, kasus:false};
+  r.anfang = mwAnfangOk(e, wort);
+  r.gross = /^[A-ZÄÖÜ]/.test(wort);
+  const low = satz.toLowerCase();
+  r.verb = mwVerbStaemme(e.v).some(s => s && low.indexOf(s.toLowerCase()) !== -1);
+  if (wort.length > 1){
+    const wEsc = wort.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const kontr = '(zum|zur|vom|beim|am|im|ans|ins|aufs|übers|ums|fürs)';
+    const reK = new RegExp('(?:^|[^\\wäöüß])' + kontr + '\\s+(?:[\\wäöüß-]+\\s+)?' + wEsc + '(?![\\wäöüß])', 'i');
+    const reP = new RegExp('(?:^|[^\\wäöüß])' + e.p + '\\s+([\\wäöüß]+)\\s+(?:[\\wäöüß-]+\\s+)?' + wEsc + '(?![\\wäöüß])', 'i');
+    const mk = satz.match(reK), mp = satz.match(reP);
+    if (mk) r.kasus = mwKontraktionOk(mk[1], art, e.k, e.p);
+    else if (mp) r.kasus = mwDetOk(mp[1], art, e.k);
+  }
+  ['anfang','gross','verb','kasus'].forEach(key => { const el = document.getElementById('mwc-'+key); if (el) el.classList.toggle('ok', !!r[key]); });
+  const alle = r.anfang && r.gross && r.verb && r.kasus;
+  document.getElementById('mw-save').disabled = !alle;
+  return r;
+}
+function mwVerbAnzeige(){
+  const e = mwAktuell(); if (!e) return;
+  document.getElementById('mw-verbinfo').innerHTML =
+    `<span class="verb-chip k-${e.k}">${esc(vapVerbLabel(e))} ${esc(e.p)}</span><span class="verb-chip k-${e.k}">+ ${KASUS_TXT[e.k]}</span>`;
+  document.getElementById('mwc-anfang').textContent = `Merk-Wort beginnt mit „${e.p}“`;
+  mwCheck();
+}
+function mwListeLaden(){ try { return JSON.parse(localStorage.getItem(MW_KEY) || '[]') || []; } catch(e){ return []; } }
+function mwListeSpeichern(l){ try { localStorage.setItem(MW_KEY, JSON.stringify(l)); } catch(e){} }
+function mwSpeichern(){
+  const r = mwCheck(); if (!(r.anfang && r.gross && r.verb && r.kasus)) return;
+  const e = mwAktuell();
+  const l = mwListeLaden();
+  l.push({id:e.id, art:document.getElementById('mw-art').value, wort:document.getElementById('mw-wort').value.trim(), satz:document.getElementById('mw-satz').value.trim(), gesendet:false});
+  mwListeSpeichern(l);
+  document.getElementById('mw-wort').value = ''; document.getElementById('mw-satz').value = '';
+  mwCheck(); mwListeZeigen();
+}
+function mwLoeschen(i){ const l = mwListeLaden(); l.splice(i,1); mwListeSpeichern(l); mwListeZeigen(); }
+function mwListeZeigen(){
+  const l = mwListeLaden(), box = document.getElementById('mw-liste');
+  if (!l.length){ box.innerHTML = '<div class="mw-leer">Noch keine eigenen Merk-Wörter gespeichert.</div>'; return; }
+  box.innerHTML = `<table class="mw-tab"><thead><tr><th>Verb</th><th>Dein Merk-Wort</th><th>Dein Satz</th><th>Franks Merk-Wort</th><th></th></tr></thead><tbody>` +
+    l.map((x,i) => { const e = VAP.find(v => v.id === x.id); if (!e) return '';
+      const n = e.p.length, pre = x.wort.slice(0, n), rest = x.wort.slice(n);
+      const art = x.art === 'pl' ? 'die' : x.art;
+      return `<tr><td>${esc(e.v)} ${esc(e.p)}</td><td>${esc(art)} ${memoHtml(pre, rest, e.k)}</td><td>${esc(x.satz)}</td><td>${vapMemo(e)}</td><td>${x.gesendet ? '<span class="mw-gesendet">✓ gesendet</span>' : `<button class="mw-del" onclick="mwLoeschen(${i})" title="Löschen">✕</button>`}</td></tr>`; }).join('') +
+    `</tbody></table>`;
+}
+function mwSenden(){
+  const l = mwListeLaden(), offen = l.filter(x => !x.gesendet);
+  const st = document.getElementById('mw-status');
+  if (!offen.length){ st.className = 'schreib-status info'; st.textContent = 'ℹ Keine neuen Merk-Wörter zum Senden.'; return; }
+  if (schreibAktuellerName().length < 2){ st.className = 'schreib-status error'; st.textContent = '✗ Bitte oben deinen Namen eintragen.'; const n = document.getElementById('mw-name'); if (n){ n.focus(); n.classList.add('schreib-name-error'); setTimeout(()=>n.classList.remove('schreib-name-error'),3000);} return; }
+  const subject = SCHREIB_CODE + ' · Merk-Werkstatt · ' + offen.length + ' Merk-Wörter · ' + schreibAktuellerName();
+  const message = offen.map(x => { const e = VAP.find(v => v.id === x.id); return `${e.v} ${e.p} + ${KASUS_TXT[e.k]}\nMerk-Wort: ${x.art==='pl'?'die':x.art} ${x.wort}\nSatz: ${x.satz}`; }).join('\n\n');
+  const btn = document.getElementById('mw-send'); btn.disabled = true; btn.innerHTML = '⏳ Wird gesendet …';
+  schreibPostFormsubmit(subject, message, function(){
+    btn.disabled = false; btn.innerHTML = '📨 Meine Merk-Wörter an Frank senden';
+    l.forEach(x => x.gesendet = true); mwListeSpeichern(l); mwListeZeigen();
+    st.className = 'schreib-status success'; st.innerHTML = '✓ <strong>' + offen.length + ' Merk-Wörter übermittelt.</strong> Frank meldet sich.';
+  }, function(err){
+    btn.disabled = false; btn.innerHTML = '📨 Meine Merk-Wörter an Frank senden';
+    const mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+    st.className = 'schreib-status error';
+    st.innerHTML = '<div class="schreib-fb"><div class="schreib-fb-titel">⚠ Online-Versand hat nicht geklappt — deine Merk-Wörter sind sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Wähle einen Weg:</div>' +
+      '<div class="schreib-fb-actions"><a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 In Mail-Programm öffnen</a>' +
+      '<button type="button" class="schreib-fb-btn" onclick="mwSenden()">🔄 Nochmal versuchen</button></div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div></div>';
+  });
+}
+function initMerkWerkstatt(){
+  const sel = document.getElementById('mw-verb');
+  sel.innerHTML = [1,2,3,4,5].map(t => `<optgroup label="Teil ${t}">` +
+    VAP.filter(e => e.t === t).map(e => `<option value="${e.id}">${esc(e.v)} ${esc(e.p)}</option>`).join('') + '</optgroup>').join('');
+  ['mw-art','mw-wort','mw-satz'].forEach(id => document.getElementById(id).addEventListener('input', mwCheck));
+  document.getElementById('mw-art').addEventListener('change', mwCheck);
+  sel.addEventListener('change', mwVerbAnzeige);
+  // Name mit der Schreibwerkstatt synchron halten (ein Name für alle Sendungen)
+  const mwName = document.getElementById('mw-name'), swName = document.getElementById('sw-name');
+  if (mwName && swName){
+    mwName.value = swName.value || lsGet(SCHREIB_NAME_KEY) || '';
+    mwName.addEventListener('input', () => { swName.value = mwName.value; lsSet(SCHREIB_NAME_KEY, mwName.value); });
+    swName.addEventListener('input', () => { mwName.value = swName.value; });
+  }
+  mwVerbAnzeige(); mwListeZeigen();
+}
+
+
 renderAll();
 setupLive();
 renderQuiz();
+initTrainer();
+initMerkWerkstatt();
 </script>
 
 <!-- FB-JUMPTOP -->
