@@ -1649,7 +1649,7 @@ function trKartenId(dir, e){ return dir + e.id; }
 function trInfo(id){ return trStand[id] || {b:1, due:0}; }
 function trFilter(){
   const teil = document.getElementById('tr-teil').value;
-  return VAP.filter(e => teil==='alle' || String(e.t)===teil);
+  return VAP.filter(e => teil==='alle' ? e.t > 0 : String(e.t)===teil);
 }
 function trRichtungen(){
   const r = document.getElementById('tr-richtung').value;
@@ -1770,7 +1770,7 @@ function trZuruecksetzen(){
 function initTrainer(){
   trLaden();
   const sel = document.getElementById('tr-teil');
-  sel.innerHTML = [1,2,3,4,5].map(t => `<option value="${t}">Teil ${t} (${VAP.filter(e=>e.t===t).length} Verben)</option>`).join('') + `<option value="alle">Alle ${VAP.length} Verben</option>`;
+  sel.innerHTML = [1,2,3,4,5].map(t => `<option value="${t}">Teil ${t} (${VAP.filter(e=>e.t===t).length} Verben)</option>`).join('') + `<option value="alle">Alle ${VAP.filter(e=>e.t>0).length} Verben</option>`;
   sel.addEventListener('change', () => trStart(false));
   document.getElementById('tr-richtung').addEventListener('change', () => trStart(false));
   trStart(false);
@@ -1891,7 +1891,8 @@ function mwSenden(){
 function initMerkWerkstatt(){
   const sel = document.getElementById('mw-verb');
   sel.innerHTML = [1,2,3,4,5].map(t => `<optgroup label="Teil ${t}">` +
-    VAP.filter(e => e.t === t).map(e => `<option value="${e.id}">${esc(e.v)} ${esc(e.p)}</option>`).join('') + '</optgroup>').join('');
+    VAP.filter(e => e.t === t).map(e => `<option value="${e.id}">${esc(e.v)} ${esc(e.p)}</option>`).join('') + '</optgroup>').join('')
+    + '<optgroup label="Weitere Verben">' + VAP.filter(e => e.t === 0).map(e => `<option value="${e.id}">${esc(e.v)} ${esc(e.p)}</option>`).join('') + '</optgroup>';
   ['mw-art','mw-wort','mw-satz'].forEach(id => document.getElementById(id).addEventListener('input', mwCheck));
   document.getElementById('mw-art').addEventListener('change', mwCheck);
   sel.addEventListener('change', mwVerbAnzeige);
