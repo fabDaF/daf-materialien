@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
+<title>Verben mit Präposition – Teil 3</title>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-head-a: #667eea;
+  --grad-head-b: #764ba2;
+  --page-a: #667eea;
+  --page-b: #764ba2;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card-soft: #f8f9ff;
+  --nav-band: #eef0fb;
+  --nav-hover: #e1e5fb;
+  --line: #e9ecef;
+  --line-soft: #e0e4ff;
+  --text: #1a1a2e;
+  --text-2: #444;
+  --muted: #666;
+  --muted-2: #888;
+  --faint: #aaa;
+  --accent: #667eea;
+  --accent-2: #764ba2;
+  --accent-soft: #f0f4ff;
+  --accent-soft-2: #f5f7ff;
+  --accent-line: #c5cff5;
+  --ok-bd: #22c55e;
+  --ok-bg: #f0fdf4;
+  --ok-tx: #166534;
+  --ok-strong: #16a34a;
+  --err-bd: #ef4444;
+  --err-bg: #fef2f2;
+  --err-tx: #991b1b;
+  --akk: #2563eb;
+  --akk-bg: #e8efff;
+  --dat: #dc2626;
+  --dat-bg: #fdeaea;
+  --warn-bg: #fffaf0;
+  --warn-bd: #ffd699;
+  --warn-tx: #b15c00;
+  --ug-bg: #fff4e0;
+  --ug-tx: #a35a00;
+  --info-bg: #e3f2fd;
+  --info-bd: #2196f3;
+  --info-tx: #0d47a1;
+  --sent-bg: #f1f8e9;
+  --sent-bd: #689f38;
+  --sent-tx: #33691e;
+  --tx-34206b: #34206b;
+  --tx-241048: #241048;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--page-a) 0%, var(--page-b) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 1000px; margin: 0 auto; background: var(--surface);
+  border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: linear-gradient(135deg, var(--grad-head-a) 0%, var(--grad-head-b) 100%);
+  color: #fff; padding: 30px; text-align: center; position: relative;
+}
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: #fff; margin-bottom: 8px; border: none; padding: 0; }
+.header p { font-size: 1.1em; font-family: Georgia, 'Times New Roman', serif; color: rgba(255,255,255,0.9); margin: 0; }
+.serie { margin-top: 10px; font-size: 0.85em; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.serie a, .serie span { color: rgba(255,255,255,0.9); text-decoration: none; padding: 2px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.35); }
+.serie a:hover { background: rgba(255,255,255,0.18); }
+.serie .serie-akt { background: rgba(255,255,255,0.25); font-weight: 700; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+
+/* ===== NAV (Variante C: Aktiv-Pille) ===== */
+.nav {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  background: var(--nav-band); padding: 6px;
+  border-bottom: 2px solid var(--line);
+}
+.nav-btn {
+  flex: 1 1 auto; min-width: 64px; padding: 12px 8px;
+  border: none; background: none; cursor: pointer;
+  font-weight: 500; color: var(--muted); transition: all 0.2s; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  user-select: none;
+}
+.nav-btn:hover { background: var(--nav-hover); color: var(--accent); }
+.nav-btn.active { background: var(--surface); color: var(--accent); font-weight: 700; box-shadow: 0 1px 4px rgba(102,126,234,.25); }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+
+/* ===== SECTIONS ===== */
+.section { display: none; }
+.section.active { display: block; }
+.sec-inner { padding: 28px 30px; }
+.sec-inner h2 { font-family: Georgia, 'Times New Roman', serif; color: var(--accent-2); font-size: 1.45em; margin-bottom: 6px; }
+.sec-desc { font-size: 0.95em; color: var(--muted); margin-bottom: 16px; line-height: 1.55; }
+
+/* ===== CONTROL-BAR ===== */
+.control-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; padding: 6px 12px; background: var(--card-soft); border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: var(--accent-soft-2); border: 1px solid var(--accent-line); border-radius: 8px; padding: 6px 16px; font-size: 0.85em; color: var(--accent); cursor: pointer; transition: all 0.15s; font-weight: 500; font-family: inherit; }
+.btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: var(--faint); font-variant-numeric: tabular-nums; }
+
+/* ===== FORTSCHRITT ===== */
+.progress { margin: -6px 0 20px; }
+.progress-track { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 3px; transition: width .35s; }
+.progress-text { font-size: 0.82em; color: var(--muted-2); margin-top: 6px; font-variant-numeric: tabular-nums; }
+.progress-text strong { color: var(--accent); }
+.progress.done .progress-fill { background: var(--ok-strong); }
+.progress.done .progress-text { color: var(--ok-strong); font-weight: 600; }
+
+/* ===== LEGENDE (kein Kasten) ===== */
+.sec-legend { font-size: 0.9em; color: var(--text-2); line-height: 1.8; margin-bottom: 20px; }
+.sec-legend strong { color: var(--accent); }
+.sec-legend .muster { font-family: Georgia, 'Times New Roman', serif; font-size: 1.08em; color: var(--text); }
+.legend { display: inline-flex; gap: 8px; flex-wrap: wrap; vertical-align: middle; }
+.chip-akk, .chip-dat { display: inline-block; padding: 1px 10px; border-radius: 12px; font-size: 0.88em; font-weight: 700; }
+.chip-akk { background: var(--akk-bg); color: var(--akk); }
+.chip-dat { background: var(--dat-bg); color: var(--dat); }
+
+/* ===== ÜBUNGSKARTEN ===== */
+.card {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--akk);
+  border-radius: 10px; padding: 16px 20px 14px; margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04); transition: border-color .3s, box-shadow .3s;
+}
+.card.k-d { border-left-color: var(--dat); }
+.card.complete { box-shadow: 0 0 0 2px var(--ok-bg), 0 2px 10px rgba(34,197,94,.18); }
+.card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.card-nr { font-weight: 700; color: var(--faint); font-size: 0.9em; font-variant-numeric: tabular-nums; }
+.card.complete .card-nr::after { content: ' ✓'; color: var(--ok-strong); }
+.card-badge { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; padding: 3px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 600; }
+.dl, .ans-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; line-height: 2.15; font-size: 1.02rem; }
+.dl:last-child, .ans-row:last-child { margin-bottom: 0; }
+.dl-body { flex: 1; min-width: 0; }
+.sp { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 0.78em; font-weight: 700; color: #fff; background: var(--accent-2); transform: translateY(-1px); }
+.sp.b { background: var(--accent); }
+.ug-tag { display: inline-block; font-size: 0.72em; font-weight: 600; color: var(--ug-tx); background: var(--ug-bg); border-radius: 10px; padding: 1px 8px; margin-right: 6px; vertical-align: 2px; letter-spacing: .2px; }
+.hint { color: var(--muted-2); font-style: italic; font-size: 0.93em; margin-right: 4px; white-space: nowrap; }
+.arrow { color: var(--faint); margin: 0 4px; }
+.nw { display: inline-flex; align-items: baseline; white-space: nowrap; }
+.noun-fixed { margin-left: 3px; white-space: nowrap; }
+.memo-akk, .memo-dat { font-weight: 700; }
+.memo-akk { color: var(--akk); box-shadow: inset 0 -0.38em 0 var(--akk-bg); }
+.memo-dat { color: var(--dat); box-shadow: inset 0 -0.38em 0 var(--dat-bg); }
+
+input.bl {
+  border: none; border-bottom: 2.5px solid var(--accent); background: transparent;
+  font-size: 1rem; font-family: inherit; color: var(--text); padding: 2px 4px; outline: none;
+  text-align: center; transition: all .25s; margin: 0 3px; vertical-align: baseline; border-radius: 4px 4px 0 0;
+}
+input.bl:focus { border-bottom-color: var(--accent-2); background: var(--accent-soft); }
+input.bl.correct { border-bottom-color: var(--ok-bd); background: var(--ok-bg); color: var(--ok-tx); }
+input.bl.wrong { border-bottom-color: var(--err-bd); background: var(--err-bg); color: var(--err-tx); }
+input.bl.s { width: 65px; }
+input.bl.m { width: 105px; }
+input.bl.l { width: 140px; }
+
+.celebrate { display: none; text-align: center; margin: 18px 0 4px; padding: 14px; border-radius: 10px; background: var(--ok-bg); color: var(--ok-tx); font-weight: 600; }
+.celebrate.show { display: block; }
+
+/* ===== EIGENES MERK-WORT IN DER KARTE ===== */
+.eigen-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 0.95rem; }
+.eigen-label { font-size: 0.8em; color: var(--ug-tx); background: var(--ug-bg); border-radius: 10px; padding: 1px 9px; font-weight: 600; }
+.eigen-praep { font-weight: 600; color: var(--text-2); }
+input.eg { border: none; border-bottom: 2px dashed var(--accent-line); background: transparent; font-size: 1rem; font-family: inherit; color: var(--text); padding: 2px 4px; outline: none; transition: all .25s; }
+input.eg:focus { border-bottom-color: var(--accent); border-bottom-style: solid; }
+input.eg.correct { border-bottom: 2px solid var(--ok-bd); background: var(--ok-bg); color: var(--ok-tx); }
+input.eg.wrong { border-bottom: 2px solid var(--err-bd); background: var(--err-bg); color: var(--err-tx); }
+input.eg.art { width: 62px; text-align: center; }
+input.eg.wort { width: 170px; }
+.eigen-status { font-size: 0.8em; color: var(--muted-2); }
+.eigen-row.locked { opacity: .45; }
+.eigen-row.locked input.eg { pointer-events: none; }
+.eigen-lock { display: none; font-size: 0.78em; color: var(--muted-2); }
+.eigen-row.locked .eigen-lock { display: inline; }
+.eigen-row.locked .eigen-status { display: none; }
+.eigen-status.ok { color: var(--ok-strong); font-weight: 600; }
+.eigen-status.no { color: var(--err-tx); }
+
+/* ===== QUIZ ===== */
+.quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.quiz-card { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 18px; transition: all .3s; }
+.quiz-card.done.k-a { border-left-color: var(--akk); background: var(--card-soft); }
+.quiz-card.done.k-d { border-left-color: var(--dat); background: var(--card-soft); }
+.quiz-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.quiz-card.done .card-nr::after { content: ' ✓'; color: var(--ok-strong); }
+.quiz-fehler { font-size: 0.75em; color: var(--err-tx); }
+.quiz-verb { font-family: Georgia, 'Times New Roman', serif; font-size: 1.3em; color: var(--text); margin: 2px 0 2px; line-height: 1.6; }
+.quiz-slot { display: inline-block; min-width: 2.4em; text-align: center; border-bottom: 2px dashed var(--accent-line); color: var(--faint); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.8em; font-weight: 700; padding: 0 4px; }
+.quiz-slot.filled { border-bottom-style: solid; border-bottom-color: var(--ok-bd); color: var(--ok-tx); }
+.quiz-slot.filled.k-a { color: var(--akk); border-bottom-color: var(--akk); }
+.quiz-slot.filled.k-d { color: var(--dat); border-bottom-color: var(--dat); }
+.quiz-plus { color: var(--faint); font-size: 0.8em; }
+.quiz-hint { font-size: 0.85em; color: var(--muted-2); font-style: italic; margin-bottom: 2px; }
+.quiz-step { display: flex; align-items: center; gap: 10px; margin-top: 10px; transition: opacity .25s; }
+.quiz-step.locked { opacity: .35; pointer-events: none; }
+.quiz-label { flex: 0 0 82px; font-size: 0.78em; color: var(--muted-2); text-transform: uppercase; letter-spacing: .4px; }
+.mc-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.mc-opt { font-size: 11px; font-weight: 600; font-family: inherit; padding: 5px 13px; border-radius: 20px; border: 1.5px solid var(--accent-line); background: var(--card); color: var(--accent); cursor: pointer; transition: all .15s; }
+.mc-opt:hover:not(:disabled) { background: var(--accent); color: #fff; border-color: var(--accent); }
+.mc-opt:disabled { cursor: default; opacity: .45; }
+.mc-opt.ok { background: var(--ok-bg); border-color: var(--ok-bd); color: var(--ok-tx); opacity: 1; }
+.mc-opt.no { background: var(--err-bg); border-color: var(--err-bd); color: var(--err-tx); text-decoration: line-through; }
+.quiz-memo { font-size: 0.85em; color: var(--muted); margin-top: 8px; min-height: 0; }
+.quiz-memo:empty { display: none; }
+@media (max-width: 700px) { .quiz-grid { grid-template-columns: 1fr; } }
+
+/* ===== TRAINER ===== */
+.tr-steuerung { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 0.9em; color: var(--muted); }
+.tr-steuerung label { display: flex; align-items: center; gap: 8px; }
+.tr-stat { display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
+.tr-faecher { display: flex; gap: 10px; align-items: flex-end; }
+.tr-fach { text-align: center; width: 46px; }
+.tr-fach-bar { height: 46px; background: var(--line); border-radius: 6px; display: flex; align-items: flex-end; overflow: hidden; }
+.tr-fach-bar div { width: 100%; background: linear-gradient(180deg, var(--accent), var(--accent-2)); transition: height .3s; }
+.tr-fach-zahl { font-size: 0.85em; font-weight: 700; color: var(--accent); margin-top: 3px; }
+.tr-fach-label { font-size: 0.7em; color: var(--muted-2); }
+.tr-faellig { font-size: 0.9em; color: var(--muted); padding-bottom: 18px; }
+.tr-faellig strong { color: var(--accent); }
+.tr-karte { background: var(--card-soft); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 12px; padding: 22px 26px; min-height: 220px; }
+.tr-meta { font-size: 0.78em; color: var(--muted-2); margin-bottom: 10px; }
+.tr-frage { font-family: Georgia, 'Times New Roman', serif; font-size: 1.6em; color: var(--text); line-height: 1.7; }
+.tr-frage input.bl { font-size: 0.75em; font-family: 'Segoe UI', system-ui, sans-serif; }
+.tr-frage-memo { font-size: 2em; }
+.tr-verbzeile { margin: 8px 0; }
+.tr-verbzeile input.bl { font-size: 1.15em; width: 260px; text-align: left; }
+.tr-loesung { margin-top: 14px; font-size: 0.98em; color: var(--text-2); line-height: 1.8; }
+.tr-loesung:empty { display: none; }
+.tr-aktion { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.tr-urteil { font-weight: 600; font-size: 0.9em; }
+.tr-urteil.ok { color: var(--ok-strong); }
+.tr-urteil.no { color: var(--warn-tx); }
+.tr-leer { text-align: center; color: var(--text-2); padding: 30px 10px; font-size: 1.05em; }
+.tr-leer-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.tr-fuss { text-align: right; margin-top: 10px; }
+.mw-link { background: none; border: none; color: var(--muted-2); font-size: 0.8em; text-decoration: underline; cursor: pointer; font-family: inherit; }
+
+/* ===== MERK-WERKSTATT ===== */
+.mw-form { background: var(--card-soft); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; }
+.mw-zeile { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.mw-zeile > label { flex: 0 0 90px; font-size: 0.82em; color: var(--muted-2); text-transform: uppercase; letter-spacing: .4px; }
+.mw-zeile-satz { align-items: flex-start; }
+.mw-verbinfo { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.mw-input { padding: 8px 12px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 1em; background: var(--card); color: var(--text); min-width: 220px; outline: none; }
+.mw-input:focus, .mw-satz:focus { border-color: var(--accent); }
+.mw-satz { flex: 1; min-width: 240px; min-height: 90px; padding: 10px 12px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 1em; line-height: 1.5; background: var(--card); color: var(--text); resize: vertical; outline: none; }
+.mw-btns { margin-top: 14px; }
+.mw-h3 { font-family: Georgia, 'Times New Roman', serif; color: var(--accent-2); margin: 26px 0 10px; font-size: 1.15em; }
+.mw-tab { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+.mw-tab th { text-align: left; font-size: 0.78em; color: var(--muted-2); font-weight: 600; text-transform: uppercase; letter-spacing: .3px; padding: 6px 8px; border-bottom: 2px solid var(--line); }
+.mw-tab td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--text); }
+.mw-del { background: none; border: none; color: var(--muted-2); cursor: pointer; font-size: 0.95em; }
+.mw-gesendet { font-size: 0.8em; color: var(--sent-bd); white-space: nowrap; }
+.mw-leer { color: var(--muted-2); font-size: 0.9em; font-style: italic; }
+@media (max-width: 600px) {
+  .tr-karte { padding: 16px 14px; } .tr-frage { font-size: 1.3em; } .tr-frage-memo { font-size: 1.6em; }
+  .tr-verbzeile input.bl { width: 100%; } .mw-zeile > label { flex-basis: 100%; } .mw-input { min-width: 0; flex: 1; }
+  .mw-tab thead { display: none; } .mw-tab tr { display: block; border-bottom: 1px solid var(--line); padding: 6px 0; } .mw-tab td { display: block; border: none; padding: 2px 4px; }
+}
+
+/* ===== SCHREIBWERKSTATT ===== */
+.schreib-name-box { background: var(--warn-bg); border: 1.5px solid var(--warn-bd); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; }
+.schreib-label { display: block; font-size: 0.88em; color: var(--warn-tx); margin-bottom: 6px; font-weight: 600; }
+.schreib-name { width: 100%; max-width: 320px; padding: 10px 14px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: border-color 0.2s; background: var(--card); color: var(--text); }
+.schreib-name:focus { border-color: var(--accent); }
+.schreib-name.schreib-name-error { border-color: var(--err-bd); box-shadow: 0 0 0 2px rgba(198,40,40,0.15); animation: schreib-name-shake 0.4s; }
+.shake { animation: schreib-name-shake 0.4s; }
+@keyframes schreib-name-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+
+.schreib-aufgabe-karte { background: var(--card-soft); padding: 18px 22px 18px 24px; margin-bottom: 18px; border-radius: 10px; border-left: 4px solid var(--accent); transition: all 0.25s; }
+.schreib-aufgabe-karte.gesendet { background: var(--sent-bg); border-left-color: var(--sent-bd); }
+.schreib-aufgabe-nr { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85em; padding: 2px 10px; border-radius: 12px; margin-right: 8px; vertical-align: middle; }
+.schreib-aufgabe-karte.gesendet .schreib-aufgabe-nr { background: var(--sent-bd); }
+.schreib-aufgabe-titel { font-weight: 700; color: var(--accent-2); font-size: 1.0em; vertical-align: middle; }
+.schreib-aufgabe-frage { color: var(--text-2); font-size: 0.95em; line-height: 1.55; margin: 8px 0 10px; }
+.verb-zeile { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; font-size: 0.9em; color: var(--muted); }
+.verb-chip { display: inline-block; padding: 3px 12px; border-radius: 14px; font-weight: 700; font-size: 0.95em; }
+.verb-chip.k-a { background: var(--akk-bg); color: var(--akk); }
+.verb-chip.k-d { background: var(--dat-bg); color: var(--dat); }
+.verb-select { padding: 6px 10px; border: 1.5px solid var(--accent-line); border-radius: 8px; font-family: inherit; font-size: 0.95em; background: var(--card); color: var(--text); cursor: pointer; }
+.schreib-mini-textarea {
+  width: 100%; min-height: 240px; padding: 14px 16px;
+  border: 1.5px solid var(--accent-line); border-radius: 8px;
+  font-family: inherit; font-size: 1.02em; line-height: 1.6;
+  outline: none; resize: vertical; background: var(--card); color: var(--text);
+}
+.schreib-mini-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(102,126,234,0.15); }
+.satz-check { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.sc-item { font-size: 0.8em; padding: 3px 10px; border-radius: 12px; background: var(--line); color: var(--muted-2); transition: all .2s; }
+.sc-item::before { content: '○ '; }
+.sc-item.ok { background: var(--ok-bg); color: var(--ok-tx); font-weight: 600; }
+.sc-item.ok::before { content: '✓ '; }
+.schreib-mini-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 10px; }
+.schreib-mini-meta { font-size: 0.82em; color: var(--muted-2); }
+.schreib-mini-meta strong { color: var(--accent); font-weight: 700; }
+.schreib-mini-status { font-size: 0.82em; color: var(--sent-bd); font-weight: 600; margin-left: 8px; }
+.schreib-mini-status.error { color: var(--err-tx); }
+.schreib-mini-btn { padding: 7px 14px; border-radius: 6px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); font-size: 0.85em; font-weight: 600; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-family: inherit; }
+.schreib-mini-btn:hover:not(:disabled) { background: var(--accent); color: #fff; box-shadow: 0 2px 6px rgba(102,126,234,0.3); }
+.schreib-mini-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.schreib-mini-btn.gesendet { border-color: var(--sent-bd); color: var(--sent-bd); background: var(--sent-bg); }
+.schreib-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+.schreib-btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 0.95em; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
+.schreib-btn-primary { background: var(--accent); color: #fff; }
+.schreib-btn-primary:hover:not(:disabled) { box-shadow: 0 4px 12px rgba(102,126,234,0.35); transform: translateY(-1px); }
+.schreib-btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+.schreib-btn-ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent-line); }
+.schreib-btn-ghost:hover { background: var(--accent-soft-2); border-color: var(--accent); }
+.schreib-status { margin-top: 14px; padding: 12px 16px; border-radius: 8px; font-size: 0.92em; line-height: 1.5; display: none; }
+.schreib-status.success { display: block; background: var(--ok-bg); border-left: 4px solid var(--ok-bd); color: var(--ok-tx); }
+.schreib-status.error { display: block; background: var(--err-bg); border-left: 4px solid var(--err-bd); color: var(--err-tx); }
+.schreib-status.info { display: block; background: var(--info-bg); border-left: 4px solid var(--info-bd); color: var(--info-tx); }
+.schreib-fb { display: flex; flex-direction: column; gap: 8px; }
+.schreib-fb-titel { font-weight: 700; font-size: 1em; color: var(--err-tx); }
+.schreib-fb-text { color: var(--text-2); font-size: 0.92em; line-height: 1.5; }
+.schreib-fb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.schreib-fb-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 8px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); font-size: 0.9em; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.schreib-fb-btn:hover { background: var(--accent); color: #fff; }
+.schreib-fb-btn-prim { background: var(--accent); color: #fff; }
+.schreib-fb-hilfe { color: var(--muted); font-size: 0.86em; font-style: italic; margin-top: 4px; }
+
+/* ===== FOOTER ===== */
+.author-footer { text-align: center; padding: 16px 16px 22px; font-size: 0.8rem; color: var(--faint); }
+.author-footer a { color: var(--faint); }
+.author-name { font-weight: 700; }
+
+@media (max-width: 600px) {
+  body { padding: 8px; }
+  .header { padding: 24px 52px; }
+  .header h1 { font-size: 1.6em; }
+  .header p { font-size: 0.98em; }
+  .sec-inner { padding: 18px 14px; }
+  .card { padding: 14px 12px 12px; }
+  .dl, .ans-row { gap: 6px; font-size: 0.98rem; }
+  input.bl.s { width: 55px; } input.bl.m { width: 85px; } input.bl.l { width: 115px; }
+  .hint { font-size: 0.85em; }
+  .schreib-aufgabe-karte { padding: 14px 14px 14px 16px; }
+  .schreib-name-box { padding: 12px 14px; }
+}
+
+/* FB-JUMPTOP - Nach-oben-Button (Glas-Look) */
+.fb-jumptop {
+  position: fixed; bottom: 30px;
+  right: max(18px, calc(50vw - 500px + 14px));
+  background: rgba(118, 75, 162, 0.26);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  color: var(--tx-34206b); border: 1.5px solid rgba(255,255,255,0.75); border-radius: 28px;
+  padding: 15px 26px; font-size: 1.05em; font-weight: 800;
+  letter-spacing: 0.2px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(102,126,234,0.40), inset 0 1px 0 rgba(255,255,255,0.6);
+  text-shadow: 0 1px 1px rgba(255,255,255,0.55);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .25s, visibility .25s, transform .25s, background .2s, box-shadow .2s;
+  z-index: 9999; display: inline-flex; align-items: center; gap: 8px;
+}
+.fb-jumptop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.fb-jumptop:hover { background: rgba(118, 75, 162, 0.40); color: var(--tx-241048); box-shadow: 0 10px 32px rgba(102,126,234,0.50), inset 0 1px 0 rgba(255,255,255,0.65); }
+@media (max-width: 600px) { .fb-jumptop { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.95em; } }
+
+/* FB-THEME-TOGGLE */
+.theme-toggle {
+  position: absolute; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+  color: white; font-size: 1.05em; cursor: pointer; line-height: 1;
+  transition: background 0.2s; z-index: 5;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.3); }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-head-a: #4a52a8;
+  --grad-head-b: #5c4585;
+  --page-a: #1b1e33;
+  --page-b: #2a1f3d;
+  --surface: #20243a;
+  --card: #262a44;
+  --card-soft: #2a2f4c;
+  --nav-band: #1a1d30;
+  --nav-hover: #2c3152;
+  --line: #3a3e58;
+  --line-soft: #3a3e58;
+  --text: #dcdff0;
+  --text-2: #c6cade;
+  --muted: #9ba0bd;
+  --muted-2: #8e93b0;
+  --faint: #6f7390;
+  --accent: #93a0f2;
+  --accent-2: #b592d8;
+  --accent-soft: #2b3052;
+  --accent-soft-2: #2b3052;
+  --accent-line: #4a5080;
+  --ok-bd: #2c6d44;
+  --ok-bg: #153920;
+  --ok-tx: #9ae9b8;
+  --ok-strong: #7ae8a2;
+  --err-bd: #b04444;
+  --err-bg: #3b1313;
+  --err-tx: #ea8787;
+  --akk: #8fb2ff;
+  --akk-bg: #1f2c52;
+  --dat: #ff9a9a;
+  --dat-bg: #4a1f24;
+  --warn-bg: #3a2e1a;
+  --warn-bd: #7a5a20;
+  --warn-tx: #f0c070;
+  --ug-bg: #45331a;
+  --ug-tx: #f3c27a;
+  --info-bg: #142a44;
+  --info-bd: #2f6fb0;
+  --info-tx: #9fcaf5;
+  --sent-bg: #1f3320;
+  --sent-bd: #7cbf4a;
+  --sent-tx: #b5e08f;
+  --tx-34206b: #cbbcf6;
+  --tx-241048: #d9cef8;
+}
+:root:not([data-theme="light"]) body { color: #c6cade; }
+}
+:root[data-theme="dark"] {
+  --grad-head-a: #4a52a8;
+  --grad-head-b: #5c4585;
+  --page-a: #1b1e33;
+  --page-b: #2a1f3d;
+  --surface: #20243a;
+  --card: #262a44;
+  --card-soft: #2a2f4c;
+  --nav-band: #1a1d30;
+  --nav-hover: #2c3152;
+  --line: #3a3e58;
+  --line-soft: #3a3e58;
+  --text: #dcdff0;
+  --text-2: #c6cade;
+  --muted: #9ba0bd;
+  --muted-2: #8e93b0;
+  --faint: #6f7390;
+  --accent: #93a0f2;
+  --accent-2: #b592d8;
+  --accent-soft: #2b3052;
+  --accent-soft-2: #2b3052;
+  --accent-line: #4a5080;
+  --ok-bd: #2c6d44;
+  --ok-bg: #153920;
+  --ok-tx: #9ae9b8;
+  --ok-strong: #7ae8a2;
+  --err-bd: #b04444;
+  --err-bg: #3b1313;
+  --err-tx: #ea8787;
+  --akk: #8fb2ff;
+  --akk-bg: #1f2c52;
+  --dat: #ff9a9a;
+  --dat-bg: #4a1f24;
+  --warn-bg: #3a2e1a;
+  --warn-bd: #7a5a20;
+  --warn-tx: #f0c070;
+  --ug-bg: #45331a;
+  --ug-tx: #f3c27a;
+  --info-bg: #142a44;
+  --info-bd: #2f6fb0;
+  --info-tx: #9fcaf5;
+  --sent-bg: #1f3320;
+  --sent-bd: #7cbf4a;
+  --sent-tx: #b5e08f;
+  --tx-34206b: #cbbcf6;
+  --tx-241048: #d9cef8;
+}
+html[data-theme="dark"] body { color: #c6cade; }
+</style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
+  <h1>Verben mit Präposition – Teil 3</h1>
+  <p>B1 – Grammatik · Teil 3 von 5 · Der Merk-Trick: Die Präposition steckt im Nomen</p>
+  <div class="serie"><a href="verben-praep-teil1.html">Teil 1</a> <a href="verben-praep-teil2.html">Teil 2</a> <span class="serie-akt">Teil 3</span> <a href="verben-praep-teil4.html">Teil 4</a> <a href="verben-praep-teil5.html">Teil 5</a></div>
+  <div class="big-emoji">🧠</div>
+</div>
+
+<div class="nav">
+  <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📦</span><span class="nav-label">Sache</span></div>
+  <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">👤</span><span class="nav-label">Person</span></div>
+  <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">⏱</span><span class="nav-label">Perfekt</span></div>
+  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🎯</span><span class="nav-label">Quiz</span></div>
+  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">🔁</span><span class="nav-label">Trainer</span></div>
+  <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">💡</span><span class="nav-label">Merk-Werkstatt</span></div>
+  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
+</div>
+
+<div class="section active" id="sec-0"><div class="sec-inner" id="inner-0"></div></div>
+<div class="section" id="sec-1"><div class="sec-inner" id="inner-1"></div></div>
+<div class="section" id="sec-2"><div class="sec-inner" id="inner-2"></div></div>
+
+<!-- ===== TAB 4 — QUIZ ===== -->
+<div class="section" id="sec-3"><div class="sec-inner" id="inner-3"></div></div>
+
+<!-- ===== TAB 5 — TRAINER ===== -->
+<div class="section" id="sec-4"><div class="sec-inner">
+  <h2>🔁 Wiederholungstrainer</h2>
+  <div class="sec-desc">Karteikarten in zwei Richtungen. Was du sicher weißt, kommt erst nach Tagen wieder – was du noch nicht weißt, gleich noch einmal. Dein Lernstand bleibt in diesem Browser gespeichert.</div>
+  <div class="tr-steuerung">
+    <label>Teil <select class="verb-select" id="tr-teil"></select></label>
+    <label>Richtung <select class="verb-select" id="tr-richtung">
+      <option value="A">Verb → Präposition + Kasus</option>
+      <option value="B">Merk-Wort → Verb</option>
+      <option value="mix">Gemischt</option>
+    </select></label>
+  </div>
+  <div class="tr-stat"><div class="tr-faecher" id="tr-faecher"></div><div class="tr-faellig" id="tr-faellig"></div></div>
+  <div class="tr-karte" id="tr-karte"></div>
+  <div class="tr-fuss"><button class="mw-link" onclick="trZuruecksetzen()">Lernstand zurücksetzen</button></div>
+</div></div>
+
+<!-- ===== TAB 6 — MERK-WERKSTATT ===== -->
+<div class="section" id="sec-5"><div class="sec-inner">
+  <h2>💡 Merk-Werkstatt – deine eigenen Merk-Wörter</h2>
+  <div class="sec-desc">Selbst gefundene Merk-Wörter bleiben am besten hängen. Wähle ein Verb, finde ein Nomen, das mit der Präposition beginnt, und bilde einen Satz damit.</div>
+  <div class="schreib-name-box">
+    <label class="schreib-label" for="mw-name">Bitte, hier deinen Namen eintragen.</label>
+    <input type="text" id="mw-name" class="schreib-name" autocomplete="name">
+  </div>
+  <div class="mw-form">
+    <div class="mw-zeile"><label for="mw-verb">Verb</label><select class="verb-select" id="mw-verb"></select><span id="mw-verbinfo" class="mw-verbinfo"></span></div>
+    <div class="mw-zeile"><label for="mw-wort">Merk-Wort</label>
+      <select class="verb-select" id="mw-art"><option value="der">der</option><option value="die">die</option><option value="das">das</option><option value="pl">die (Plural)</option></select>
+      <input type="text" id="mw-wort" class="mw-input" autocomplete="off" spellcheck="false"></div>
+    <div class="mw-zeile mw-zeile-satz"><label for="mw-satz">Dein Satz</label><textarea id="mw-satz" class="mw-satz"></textarea></div>
+    <div class="satz-check">
+      <span class="sc-item" id="mwc-anfang">Merk-Wort beginnt mit der Präposition</span><span class="sc-item" id="mwc-gross">Nomen groß</span><span class="sc-item" id="mwc-verb">Verb im Satz</span><span class="sc-item" id="mwc-kasus">Präposition + richtiger Kasus</span>
+    </div>
+    <div class="mw-btns"><button class="schreib-btn schreib-btn-primary" id="mw-save" onclick="mwSpeichern()" disabled>➕ Merk-Wort speichern</button></div>
+  </div>
+  <h3 class="mw-h3">Meine Merk-Wörter</h3>
+  <div id="mw-liste"></div>
+  <div class="schreib-actions"><button class="schreib-btn schreib-btn-primary" id="mw-send" onclick="mwSenden()">📨 Meine Merk-Wörter an Frank senden</button></div>
+  <div class="schreib-status" id="mw-status"></div>
+</div></div>
+
+<!-- ===== TAB 7 — SCHREIBWERKSTATT ===== -->
+<div class="section" id="sec-6"><div class="sec-inner">
+  <h2>📨 Schreibwerkstatt – Eigene Sätze</h2>
+  <div class="sec-legend">
+    <strong>Satzbau:</strong> Verb + <strong>da(r) + Präposition</strong>, + Nebensatz mit <em>dass / ob / wie / W-Wort</em> – oder: , + <strong>zu + Infinitiv</strong><br>
+    <strong>Muster:</strong> <span class="muster">Ich warte <span class="memo-akk">darauf</span>, dass der Aufzug kommt.</span>
+  </div>
+  <div class="schreib-name-box">
+    <label class="schreib-label" for="sw-name">Bitte, hier deinen Namen eintragen.</label>
+    <input type="text" id="sw-name" class="schreib-name" autocomplete="name" required>
+  </div>
+    <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">1</span><span class="schreib-aufgabe-titel">Ich denke nach</span>
+    <div class="schreib-aufgabe-frage">Worüber denkst du zurzeit oft nach? Schreib 2–4 Sätze mit Pronominaladverb und einem „ob“- oder „wie“-Satz (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">nachdenken über</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="1" data-titel="Ich denke nach" data-verb="nachdenken über"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-1">Verb</span><span class="sc-item" id="sc-da-1">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-1">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-1">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-1">0</strong><span class="schreib-mini-status" id="sw-status-1"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-1" onclick="schreibSendenEinzeln(1)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">2</span><span class="schreib-aufgabe-titel">Gut vorbereitet</span>
+    <div class="schreib-aufgabe-frage">Worauf bereitest du dich gerade vor – eine Präsentation, eine Prüfung, eine Reise? Schreib 2–4 Sätze, mindestens einmal mit „zu“ + Infinitiv (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">sich vorbereiten auf</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="2" data-titel="Gut vorbereitet" data-verb="sich vorbereiten auf"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-2">Verb</span><span class="sc-item" id="sc-da-2">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-2">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-2">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-2">0</strong><span class="schreib-mini-status" id="sw-status-2"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-2" onclick="schreibSendenEinzeln(2)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">3</span><span class="schreib-aufgabe-titel">Verlass dich drauf</span>
+    <div class="schreib-aufgabe-frage">Worauf kannst du dich bei deinen Kollegen oder Freunden verlassen? Schreib 2–4 Sätze mit Pronominaladverb und einem „dass“-Satz (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">sich verlassen auf</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="3" data-titel="Verlass dich drauf" data-verb="sich verlassen auf"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-3">Verb</span><span class="sc-item" id="sc-da-3">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-3">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-3">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-3">0</strong><span class="schreib-mini-status" id="sw-status-3"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-3" onclick="schreibSendenEinzeln(3)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">4</span><span class="schreib-aufgabe-titel">Verzicht</span>
+    <div class="schreib-aufgabe-frage">Worauf könntest du nie verzichten – und worauf leicht? Schreib 2–4 Sätze, mindestens einmal mit „zu“ + Infinitiv (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile">Verb: <span class="verb-chip k-a">verzichten auf</span><span class="verb-chip k-a">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="4" data-titel="Verzicht" data-verb="verzichten auf"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-4">Verb</span><span class="sc-item" id="sc-da-4">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-4">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-4">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-4">0</strong><span class="schreib-mini-status" id="sw-status-4"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-4" onclick="schreibSendenEinzeln(4)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">5</span><span class="schreib-aufgabe-titel">Deine Wahl</span>
+    <div class="schreib-aufgabe-frage">Wähle ein Verb aus diesem Teil und schreib 2–4 Sätze über dich: Pronominaladverb + Nebensatz oder „zu“ + Infinitiv (ca. 30–50 Wörter).</div>
+    <div class="verb-zeile"><label for="sw-verb-5">Verb:</label><select class="verb-select" id="sw-verb-5" data-aufgabe="5"></select><span class="verb-chip k-a" id="sw-verbkasus-5">+ Akkusativ</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="5" data-titel="Deine Wahl"></textarea>
+    <div class="satz-check">
+      <span class="sc-item" id="sc-verb-5">Verb</span><span class="sc-item" id="sc-da-5">Pronominaladverb da(r)+Präp.</span><span class="sc-item" id="sc-ns-5">Komma + Nebensatz / zu + Infinitiv</span><span class="sc-item" id="sc-len-5">30+ Wörter</span>
+    </div>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-5">0</strong><span class="schreib-mini-status" id="sw-status-5"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-5" onclick="schreibSendenEinzeln(5)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-actions">
+    <button class="schreib-btn schreib-btn-primary" id="sw-btn-all" onclick="schreibSendenAlleNochOffenen()">📨 Alle noch nicht gesendeten Antworten schicken</button>
+    <button class="schreib-btn schreib-btn-ghost" onclick="schreibKopieren()">📋 Alles kopieren</button>
+    <button class="schreib-btn schreib-btn-ghost" onclick="schreibLeeren()">🗑 Zurücksetzen</button>
+  </div>
+  <div class="schreib-status" id="sw-status"></div>
+</div></div>
+
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:unterricht@frankburkert-daf.de">unterricht@frankburkert-daf.de</a>
+</div>
+</div><!-- /container -->
+
+<script>window.VAP_TEIL = 3;</script>
+<script src="verben-praep-daten.js?v=dcebc2d6"></script>
+<script>
+// k:"a"=Akkusativ(blau), k:"d"=Dativ(rot) · ug:1 = umgangssprachliche Zeile (Demonstrativpronomen)
+const DATA = [
+{"s": 0, "id": 1, "verb": "sich fürchten", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Fürchtest du dich "}, {"b": "vor", "z": "s"}, {"t": " dem "}, {"mn": "Vor", "mr": "stellungsgespräch", "k": "d"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "davor", "z": "m"}, {"t": " fürchte ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Wovor", "z": "m"}, {"t": " fürchtest du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Vorkasse", "mn": "Vor", "mr": "kasse", "k": "d", "sp": "vor", "sa": "der"}]},
+{"s": 0, "id": 2, "verb": "diskutieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Diskutierst du "}, {"b": "über", "z": "m"}, {"t": " die "}, {"mn": "Über", "mr": "wachung", "k": "a"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " diskutiere ich nicht."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " diskutierst du denn?"}]}, {"ans": 1, "ha": "die", "hn": "Übersetzung", "mn": "Über", "mr": "setzung", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 0, "id": 3, "verb": "erzählen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Erzählst du "}, {"b": "von", "z": "s"}, {"t": " der "}, {"mn": "Fon", "mr": "täne", "k": "d"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "davon", "z": "m"}, {"t": " erzähle ich nicht."}]}, {"sp": "A", "sg": [{"b": "Wovon", "z": "m"}, {"t": " erzählst du denn?"}]}, {"ans": 1, "ha": "das", "hn": "Fondue", "mn": "Fon", "mr": "due", "k": "d", "sp": "von", "sa": "dem"}]},
+{"s": 0, "id": 4, "verb": "sich erkundigen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Erkundigst du dich "}, {"b": "nach", "z": "m"}, {"t": " dem "}, {"mn": "Nach", "mr": "tzug", "k": "d"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "danach", "z": "m"}, {"t": " erkundige ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Wonach", "z": "m"}, {"t": " erkundigst du dich denn?"}]}, {"ans": 1, "ha": "der", "hn": "Nachweis", "mn": "Nach", "mr": "weis", "k": "d", "sp": "nach", "sa": "dem"}]},
+{"s": 0, "id": 5, "verb": "nachdenken", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Denkst du "}, {"b": "über", "z": "m"}, {"t": " den "}, {"mn": "Über", "mr": "gang", "k": "a"}, {"t": " nach?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " denke ich nicht nach."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " denkst du denn nach?"}]}, {"ans": 1, "ha": "der", "hn": "Überfall", "mn": "Über", "mr": "fall", "k": "a", "sp": "über", "sa": "den"}]},
+{"s": 0, "id": 6, "verb": "sich informieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Informierst du dich "}, {"b": "über", "z": "m"}, {"t": " die "}, {"mn": "Über", "mr": "fahrt", "k": "a"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " informiere ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " informierst du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Überraschung", "mn": "Über", "mr": "raschung", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 0, "id": 7, "verb": "sich konzentrieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Konzentrierst du dich "}, {"b": "auf", "z": "s"}, {"t": " die "}, {"mn": "Auf", "mr": "nahmeprüfung", "k": "a"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " konzentriere ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " konzentrierst du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Auftragsbestätigung", "mn": "Auf", "mr": "tragsbestätigung", "k": "a", "sp": "auf", "sa": "die"}]},
+{"s": 0, "id": 8, "verb": "sich vorbereiten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Bereitest du dich "}, {"b": "auf", "z": "s"}, {"t": " den "}, {"mn": "Auf", "mr": "tritt", "k": "a"}, {"t": " vor?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " bereite ich mich nicht vor."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " bereitest du dich denn vor?"}]}, {"ans": 1, "ha": "der", "hn": "Aufpreis", "mn": "Auf", "mr": "preis", "k": "a", "sp": "auf", "sa": "den"}]},
+{"s": 0, "id": 9, "verb": "verzichten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Verzichtest du "}, {"b": "auf", "z": "s"}, {"t": " den "}, {"mn": "Auf", "mr": "preis", "k": "a"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " verzichte ich nicht."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " verzichtest du denn?"}]}, {"ans": 1, "ha": "der", "hn": "Aufenthalt", "mn": "Auf", "mr": "enthalt", "k": "a", "sp": "auf", "sa": "den"}]},
+{"s": 0, "id": 10, "verb": "suchen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Suchst du "}, {"b": "nach", "z": "m"}, {"t": " dem "}, {"mn": "Nach", "mr": "weis", "k": "d"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "danach", "z": "m"}, {"t": " suche ich nicht."}]}, {"sp": "A", "sg": [{"b": "Wonach", "z": "m"}, {"t": " suchst du denn?"}]}, {"ans": 1, "ha": "die", "hn": "Nachspeise", "mn": "Nach", "mr": "speise", "k": "d", "sp": "nach", "sa": "der"}]},
+{"s": 0, "id": 11, "verb": "sich streiten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Streitest du dich "}, {"b": "über", "z": "m"}, {"t": " die "}, {"mn": "Über", "mr": "stunden", "k": "a"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " streite ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " streitest du dich denn?"}]}, {"ans": 1, "ha": "der", "hn": "Überfall", "mn": "Über", "mr": "fall", "k": "a", "sp": "über", "sa": "den"}]},
+{"s": 0, "id": 12, "verb": "sich verlassen", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Verlässt du dich "}, {"b": "auf", "z": "s"}, {"t": " die "}, {"mn": "Auf", "mr": "sicht", "k": "a"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " verlasse ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " verlässt du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Aufnahmeprüfung", "mn": "Auf", "mr": "nahmeprüfung", "k": "a", "sp": "auf", "sa": "die"}]},
+{"s": 0, "id": 13, "verb": "einladen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Lädst du sie "}, {"b": "zu", "z": "s"}, {"t": " dem "}, {"mn": "Zu", "mr": "ckerfest", "k": "d"}, {"t": " ein?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "dazu", "z": "m"}, {"t": " lade ich sie nicht ein."}]}, {"sp": "A", "sg": [{"b": "Wozu", "z": "m"}, {"t": " lädst du sie denn ein?"}]}, {"ans": 1, "ha": "das", "hn": "Zusammentreffen", "mn": "Zu", "mr": "sammentreffen", "k": "d", "sp": "zu", "sa": "dem"}]},
+{"s": 0, "id": 14, "verb": "gratulieren", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Gratulierst du ihr "}, {"b": "zu", "z": "s"}, {"t": " der "}, {"mn": "Zu", "mr": "lassung", "k": "d"}, {"t": "?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "dazu", "z": "m"}, {"t": " gratuliere ich ihr nicht."}]}, {"sp": "A", "sg": [{"b": "Wozu", "z": "m"}, {"t": " gratulierst du ihr denn?"}]}, {"ans": 1, "ha": "der", "hn": "Zuwachs", "mn": "Zu", "mr": "wachs", "k": "d", "sp": "zu", "sa": "dem"}]},
+{"s": 1, "id": 15, "verb": "erzählen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Erzählst du "}, {"b": "von", "z": "s"}, {"t": " deinem Lehrer?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "von ihm", "z": "m"}, {"t": " erzähle ich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "von dem", "z": "m"}, {"t": " erzähle ich nicht."}]}, {"sp": "A", "sg": [{"b": "Von wem", "z": "m"}, {"t": " erzählst du denn?"}]}, {"ans": 1, "ha": "der", "hn": "Fondsmanager", "mn": "Fon", "mr": "dsmanager", "k": "d", "sp": "von", "sa": "dem"}]},
+{"s": 1, "id": 16, "verb": "sich verabreden", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Verabredest du dich "}, {"b": "mit", "z": "s"}, {"t": " deiner Schwester?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "mit ihr", "z": "m"}, {"t": " verabrede ich mich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "mit der", "z": "m"}, {"t": " verabrede ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Mit wem", "z": "m"}, {"t": " verabredest du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Mitbewohnerin", "mn": "Mit", "mr": "bewohnerin", "k": "d", "sp": "mit", "sa": "der"}]},
+{"s": 1, "id": 17, "verb": "sich streiten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Streitest du dich "}, {"b": "über", "z": "m"}, {"t": " deinen Chef?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "über ihn", "z": "m"}, {"t": " streite ich mich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "über den", "z": "m"}, {"t": " streite ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Über wen", "z": "m"}, {"t": " streitest du dich denn?"}]}, {"ans": 1, "ha": "der", "hn": "Übersetzer", "mn": "Über", "mr": "setzer", "k": "a", "sp": "über", "sa": "den"}]},
+{"s": 1, "id": 18, "verb": "sich verlassen", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Verlässt du dich "}, {"b": "auf", "z": "s"}, {"t": " deine Kollegin?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "auf sie", "z": "m"}, {"t": " verlasse ich mich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "auf die", "z": "m"}, {"t": " verlasse ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Auf wen", "z": "m"}, {"t": " verlässt du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Aufsichtsrätin", "mn": "Auf", "mr": "sichtsrätin", "k": "a", "sp": "auf", "sa": "die"}]},
+{"s": 1, "id": 19, "verb": "nachdenken", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Denkst du "}, {"b": "über", "z": "m"}, {"t": " deinen Bruder nach?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "über ihn", "z": "m"}, {"t": " denke ich nicht nach."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "über den", "z": "m"}, {"t": " denke ich nicht nach."}]}, {"sp": "A", "sg": [{"b": "Über wen", "z": "m"}, {"t": " denkst du denn nach?"}]}, {"ans": 1, "ha": "der", "hn": "Übersetzer", "mn": "Über", "mr": "setzer", "k": "a", "sp": "über", "sa": "den"}]},
+{"s": 1, "id": 20, "verb": "sich fürchten", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Fürchtest du dich "}, {"b": "vor", "z": "s"}, {"t": " deiner Mutter?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "vor ihr", "z": "m"}, {"t": " fürchte ich mich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "vor der", "z": "m"}, {"t": " fürchte ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Vor wem", "z": "m"}, {"t": " fürchtest du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Vorleserin", "mn": "Vor", "mr": "leserin", "k": "d", "sp": "vor", "sa": "der"}]},
+{"s": 1, "id": 21, "verb": "suchen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Suchst du "}, {"b": "nach", "z": "m"}, {"t": " deinem Freund?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "nach ihm", "z": "m"}, {"t": " suche ich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "nach dem", "z": "m"}, {"t": " suche ich nicht."}]}, {"sp": "A", "sg": [{"b": "Nach wem", "z": "m"}, {"t": " suchst du denn?"}]}, {"ans": 1, "ha": "die", "hn": "Nachbarin", "mn": "Nach", "mr": "barin", "k": "d", "sp": "nach", "sa": "der"}]},
+{"s": 1, "id": 22, "verb": "sich informieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Informierst du dich "}, {"b": "über", "z": "m"}, {"t": " deine Oma?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "über sie", "z": "m"}, {"t": " informiere ich mich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "über die", "z": "m"}, {"t": " informiere ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Über wen", "z": "m"}, {"t": " informierst du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Übersetzerin", "mn": "Über", "mr": "setzerin", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 1, "id": 23, "verb": "sich erkundigen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Erkundigst du dich "}, {"b": "nach", "z": "m"}, {"t": " deinem Vater?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "nach ihm", "z": "m"}, {"t": " erkundige ich mich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "nach dem", "z": "m"}, {"t": " erkundige ich mich nicht."}]}, {"sp": "A", "sg": [{"b": "Nach wem", "z": "m"}, {"t": " erkundigst du dich denn?"}]}, {"ans": 1, "ha": "die", "hn": "Nachbarin", "mn": "Nach", "mr": "barin", "k": "d", "sp": "nach", "sa": "der"}]},
+{"s": 1, "id": 24, "verb": "diskutieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Diskutierst du "}, {"b": "über", "z": "m"}, {"t": " deine Tochter?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "über sie", "z": "m"}, {"t": " diskutiere ich nicht."}]}, {"sp": "B", "ug": 1, "sg": [{"t": "Nein, "}, {"b": "über die", "z": "m"}, {"t": " diskutiere ich nicht."}]}, {"sp": "A", "sg": [{"b": "Über wen", "z": "m"}, {"t": " diskutierst du denn?"}]}, {"ans": 1, "ha": "die", "hn": "Übersetzerin", "mn": "Über", "mr": "setzerin", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 2, "id": 25, "verb": "sich fürchten", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "vor", "z": "s"}, {"t": " dem "}, {"mn": "Vor", "mr": "stellungsgespräch", "k": "d"}, {"t": " gefürchtet?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "davor", "z": "m"}, {"t": " habe ich mich nicht gefürchtet."}]}, {"sp": "A", "sg": [{"b": "Wovor", "z": "m"}, {"t": " hast du dich denn gefürchtet?"}]}, {"ans": 1, "ha": "der", "hn": "Vorwurf", "mn": "Vor", "mr": "wurf", "k": "d", "sp": "vor", "sa": "dem"}]},
+{"s": 2, "id": 26, "verb": "diskutieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du "}, {"b": "über", "z": "m"}, {"t": " die "}, {"mn": "Über", "mr": "wachung", "k": "a"}, {"t": " diskutiert?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " habe ich nicht diskutiert."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " hast du denn diskutiert?"}]}, {"ans": 1, "ha": "der", "hn": "Übergang", "mn": "Über", "mr": "gang", "k": "a", "sp": "über", "sa": "den"}]},
+{"s": 2, "id": 27, "verb": "erzählen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Hast du "}, {"b": "von", "z": "s"}, {"t": " der "}, {"mn": "Fon", "mr": "täne", "k": "d"}, {"t": " erzählt?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "davon", "z": "m"}, {"t": " habe ich nicht erzählt."}]}, {"sp": "A", "sg": [{"b": "Wovon", "z": "m"}, {"t": " hast du denn erzählt?"}]}, {"ans": 1, "ha": "der", "hn": "Fondue-Abend", "mn": "Fon", "mr": "due-Abend", "k": "d", "sp": "von", "sa": "dem"}]},
+{"s": 2, "id": 28, "verb": "sich erkundigen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "nach", "z": "m"}, {"t": " dem "}, {"mn": "Nach", "mr": "tzug", "k": "d"}, {"t": " erkundigt?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "danach", "z": "m"}, {"t": " habe ich mich nicht erkundigt."}]}, {"sp": "A", "sg": [{"b": "Wonach", "z": "m"}, {"t": " hast du dich denn erkundigt?"}]}, {"ans": 1, "ha": "der", "hn": "Nachtisch", "mn": "Nach", "mr": "tisch", "k": "d", "sp": "nach", "sa": "dem"}]},
+{"s": 2, "id": 29, "verb": "nachdenken", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du "}, {"b": "über", "z": "m"}, {"t": " den "}, {"mn": "Über", "mr": "gang", "k": "a"}, {"t": " nachgedacht?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " habe ich nicht nachgedacht."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " hast du denn nachgedacht?"}]}, {"ans": 1, "ha": "die", "hn": "Überfüllung", "mn": "Über", "mr": "füllung", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 2, "id": 30, "verb": "sich informieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "über", "z": "m"}, {"t": " die "}, {"mn": "Über", "mr": "fahrt", "k": "a"}, {"t": " informiert?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " habe ich mich nicht informiert."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " hast du dich denn informiert?"}]}, {"ans": 1, "ha": "die", "hn": "Überbuchung", "mn": "Über", "mr": "buchung", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 2, "id": 31, "verb": "sich konzentrieren", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "auf", "z": "s"}, {"t": " die "}, {"mn": "Auf", "mr": "nahmeprüfung", "k": "a"}, {"t": " konzentriert?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " habe ich mich nicht konzentriert."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " hast du dich denn konzentriert?"}]}, {"ans": 1, "ha": "der", "hn": "Aufzug", "mn": "Auf", "mr": "zug", "k": "a", "sp": "auf", "sa": "den"}]},
+{"s": 2, "id": 32, "verb": "sich vorbereiten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "auf", "z": "s"}, {"t": " den "}, {"mn": "Auf", "mr": "tritt", "k": "a"}, {"t": " vorbereitet?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " habe ich mich nicht vorbereitet."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " hast du dich denn vorbereitet?"}]}, {"ans": 1, "ha": "der", "hn": "Aufwand", "mn": "Auf", "mr": "wand", "k": "a", "sp": "auf", "sa": "den"}]},
+{"s": 2, "id": 33, "verb": "verzichten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du "}, {"b": "auf", "z": "s"}, {"t": " den "}, {"mn": "Auf", "mr": "preis", "k": "a"}, {"t": " verzichtet?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " habe ich nicht verzichtet."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " hast du denn verzichtet?"}]}, {"ans": 1, "ha": "die", "hn": "Aufgabe", "mn": "Auf", "mr": "gabe", "k": "a", "sp": "auf", "sa": "die"}]},
+{"s": 2, "id": 34, "verb": "suchen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Hast du "}, {"b": "nach", "z": "m"}, {"t": " dem "}, {"mn": "Nach", "mr": "weis", "k": "d"}, {"t": " gesucht?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "danach", "z": "m"}, {"t": " habe ich nicht gesucht."}]}, {"sp": "A", "sg": [{"b": "Wonach", "z": "m"}, {"t": " hast du denn gesucht?"}]}, {"ans": 1, "ha": "die", "hn": "Nachbarküche", "mn": "Nach", "mr": "barküche", "k": "d", "sp": "nach", "sa": "der"}]},
+{"s": 2, "id": 35, "verb": "sich streiten", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "über", "z": "m"}, {"t": " die "}, {"mn": "Über", "mr": "stunden", "k": "a"}, {"t": " gestritten?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darüber", "z": "m"}, {"t": " habe ich mich nicht gestritten."}]}, {"sp": "A", "sg": [{"b": "Worüber", "z": "m"}, {"t": " hast du dich denn gestritten?"}]}, {"ans": 1, "ha": "die", "hn": "Überfüllung", "mn": "Über", "mr": "füllung", "k": "a", "sp": "über", "sa": "die"}]},
+{"s": 2, "id": 36, "verb": "sich verlassen", "k": "a", "L": [{"sp": "A", "sg": [{"t": "Hast du dich "}, {"b": "auf", "z": "s"}, {"t": " die "}, {"mn": "Auf", "mr": "sicht", "k": "a"}, {"t": " verlassen?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "darauf", "z": "m"}, {"t": " habe ich mich nicht verlassen."}]}, {"sp": "A", "sg": [{"b": "Worauf", "z": "m"}, {"t": " hast du dich denn verlassen?"}]}, {"ans": 1, "ha": "die", "hn": "Aufforderung", "mn": "Auf", "mr": "forderung", "k": "a", "sp": "auf", "sa": "die"}]},
+{"s": 2, "id": 37, "verb": "einladen", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Hast du sie "}, {"b": "zu", "z": "s"}, {"t": " dem "}, {"mn": "Zu", "mr": "ckerfest", "k": "d"}, {"t": " eingeladen?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "dazu", "z": "m"}, {"t": " habe ich sie nicht eingeladen."}]}, {"sp": "A", "sg": [{"b": "Wozu", "z": "m"}, {"t": " hast du sie denn eingeladen?"}]}, {"ans": 1, "ha": "das", "hn": "Zusammentreffen", "mn": "Zu", "mr": "sammentreffen", "k": "d", "sp": "zu", "sa": "dem"}]},
+{"s": 2, "id": 38, "verb": "gratulieren", "k": "d", "L": [{"sp": "A", "sg": [{"t": "Hast du ihr "}, {"b": "zu", "z": "s"}, {"t": " der "}, {"mn": "Zu", "mr": "lassung", "k": "d"}, {"t": " gratuliert?"}]}, {"sp": "B", "sg": [{"t": "Nein, "}, {"b": "dazu", "z": "m"}, {"t": " habe ich ihr nicht gratuliert."}]}, {"sp": "A", "sg": [{"b": "Wozu", "z": "m"}, {"t": " hast du ihr denn gratuliert?"}]}, {"ans": 1, "ha": "der", "hn": "Zuwachs", "mn": "Zu", "mr": "wachs", "k": "d", "sp": "zu", "sa": "dem"}]}
+];
+
+const SEC_META = [
+{title:"📦 Verben mit Präposition – Sache",
+ desc:"Ergänze die Präposition, das Pronominaladverb (da + Präp.), das Fragewort (wo + Präp.) und beantworte mit dem richtigen Kasus.",
+ help:`<strong>Merk-Trick:</strong> Die Präposition steckt im Nomen: warten <strong>auf</strong> → die <span class="memo-akk">Auf</span>gabe · fragen <strong>nach</strong> → die <span class="memo-dat">Nach</span>richt &nbsp; <span class="legend"><span class="chip-akk">blau = Akkusativ</span><span class="chip-dat">rot = Dativ</span></span>`},
+{title:"👤 Verben mit Präposition – Person",
+ desc:"Bei Personen: Präposition + Pronomen (ihn/sie/ihm/ihr) und Fragewort mit wen/wem. Im Gespräch sagt man oft auch den/die/dem/der (orange Zeile) – beides ist richtig.",
+ help:`<strong>Umgangssprachlich:</strong> über ihn → über <strong>den</strong> · an sie → an <strong>die</strong> · mit ihm → mit <strong>dem</strong> · mit ihr → mit <strong>der</strong> &nbsp; <span class="legend"><span class="chip-akk">blau = Akkusativ</span><span class="chip-dat">rot = Dativ</span></span>`},
+{title:"⏱ Verben mit Präposition – Perfekt",
+ desc:"Wie bei den Sachen, aber im Perfekt. Achte auf haben oder sein!",
+ help:`<span class="legend"><span class="chip-akk">blau = Akkusativ</span><span class="chip-dat">rot = Dativ</span></span>`}
+];
+
+// ======== RENDER ========
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function memoHtml(mn,mr,k){
+  const cls = k==='a'?'memo-akk':'memo-dat';
+  return `<span class="${cls}">${esc(mn)}</span>${esc(mr)}`;
+}
+function blankHtml(bid,sol,z){
+  return `<input class="bl ${z}" id="${bid}" data-sol="${esc(sol)}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+}
+function renderSeg(sg,exId,lineIdx){
+  let h='';
+  for(let i=0;i<sg.length;i++){
+    const s=sg[i];
+    if(s.t!==undefined){
+      const nx=sg[i+1];
+      if(nx&&nx.b!==undefined&&s.t.length>0&&!s.t.endsWith(' ')){
+        h+=`<span class="nw">${esc(s.t)}${blankHtml(`i-${exId}-${lineIdx}-${i+1}`,nx.b,nx.z)}</span>`;
+        nx._sk=1;
+      } else h+=esc(s.t);
+    } else if(s.b!==undefined&&!s._sk){
+      h+=blankHtml(`i-${exId}-${lineIdx}-${i}`,s.b,s.z);
+    } else if(s.mn!==undefined){
+      h+=memoHtml(s.mn,s.mr,s.k);
+    }
+  }
+  return h;
+}
+function renderAnswer(a,exId,li){
+  return `<div class="ans-row"><span class="sp b">B</span><span class="dl-body">
+<span class="hint">(${esc(a.ha)} ${esc(a.hn)})</span><span class="arrow">→</span>
+<span class="nw">${blankHtml(`i-${exId}-${li}-0`,a.sp,'m')}${blankHtml(`i-${exId}-${li}-1`,a.sa,'s')}</span>
+<span class="noun-fixed">${memoHtml(a.mn,a.mr,a.k)}.</span></span></div>`;
+}
+function renderAll(){
+  for(let si=0;si<3;si++){
+    const box=document.getElementById(`inner-${si}`);
+    const m=SEC_META[si];
+    let h=`<h2>${m.title}</h2>
+<div class="sec-desc">${m.desc}</div>
+<div class="control-bar">
+  <div class="btn-row">
+    <button onclick="showLoesung(${si})" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetTab(${si}); resetTimer(${si});" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+  </div>
+  <div class="timer-display">
+    <span class="current-time">⏱ <span id="timer-${si}">00:00</span></span>
+    <span class="best-time">🏆 <span id="best-${si}">--:--</span></span>
+  </div>
+</div>
+<div class="progress" id="prog-${si}"><div class="progress-track"><div class="progress-fill" id="progfill-${si}"></div></div><div class="progress-text" id="progtext-${si}"></div></div>
+<div class="sec-legend">${m.help}</div>`;
+    DATA.filter(d=>d.s===si).forEach(ex=>{
+      h+=`<div class="card ${ex.k==='d'?'k-d':'k-a'}" id="card-${ex.id}">`;
+      h+=`<div class="card-hdr"><span class="card-nr">${String(ex.id).padStart(2,'0')}</span><span class="card-badge">${esc(ex.verb)}</span></div>`;
+      ex.L.forEach((line,li)=>{
+        if(line.ans){ h+=renderAnswer(line,ex.id,li); return; }
+        const sg=line.sg.map(s=>({...s}));
+        const tag=line.ug?`<span class="ug-tag">umgangssprachlich</span>`:'';
+        h+=`<div class="dl"><span class="sp${line.sp==='B'?' b':''}">${line.sp}</span><span class="dl-body">${tag}${renderSeg(sg,ex.id,li)}</span></div>`;
+      });
+      h+=eigenRowHtml(ex);
+      h+=`</div>`;
+    });
+    h+=`<div class="celebrate" id="cel-${si}"></div>`;
+    box.innerHTML=h;
+  }
+}
+
+// ======== TIMER ========
+const timers=[0,1,2,3].map(()=>({start:0,iv:null,running:false,elapsed:0,usedSolution:false}));
+const BEST_KEY='verben_praep_v1_best_';
+function fmt(sec){return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
+function startTimer(si){
+  const t=timers[si]; if(t.running||t.done) return;
+  t.running=true; t.start=Date.now()-t.elapsed*1000;
+  t.iv=setInterval(()=>{t.elapsed=Math.floor((Date.now()-t.start)/1000);document.getElementById(`timer-${si}`).textContent=fmt(t.elapsed)},500);
+}
+function stopTimer(si){const t=timers[si];if(t.iv)clearInterval(t.iv);t.iv=null;t.running=false;}
+function resetTimer(si){
+  stopTimer(si);const t=timers[si];t.elapsed=0;t.done=false;t.usedSolution=false;
+  document.getElementById(`timer-${si}`).textContent='00:00';
+}
+function showBest(si){const b=lsGet(BEST_KEY+si);document.getElementById(`best-${si}`).textContent=b?fmt(+b):'--:--'}
+
+// ======== LIVE-FEEDBACK (Präfix-Regel) ========
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ')}
+function liveCheck(inp,onBlur){
+  const sol=norm(inp.dataset.sol), raw=inp.value, val=norm(raw);
+  inp.classList.remove('correct','wrong');
+  if(val==='') return;
+  if(val===sol){inp.classList.add('correct');return;}
+  // Präfix: solange das Getippte ein Anfang der Lösung ist → neutral
+  const typed=raw.toLowerCase().replace(/^\s+/,'').replace(/\s+/g,' ');
+  if(!onBlur && sol.indexOf(typed)===0) return;
+  inp.classList.add('wrong');
+}
+function updateProgress(si){
+  const inputs=[...document.querySelectorAll(`#sec-${si} input.bl`)];
+  const ok=inputs.filter(i=>i.classList.contains('correct')).length;
+  const total=inputs.length;
+  document.getElementById(`progfill-${si}`).style.width=(total?ok/total*100:0)+'%';
+  document.getElementById(`progtext-${si}`).innerHTML=`<strong>${ok}</strong> von ${total} Lücken richtig`;
+  const prog=document.getElementById(`prog-${si}`);
+  prog.classList.toggle('done',ok===total&&total>0);
+  DATA.filter(d=>d.s===si).forEach(ex=>{
+    const c=document.getElementById(`card-${ex.id}`);
+    const ins=c.querySelectorAll('input.bl');
+    const fertig=[...ins].every(i=>i.classList.contains('correct'));
+    c.classList.toggle('complete',fertig);
+    if(typeof eigenFreigabe==='function') eigenFreigabe(c,fertig);
+  });
+  const cel=document.getElementById(`cel-${si}`);
+  if(ok===total&&total>0){
+    const t=timers[si];
+    if(!t.done){
+      stopTimer(si);t.done=true;
+      let msg='🎉 Alle Lücken richtig!';
+      if(!t.usedSolution&&t.elapsed>0){
+        msg+=` Deine Zeit: ${fmt(t.elapsed)}`;
+        const best=lsGet(BEST_KEY+si);
+        if(!best||t.elapsed<+best){lsSet(BEST_KEY+si,t.elapsed);msg+=' – neue Bestzeit! 🏆';showBest(si);}
+      }
+      if(!t.usedSolution){cel.textContent=msg;cel.classList.add('show');}
+    }
+  } else cel.classList.remove('show');
+}
+function setupLive(){
+  for(let si=0;si<3;si++){
+    document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{
+      inp.addEventListener('input',()=>{startTimer(si);liveCheck(inp,false);updateProgress(si);});
+      inp.addEventListener('blur',()=>{liveCheck(inp,true);updateProgress(si);});
+    });
+    showBest(si);updateProgress(si);
+  }
+}
+function showLoesung(si){
+  timers[si].usedSolution=true;stopTimer(si);
+  if(si===3){quizLoesung();return;}
+  document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{inp.value=inp.dataset.sol;inp.classList.remove('wrong');inp.classList.add('correct');});
+  updateProgress(si);
+}
+function resetTab(si){
+  if(si===3){timers[3].done=false;renderQuiz();return;}
+  document.querySelectorAll(`#sec-${si} input.bl`).forEach(inp=>{inp.value='';inp.classList.remove('correct','wrong');});
+  timers[si].done=false;
+  document.getElementById(`cel-${si}`).classList.remove('show');
+  updateProgress(si);
+}
+function showSection(idx){
+  document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===idx));
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ======== QUIZ: Präposition + Kasus ========
+// p = Präposition, k = Kasus (a/d), x = ebenfalls mögliche Präpositionen (nie als falscher Distraktor anbieten),
+// h = Bedeutungshinweis, m = Merk-Wort aus den Übungen [Artikel, Präfix, Rest]
+const QUIZ = [
+{"v": "sich fürchten", "p": "vor", "k": "d", "m": ["das", "Vor", "stellungsgespräch"]},
+{"v": "diskutieren", "p": "über", "k": "a", "m": ["die", "Über", "wachung"], "x": ["mit"]},
+{"v": "erzählen", "p": "von", "k": "d", "m": ["die", "Fon", "täne"], "x": ["über"]},
+{"v": "sich erkundigen", "p": "nach", "k": "d", "m": ["der", "Nach", "tzug"], "x": ["bei"]},
+{"v": "nachdenken", "p": "über", "k": "a", "m": ["der", "Über", "gang"]},
+{"v": "sich informieren", "p": "über", "k": "a", "m": ["die", "Über", "fahrt"], "x": ["bei"]},
+{"v": "sich konzentrieren", "p": "auf", "k": "a", "m": ["die", "Auf", "nahmeprüfung"]},
+{"v": "sich vorbereiten", "p": "auf", "k": "a", "m": ["der", "Auf", "tritt"], "x": ["für"]},
+{"v": "verzichten", "p": "auf", "k": "a", "m": ["der", "Auf", "preis"]},
+{"v": "suchen", "p": "nach", "k": "d", "m": ["der", "Nach", "weis"]},
+{"v": "sich verabreden", "p": "mit", "k": "d", "m": ["die", "Mit", "schülerin"], "x": ["an", "für", "in", "zu"]},
+{"v": "sich streiten", "p": "über", "k": "a", "m": ["die", "Über", "stunden"], "x": ["mit", "um", "wegen"]},
+{"v": "sich verlassen", "p": "auf", "k": "a", "m": ["die", "Auf", "sicht"]},
+{"v": "einladen", "p": "zu", "k": "d", "m": ["das", "Zu", "ckerfest"], "x": ["auf", "in"]},
+{"v": "gratulieren", "p": "zu", "k": "d", "m": ["die", "Zu", "lassung"]}
+];
+const QUIZ_POOL = ["auf","an","über","für","um","von","mit","nach","vor","zu","bei","in","aus"];
+let quizOrder = [];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function quizOptions(q){
+  const verboten=new Set([q.p].concat(q.x||[]));
+  const dist=shuffle(QUIZ_POOL.filter(p=>!verboten.has(p))).slice(0,3);
+  return shuffle(dist.concat([q.p]));
+}
+function renderQuiz(){
+  const box=document.getElementById('inner-3');
+  quizOrder=shuffle(QUIZ.map((q,i)=>i));
+  let h=`<h2>🎯 Quiz – Präposition und Kasus</h2>
+<div class="sec-desc">Welche Präposition gehört zum Verb? Und welcher Kasus folgt? Klick zuerst die Präposition, dann den Kasus.</div>
+<div class="control-bar">
+  <div class="btn-row">
+    <button onclick="showLoesung(3)" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">💡 Lösungen</button>
+    <button onclick="resetTab(3); resetTimer(3);" style="background:#f5f7ff;border:1px solid #c5cff5;border-radius:8px;padding:6px 16px;font-size:0.85em;color:#667eea;cursor:pointer;font-weight:600;">↺ Neustart</button>
+  </div>
+  <div class="timer-display">
+    <span class="current-time">⏱ <span id="timer-3">00:00</span></span>
+    <span class="best-time">🏆 <span id="best-3">--:--</span></span>
+  </div>
+</div>
+<div class="progress" id="prog-3"><div class="progress-track"><div class="progress-fill" id="progfill-3"></div></div><div class="progress-text" id="progtext-3"></div></div>
+<div class="quiz-grid">`;
+  quizOrder.forEach((qi,n)=>{
+    const q=QUIZ[qi];
+    h+=`<div class="quiz-card" id="qz-${qi}" data-fehler="0">
+  <div class="quiz-head"><span class="card-nr">${String(n+1).padStart(2,'0')}</span><span class="quiz-fehler" id="qzf-${qi}"></span></div>
+  <div class="quiz-verb">${esc(q.v)} <span class="quiz-slot" id="qzp-${qi}">?</span> <span class="quiz-plus">+</span> <span class="quiz-slot" id="qzk-${qi}">?</span></div>
+  ${q.h?`<div class="quiz-hint">(${esc(q.h)})</div>`:''}
+  <div class="quiz-step"><span class="quiz-label">Präposition</span><div class="mc-opts">${quizOptions(q).map(p=>`<button class="mc-opt" onclick="quizPraep(${qi},this,'${p}')">${p}</button>`).join('')}</div></div>
+  <div class="quiz-step quiz-kasus locked" id="qzks-${qi}"><span class="quiz-label">Kasus</span><div class="mc-opts"><button class="mc-opt" onclick="quizKasus(${qi},this,'a')">Akkusativ</button><button class="mc-opt" onclick="quizKasus(${qi},this,'d')">Dativ</button></div></div>
+  <div class="quiz-memo" id="qzm-${qi}"></div>
+</div>`;
+  });
+  h+=`</div><div class="celebrate" id="cel-3"></div>`;
+  box.innerHTML=h;
+  showBest(3);updateQuizProgress();
+}
+function quizFehler(qi){
+  const c=document.getElementById(`qz-${qi}`);
+  const n=+c.dataset.fehler+1;c.dataset.fehler=n;
+  document.getElementById(`qzf-${qi}`).textContent=n===1?'1 Fehlversuch':n+' Fehlversuche';
+}
+function quizPraep(qi,btn,p){
+  const q=QUIZ[qi];startTimer(3);
+  if(btn.disabled) return;
+  if(p===q.p){
+    btn.classList.add('ok');
+    btn.parentNode.querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);
+    const s=document.getElementById(`qzp-${qi}`);s.textContent=q.p;s.classList.add('filled');
+    document.getElementById(`qzks-${qi}`).classList.remove('locked');
+  } else { btn.classList.add('no');btn.disabled=true;quizFehler(qi); }
+}
+function quizKasus(qi,btn,k){
+  const q=QUIZ[qi];
+  if(btn.disabled||document.getElementById(`qzks-${qi}`).classList.contains('locked')) return;
+  startTimer(3);
+  if(k===q.k){
+    btn.classList.add('ok');
+    btn.parentNode.querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);
+    quizFertig(qi);
+  } else { btn.classList.add('no');btn.disabled=true;quizFehler(qi); }
+}
+function quizFertig(qi){
+  const q=QUIZ[qi], c=document.getElementById(`qz-${qi}`);
+  const s=document.getElementById(`qzk-${qi}`);
+  s.textContent=q.k==='a'?'Akk.':'Dat.';s.classList.add('filled',q.k==='a'?'k-a':'k-d');
+  c.classList.add('done',q.k==='a'?'k-a':'k-d');
+  if(q.m) document.getElementById(`qzm-${qi}`).innerHTML=`Merk-Wort: ${esc(q.m[0])} ${memoHtml(q.m[1],q.m[2],q.k)}`;
+  updateQuizProgress();
+}
+function updateQuizProgress(){
+  const total=QUIZ.length, done=document.querySelectorAll('#sec-3 .quiz-card.done').length;
+  const fehlerfrei=[...document.querySelectorAll('#sec-3 .quiz-card.done')].filter(c=>c.dataset.fehler==='0').length;
+  document.getElementById('progfill-3').style.width=(done/total*100)+'%';
+  document.getElementById('progtext-3').innerHTML=`<strong>${done}</strong> von ${total} Verben gelöst · ${fehlerfrei} davon im ersten Versuch`;
+  document.getElementById('prog-3').classList.toggle('done',done===total);
+  const cel=document.getElementById('cel-3'), t=timers[3];
+  if(done===total&&!t.done){
+    stopTimer(3);t.done=true;
+    if(!t.usedSolution){
+      let msg=`🎉 Alle ${total} Verben gelöst – ${fehlerfrei} ohne Fehler!`;
+      if(t.elapsed>0){msg+=` Deine Zeit: ${fmt(t.elapsed)}`;const best=lsGet(BEST_KEY+3);if(!best||t.elapsed<+best){lsSet(BEST_KEY+3,t.elapsed);msg+=' – neue Bestzeit! 🏆';showBest(3);}}
+      cel.textContent=msg;cel.classList.add('show');
+    }
+  } else if(done<total) cel.classList.remove('show');
+}
+function quizLoesung(){
+  QUIZ.forEach((q,qi)=>{
+    const c=document.getElementById(`qz-${qi}`); if(c.classList.contains('done')) return;
+    c.dataset.fehler='L';
+    c.querySelectorAll('.quiz-step').forEach(st=>st.classList.remove('locked'));
+    c.querySelectorAll('.quiz-step')[0].querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;if(b.textContent===q.p)b.classList.add('ok');});
+    c.querySelectorAll('.quiz-step')[1].querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;if((b.textContent==='Akkusativ')===(q.k==='a'))b.classList.add('ok');});
+    const s=document.getElementById(`qzp-${qi}`);s.textContent=q.p;s.classList.add('filled');
+    quizFertig(qi);
+  });
+}
+
+
+/* ===== SCHREIBWERKSTATT (B1) – Eigene Sätze mit Satz-Check ===== */
+var SCHREIB_NAME_KEY      = 'schreibwerkstatt_B1_VERBPRAEP_T3_name';
+var SCHREIB_KEY_PREFIX    = 'schreibwerkstatt_B1_VERBPRAEP_T3_';
+var SCHREIB_SENT_PREFIX   = 'schreibwerkstatt_B1_VERBPRAEP_T3_sent_';
+var SCHREIB_VERB_PREFIX   = 'schreibwerkstatt_B1_VERBPRAEP_T3_verb_';
+var FORMSUBMIT_ENDPOINT  = 'https://api.web3forms.com/submit';
+var FORMSUBMIT_ACCESS_KEY = 'e96ea83f-67e2-4fff-81df-76fee86a09ff';
+var FORMSUBMIT_MAILTO    = 'unterricht@frankburkert-daf.de';
+var SCHREIB_LEKTION       = 'B1 – Grammatik · Verben mit Präposition, Teil 3';
+var SCHREIB_CODE          = 'B1 Verben mit Präposition T3';
+var SCHREIB_MIN_CHARS     = 12;
+var SCHREIB_ZIEL_WOERTER  = 30;
+
+// Verb-Lexikon für den Satz-Check: da-Form + Wortstämme (alle Formen inkl. Perfekt/Präteritum)
+var VERB_LEX = {
+  'warten auf':            { k:'a', da:'darauf',  st:['wart'] },
+  'erzählen von':          { k:'d', da:'davon',   st:['erzähl'] },
+  'sprechen über':         { k:'a', da:'darüber', st:['sprech','sprich','sprach','gesproch'] },
+  'sich freuen auf':       { k:'a', da:'darauf',  st:['freu'] },
+  'sich freuen über':      { k:'a', da:'darüber', st:['freu'] },
+  'denken an':             { k:'a', da:'daran',   st:['denk','dach','gedacht'] },
+  'sich erinnern an':      { k:'a', da:'daran',   st:['erinner'] },
+  'sich ärgern über':      { k:'a', da:'darüber', st:['ärger'] },
+  'hoffen auf':            { k:'a', da:'darauf',  st:['hoff'] },
+  'achten auf':            { k:'a', da:'darauf',  st:['acht'] },
+  'sich interessieren für':{ k:'a', da:'dafür',   st:['interessier'] },
+  'sich bedanken für':     { k:'a', da:'dafür',   st:['bedank'] },
+  'sich entscheiden für':  { k:'a', da:'dafür',   st:['entscheid','entschied'] },
+  'sich kümmern um':       { k:'a', da:'darum',   st:['kümmer'] },
+  'sich gewöhnen an':      { k:'a', da:'daran',   st:['gewöhn'] },
+  'sich beschweren über':  { k:'a', da:'darüber', st:['beschwer'] },
+  'träumen von':           { k:'d', da:'davon',   st:['träum'] },
+  'fragen nach':           { k:'d', da:'danach',  st:['frag'] },
+  'sich erkundigen nach':  { k:'d', da:'danach',  st:['erkundig'] },
+  'anfangen mit':          { k:'d', da:'damit',   st:['fang','fäng','fing'] },
+  'sich beschäftigen mit': { k:'d', da:'damit',   st:['beschäftig'] },
+  'sich fürchten vor':     { k:'d', da:'davor',   st:['fürcht'] }
+};
+
+
+// Verben der Serie aus der zentralen Datendatei (verben-praep-daten.js) übernehmen
+function schreibDaForm(p) { return 'da' + (/^[aeiouäöü]/.test(p) ? 'r' : '') + p; }
+function schreibLex(key) {
+  if (VERB_LEX[key]) return VERB_LEX[key];
+  var e = (window.VAP_VERBEN || []).find(function (x) { return x.v + ' ' + x.p === key; });
+  if (!e) return null;
+  return { k: e.k, da: schreibDaForm(e.p), st: mwVerbStaemme(e.v) };
+}
+function schreibVerbOptionen(sel) {
+  var V = window.VAP_VERBEN || []; if (!V.length) return;
+  var alt = sel.value, html = '';
+  [1,2,3,4,5,0].forEach(function (t) {
+    if (window.VAP_TEIL && t !== window.VAP_TEIL) return;
+    var liste = V.filter(function (e) { return e.t === t; });
+    if (!liste.length) return;
+    html += '<optgroup label="' + (t ? 'Teil ' + t : 'Weitere Verben') + '">' + liste.map(function (e) {
+      var key = e.v + ' ' + e.p;
+      return '<option value="' + key + '">' + key + '</option>';
+    }).join('') + '</optgroup>';
+  });
+  sel.innerHTML = html;
+  sel.value = alt || 'sich ärgern über';
+  if (sel.selectedIndex < 0 && sel.options.length) sel.selectedIndex = 0;
+}
+
+function schreibVerbFuer(nr) {
+  var sel = document.getElementById('sw-verb-' + nr);
+  if (sel) return sel.value;
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  return ta ? ta.dataset.verb : '';
+}
+
+// ---- Satz-Check (nur Hilfe – blockiert den Versand nie) ----
+var SC_NS = '(?:dass|ob|wie|wann|warum|weshalb|wieso|wo|woher|wohin|wor\\S*|wo[bcdfghklmnpstvz]\\S*|was|wer|wen|wem|wessen|welche\\S*)';
+var SC_PRAEP = '(?:(?:mit|von|über|an|auf|für|nach|zu|bei|um|vor|aus|in)\\s+)?';
+function schreibSatzCheck(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  if (!ta) return;
+  var lex = schreibLex(schreibVerbFuer(nr));
+  var txt = ta.value;
+  var low = txt.toLowerCase();
+  var res = { verb:false, da:false, ns:false, len:false };
+  if (lex) {
+    res.verb = lex.st.some(function (s) { return low.indexOf(s) !== -1; });
+    var daRe = new RegExp('(^|[^a-zäöüß])' + lex.da + '(?![a-zäöüß])', 'i');
+    res.da = daRe.test(txt);
+    var LUECKE = '(?:\\s+[a-zäöüß]+){0,3}';
+    var nsRe = new RegExp(lex.da + LUECKE + '\\s*,\\s*' + SC_PRAEP + SC_NS + '(?![a-zäöüß])', 'i');
+    var zuRe = new RegExp(lex.da + LUECKE + '\\s*,[^.!?]*?(\\bzu\\s+[a-zäöüß]+n\\b|[a-zäöüß]+zu[a-zäöüß]*n\\b)', 'i');
+    res.ns = nsRe.test(txt) || zuRe.test(txt);
+  }
+  var words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  res.len = words >= SCHREIB_ZIEL_WOERTER;
+  ['verb','da','ns','len'].forEach(function (key) {
+    var el = document.getElementById('sc-' + key + '-' + nr);
+    if (el) el.classList.toggle('ok', res[key]);
+  });
+  return res;
+}
+
+function schreibVerbChipAktualisieren(nr) {
+  var sel = document.getElementById('sw-verb-' + nr);
+  if (!sel) return;
+  var lex = schreibLex(sel.value);
+  sel.className = 'verb-select';
+  var hint = document.getElementById('sw-verbkasus-' + nr);
+  if (hint && lex) { hint.className = 'verb-chip k-' + lex.k; hint.textContent = lex.k === 'a' ? '+ Akkusativ' : '+ Dativ'; }
+}
+
+function initSchreibwerkstatt() {
+  var nameInp = document.getElementById('sw-name');
+  if (nameInp) {
+    var savedName = lsGet(SCHREIB_NAME_KEY);
+    if (savedName) nameInp.value = savedName;
+    nameInp.addEventListener('input', function () { lsSet(SCHREIB_NAME_KEY, nameInp.value); });
+  }
+  document.querySelectorAll('select[id^="sw-verb-"]').forEach(function (sel) {
+    var nr = sel.dataset.aufgabe;
+    var sv = lsGet(SCHREIB_VERB_PREFIX + nr);
+    schreibVerbOptionen(sel);
+    if (sv && schreibLex(sv)) sel.value = sv;
+    schreibVerbChipAktualisieren(nr);
+    sel.addEventListener('change', function () {
+      lsSet(SCHREIB_VERB_PREFIX + nr, sel.value);
+      schreibVerbChipAktualisieren(nr);
+      schreibSatzCheck(nr);
+    });
+  });
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe;
+    var saved = lsGet(SCHREIB_KEY_PREFIX + nr);
+    if (saved) ta.value = saved;
+    schreibUpdateCount(ta);
+    schreibSatzCheck(nr);
+    var sentInfo = lsGet(SCHREIB_SENT_PREFIX + nr);
+    if (sentInfo) schreibKarteAlsGesendetMarkieren(nr, sentInfo, true);
+    ta.addEventListener('input', function () {
+      schreibUpdateCount(ta);
+      schreibSatzCheck(nr);
+      lsSet(SCHREIB_KEY_PREFIX + nr, ta.value);
+      var btn = document.getElementById('sw-send-' + nr);
+      if (btn && btn.classList.contains('gesendet')) { btn.classList.remove('gesendet'); btn.innerHTML = '📨 Erneut senden'; }
+      var st = document.getElementById('sw-status-' + nr);
+      if (st && st.classList.contains('error')) { st.classList.remove('error'); st.textContent = ''; }
+    });
+  });
+}
+
+function schreibUpdateCount(ta) {
+  var nr = ta.dataset.aufgabe;
+  var text = ta.value.trim();
+  var words = text ? text.split(/\s+/).filter(function (w) { return w.length > 0; }).length : 0;
+  var wc = document.querySelector('.wc-' + nr);
+  if (wc) wc.textContent = words;
+}
+
+function schreibKarteAlsGesendetMarkieren(nr, info, beimLaden) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var karte = ta && ta.closest('.schreib-aufgabe-karte');
+  if (karte) karte.classList.add('gesendet');
+  var btn = document.getElementById('sw-send-' + nr);
+  if (btn) { btn.classList.add('gesendet'); btn.innerHTML = beimLaden ? '✓ schon gesendet · erneut senden' : '✓ gesendet · erneut senden'; }
+  var status = document.getElementById('sw-status-' + nr);
+  if (status) { status.classList.remove('error'); status.textContent = '✓ ' + info; }
+}
+
+function schreibStatusZeigen(typ, text) {
+  var box = document.getElementById('sw-status');
+  if (!box) return;
+  box.className = 'schreib-status ' + typ;
+  box.innerHTML = text;
+}
+
+function schreibAktuellerName() {
+  var nameInp = document.getElementById('sw-name');
+  return (nameInp && nameInp.value || '').trim();
+}
+
+function schreibNamePflicht() {
+  if (schreibAktuellerName().length < 2) {
+    var nameInp = document.getElementById('sw-name');
+    if (nameInp) {
+      nameInp.classList.add('schreib-name-error');
+      try { nameInp.focus(); nameInp.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+      setTimeout(function () { nameInp.classList.remove('schreib-name-error'); }, 3000);
+    }
+    return false;
+  }
+  return true;
+}
+
+function schreibToFormData(obj) {
+  var fd = new FormData();
+  Object.keys(obj).forEach(function (k) { fd.append(k, obj[k]); });
+  return fd;
+}
+
+function schreibPostFormsubmit(subject, message, onOk, onErr) {
+  return fetch(FORMSUBMIT_ENDPOINT, {
+    method: 'POST',
+    body: schreibToFormData({
+      access_key: FORMSUBMIT_ACCESS_KEY,
+      name: schreibAktuellerName(),
+      subject: subject,
+      from_name: 'fabDaF Schreibwerkstatt',
+      lektion: SCHREIB_LEKTION,
+      message: message
+    })
+  })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP_' + r.status); return r.json(); })
+    .then(function (data) {
+      var ok = data && (data.success === true || data.success === 'true');
+      if (!ok) {
+        var code = 'API_ERROR';
+        var apiMsg = (data && data.message) || '';
+        if (/[Aa]ctivat|domain|access[\s_-]?key/.test(apiMsg)) code = 'NOT_ACTIVATED';
+        var err = new Error(code);
+        err.apiMessage = apiMsg;
+        throw err;
+      }
+      onOk(data);
+    })
+    .catch(onErr);
+}
+
+function schreibFehlerErklaerung(err) {
+  var code = (err && err.message) || '';
+  if (code === 'NOT_ACTIVATED') return 'Der Versand-Endpunkt ist gerade nicht freigeschaltet (das passiert manchmal bei Adress-Wechsel auf Franks Seite).';
+  if (code.indexOf('HTTP_') === 0) return 'Der Server hat eine technische Antwort gegeben (' + code.replace('HTTP_', 'HTTP ') + '), die nicht „erfolgreich“ bedeutet.';
+  if (code === 'API_ERROR') return 'Der Versand-Dienst hat „nicht erfolgreich“ zurückgemeldet' + (err && err.apiMessage ? ' („' + err.apiMessage + '“)' : '') + '.';
+  return 'Es gab ein Netz- oder Browser-Problem beim Senden – keine Server-Antwort.';
+}
+
+function schreibBlock(nr, text) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var titel = (ta && ta.dataset.titel) || ('Aufgabe ' + nr);
+  var res = schreibSatzCheck(nr) || {};
+  var check = 'Satz-Check: ' + (res.verb ? '✓' : '✗') + ' Verb · ' + (res.da ? '✓' : '✗') + ' Pronominaladverb · ' + (res.ns ? '✓' : '✗') + ' Nebensatz/zu';
+  return '=== Aufgabe ' + nr + ': ' + titel + ' (Verb: ' + schreibVerbFuer(nr) + ') ===\n' + check + '\n\n' + text;
+}
+
+function schreibKopierenEinzeln(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  if (!ta) return;
+  var name = schreibAktuellerName() || '(kein Name eingetragen)';
+  var text = 'Lektion: ' + SCHREIB_LEKTION + '\nName: ' + name + '\n\n' + schreibBlock(nr, ta.value.trim());
+  var st = document.getElementById('sw-status-' + nr);
+  function fertig(ok) {
+    if (!st) return;
+    if (ok) { st.classList.remove('error'); st.innerHTML = '✓ In die Zwischenablage kopiert. Jetzt in deine Mail oder deinen Chat einfügen und an Frank schicken.'; }
+    else { st.classList.add('error'); st.innerHTML = '✗ Kopieren ging nicht – markier den Text in der Box selbst und nutz „Kopieren“ deines Browsers.'; }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { fertig(true); }, function () { fertig(false); });
+  } else {
+    try { var tmp = document.createElement('textarea'); tmp.value = text; document.body.appendChild(tmp); tmp.select(); document.execCommand('copy'); document.body.removeChild(tmp); fertig(true); }
+    catch (e) { fertig(false); }
+  }
+}
+
+function schreibZeigeFehler(nr, err, subject, message) {
+  var st = document.getElementById('sw-status-' + nr);
+  if (!st) return;
+  var mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+  st.classList.add('error');
+  st.innerHTML =
+    '<div class="schreib-fb">' +
+      '<div class="schreib-fb-titel">⚠ Online-Versand hat nicht geklappt — dein Text ist sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Du verlierst nichts – wähle einen der drei Wege, damit Frank deine Antwort trotzdem bekommt:</div>' +
+      '<div class="schreib-fb-actions">' +
+        '<a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 In Mail-Programm öffnen</a>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibKopierenEinzeln(\'' + nr + '\')">📋 In Zwischenablage</button>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibSendenEinzeln(\'' + nr + '\')">🔄 Nochmal versuchen</button>' +
+      '</div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div>' +
+    '</div>';
+}
+
+function schreibZeigeFehlerSammel(err, subject, message) {
+  var mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+  schreibStatusZeigen('error',
+    '<div class="schreib-fb">' +
+      '<div class="schreib-fb-titel">⚠ Sammel-Versand hat nicht geklappt — alle Antworten sind sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Wähle einen Weg:</div>' +
+      '<div class="schreib-fb-actions">' +
+        '<a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 Alle als eine Mail öffnen</a>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibKopieren()">📋 Alles in Zwischenablage</button>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibSendenAlleNochOffenen()">🔄 Nochmal versuchen</button>' +
+      '</div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div>' +
+    '</div>');
+}
+
+function schreibSendenEinzeln(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var btn = document.getElementById('sw-send-' + nr);
+  if (!ta || !btn) return;
+  if (!schreibNamePflicht()) {
+    var stN = document.getElementById('sw-status-' + nr);
+    if (stN) { stN.classList.add('error'); stN.textContent = 'Bitte zuerst deinen Namen oben eintragen.'; }
+    return;
+  }
+  var text = ta.value.trim();
+  if (text.length < SCHREIB_MIN_CHARS) {
+    var st = document.getElementById('sw-status-' + nr);
+    if (st) { st.classList.add('error'); st.textContent = 'noch zu kurz – schreib bitte etwas mehr'; }
+    return;
+  }
+  var titel = ta.dataset.titel || ('Aufgabe ' + nr);
+  var subject = SCHREIB_CODE + ' · Aufgabe ' + nr + ' · ' + titel + ' · ' + schreibAktuellerName();
+  var message = schreibBlock(nr, text);
+  btn.disabled = true;
+  var origLabel = btn.innerHTML;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  schreibPostFormsubmit(subject, message,
+    function () {
+      btn.disabled = false;
+      var jetzt = new Date();
+      var info = 'gesendet um ' + String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0');
+      lsSet(SCHREIB_SENT_PREFIX + nr, info);
+      schreibKarteAlsGesendetMarkieren(nr, info, false);
+    },
+    function (err) { btn.disabled = false; btn.innerHTML = origLabel; schreibZeigeFehler(nr, err, subject, message); });
+}
+
+function schreibSendenAlleNochOffenen() {
+  var btn = document.getElementById('sw-btn-all');
+  if (!schreibNamePflicht()) { schreibStatusZeigen('error', '✗ Bitte zuerst deinen Namen oben eintragen.'); return; }
+  var offene = [];
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe, text = ta.value.trim();
+    if (text.length >= SCHREIB_MIN_CHARS && !lsGet(SCHREIB_SENT_PREFIX + nr)) offene.push({ nr: nr, text: text });
+  });
+  if (offene.length === 0) {
+    schreibStatusZeigen('info', 'ℹ Es gibt nichts Neues zu senden — alle Antworten sind entweder leer/sehr kurz oder bereits gesendet.');
+    return;
+  }
+  var subject = SCHREIB_CODE + ' · ' + offene.length + ' Antworten · ' + schreibAktuellerName();
+  var message = offene.map(function (o) { return schreibBlock(o.nr, o.text); }).join('\n\n');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  schreibStatusZeigen('info', '⏳ ' + offene.length + ' Antworten werden übermittelt …');
+  schreibPostFormsubmit(subject, message,
+    function () {
+      btn.disabled = false;
+      btn.innerHTML = '📨 Alle noch nicht gesendeten Antworten schicken';
+      var jetzt = new Date();
+      var info = 'gesendet um ' + String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0');
+      offene.forEach(function (o) { lsSet(SCHREIB_SENT_PREFIX + o.nr, info); schreibKarteAlsGesendetMarkieren(o.nr, info, false); });
+      schreibStatusZeigen('success', '✓ <strong>' + offene.length + ' Antworten übermittelt.</strong> Frank meldet sich.');
+    },
+    function (err) { btn.disabled = false; btn.innerHTML = '📨 Alle noch nicht gesendeten Antworten schicken'; schreibZeigeFehlerSammel(err, subject, message); });
+}
+
+function schreibKopieren() {
+  var teile = ['Lektion: ' + SCHREIB_LEKTION, 'Name: ' + (schreibAktuellerName() || '(kein Name)'), ''];
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var text = ta.value.trim();
+    if (text.length >= SCHREIB_MIN_CHARS) { teile.push(schreibBlock(ta.dataset.aufgabe, text)); teile.push(''); }
+  });
+  if (teile.length <= 3) { schreibStatusZeigen('info', 'ℹ Noch nichts zum Kopieren — schreib mindestens eine Antwort.'); return; }
+  var alles = teile.join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(alles).then(
+      function () { schreibStatusZeigen('success', '✓ In Zwischenablage kopiert. Du kannst es jetzt in deine Mail einfügen.'); },
+      function () { schreibStatusZeigen('error', '✗ Kopieren fehlgeschlagen. Bitte den Text manuell markieren.'); });
+  } else schreibStatusZeigen('error', '✗ Dein Browser unterstützt das automatische Kopieren nicht.');
+}
+
+function schreibLeeren() {
+  if (!confirm('Wirklich ALLE Antworten zurücksetzen? Auch die schon gesendeten Markierungen werden entfernt.')) return;
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe;
+    ta.value = '';
+    lsDel(SCHREIB_KEY_PREFIX + nr); lsDel(SCHREIB_SENT_PREFIX + nr);
+    schreibUpdateCount(ta); schreibSatzCheck(nr);
+    var karte = ta.closest('.schreib-aufgabe-karte');
+    if (karte) karte.classList.remove('gesendet');
+    var btn = document.getElementById('sw-send-' + nr);
+    if (btn) { btn.classList.remove('gesendet'); btn.innerHTML = '📨 An Frank senden'; }
+    var st = document.getElementById('sw-status-' + nr);
+    if (st) { st.className = 'schreib-mini-status'; st.textContent = ''; }
+  });
+  schreibStatusZeigen('info', 'ℹ Alle Antworten zurückgesetzt.');
+}
+(function(){ function r(){ try{ initSchreibwerkstatt(); }catch(e){ console.error(e); } }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', r); else r(); })();
+/* ===== Ende Schreibwerkstatt ===== */
+
+
+// ======== GEMEINSAME HELFER (Serie) ========
+const VAP = (window.VAP_VERBEN || []);
+const KASUS_TXT = {a:'Akkusativ', d:'Dativ'};
+function vapVerbLabel(e){ return e.v + (e.p2 ? ` (${e.p2} jdm.)` : ''); }
+function vapArtikel(e){
+  const [art] = e.m, k = e.k;
+  if (e.pl) return k==='a' ? 'die' : 'den';
+  if (art==='der') return k==='a' ? 'den' : 'dem';
+  if (art==='die') return k==='a' ? 'die' : 'der';
+  return k==='a' ? 'das' : 'dem';
+}
+const VAP_KONTR = {'zu dem':'zum','zu der':'zur','von dem':'vom','bei dem':'beim','an dem':'am','in dem':'im'};
+function vapPhrase(e){ // „auf den Aufzug“ / „zum Zubehör“
+  const pa = e.p + ' ' + vapArtikel(e);
+  const lead = VAP_KONTR[pa] || pa;
+  return `${esc(lead)} ${memoHtml(e.m[1], e.m[2], e.k)}`;
+}
+function vapMemo(e){ return `${esc(e.m[0])} ${memoHtml(e.m[1], e.m[2], e.k)}`; }
+function vapNorm(s){ return String(s).trim().toLowerCase().replace(/\s+/g,' '); }
+function vapVerbOhneSich(v){ return v.replace(/^sich /,''); }
+
+// ======== WIEDERHOLUNGSTRAINER (Leitner, 5 Fächer) ========
+const TR_KEY = 'vap_trainer_v1';
+const TR_TAGE = {1:0, 2:1, 3:3, 4:7, 5:14};
+let trStand = {}, trQueue = [], trPos = 0, trKarte = null, trFehler = false, trRunde = {ok:0, total:0};
+function trHeute(){ return Math.floor(Date.now()/864e5); }
+function trLaden(){ try { trStand = JSON.parse(localStorage.getItem(TR_KEY) || '{}') || {}; } catch(e){ trStand = {}; } }
+function trSpeichern(){ try { localStorage.setItem(TR_KEY, JSON.stringify(trStand)); } catch(e){} }
+function trKartenId(dir, e){ return dir + e.id; }
+function trInfo(id){ return trStand[id] || {b:1, due:0}; }
+function trFilter(){
+  const teil = document.getElementById('tr-teil').value;
+  return VAP.filter(e => teil==='alle' ? e.t > 0 : String(e.t)===teil);
+}
+function trRichtungen(){
+  const r = document.getElementById('tr-richtung').value;
+  return r==='mix' ? ['A','B'] : [r];
+}
+function trAlleKarten(){
+  const out = [];
+  trFilter().forEach(e => trRichtungen().forEach(d => out.push({dir:d, e})));
+  return out;
+}
+function trStatistik(){
+  const karten = trAlleKarten(), heute = trHeute();
+  const faecher = [0,0,0,0,0,0];
+  let faellig = 0;
+  karten.forEach(c => { const i = trInfo(trKartenId(c.dir,c.e)); faecher[i.b]++; if (i.due <= heute) faellig++; });
+  const max = Math.max(1, ...faecher.slice(1));
+  document.getElementById('tr-faecher').innerHTML = [1,2,3,4,5].map(b =>
+    `<div class="tr-fach"><div class="tr-fach-bar"><div style="height:${faecher[b]/max*100}%"></div></div><div class="tr-fach-zahl">${faecher[b]}</div><div class="tr-fach-label">Fach ${b}</div></div>`).join('');
+  document.getElementById('tr-faellig').innerHTML = `<strong>${faellig}</strong> von ${karten.length} Karten heute fällig`;
+  return faellig;
+}
+function trStart(alle){
+  const heute = trHeute();
+  let karten = trAlleKarten();
+  if (!alle) karten = karten.filter(c => trInfo(trKartenId(c.dir,c.e)).due <= heute);
+  trQueue = shuffle(karten).slice(0, 15);
+  trPos = 0; trRunde = {ok:0, total:trQueue.length};
+  trZeige();
+}
+function trZeige(){
+  const box = document.getElementById('tr-karte');
+  trStatistik();
+  if (!trQueue.length || trPos >= trQueue.length){
+    const fertig = trRunde.total > 0;
+    box.innerHTML = `<div class="tr-leer">${fertig ? `🎉 Runde geschafft – ${trRunde.ok} von ${trRunde.total} Karten auf Anhieb gewusst.` : '🎉 Für heute ist in diesem Teil nichts mehr fällig.'}
+      <div class="tr-leer-btns"><button class="mc-opt" onclick="trStart(false)">Fällige Karten üben</button><button class="mc-opt" onclick="trStart(true)">Alle Karten dieses Teils üben</button></div></div>`;
+    return;
+  }
+  trKarte = trQueue[trPos]; trFehler = false;
+  const e = trKarte.e;
+  const kopf = `<div class="tr-meta">Karte ${trPos+1} von ${trQueue.length} · Fach ${trInfo(trKartenId(trKarte.dir,e)).b} · ${esc(VAP_GRUPPEN[e.g]||'')}</div>`;
+  if (trKarte.dir === 'A'){
+    box.innerHTML = `${kopf}
+      <div class="tr-frage">${esc(vapVerbLabel(e))} <input class="bl m" id="tr-in" autocomplete="off" autocapitalize="off" spellcheck="false"> + <span class="quiz-slot" id="tr-kslot">?</span></div>
+      ${e.h ? `<div class="quiz-hint">(${esc(e.h)})</div>` : ''}
+      <div class="quiz-step quiz-kasus locked" id="tr-ks"><span class="quiz-label">Kasus</span><div class="mc-opts"><button class="mc-opt" onclick="trKasus(this,'a')">Akkusativ</button><button class="mc-opt" onclick="trKasus(this,'d')">Dativ</button></div></div>
+      <div class="tr-loesung" id="tr-loesung"></div>
+      <div class="tr-aktion" id="tr-aktion"><button class="mc-opt tr-zeig" onclick="trZeigLoesung()">🙈 Weiß ich nicht – zeigen</button></div>`;
+    const inp = document.getElementById('tr-in');
+    inp.dataset.sol = e.p;
+    inp.addEventListener('input', () => {
+      liveCheck(inp, false);
+      if (inp.classList.contains('wrong')) trFehler = true;
+      if (inp.classList.contains('correct')){ inp.disabled = true; document.getElementById('tr-ks').classList.remove('locked'); }
+    });
+    inp.addEventListener('blur', () => { if (!inp.disabled && inp.value.trim()) { liveCheck(inp, true); if (inp.classList.contains('wrong')) trFehler = true; } });
+    setTimeout(() => inp.focus(), 50);
+  } else {
+    box.innerHTML = `${kopf}
+      <div class="tr-frage tr-frage-memo">${vapMemo(e)}</div>
+      <div class="quiz-hint">Welches Verb gehört zu diesem Merk-Wort? (Infinitiv)</div>
+      <div class="tr-verbzeile"><input class="bl l" id="tr-in" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      <div class="tr-loesung" id="tr-loesung"></div>
+      <div class="tr-aktion" id="tr-aktion"><button class="mc-opt tr-zeig" onclick="trZeigLoesung()">🙈 Weiß ich nicht – zeigen</button></div>`;
+    const inp = document.getElementById('tr-in');
+    inp.addEventListener('input', () => {
+      const val = vapNorm(inp.value), sol = vapNorm(vapVerbOhneSich(e.v)), solS = vapNorm(e.v);
+      inp.classList.remove('correct','wrong');
+      if (!val) return;
+      if (val === sol || val === solS){ inp.classList.add('correct'); inp.disabled = true; trRichtig(); return; }
+      if (sol.indexOf(val)===0 || solS.indexOf(val)===0) return;
+      inp.classList.add('wrong'); trFehler = true;
+    });
+    setTimeout(() => inp.focus(), 50);
+  }
+}
+function trKasus(btn, k){
+  if (document.getElementById('tr-ks').classList.contains('locked') || btn.disabled) return;
+  const e = trKarte.e;
+  if (k === e.k){
+    btn.classList.add('ok'); btn.parentNode.querySelectorAll('.mc-opt').forEach(b => b.disabled = true);
+    const s = document.getElementById('tr-kslot'); s.textContent = k==='a' ? 'Akk.' : 'Dat.'; s.classList.add('filled', 'k-'+k);
+    trRichtig();
+  } else { btn.classList.add('no'); btn.disabled = true; trFehler = true; }
+}
+function trLoesungHtml(e){
+  return `<div class="tr-loes-zeile"><strong>${esc(vapVerbLabel(e))} ${esc(e.p)}</strong> + ${KASUS_TXT[e.k]}${e.p2 ? ` · ${esc(e.p2)} + ${KASUS_TXT[e.k2]} (Person)` : ''}</div>
+          <div class="tr-loes-zeile">Merk-Wort: ${vapPhrase(e)}</div>`;
+}
+function trRichtig(){
+  const e = trKarte.e;
+  document.getElementById('tr-loesung').innerHTML = trLoesungHtml(e);
+  trBewerten(!trFehler);
+}
+function trZeigLoesung(){
+  trFehler = true;
+  const e = trKarte.e;
+  const inp = document.getElementById('tr-in'); if (inp){ inp.value = trKarte.dir==='A' ? e.p : e.v; inp.disabled = true; inp.classList.add('wrong'); }
+  document.getElementById('tr-loesung').innerHTML = trLoesungHtml(e);
+  trBewerten(false);
+}
+function trBewerten(ok){
+  const id = trKartenId(trKarte.dir, trKarte.e), info = trInfo(id), heute = trHeute();
+  if (ok){ info.b = Math.min(5, info.b + 1); info.due = heute + TR_TAGE[info.b]; trRunde.ok++; }
+  else { info.b = 1; info.due = heute; trQueue.splice(Math.min(trQueue.length, trPos + 4), 0, trKarte); }
+  trStand[id] = info; trSpeichern(); trStatistik();
+  const naechste = info.due > heute ? (TR_TAGE[info.b] === 1 ? 'morgen' : `in ${TR_TAGE[info.b]} Tagen`) : 'gleich noch einmal';
+  document.getElementById('tr-aktion').innerHTML =
+    `<span class="tr-urteil ${ok ? 'ok' : 'no'}">${ok ? '✓ Gewusst' : '↺ Kommt wieder'} – nächste Wiederholung ${naechste}</span>
+     <button class="schreib-btn schreib-btn-primary" id="tr-weiter" onclick="trWeiter()">Weiter →</button>`;
+  setTimeout(() => { const w = document.getElementById('tr-weiter'); if (w) w.focus(); }, 50);
+}
+function trWeiter(){ trPos++; trZeige(); }
+function trZuruecksetzen(){
+  if (!confirm('Lernstand des Trainers wirklich löschen? Alle Karten wandern zurück in Fach 1.')) return;
+  trStand = {}; trSpeichern(); trStart(false);
+}
+function initTrainer(){
+  trLaden();
+  const sel = document.getElementById('tr-teil');
+  sel.innerHTML = [1,2,3,4,5].map(t => `<option value="${t}">Teil ${t} (${VAP.filter(e=>e.t===t).length} Verben)</option>`).join('') + `<option value="alle">Alle ${VAP.filter(e=>e.t>0).length} Verben</option>`;
+  if (window.VAP_TEIL) sel.value = String(window.VAP_TEIL);
+  sel.addEventListener('change', () => trStart(false));
+  document.getElementById('tr-richtung').addEventListener('change', () => trStart(false));
+  trStart(false);
+}
+
+// ======== MERK-WERKSTATT (eigene Merk-Wörter) ========
+const MW_KEY = 'vap_merkwoerter_v1';
+const MW_SENT_KEY = 'vap_merkwoerter_v1_sent';
+const MW_ANFANG = {von:['von','fon','phon','vonn'], 'für':['für','führ','führ','fur'], 'über':['über','üb']};
+const MW_TRENNBAR = ['teil','nach','zu','an','auf','aus','ein','ab'];
+const MW_UNREGEL = {denken:['dach','denk'], sprechen:['sprech','sprich','sprach','sproch'], bitten:['bitt','bat','beten'], gehen:['geh','ging','gang'], helfen:['helf','hilf','half','holf'], fangen:['fang','fäng','fing'], nehmen:['nehm','nimm','nahm','nomm'], kommen:['komm','kam'], halten:['halt','hält','hielt'], treffen:['treff','triff','traf','troff'], streiten:['streit','stritt'], wissen:['wiss','weiß','wuss'], sein:['bin','bist','ist','sind','seid','war','gewes'], werden:['werd','wird','wirst','wurd','word'], sterben:['sterb','stirb','starb','storb'], geraten:['gerat','gerät','geriet'], schreiben:['schreib','schrieb'], riechen:['riech','roch'], erkennen:['erkenn','erkann'], verstehen:['versteh','verstand'], bestehen:['besteh','bestand'], leiden:['leid','litt'], laden:['lad','läd','lud'], geben:['geb','gib','gab'], entscheiden:['entscheid','entschied'], entschließen:['entschließ','entschloss'], verlassen:['verlass','verläss','verließ'], erfahren:['erfahr','erfähr','erfuhr'], vergleichen:['vergleich','verglich'], hängen:['häng','hing'], schauen:['schau'], wenden:['wend','wand'], sagen:['sag'], unterhalten:['unterhalt','unterhält','unterhielt'], schützen:['schütz']};
+function mwVerbStaemme(v){
+  let base = vapVerbOhneSich(v).split(' ').pop();
+  let pref = MW_TRENNBAR.find(p => base.startsWith(p) && base.length > p.length + 3 && !['antworten','anrufen'].includes(base));
+  if (pref && !['nachdenken'].includes(base)) base = base.slice(pref.length);
+  if (base === 'nachdenken') base = 'denken';
+  if (MW_UNREGEL[base] && MW_UNREGEL[base].length) return MW_UNREGEL[base];
+  const st = base.replace(/(eln|ern)$/, m => m.slice(0,2)).replace(/en$|n$/, '');
+  return [st];
+}
+function mwAktuell(){ return VAP.find(e => String(e.id) === document.getElementById('mw-verb').value); }
+function mwAnfangOk(e, wort){
+  const w = wort.trim().toLowerCase();
+  const erlaubt = MW_ANFANG[e.p] || [e.p];
+  return w.length > e.p.length && erlaubt.some(a => w.startsWith(a));
+}
+function mwDetOk(det, art, k){
+  const d = det.toLowerCase();
+  if (art === 'pl') return k==='a' ? /^(die|meine|deine|seine|ihre|unsere|eure|keine|diese|alle)$/.test(d) : /en$/.test(d);
+  if (k === 'd') return art === 'die' ? /er$/.test(d) : /em$/.test(d);
+  if (art === 'der') return /en$/.test(d);
+  if (art === 'die') return /^(die|eine|meine|deine|seine|ihre|unsere|eure|keine|diese|jede)$/.test(d);
+  return /^(das|ein|mein|dein|sein|ihr|unser|euer|kein|dieses|jedes)$/.test(d);
+}
+const MW_KONTR = {zum:['zu','d','mn'], vom:['von','d','mn'], beim:['bei','d','mn'], am:['an','d','mn'], im:['in','d','mn'], zur:['zu','d','f'], ans:['an','a','n'], ins:['in','a','n'], aufs:['auf','a','n'], 'übers':['über','a','n'], ums:['um','a','n'], 'fürs':['für','a','n']};
+function mwKontraktionOk(kontr, art, k, p){
+  const m = MW_KONTR[kontr.toLowerCase()]; if (!m || m[0] !== p || m[1] !== k) return false;
+  if (m[2] === 'mn') return art === 'der' || art === 'das';
+  if (m[2] === 'f') return art === 'die';
+  return art === 'das';
+}
+function mwCheck(){
+  const e = mwAktuell(); if (!e) return {};
+  const art = document.getElementById('mw-art').value;
+  const wort = document.getElementById('mw-wort').value.trim();
+  const satz = document.getElementById('mw-satz').value;
+  const r = {anfang:false, gross:false, verb:false, kasus:false};
+  r.anfang = mwAnfangOk(e, wort);
+  r.gross = /^[A-ZÄÖÜ]/.test(wort);
+  const low = satz.toLowerCase();
+  r.verb = mwVerbStaemme(e.v).some(s => s && low.indexOf(s.toLowerCase()) !== -1);
+  if (wort.length > 1){
+    const wEsc = wort.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const kontr = '(zum|zur|vom|beim|am|im|ans|ins|aufs|übers|ums|fürs)';
+    const reK = new RegExp('(?:^|[^\\wäöüß])' + kontr + '\\s+(?:[\\wäöüß-]+\\s+)?' + wEsc + '(?![\\wäöüß])', 'i');
+    const reP = new RegExp('(?:^|[^\\wäöüß])' + e.p + '\\s+([\\wäöüß]+)\\s+(?:[\\wäöüß-]+\\s+)?' + wEsc + '(?![\\wäöüß])', 'i');
+    const mk = satz.match(reK), mp = satz.match(reP);
+    if (mk) r.kasus = mwKontraktionOk(mk[1], art, e.k, e.p);
+    else if (mp) r.kasus = mwDetOk(mp[1], art, e.k);
+  }
+  ['anfang','gross','verb','kasus'].forEach(key => { const el = document.getElementById('mwc-'+key); if (el) el.classList.toggle('ok', !!r[key]); });
+  const alle = r.anfang && r.gross && r.verb && r.kasus;
+  document.getElementById('mw-save').disabled = !alle;
+  return r;
+}
+function mwVerbAnzeige(){
+  const e = mwAktuell(); if (!e) return;
+  document.getElementById('mw-verbinfo').innerHTML =
+    `<span class="verb-chip k-${e.k}">${esc(vapVerbLabel(e))} ${esc(e.p)}</span><span class="verb-chip k-${e.k}">+ ${KASUS_TXT[e.k]}</span>`;
+  document.getElementById('mwc-anfang').textContent = `Merk-Wort beginnt mit „${e.p}“`;
+  mwCheck();
+}
+function mwListeLaden(){ try { return JSON.parse(localStorage.getItem(MW_KEY) || '[]') || []; } catch(e){ return []; } }
+function mwListeSpeichern(l){ try { localStorage.setItem(MW_KEY, JSON.stringify(l)); } catch(e){} }
+function mwSpeichern(){
+  const r = mwCheck(); if (!(r.anfang && r.gross && r.verb && r.kasus)) return;
+  const e = mwAktuell();
+  const l = mwListeLaden();
+  l.push({id:e.id, art:document.getElementById('mw-art').value, wort:document.getElementById('mw-wort').value.trim(), satz:document.getElementById('mw-satz').value.trim(), gesendet:false});
+  mwListeSpeichern(l);
+  document.getElementById('mw-wort').value = ''; document.getElementById('mw-satz').value = '';
+  mwCheck(); mwListeZeigen();
+}
+function mwLoeschen(i){ const l = mwListeLaden(); l.splice(i,1); mwListeSpeichern(l); mwListeZeigen(); }
+function mwListeZeigen(){
+  const l = mwListeLaden(), box = document.getElementById('mw-liste');
+  if (!l.length){ box.innerHTML = '<div class="mw-leer">Noch keine eigenen Merk-Wörter gespeichert.</div>'; return; }
+  box.innerHTML = `<table class="mw-tab"><thead><tr><th>Verb</th><th>Dein Merk-Wort</th><th>Dein Satz</th><th>Franks Merk-Wort</th><th></th></tr></thead><tbody>` +
+    l.map((x,i) => { const e = VAP.find(v => v.id === x.id); if (!e && !x.karte) return '';
+      const vp = e ? e.p : x.p, kk = e ? e.k : x.k, n = vp.length, pre = x.wort.slice(0, n), rest = x.wort.slice(n);
+      const art = x.art === 'pl' ? 'die' : x.art;
+      const mein = x.karte ? `${esc(vp)} ${esc(art)} ${memoHtml(pre, rest, kk)}` : `${esc(art)} ${memoHtml(pre, rest, kk)}`;
+      const satz = x.karte ? '<span class="mw-leer">aus Übungskarte ' + esc(x.karte.slice(1)) + '</span>' : esc(x.satz);
+      return `<tr><td>${esc(e ? e.v : x.v)} ${esc(vp)}</td><td>${mein}</td><td>${satz}</td><td>${e ? vapMemo(e) : '–'}</td><td>${x.gesendet ? '<span class="mw-gesendet">✓ gesendet</span>' : `<button class="mw-del" onclick="mwLoeschen(${i})" title="Löschen">✕</button>`}</td></tr>`; }).join('') +
+    `</tbody></table>`;
+}
+function mwSenden(){
+  const l = mwListeLaden(), offen = l.filter(x => !x.gesendet);
+  const st = document.getElementById('mw-status');
+  if (!offen.length){ st.className = 'schreib-status info'; st.textContent = 'ℹ Keine neuen Merk-Wörter zum Senden.'; return; }
+  if (schreibAktuellerName().length < 2){ st.className = 'schreib-status error'; st.textContent = '✗ Bitte oben deinen Namen eintragen.'; const n = document.getElementById('mw-name'); if (n){ n.focus(); n.classList.add('schreib-name-error'); setTimeout(()=>n.classList.remove('schreib-name-error'),3000);} return; }
+  const subject = SCHREIB_CODE + ' · Merk-Werkstatt · ' + offen.length + ' Merk-Wörter · ' + schreibAktuellerName();
+  const message = offen.map(x => { const e = VAP.find(v => v.id === x.id); const v = e ? e.v : x.v, pp = e ? e.p : x.p, kk = e ? e.k : x.k; return x.karte ? `${v} ${pp} + ${KASUS_TXT[kk]}\nMerk-Wort (Übungskarte ${x.karte.slice(1)}): ${pp} ${x.art} ${x.wort}` : `${v} ${pp} + ${KASUS_TXT[kk]}\nMerk-Wort: ${x.art==='pl'?'die':x.art} ${x.wort}\nSatz: ${x.satz}`; }).join('\n\n');
+  const btn = document.getElementById('mw-send'); btn.disabled = true; btn.innerHTML = '⏳ Wird gesendet …';
+  schreibPostFormsubmit(subject, message, function(){
+    btn.disabled = false; btn.innerHTML = '📨 Meine Merk-Wörter an Frank senden';
+    l.forEach(x => x.gesendet = true); mwListeSpeichern(l); mwListeZeigen();
+    st.className = 'schreib-status success'; st.innerHTML = '✓ <strong>' + offen.length + ' Merk-Wörter übermittelt.</strong> Frank meldet sich.';
+  }, function(err){
+    btn.disabled = false; btn.innerHTML = '📨 Meine Merk-Wörter an Frank senden';
+    const mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+    st.className = 'schreib-status error';
+    st.innerHTML = '<div class="schreib-fb"><div class="schreib-fb-titel">⚠ Online-Versand hat nicht geklappt — deine Merk-Wörter sind sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Wähle einen Weg:</div>' +
+      '<div class="schreib-fb-actions"><a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 In Mail-Programm öffnen</a>' +
+      '<button type="button" class="schreib-fb-btn" onclick="mwSenden()">🔄 Nochmal versuchen</button></div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div></div>';
+  });
+}
+function initMerkWerkstatt(){
+  const sel = document.getElementById('mw-verb');
+  sel.innerHTML = [1,2,3,4,5].map(t => `<optgroup label="Teil ${t}">` +
+    VAP.filter(e => e.t === t).map(e => `<option value="${e.id}">${esc(e.v)} ${esc(e.p)}</option>`).join('') + '</optgroup>').join('')
+    + '<optgroup label="Weitere Verben">' + VAP.filter(e => e.t === 0).map(e => `<option value="${e.id}">${esc(e.v)} ${esc(e.p)}</option>`).join('') + '</optgroup>';
+  ['mw-art','mw-wort','mw-satz'].forEach(id => document.getElementById(id).addEventListener('input', mwCheck));
+  document.getElementById('mw-art').addEventListener('change', mwCheck);
+  sel.addEventListener('change', mwVerbAnzeige);
+  // Name mit der Schreibwerkstatt synchron halten (ein Name für alle Sendungen)
+  const mwName = document.getElementById('mw-name'), swName = document.getElementById('sw-name');
+  if (mwName && swName){
+    mwName.value = swName.value || lsGet(SCHREIB_NAME_KEY) || '';
+    mwName.addEventListener('input', () => { swName.value = mwName.value; lsSet(SCHREIB_NAME_KEY, mwName.value); });
+    swName.addEventListener('input', () => { mwName.value = swName.value; });
+  }
+  if (window.VAP_TEIL){ const erst = VAP.find(e => e.t === window.VAP_TEIL); if (erst) sel.value = String(erst.id); }
+  mwVerbAnzeige(); mwListeZeigen();
+}
+
+// ======== EIGENES MERK-WORT DIREKT IN DEN ÜBUNGSKARTEN ========
+const EG_ART = {a:['den','die','das','einen','eine','ein'], d:['dem','der','den','einem','einer']};
+function eigenRowHtml(ex){
+  const ans = ex.L.find(l => l.ans); if (!ans) return '';
+  const franks = [];
+  ex.L.forEach(l => { if (l.ans) franks.push(l.mn + l.mr); else (l.sg||[]).forEach(g => { if (g.mn) franks.push(g.mn + g.mr); }); });
+  return `<div class="eigen-row locked" data-ex="${ex.id}" data-p="${esc(ans.sp)}" data-k="${ans.k}" data-v="${esc(ex.verb)}" data-franks="${esc(franks.join('|'))}">
+  <span class="eigen-label">💡 Dein eigenes Merk-Wort</span>
+  <span class="eigen-praep" id="eg-p-${ex.id}">…</span>
+  <input class="eg art" id="eg-a-${ex.id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Artikel">
+  <input class="eg wort" id="eg-w-${ex.id}" autocomplete="off" spellcheck="false" aria-label="Nomen">
+  <span class="eigen-status" id="eg-s-${ex.id}"></span><span class="eigen-lock">🔒 erst die Karte lösen</span></div>`;
+}
+function eigenCheck(row, beimVerlassen){
+  const id = row.dataset.ex, p = row.dataset.p, k = row.dataset.k;
+  const ai = document.getElementById('eg-a-'+id), wi = document.getElementById('eg-w-'+id), st = document.getElementById('eg-s-'+id);
+  const art = ai.value.trim().toLowerCase(), wort = wi.value.trim();
+  ai.classList.remove('correct','wrong'); wi.classList.remove('correct','wrong'); st.className = 'eigen-status'; st.textContent = '';
+  let artOk = false, wortOk = false; const msgs = [];
+  if (art){
+    if (EG_ART[k].includes(art)) { artOk = true; ai.classList.add('correct'); }
+    else if (!beimVerlassen && EG_ART[k].some(a => a.indexOf(art) === 0)) {}
+    else { ai.classList.add('wrong'); msgs.push(`Artikel passt nicht zum ${KASUS_TXT[k]}`); }
+  }
+  if (wort){
+    const low = wort.toLowerCase(), anf = MW_ANFANG[p] || [p];
+    const franks = row.dataset.franks.toLowerCase().split('|');
+    const tippt = !beimVerlassen && anf.some(a => a.indexOf(low) === 0);
+    if (franks.includes(low)) { wi.classList.add('wrong'); msgs.push('Das ist Franks Wort – finde ein eigenes!'); }
+    else if (anf.some(a => low.startsWith(a)) && low.length > p.length) {
+      if (/^[A-ZÄÖÜ]/.test(wort)) { wortOk = true; wi.classList.add('correct'); }
+      else { wi.classList.add('wrong'); msgs.push('Nomen schreibt man groß'); }
+    }
+    else if (!tippt) { wi.classList.add('wrong'); msgs.push(`Das Nomen muss mit „${p}“ beginnen`); }
+  }
+  if (msgs.length){ st.className = 'eigen-status no'; st.textContent = msgs.join(' · '); }
+  if (artOk && wortOk){ st.className = 'eigen-status ok'; st.textContent = '✓ in deiner Merk-Wort-Liste gespeichert'; eigenSpeichern(row, art, wort); }
+  return artOk && wortOk;
+}
+function eigenSpeichern(row, art, wort){
+  const l = mwListeLaden(), key = 'k' + row.dataset.ex;
+  const idx = l.findIndex(x => x.karte === key && !x.gesendet);
+  const e = VAP.find(v => v.v === row.dataset.v && v.p === row.dataset.p);
+  const eintrag = {karte:key, id: e ? e.id : null, v: row.dataset.v, p: row.dataset.p, k: row.dataset.k, art, wort, satz:'', gesendet:false};
+  if (idx >= 0) l[idx] = eintrag; else l.push(eintrag);
+  mwListeSpeichern(l);
+  if (typeof mwListeZeigen === 'function') mwListeZeigen();
+}
+function setupEigen(){
+  const l = mwListeLaden();
+  document.querySelectorAll('.eigen-row').forEach(row => {
+    const id = row.dataset.ex;
+    const x = l.filter(x => x.karte === 'k' + id).pop();
+    if (x){ document.getElementById('eg-a-'+id).value = x.art; document.getElementById('eg-w-'+id).value = x.wort; eigenCheck(row, true); }
+    ['eg-a-','eg-w-'].forEach(pre => {
+      const inp = document.getElementById(pre + id);
+      inp.addEventListener('input', () => eigenCheck(row, false));
+      inp.addEventListener('blur', () => eigenCheck(row, true));
+    });
+  });
+}
+
+function eigenFreigabe(card, offen){
+  const row = card.querySelector('.eigen-row'); if (!row) return;
+  row.classList.toggle('locked', !offen);
+  row.querySelectorAll('input.eg').forEach(i => i.disabled = !offen);
+  document.getElementById('eg-p-' + row.dataset.ex).textContent = offen ? row.dataset.p : '…';
+}
+
+
+renderAll();
+setupLive();
+setupEigen();
+renderQuiz();
+initTrainer();
+initMerkWerkstatt();
+</script>
+
+<!-- FB-JUMPTOP -->
+<button class="fb-jumptop" id="fbJumpTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Nach oben springen" aria-label="Nach oben springen">↑ Nach oben</button>
+<script>
+(function(){
+  var btn = document.getElementById('fbJumpTop');
+  if (!btn) return;
+  function toggle(){
+    var scrollable = document.documentElement.scrollHeight > window.innerHeight + 60;
+    btn.classList.toggle('show', scrollable);
+  }
+  window.addEventListener('scroll', toggle, {passive:true});
+  window.addEventListener('resize', toggle);
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(toggle, 60); }); });
+  setTimeout(toggle, 80);
+})();
+</script>
+
+<!-- FB-NAME-REQUIRED: Namenspflicht beim Senden (2026-07-16) -->
+<script>
+(function(){
+  if (window.__fbNameRequired) return; window.__fbNameRequired = true;
+  function nameInput(){ return document.getElementById('schreib-name') || document.getElementById('sw-name') || document.querySelector('input.schreib-name'); }
+  function nameVal(){ var i = nameInput(); return i ? (i.value || '').trim() : ''; }
+  function blockUI(){
+    var inp = nameInput();
+    if (!inp) return;
+    try { inp.focus(); } catch(e){}
+    var box = (inp.closest && inp.closest('.schreib-name-box, .schreib-name-block')) || inp.parentNode;
+    if (box){ box.classList.add('shake'); setTimeout(function(){ box.classList.remove('shake'); }, 500); }
+    var hint = document.getElementById('fb-name-hint');
+    if (hint){ hint.textContent = '⚠️ Bitte trage oben deinen Namen ein — ohne Namen kann der Text nicht gesendet werden.'; hint.style.color = '#c0392b'; }
+    if (inp.scrollIntoView) inp.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  // Trigger umschließen (deckt ALLE Generationen ab, auch die ohne schreibPostFormsubmit):
+  ['schreibSendenEinzeln', 'schreibSendenAlleNochOffenen'].forEach(function(fn){
+    if (typeof window[fn] === 'function'){
+      var _o = window[fn];
+      window[fn] = function(){ if (nameVal().length < 2){ blockUI(); return; } return _o.apply(this, arguments); };
+    }
+  });
+  // Belt-and-suspenders: Choke-Point (falls ein Sende-Pfad nicht über die Trigger läuft):
+  if (typeof window.schreibPostFormsubmit === 'function') {
+    var _origPost = window.schreibPostFormsubmit;
+    window.schreibPostFormsubmit = function(subject, message, onOk, onErr){
+      if (nameVal().length < 2){ blockUI(); if (typeof onErr === 'function') onErr(new Error('NAME_MISSING')); return; }
+      return _origPost.apply(this, arguments);
+    };
+  }
+  if (typeof window.schreibFehlerErklaerung === 'function') {
+    var _origFehler = window.schreibFehlerErklaerung;
+    window.schreibFehlerErklaerung = function(err){
+      if (err && err.message === 'NAME_MISSING') return 'Bitte trage oben im Namensfeld deinen Namen ein — ohne Namen kann der Text nicht gesendet werden.';
+      return _origFehler.apply(this, arguments);
+    };
+  }
+})();
+</script>
+
+</body>
+</html>
