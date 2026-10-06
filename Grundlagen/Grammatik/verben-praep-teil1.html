@@ -1755,7 +1755,22 @@ function mwSpeichern(){
   l.push({id:e.id, art:document.getElementById('mw-art').value, wort:document.getElementById('mw-wort').value.trim(), satz:document.getElementById('mw-satz').value.trim(), gesendet:false});
   mwListeSpeichern(l);
   document.getElementById('mw-wort').value = ''; document.getElementById('mw-satz').value = '';
-  mwCheck(); mwListeZeigen();
+  mwNaechstesVerb();
+  mwListeZeigen();
+}
+function mwNaechstesVerb(){
+  // nach dem Speichern automatisch zum nächsten Verb (innerhalb des Teils, am Ende wieder von vorn)
+  const sel = document.getElementById('mw-verb');
+  const akt = mwAktuell();
+  const opts = [...sel.options].filter(o => { const e = VAP.find(v => String(v.id) === o.value); return e && (!akt || e.t === akt.t); });
+  const i = opts.findIndex(o => o.value === sel.value);
+  if (opts.length) sel.value = opts[(i + 1) % opts.length].value;
+  document.getElementById('mw-art').value = 'der';
+  mwVerbAnzeige();
+  const st = document.getElementById('mw-status');
+  const e = mwAktuell();
+  if (st && e){ st.className = 'schreib-status success'; st.innerHTML = '✓ Gespeichert. Weiter mit: <strong>' + esc(e.v) + ' ' + esc(e.p) + '</strong>'; }
+  try { document.getElementById('mw-wort').focus(); } catch(x){}
 }
 function mwLoeschen(i){ const l = mwListeLaden(); l.splice(i,1); mwListeSpeichern(l); mwListeZeigen(); }
 function mwListeZeigen(){
