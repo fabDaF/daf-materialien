@@ -1316,6 +1316,30 @@ var VERB_LEX = {
   'sich fürchten vor':     { k:'d', da:'davor',   st:['fürcht'] }
 };
 
+
+// Verben der Serie aus der zentralen Datendatei (verben-praep-daten.js) übernehmen
+function schreibDaForm(p) { return 'da' + (/^[aeiouäöü]/.test(p) ? 'r' : '') + p; }
+function schreibLex(key) {
+  if (VERB_LEX[key]) return VERB_LEX[key];
+  var e = (window.VAP_VERBEN || []).find(function (x) { return x.v + ' ' + x.p === key; });
+  if (!e) return null;
+  return { k: e.k, da: schreibDaForm(e.p), st: mwVerbStaemme(e.v) };
+}
+function schreibVerbOptionen(sel) {
+  var V = window.VAP_VERBEN || []; if (!V.length) return;
+  var alt = sel.value, html = '';
+  [1,2,3,4,5,0].forEach(function (t) {
+    var liste = V.filter(function (e) { return e.t === t; });
+    if (!liste.length) return;
+    html += '<optgroup label="' + (t ? 'Teil ' + t : 'Weitere Verben') + '">' + liste.map(function (e) {
+      var key = e.v + ' ' + e.p;
+      return '<option value="' + key + '">' + key + '</option>';
+    }).join('') + '</optgroup>';
+  });
+  sel.innerHTML = html;
+  sel.value = alt || 'sich ärgern über';
+}
+
 function schreibVerbFuer(nr) {
   var sel = document.getElementById('sw-verb-' + nr);
   if (sel) return sel.value;
@@ -1329,7 +1353,7 @@ var SC_PRAEP = '(?:(?:mit|von|über|an|auf|für|nach|zu|bei|um|vor|aus|in)\\s+)?
 function schreibSatzCheck(nr) {
   var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
   if (!ta) return;
-  var lex = VERB_LEX[schreibVerbFuer(nr)];
+  var lex = schreibLex(schreibVerbFuer(nr));
   var txt = ta.value;
   var low = txt.toLowerCase();
   var res = { verb:false, da:false, ns:false, len:false };
@@ -1337,8 +1361,9 @@ function schreibSatzCheck(nr) {
     res.verb = lex.st.some(function (s) { return low.indexOf(s) !== -1; });
     var daRe = new RegExp('(^|[^a-zäöüß])' + lex.da + '(?![a-zäöüß])', 'i');
     res.da = daRe.test(txt);
-    var nsRe = new RegExp(lex.da + '\\s*,\\s*' + SC_PRAEP + SC_NS + '(?![a-zäöüß])', 'i');
-    var zuRe = new RegExp(lex.da + '\\s*,[^.!?]*?(\\bzu\\s+[a-zäöüß]+n\\b|[a-zäöüß]+zu[a-zäöüß]*n\\b)', 'i');
+    var LUECKE = '(?:\\s+[a-zäöüß]+){0,3}';
+    var nsRe = new RegExp(lex.da + LUECKE + '\\s*,\\s*' + SC_PRAEP + SC_NS + '(?![a-zäöüß])', 'i');
+    var zuRe = new RegExp(lex.da + LUECKE + '\\s*,[^.!?]*?(\\bzu\\s+[a-zäöüß]+n\\b|[a-zäöüß]+zu[a-zäöüß]*n\\b)', 'i');
     res.ns = nsRe.test(txt) || zuRe.test(txt);
   }
   var words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
@@ -1353,7 +1378,7 @@ function schreibSatzCheck(nr) {
 function schreibVerbChipAktualisieren(nr) {
   var sel = document.getElementById('sw-verb-' + nr);
   if (!sel) return;
-  var lex = VERB_LEX[sel.value];
+  var lex = schreibLex(sel.value);
   sel.className = 'verb-select';
   var hint = document.getElementById('sw-verbkasus-' + nr);
   if (hint && lex) { hint.className = 'verb-chip k-' + lex.k; hint.textContent = lex.k === 'a' ? '+ Akkusativ' : '+ Dativ'; }
@@ -1369,7 +1394,8 @@ function initSchreibwerkstatt() {
   document.querySelectorAll('.verb-select').forEach(function (sel) {
     var nr = sel.dataset.aufgabe;
     var sv = lsGet(SCHREIB_VERB_PREFIX + nr);
-    if (sv && VERB_LEX[sv]) sel.value = sv;
+    schreibVerbOptionen(sel);
+    if (sv && schreibLex(sv)) sel.value = sv;
     schreibVerbChipAktualisieren(nr);
     sel.addEventListener('change', function () {
       lsSet(SCHREIB_VERB_PREFIX + nr, sel.value);
