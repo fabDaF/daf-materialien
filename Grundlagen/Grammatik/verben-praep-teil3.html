@@ -183,6 +183,14 @@ input.bl.l { width: 140px; }
 .sp-count { font-size: .8em; color: var(--muted-2); margin-top: 4px; font-variant-numeric: tabular-nums; }
 .sp-gehoert { font-size: .9em; color: var(--muted); margin-top: 10px; }
 .sp-gehoert:empty { display: none; }
+.sp-gehoert { padding: 8px 12px; border-radius: 8px; line-height: 1.5; }
+.sp-gehoert.sp-info { background: var(--info-bg); color: var(--info-tx); }
+.sp-gehoert.sp-gut { background: var(--ok-bg); color: var(--ok-tx); }
+.sp-gehoert.sp-schlecht { background: var(--err-bg); color: var(--err-tx); }
+.sp-gehoert.sp-warn { background: var(--warn-bg); color: var(--warn-tx); border: 1px solid var(--warn-bd); }
+.sp-puls { color: #e53935; animation: sp-puls 1s infinite; }
+@keyframes sp-puls { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+.mc-opt.sp-empf { box-shadow: 0 0 0 3px rgba(102,126,234,.45); transform: scale(1.06); }
 .sp-ok { color: var(--ok-tx); font-weight: 700; }
 .sp-no { color: var(--err-tx); font-weight: 700; }
 .sp-loesung-zeile { font-family: Georgia, 'Times New Roman', serif; font-size: 1.35em; color: var(--text); margin-top: 12px; line-height: 1.6; }
@@ -1764,29 +1772,81 @@ function spAufloesen(){
     : `<div class="sp-loesung-zeile"><strong>${esc(spWoForm(e.p).replace(/^w/, 'W'))}</strong> …? – <strong>${vapPhrase(e)}</strong> · <em>${esc(schreibDaForm(e.p))}</em></div><div>${kasus}</div>`;
   document.getElementById('sp-loesung').innerHTML = z;
   document.getElementById('sp-aktion').innerHTML = `<span class="quiz-hint">Kam die Präposition sofort?</span><span><button class="mc-opt ok" onclick="spBewerten(true)">✓ Ja, sofort</button> <button class="mc-opt" onclick="spBewerten(false)">✗ Nein, überlegt</button></span>`;
+  setTimeout(() => { if (spOffen && spQueue[spPos] === e) spMicFazit(e); }, 900);
 }
 function spBewerten(ok){ spRunde.total++; if (ok) spRunde.ok++; spPos++; spZeige(); }
 function spMicToggle(){
   spMic = !spMic;
   const b = document.getElementById('sp-mic'); b.textContent = spMic ? '🎤 Mikrofon an' : '🎤 Mikrofon aus'; b.classList.toggle('ok', spMic);
-  if (spMic && spTimer && spQueue[spPos]) spRecStart(spQueue[spPos]); else spRecStop();
+  if (!spMic){ spRecStop(); spStatus(''); return; }
+  if (spTimer && spQueue[spPos]) spRecStart(spQueue[spPos]);
+  else spStatus('🎤 Mikrofon ist an – es hört ab der nächsten Karte zu.', 'info');
 }
-function spRecStart(e){
-  if (!SpRecCtor) return; spRecStop();
-  try {
-    spRec = new SpRecCtor(); spRec.lang = 'de-DE'; spRec.interimResults = true; spRec.continuous = true;
-    spRec.onresult = ev => { let t = ''; for (const r of ev.results) t += r[0].transcript + ' '; spGehoert = t.trim(); spGehoertZeigen(e); };
-    spRec.onerror = () => {}; spRec.start();
-  } catch (x){ spRec = null; }
-}
-function spRecStop(){ if (spRec){ try { spRec.onresult = null; spRec.stop(); } catch (x){} spRec = null; } }
-function spGehoertZeigen(e){
+// Statuszeile unter der Karte: zeigt jederzeit, was das Mikrofon tut
+function spStatus(html, typ){
   const el = document.getElementById('sp-gehoert'); if (!el) return;
-  const low = ' ' + spGehoert.toLowerCase().replace(/[.,!?;:]/g, ' ').replace(/\s+/g, ' ') + ' ';
+  el.className = 'sp-gehoert' + (typ ? ' sp-' + typ : '');
+  el.innerHTML = html;
+}
+const SP_FEHLER = {
+  'not-allowed': '🚫 Mikrofon blockiert. Bitte oben in der Adressleiste das Mikrofon für diese Seite erlauben und neu laden.',
+  'service-not-allowed': '🚫 Spracherkennung ist in diesem Browser gesperrt. Bitte Chrome oder Safari verwenden.',
+  'audio-capture': '🎤 Kein Mikrofon gefunden. Bitte ein Mikrofon anschließen oder in den Systemeinstellungen freigeben.',
+  'network': '📶 Die Spracherkennung braucht eine Internetverbindung (Chrome schickt die Aufnahme an Google).',
+  'language-not-supported': 'Deutsch wird von der Spracherkennung dieses Browsers nicht unterstützt.'
+};
+function spRecStart(e){
+  if (!SpRecCtor){ spStatus('Dieser Browser hat keine Spracherkennung. Bitte Chrome oder Safari verwenden.', 'warn'); return; }
+  spRecStop();
+  const karte = spPos;
+  try {
+    const rec = new SpRecCtor(); spRec = rec;
+    rec.lang = 'de-DE'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 3;
+    rec.onstart = () => { if (spRec === rec && !spGehoert) spStatus('<span class="sp-puls">●</span> Ich höre zu … jetzt sprechen.', 'info'); };
+    rec.onresult = ev => {
+      let t = ''; for (const r of ev.results) t += r[0].transcript + ' ';
+      spGehoert = t.trim(); spGehoertZeigen(e);
+      // richtige Präposition sicher erkannt → Karte sofort auflösen (Belohnung ohne Warten)
+      const last = ev.results[ev.results.length - 1];
+      if (last && last.isFinal && !spOffen && spPos === karte && spUrteil(e).hat) spAufloesen();
+    };
+    rec.onerror = ev => {
+      const msg = SP_FEHLER[ev.error];
+      if (msg){ spStatus(msg, 'warn'); if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed' || ev.error === 'audio-capture'){ spMic = false; const b = document.getElementById('sp-mic'); if (b){ b.textContent = '🎤 Mikrofon aus'; b.classList.remove('ok'); } } }
+      else if (ev.error === 'no-speech' && !spGehoert && !spOffen) spStatus('🤫 Noch nichts gehört – bitte lauter oder näher am Mikrofon sprechen.', 'warn');
+    };
+    // Chrome beendet die Erkennung nach Sprechpausen von selbst → solange die Karte läuft, neu starten
+    rec.onend = () => { if (spRec === rec && spMic && !spOffen && spPos === karte && spTimer){ try { rec.start(); } catch (x){} } };
+    rec.start();
+  } catch (x){ spRec = null; spStatus('Die Spracherkennung konnte nicht gestartet werden.', 'warn'); }
+}
+function spRecStop(){ if (spRec){ const r = spRec; spRec = null; try { r.onend = null; r.onresult = null; r.stop(); } catch (x){} } }
+function spUrteil(e){
+  const low = ' ' + spGehoert.toLowerCase().replace(/[.,!?;:„“"]/g, ' ').replace(/\s+/g, ' ') + ' ';
   const kontr = Object.keys(VAP_KONTR).filter(k => k.indexOf(e.p + ' ') === 0).map(k => VAP_KONTR[k]);
-  const hat = low.indexOf(' ' + e.p + ' ') !== -1 || kontr.some(k => low.indexOf(' ' + k + ' ') !== -1);
+  const formen = [e.p, schreibDaForm(e.p), spWoForm(e.p)].concat(kontr);
+  const hat = formen.some(f => low.indexOf(' ' + f + ' ') !== -1);
   const falsch = SP_PRAEPS.filter(p => p !== e.p && p !== e.p2 && low.indexOf(' ' + p + ' ') !== -1);
-  el.innerHTML = `Gehört: „${esc(spGehoert)}“ ` + (hat ? `<span class="sp-ok">✓ ${esc(e.p)}</span>` : falsch.length ? `<span class="sp-no">✗ „${esc(falsch[0])}“ statt „${esc(e.p)}“</span>` : '');
+  const nomen = low.indexOf((e.m[1] + e.m[2]).toLowerCase()) !== -1;
+  return {hat, falsch, nomen};
+}
+function spGehoertZeigen(e){
+  if (!spGehoert) return;
+  const u = spUrteil(e);
+  const urteil = u.hat ? `<span class="sp-ok">✓ „${esc(e.p)}“ erkannt</span>` : u.falsch.length ? `<span class="sp-no">✗ „${esc(u.falsch[0])}“ statt „${esc(e.p)}“</span>` : '';
+  spStatus(`🎤 Gehört: „${esc(spGehoert)}“ ${urteil}`, u.hat ? 'gut' : (u.falsch.length ? 'schlecht' : 'info'));
+}
+// Bewertung nach dem Auflösen: was hat das Mikrofon gehört?
+function spMicFazit(e){
+  if (!spMic) return;
+  const u = spUrteil(e);
+  let html, typ, empf = null;
+  if (!spGehoert){ html = '🎤 Das Mikrofon hat nichts verstanden. Bewerte dich bitte selbst.'; typ = 'warn'; }
+  else if (u.hat){ html = `🎤 Gehört: „${esc(spGehoert)}“ <span class="sp-ok">✓ Richtig – „${esc(e.p)}“ war dabei!</span>`; typ = 'gut'; empf = true; }
+  else if (u.falsch.length){ html = `🎤 Gehört: „${esc(spGehoert)}“ <span class="sp-no">✗ Du hast „${esc(u.falsch[0])}“ gesagt – richtig ist „${esc(e.p)}“.</span>`; typ = 'schlecht'; empf = false; }
+  else { html = `🎤 Gehört: „${esc(spGehoert)}“ <span class="sp-no">– die Präposition „${esc(e.p)}“ war nicht dabei.</span>`; typ = 'schlecht'; empf = false; }
+  spStatus(html, typ);
+  if (empf !== null){ const btns = document.querySelectorAll('#sp-aktion .mc-opt'); if (btns.length === 2) btns[empf ? 0 : 1].classList.add('sp-empf'); }
 }
 function initSprechTrainer(){
   const sel = document.getElementById('sp-teil');
