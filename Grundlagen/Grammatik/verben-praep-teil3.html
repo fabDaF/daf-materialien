@@ -601,7 +601,7 @@ html[data-theme="dark"] body { color: #c6cade; }
       <option value="5" selected>5 Sekunden</option>
       <option value="3">3 Sekunden</option>
     </select></label>
-    <button class="mc-opt" id="sp-mic" onclick="spMicToggle()" hidden>🎤 Mikrofon aus</button>
+    <button class="mc-opt" id="sp-mic" onclick="spMicToggle()" title="Klicken zum Ein- oder Ausschalten" hidden>🎤 Mikrofon ist aus</button>
   </div>
   <div class="sp-stand" id="sp-stand"></div>
   <div class="tr-karte" id="sp-karte"></div>
@@ -1808,7 +1808,7 @@ function spStandZeigen(){
 }
 function spMicToggle(){
   spMic = !spMic;
-  const b = document.getElementById('sp-mic'); b.textContent = spMic ? '🎤 Mikrofon an' : '🎤 Mikrofon aus'; b.classList.toggle('ok', spMic);
+  const b = document.getElementById('sp-mic'); b.textContent = spMic ? '🎤 Mikrofon ist an' : '🎤 Mikrofon ist aus'; b.classList.toggle('ok', spMic);
   if (!spMic){ spRecStop(); spStatus(''); return; }
   if (spTimer && spQueue[spPos]) spRecStart(spQueue[spPos]);
   else spStatus('🎤 Mikrofon ist an – es hört ab der nächsten Karte zu.', 'info');
@@ -1843,7 +1843,7 @@ function spRecStart(e){
     };
     rec.onerror = ev => {
       const msg = SP_FEHLER[ev.error];
-      if (msg){ spStatus(msg, 'warn'); if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed' || ev.error === 'audio-capture'){ spMic = false; const b = document.getElementById('sp-mic'); if (b){ b.textContent = '🎤 Mikrofon aus'; b.classList.remove('ok'); } } }
+      if (msg){ spStatus(msg, 'warn'); if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed' || ev.error === 'audio-capture'){ spMic = false; const b = document.getElementById('sp-mic'); if (b){ b.textContent = '🎤 Mikrofon ist aus'; b.classList.remove('ok'); } } }
       else if (ev.error === 'no-speech' && !spGehoert && !spOffen) spStatus('🤫 Noch nichts gehört – bitte lauter oder näher am Mikrofon sprechen.', 'warn');
     };
     // Chrome beendet die Erkennung nach Sprechpausen von selbst → solange die Karte läuft, neu starten
