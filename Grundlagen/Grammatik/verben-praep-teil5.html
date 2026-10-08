@@ -1900,6 +1900,7 @@ function initSprechTrainer(){
 const MW_KEY = 'vap_merkwoerter_v1';
 const MW_SENT_KEY = 'vap_merkwoerter_v1_sent';
 const MW_ANFANG = {von:['von','fon','phon','vonn'], 'für':['für','führ','führ','fur'], 'über':['über','üb']};
+const MW_HINWEIS = {von:'„von“ oder gleich klingend „Fon“ (z. B. Fondue, Fontäne)', 'für':'„für“ oder „führ“ (z. B. Führung)'};
 const MW_TRENNBAR = ['teil','nach','zu','an','auf','aus','ein','ab'];
 const MW_UNREGEL = {denken:['dach','denk'], sprechen:['sprech','sprich','sprach','sproch'], bitten:['bitt','bat','beten'], gehen:['geh','ging','gang'], helfen:['helf','hilf','half','holf'], fangen:['fang','fäng','fing'], nehmen:['nehm','nimm','nahm','nomm'], kommen:['komm','kam'], halten:['halt','hält','hielt'], treffen:['treff','triff','traf','troff'], streiten:['streit','stritt'], wissen:['wiss','weiß','wuss'], sein:['bin','bist','ist','sind','seid','war','gewes'], werden:['werd','wird','wirst','wurd','word'], sterben:['sterb','stirb','starb','storb'], geraten:['gerat','gerät','geriet'], schreiben:['schreib','schrieb'], riechen:['riech','roch'], erkennen:['erkenn','erkann'], verstehen:['versteh','verstand'], bestehen:['besteh','bestand'], leiden:['leid','litt'], laden:['lad','läd','lud'], geben:['geb','gib','gab'], entscheiden:['entscheid','entschied'], entschließen:['entschließ','entschloss'], verlassen:['verlass','verläss','verließ'], erfahren:['erfahr','erfähr','erfuhr'], vergleichen:['vergleich','verglich'], hängen:['häng','hing'], schauen:['schau'], wenden:['wend','wand'], sagen:['sag'], unterhalten:['unterhalt','unterhält','unterhielt'], schützen:['schütz']};
 function mwVerbStaemme(v){
@@ -1910,6 +1911,10 @@ function mwVerbStaemme(v){
   if (MW_UNREGEL[base] && MW_UNREGEL[base].length) return MW_UNREGEL[base];
   const st = base.replace(/(eln|ern)$/, m => m.slice(0,2)).replace(/en$|n$/, '');
   return [st];
+}
+function mwPraefixLaenge(p, wort){ // Länge des erlaubten Anfangs (über/Üb, von/Fon/Phon, für/Führ) für die Hervorhebung
+  const w = String(wort).toLowerCase(); const a = (MW_ANFANG[p] || [p]).filter(x => w.startsWith(x)).sort((x,y) => y.length - x.length)[0];
+  return a ? a.length : p.length;
 }
 function mwAktuell(){ return VAP.find(e => String(e.id) === document.getElementById('mw-verb').value); }
 function mwAnfangOk(e, wort){
@@ -1964,7 +1969,13 @@ function mwCheck(ev){
     const ks = Object.keys(MW_KONTR).filter(k => MW_KONTR[k][0] === e.p);
     if (ks.length){ const reK2 = new RegExp('(?:^|[^\\wäöüß])(?:' + ks.join('|') + ')\\s+(?:[\\wäöüß-]+\\s+)?([A-ZÄÖÜ][\\wäöüß-]*)', 'u'); ma = satz.match(reK2); }
   }
-  if (ausSatz && ma && mwAnfangOk(e, ma[1]) && (!wortEl.value.trim() || satz.toLowerCase().indexOf(wortEl.value.trim().toLowerCase()) === -1)) wortEl.value = ma[1];
+  if (ev && ev.target === wortEl) wortEl.dataset.auto = ''; // selbst getippt → Satz überschreibt das Feld nicht mehr live
+  if (ausSatz && ma && mwAnfangOk(e, ma[1])){
+    const feld = wortEl.value.trim();
+    const fertig = /[^\wäöüß-]/u.test(satz.charAt(ma.index + ma[0].length)); // Nomen im Satz zu Ende getippt (Leerzeichen/Satzzeichen danach)
+    if (!feld || wortEl.dataset.auto === '1'){ wortEl.value = ma[1]; wortEl.dataset.auto = '1'; } // leeres bzw. automatisch gefülltes Feld wächst mit
+    else if (fertig && ma[1].toLowerCase() !== feld.toLowerCase() && satz.toLowerCase().indexOf(feld.toLowerCase()) === -1){ wortEl.value = ma[1]; wortEl.dataset.auto = '1'; } // anderes Nomen fertig geschrieben → übernehmen
+  }
   const wort = wortEl.value.trim();
   const r = {anfang:false, gross:false, verb:false, kasus:false};
   r.anfang = mwAnfangOk(e, wort);
@@ -2010,7 +2021,7 @@ function mwSpeichern(){
   const l = mwListeLaden();
   l.push({id:e.id, art:document.getElementById('mw-art').value, wort:document.getElementById('mw-wort').value.trim(), satz:document.getElementById('mw-satz').value.trim(), gesendet:false});
   mwListeSpeichern(l);
-  document.getElementById('mw-wort').value = ''; document.getElementById('mw-satz').value = '';
+  document.getElementById('mw-wort').value = ''; document.getElementById('mw-wort').dataset.auto = ''; document.getElementById('mw-satz').value = '';
   mwNaechstesVerb();
   mwListeZeigen();
 }
@@ -2034,7 +2045,7 @@ function mwListeZeigen(){
   if (!l.length){ box.innerHTML = '<div class="mw-leer">Noch keine eigenen Merk-Wörter gespeichert.</div>'; return; }
   box.innerHTML = `<table class="mw-tab"><thead><tr><th>Verb</th><th>Dein Merk-Wort</th><th>Dein Satz</th><th>Franks Merk-Wort</th><th></th></tr></thead><tbody>` +
     l.map((x,i) => { const e = VAP.find(v => v.id === x.id); if (!e && !x.karte) return '';
-      const vp = e ? e.p : x.p, kk = e ? e.k : x.k, n = vp.length, pre = x.wort.slice(0, n), rest = x.wort.slice(n);
+      const vp = e ? e.p : x.p, kk = e ? e.k : x.k, n = mwPraefixLaenge(vp, x.wort), pre = x.wort.slice(0, n), rest = x.wort.slice(n);
       const art = x.art === 'pl' ? 'die' : x.art;
       const mein = x.karte ? `${esc(vp)} ${esc(art)} ${memoHtml(pre, rest, kk)}` : `${esc(art)} ${memoHtml(pre, rest, kk)}`;
       const satz = x.karte ? '<span class="mw-leer">aus Übungskarte ' + esc(x.karte.slice(1)) + '</span>' : esc(x.satz);
@@ -2116,7 +2127,7 @@ function eigenCheck(row, beimVerlassen){
       if (/^[A-ZÄÖÜ]/.test(wort)) { wortOk = true; wi.classList.add('correct'); }
       else { wi.classList.add('wrong'); msgs.push('Nomen schreibt man groß'); }
     }
-    else if (!tippt) { wi.classList.add('wrong'); msgs.push(`Das Nomen muss mit „${p}“ beginnen`); }
+    else if (!tippt) { wi.classList.add('wrong'); msgs.push(`Das Nomen muss mit ${MW_HINWEIS[p] || '„'+p+'“'} beginnen`); }
   }
   if (msgs.length){ st.className = 'eigen-status no'; st.textContent = msgs.join(' · '); }
   if (artOk && wortOk){ st.className = 'eigen-status ok'; st.textContent = '✓ in deiner Merk-Wort-Liste gespeichert'; eigenSpeichern(row, art, wort); }
