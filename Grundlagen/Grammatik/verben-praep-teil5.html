@@ -589,7 +589,7 @@ html[data-theme="dark"] body { color: #c6cade; }
 <!-- ===== TAB 6 — SPRECH-TRAINER (FB-SPRECH-TRAINER) ===== -->
 <div class="section" id="sec-5"><div class="sec-inner">
   <h2>🗣️ Sprech-Trainer</h2>
-  <div class="sec-desc">Wer die Präposition beim Schreiben weiß, hat sie beim Sprechen noch lange nicht parat – dort fehlt die Zeit zum Nachdenken. Hier zählt deshalb Tempo: Verb und Merk-Wort erscheinen, der Satz wird <strong>laut</strong> gesprochen, bevor der Balken abgelaufen ist. Erst danach kommt die Lösung zum Vergleichen.</div>
+  <div class="sec-desc">Wer die Präposition beim Schreiben weiß, hat sie beim Sprechen noch lange nicht parat – dort fehlt die Zeit zum Nachdenken. Hier zählt deshalb Tempo: Nur das Verb erscheint, der Satz mit der passenden Präposition wird <strong>laut</strong> gesprochen, bevor der Balken abgelaufen ist. Erst danach kommt die Lösung – mit dem Merk-Wort als Eselsbrücke.</div>
   <div class="tr-steuerung">
     <label>Teil <select class="verb-select" id="sp-teil"></select></label>
     <label>Aufgabe <select class="verb-select" id="sp-modus">
@@ -1751,7 +1751,7 @@ function spZeige(){
   if (!spQueue.length || spPos >= spQueue.length){
     const nochmal = spRunde.fehler.length ? `<div class="sp-wdh"><strong>Noch nicht automatisch:</strong> ${spRunde.fehler.map(x => esc(vapVerbLabel(x)) + ' ' + esc(x.p)).join(' · ')}</div>` : '';
     const micBtn = SpRecCtor ? `<button class="mc-opt ok" onclick="spStart(true)">🎤 Mit Mikrofon starten</button>` : '';
-    box.innerHTML = `<div class="tr-leer">${spRunde.total ? `🎉 Runde fertig – <strong>${spRunde.ok} von ${spRunde.total}</strong> Sätzen sofort parat${spRunde.mic ? ` · Mikrofon: ${spRunde.micOk} von ${spRunde.micTotal} richtig erkannt` : ''}.` : 'Verb und Merk-Wort erscheinen – dann laut sprechen, bevor der Balken abgelaufen ist.'}
+    box.innerHTML = `<div class="tr-leer">${spRunde.total ? `🎉 Runde fertig – <strong>${spRunde.ok} von ${spRunde.total}</strong> Sätzen sofort parat${spRunde.mic ? ` · Mikrofon: ${spRunde.micOk} von ${spRunde.micTotal} richtig erkannt` : ''}.` : 'Das Verb erscheint – dann laut einen Satz mit der Präposition sprechen, bevor der Balken abgelaufen ist.'}
       ${nochmal}
       <div class="tr-leer-btns">${micBtn}<button class="mc-opt" onclick="spStart(false)">${spRunde.total ? 'Noch eine Runde ohne Mikrofon' : 'Ohne Mikrofon starten'}</button></div>
       ${SpRecCtor ? '' : '<div class="quiz-hint">Dieser Browser hat keine Spracherkennung – mit Mikrofon geht es in Chrome oder Safari.</div>'}</div>`;
@@ -1759,9 +1759,9 @@ function spZeige(){
     return;
   }
   const e = spQueue[spPos], modus = document.getElementById('sp-modus').value, sek = Number(document.getElementById('sp-zeit').value);
-  const aufgabe = modus === 'satz' ? 'Laut einen Satz mit diesem Verb und diesem Nomen sprechen.' : 'Laut fragen: „Wo…?“ – und mit dem Nomen antworten.';
+  const aufgabe = modus === 'satz' ? 'Laut einen Satz mit diesem Verb sprechen – mit der richtigen Präposition.' : 'Laut fragen: „Wo…?“ – und mit der Präposition antworten.';
   box.innerHTML = `<div class="tr-meta">Karte ${spPos + 1} von ${spQueue.length} · ${esc(VAP_GRUPPEN[e.g] || '')}</div>
-    <div class="sp-cue"><span class="sp-verb">${esc(vapVerbLabel(e))}</span><span class="sp-plus">+</span><span class="sp-nomen">${esc(spNomen(e))}</span></div>
+    <div class="sp-cue"><span class="sp-verb">${esc(vapVerbLabel(e))}</span></div>
     ${e.h ? `<div class="quiz-hint">(${esc(e.h)})</div>` : ''}
     <div class="sp-aufgabe">🗣️ ${aufgabe}</div>
     <div class="sp-bar"><div id="sp-fill"></div></div><div class="sp-count" id="sp-count">${sek} s</div>
