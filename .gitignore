@@ -12,3 +12,7 @@ __pycache__/
 .claude/
 __deltest*
 test_perm_check
+
+# Private Lektüre / Ablage – nicht veröffentlichen
+-Finding-Flow-Mihaly-Csikszentmihalyi-pdf.pdf
+_to_delete/
