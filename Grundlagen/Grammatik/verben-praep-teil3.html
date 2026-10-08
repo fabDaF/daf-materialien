@@ -1975,7 +1975,11 @@ function mwCheck(ev){
     const feld = wortEl.value.trim();
     const fertig = /[^\wäöüß-]/u.test(satz.charAt(ma.index + ma[0].length)); // Nomen im Satz zu Ende getippt (Leerzeichen/Satzzeichen danach)
     if (!feld || wortEl.dataset.auto === '1'){ wortEl.value = ma[1]; wortEl.dataset.auto = '1'; } // leeres bzw. automatisch gefülltes Feld wächst mit
-    else if (fertig && ma[1].toLowerCase() !== feld.toLowerCase() && satz.toLowerCase().indexOf(feld.toLowerCase()) === -1){ wortEl.value = ma[1]; wortEl.dataset.auto = '1'; } // anderes Nomen fertig geschrieben → übernehmen
+    else if (fertig && ma[1].toLowerCase() !== feld.toLowerCase()){ // Nomen im Satz fertig, Feld enthält etwas anderes
+      const feldEsc = feld.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      const ganzImSatz = new RegExp('(?:^|[^\\wäöüß])' + feldEsc + '(?![\\wäöüß])', 'iu').test(satz); // Feld-Wort steht als ganzes Wort im Satz?
+      if (!ganzImSatz){ wortEl.value = ma[1]; wortEl.dataset.auto = '1'; } // angefangenes oder anderes Wort → Nomen aus dem Satz übernehmen
+    }
   }
   const wort = wortEl.value.trim();
   const r = {anfang:false, gross:false, verb:false, kasus:false};
