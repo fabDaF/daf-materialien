@@ -1107,7 +1107,7 @@ function renderQuiz(){
     h+=`<div class="quiz-card" id="qz-${qi}" data-fehler="0">
   <div class="quiz-head"><span class="card-nr">${String(n+1).padStart(2,'0')}</span><span class="quiz-fehler" id="qzf-${qi}"></span></div>
   <div class="quiz-verb">${esc(q.v)} <span class="quiz-slot" id="qzp-${qi}">?</span> <span class="quiz-plus">+</span> <span class="quiz-slot" id="qzk-${qi}">?</span></div>
-  ${q.h?`<div class="quiz-hint">(${esc(q.h)})</div>`:''}
+  ${q.h?`<div class="quiz-hint">(${esc(vapHint(q))})</div>`:''}
   <div class="quiz-step"><span class="quiz-label">Präposition</span><div class="mc-opts">${quizOptions(q).map(p=>`<button class="mc-opt" onclick="quizPraep(${qi},this,'${p}')">${p}</button>`).join('')}</div></div>
   <div class="quiz-step quiz-kasus locked" id="qzks-${qi}"><span class="quiz-label">Kasus</span><div class="mc-opts"><button class="mc-opt" onclick="quizKasus(${qi},this,'a')">Akkusativ</button><button class="mc-opt" onclick="quizKasus(${qi},this,'d')">Dativ</button></div></div>
   <div class="quiz-memo" id="qzm-${qi}"></div>
@@ -1646,7 +1646,7 @@ function trZeige(){
   if (trKarte.dir === 'A'){
     box.innerHTML = `${kopf}
       <div class="tr-frage">${esc(vapVerbLabel(e))} <input class="bl m" id="tr-in" autocomplete="off" autocapitalize="off" spellcheck="false"> + <span class="quiz-slot" id="tr-kslot">?</span></div>
-      ${e.h ? `<div class="quiz-hint">(${esc(e.h)})</div>` : ''}
+      ${e.h ? `<div class="quiz-hint">(${esc(vapHint(e))})</div>` : ''}
       <div class="quiz-step quiz-kasus locked" id="tr-ks"><span class="quiz-label">Kasus</span><div class="mc-opts"><button class="mc-opt" onclick="trKasus(this,'a')">Akkusativ</button><button class="mc-opt" onclick="trKasus(this,'d')">Dativ</button></div></div>
       <div class="tr-loesung" id="tr-loesung"></div>
       <div class="tr-aktion" id="tr-aktion"><button class="mc-opt tr-zeig" onclick="trZeigLoesung()">🙈 Weiß ich nicht – zeigen</button></div>`;
@@ -1729,6 +1729,17 @@ function initTrainer(){
   trStart(false);
 }
 
+// Merk-Hinweis ohne Lösung: Präposition (und da(r)+Präposition) im Hinweis maskieren
+function vapHint(e){
+  let h = e.h || '';
+  const W = 'A-Za-zÄÖÜäöüß';
+  [e.p, e.p2].filter(Boolean).forEach(p => {
+    const da = (/^[aeiouäöü]/i.test(p) ? 'dar' : 'da') + p;
+    h = h.replace(new RegExp('(^|[^' + W + '])' + da + '(?=$|[^' + W + '])', 'gi'), '$1da___')
+         .replace(new RegExp('(^|[^' + W + '])' + p + '(?=$|[^' + W + '])', 'gi'), '$1___');
+  });
+  return h;
+}
 // ======== SPRECH-TRAINER (mündlicher Abruf unter Zeitdruck) — FB-SPRECH-TRAINER ========
 let spQueue = [], spPos = 0, spTimer = null, spRunde = {ok:0, total:0, fehler:[], mic:false, micOk:0, micTotal:0}, spMic = false, spRec = null, spGehoert = '', spOffen = false;
 const SP_PRAEPS = ['an','auf','aus','bei','für','gegen','in','mit','nach','über','um','unter','von','vor','zu','durch'];
@@ -1761,7 +1772,7 @@ function spZeige(){
   const aufgabe = modus === 'satz' ? 'Laut einen Satz mit diesem Verb sprechen – mit der richtigen Präposition.' : 'Laut fragen: „Wo…?“ – und mit der Präposition antworten.';
   box.innerHTML = `<div class="tr-meta">Karte ${spPos + 1} von ${spQueue.length} · ${esc(VAP_GRUPPEN[e.g] || '')}</div>
     <div class="sp-cue"><span class="sp-verb">${esc(vapVerbLabel(e))}</span></div>
-    ${e.h ? `<div class="quiz-hint">(${esc(e.h)})</div>` : ''}
+    ${e.h ? `<div class="quiz-hint">(${esc(vapHint(e))})</div>` : ''}
     <div class="sp-aufgabe">🗣️ ${aufgabe}</div>
     <div class="sp-bar"><div id="sp-fill"></div></div><div class="sp-count" id="sp-count">${sek} s</div>
     <div class="sp-gehoert" id="sp-gehoert"></div>
