@@ -65,7 +65,7 @@
             background: var(--sf-container);
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            overflow: hidden;
+            overflow: clip; /* clip statt hidden: sonst bricht position:sticky der Wortbank */
         }
         .header {
             background: linear-gradient(135deg, var(--grad-head-a) 0%, var(--grad-head-b) 100%);
@@ -246,6 +246,11 @@
             border-radius: 12px;
             padding: 16px 20px;
             margin-bottom: 24px;
+            /* Wortbank bleibt beim Scrollen oben sichtbar */
+            position: sticky;
+            top: 8px;
+            z-index: 20;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
         }
         .wordbank-title {
             font-size: 0.8em;
