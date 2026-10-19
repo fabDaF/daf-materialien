@@ -267,6 +267,71 @@
         .btn-solution:hover { background: var(--bg-a04000); }
         .btn-reset { background: var(--bg-ecf0f1); color: var(--tx-555); }
         .btn-reset:hover { background: var(--bg-d5dbdb); }
+        /* ===== SCHREIBWERKSTATT (FB-SCHREIB-KOLLOK) ===== */
+        #sec-schreiben { padding: 30px;
+          --sw-acc: var(--tx-d35400); --sw-acc-bg: var(--bg-d35400); --sw-acc-bd: var(--bd-d35400); --sw-acc-dark: var(--tx-d35400);
+          --sw-card: var(--bg-f8f8f8, var(--bg-fafafa, #f8f8f8)); --sw-input: var(--sf-input, var(--bg-white, #fff));
+          --sw-text: var(--tx-333, #333); --sw-text2: var(--tx-555, #555); --sw-muted: var(--tx-777, var(--tx-888, #777)); --sw-muted2: var(--tx-888, #888);
+          --sw-line: var(--bd-f0f0f0, var(--bd-e0e0e0, #eee)); --sw-line2: var(--bd-e0e0e0, #e0e0e0); --sw-chip-bg: var(--bg-f0f0f0, var(--bg-ecf0f1, #f0f0f0)); --sw-chip-tx: var(--tx-666, #666);
+          --sw-ok: var(--tx-27ae60, #27ae60); --sw-ok-bd: var(--bd-27ae60, #27ae60); --sw-ok-bg: var(--bg-e8f8f0, #e8f8f0);
+          --sw-err: var(--tx-e74c3c, #c0392b); --sw-err-bd: var(--bd-e74c3c, #e74c3c); --sw-err-bg: var(--bg-fdeaea, #fdeaea);
+          --sw-warn-bg: var(--bg-fef8f0, var(--bg-fff8e1, #fff8e1)); --sw-warn-bd: var(--bd-f0e0d0, #f0d48a); --sw-warn-tx: var(--tx-c0a070, #8a5a00);
+          --sw-white: var(--tx-white, #fff); }
+        .schreib-name-box { background: var(--sw-warn-bg); border: 1.5px solid var(--sw-warn-bd); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; }
+        .schreib-label { display: block; font-size: 0.88em; color: var(--sw-warn-tx); margin-bottom: 6px; font-weight: 600; }
+        .schreib-name { width: 100%; max-width: 320px; padding: 10px 14px; border: 1.5px solid var(--sw-acc-bd); border-radius: 8px; font-family: inherit; font-size: 0.95em; outline: none; background: var(--sw-input); color: var(--sw-text); }
+        .schreib-name:focus { border-color: var(--sw-acc); }
+        .schreib-name.schreib-name-error { border-color: var(--sw-err-bd); box-shadow: 0 0 0 2px rgba(231,76,60,0.15); animation: schreib-name-shake 0.4s; }
+        .shake { animation: schreib-name-shake 0.4s; }
+        @keyframes schreib-name-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+        .schreib-aufgabe-karte { background: var(--sw-card); padding: 18px 22px 18px 24px; margin-bottom: 18px; border-radius: 10px; border-left: 4px solid var(--sw-acc); transition: all 0.25s; }
+        .schreib-aufgabe-karte.gesendet { background: var(--sw-ok-bg); border-left-color: var(--sw-ok-bd); }
+        .schreib-aufgabe-nr { display: inline-block; background: var(--sw-acc-bg); color: var(--sw-white); font-weight: 700; font-size: 0.85em; padding: 2px 10px; border-radius: 12px; margin-right: 8px; vertical-align: middle; }
+        .schreib-aufgabe-karte.gesendet .schreib-aufgabe-nr { background: var(--sw-ok-bd); }
+        .schreib-aufgabe-titel { font-weight: 700; color: var(--sw-acc-dark); font-size: 1.0em; vertical-align: middle; }
+        .schreib-aufgabe-frage { color: var(--sw-text2); font-size: 0.95em; line-height: 1.55; margin: 8px 0 10px; }
+        .koll-zeile { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; font-size: 0.86em; color: var(--sw-muted); }
+        .koll-chip { display: inline-block; padding: 4px 12px; border-radius: 14px; font-weight: 600; font-size: 0.95em; background: var(--sw-chip-bg); color: var(--sw-chip-tx); border: 1.5px solid var(--sw-line2); transition: all .2s; }
+        .koll-chip::before { content: '○ '; }
+        .koll-chip.ok { background: var(--sw-ok-bg); color: var(--sw-ok); border-color: var(--sw-ok-bd); }
+        .koll-chip.ok::before { content: '✓ '; }
+        .schreib-mini-textarea {
+          width: 100%; min-height: 240px; padding: 14px 16px;
+          border: 1.5px solid var(--sw-acc-bd); border-radius: 8px;
+          font-family: inherit; font-size: 1.02em; line-height: 1.6;
+          outline: none; resize: vertical; background: var(--sw-input); color: var(--sw-text);
+        }
+        .schreib-mini-textarea:focus { border-color: var(--sw-acc); box-shadow: 0 0 0 2px rgba(0,0,0,0.08); }
+        .schreib-mini-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 10px; }
+        .schreib-mini-meta { font-size: 0.82em; color: var(--sw-muted2); }
+        .schreib-mini-meta strong { color: var(--sw-acc); font-weight: 700; }
+        .schreib-mini-status { font-size: 0.82em; color: var(--sw-ok); font-weight: 600; margin-left: 8px; }
+        .schreib-mini-status.error { color: var(--sw-err); }
+        .schreib-mini-btn { padding: 7px 14px; border-radius: 6px; border: 1.5px solid var(--sw-acc); background: var(--sw-input); color: var(--sw-acc); font-size: 0.85em; font-weight: 600; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-family: inherit; }
+        .schreib-mini-btn:hover:not(:disabled) { background: var(--sw-acc-bg); color: var(--sw-white); }
+        .schreib-mini-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .schreib-mini-btn.gesendet { border-color: var(--sw-ok-bd); color: var(--sw-ok); background: var(--sw-ok-bg); }
+        .schreib-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--sw-line); }
+        .schreib-btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 0.95em; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
+        .schreib-btn-primary { background: var(--sw-acc-bg); color: var(--sw-white); }
+        .schreib-btn-primary:hover:not(:disabled) { filter: brightness(0.92); }
+        .schreib-btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+        .schreib-btn-ghost { background: transparent; color: var(--sw-acc); border: 1.5px solid var(--sw-acc-bd); }
+        .schreib-btn-ghost:hover { background: var(--sw-card); }
+        .schreib-status { margin-top: 14px; padding: 12px 16px; border-radius: 8px; font-size: 0.92em; line-height: 1.5; display: none; }
+        .schreib-status.success { display: block; background: var(--sw-ok-bg); border-left: 4px solid var(--sw-ok-bd); color: var(--sw-ok); }
+        .schreib-status.error { display: block; background: var(--sw-err-bg); border-left: 4px solid var(--sw-err-bd); color: var(--sw-err); }
+        .schreib-status.info { display: block; background: var(--sw-card); border-left: 4px solid var(--sw-acc); color: var(--sw-acc-dark); }
+        .schreib-fb { display: flex; flex-direction: column; gap: 8px; }
+        .schreib-fb-titel { font-weight: 700; font-size: 1em; }
+        .schreib-fb-text { color: var(--sw-text2); font-size: 0.92em; line-height: 1.5; }
+        .schreib-fb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+        .schreib-fb-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 8px; border: 1.5px solid var(--sw-acc); background: var(--sw-input); color: var(--sw-acc); font-size: 0.9em; font-weight: 600; text-decoration: none; cursor: pointer; font-family: inherit; }
+        .schreib-fb-btn:hover { background: var(--sw-acc-bg); color: var(--sw-white); }
+        .schreib-fb-btn-prim { background: var(--sw-acc-bg); color: var(--sw-white); }
+        .schreib-fb-hilfe { color: var(--sw-muted); font-size: 0.86em; font-style: italic; margin-top: 4px; }
+        @media (max-width: 600px) { #sec-schreiben { padding: 20px; } .schreib-aufgabe-karte { padding: 14px 14px 14px 16px; } .schreib-name-box { padding: 12px 14px; } }
+
 
         .author-footer { margin-top: 40px; padding: 16px 20px; text-align: center; font-size: 0.8em; color: var(--tx-888); border-top: 1px solid var(--bd-e0e0e0); }
         .author-footer a { color: var(--tx-d35400); text-decoration: none; font-weight: 500; }
@@ -556,6 +621,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
             <div class="nav-btn" onclick="showSection(2)">&#x270F;&#xFE0F; Das richtige Adjektiv</div>
             <div class="nav-btn" onclick="showSection(3)">&#x1F517; Kollokationsketten</div>
             <div class="nav-btn" onclick="showSection(4)"><!-- FB-SPRECH-KOLLOK -->🗣️ Sprechen</div>
+            <div class="nav-btn" onclick="showSection(5)">📨 Schreibwerkstatt</div>
         </div>
 
         <!-- ==================== TAB 0: Bewusstmachung ==================== -->
@@ -841,6 +907,74 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
             <div class="sp-stand" id="sp-stand"></div>
             <div class="sp-karte" id="sp-karte"></div>
             <div class="sp-tipp">Tipp: Leertaste zeigt die Lösung bzw. geht weiter. Mit Mikrofon hört die Seite mit und prüft, ob das richtige Verb gefallen ist (Chrome, Safari).</div>
+        </div>
+
+
+        <!-- ==================== TAB 5: Schreibwerkstatt (FB-SCHREIB-KOLLOK) ==================== -->
+        <div class="section" id="sec-schreiben">
+
+            <div class="section-title">📨 Schreibwerkstatt &ndash; Kollokationen in eigenen Texten</div>
+
+  <div class="schreib-name-box">
+    <label class="schreib-label" for="sw-name">Bitte, hier deinen Namen eintragen.</label>
+    <input type="text" id="sw-name" class="schreib-name" autocomplete="name" required>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">1</span><span class="schreib-aufgabe-titel">Streit mit dem Vermieter</span>
+    <div class="schreib-aufgabe-frage">Schreib einer Freundin, die Juristin ist, eine kurze Mail: Du überlegst, Klage gegen deinen Vermieter einzureichen. Welche Beweise kannst du vorlegen, und warum hältst du die Klage für begründet? (50–70 Wörter)</div>
+    <div class="koll-zeile">Verwende: <span class="koll-chip" id="kr-1-0" data-koll="Klage einreichen">Klage einreichen</span><span class="koll-chip" id="kr-1-1" data-koll="Beweise vorlegen">Beweise vorlegen</span><span class="koll-chip" id="kr-1-2" data-koll="begründete Klage">begründete Klage</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="1" data-titel="Streit mit dem Vermieter"></textarea>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-1">0</strong> &middot; Kollokationen: <strong class="kc-1">0/3</strong><span class="schreib-mini-status" id="sw-status-1"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-1" onclick="schreibSendenEinzeln(1)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">2</span><span class="schreib-aufgabe-titel">Notiz an die Compliance-Abteilung</span>
+    <div class="schreib-aufgabe-frage">In deiner Firma wurde ein Verstoß gegen interne Regeln aufgedeckt. Schreib eine sachliche Notiz: Was ist passiert, wie sollte der Verstoß geahndet werden, und was sagt das geltende Gesetz dazu? (50–70 Wörter)</div>
+    <div class="koll-zeile">Verwende: <span class="koll-chip" id="kr-2-0" data-koll="Verstoß aufdecken">Verstoß aufdecken</span><span class="koll-chip" id="kr-2-1" data-koll="Verstoß ahnden">Verstoß ahnden</span><span class="koll-chip" id="kr-2-2" data-koll="geltendes Gesetz">geltendes Gesetz</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="2" data-titel="Notiz an die Compliance-Abteilung"></textarea>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-2">0</strong> &middot; Kollokationen: <strong class="kc-2">0/3</strong><span class="schreib-mini-status" id="sw-status-2"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-2" onclick="schreibSendenEinzeln(2)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">3</span><span class="schreib-aufgabe-titel">Mini-Dialog: Nach dem Urteil</span>
+    <div class="schreib-aufgabe-frage">Schreib einen Mini-Dialog mit zwei Fragen und zwei Antworten zwischen Anwältin und Mandant: Das Gericht hat sein Urteil gefällt. Soll man es anfechten – oder die Schuld eingestehen? (50–70 Wörter)</div>
+    <div class="koll-zeile">Verwende: <span class="koll-chip" id="kr-3-0" data-koll="Urteil fällen">Urteil fällen</span><span class="koll-chip" id="kr-3-1" data-koll="Urteil anfechten">Urteil anfechten</span><span class="koll-chip" id="kr-3-2" data-koll="Schuld eingestehen">Schuld eingestehen</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="3" data-titel="Mini-Dialog: Nach dem Urteil"></textarea>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-3">0</strong> &middot; Kollokationen: <strong class="kc-3">0/3</strong><span class="schreib-mini-status" id="sw-status-3"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-3" onclick="schreibSendenEinzeln(3)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">4</span><span class="schreib-aufgabe-titel">Härtere Gesetze?</span>
+    <div class="schreib-aufgabe-frage">Nimm Stellung: Sollte der Staat die Gesetze gegen Steuerhinterziehung verschärfen und konsequenter durchsetzen – bis hin zu Haftstrafen, die verhängt werden? Begründe deine Position. (60–80 Wörter)</div>
+    <div class="koll-zeile">Verwende: <span class="koll-chip" id="kr-4-0" data-koll="Gesetz verschärfen">Gesetz verschärfen</span><span class="koll-chip" id="kr-4-1" data-koll="Gesetz durchsetzen">Gesetz durchsetzen</span><span class="koll-chip" id="kr-4-2" data-koll="Haft verhängen">Haft verhängen</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="4" data-titel="Härtere Gesetze?"></textarea>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-4">0</strong> &middot; Kollokationen: <strong class="kc-4">0/3</strong><span class="schreib-mini-status" id="sw-status-4"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-4" onclick="schreibSendenEinzeln(4)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-aufgabe-karte">
+    <span class="schreib-aufgabe-nr">5</span><span class="schreib-aufgabe-titel">Der Prozess</span>
+    <div class="schreib-aufgabe-frage">Erzähl einen fiktiven Fall: Die Staatsanwaltschaft erhebt Anklage, die Beweise sind erdrückend – und am Ende steht ein wegweisendes Urteil. Was war das Besondere an diesem Fall? (50–70 Wörter)</div>
+    <div class="koll-zeile">Verwende: <span class="koll-chip" id="kr-5-0" data-koll="Anklage erheben">Anklage erheben</span><span class="koll-chip" id="kr-5-1" data-koll="erdrückende Beweise">erdrückende Beweise</span><span class="koll-chip" id="kr-5-2" data-koll="wegweisendes Urteil">wegweisendes Urteil</span></div>
+    <textarea class="schreib-mini-textarea" data-aufgabe="5" data-titel="Der Prozess"></textarea>
+    <div class="schreib-mini-footer">
+      <span class="schreib-mini-meta">Wörter: <strong class="wc-5">0</strong> &middot; Kollokationen: <strong class="kc-5">0/3</strong><span class="schreib-mini-status" id="sw-status-5"></span></span>
+      <button class="schreib-mini-btn" id="sw-send-5" onclick="schreibSendenEinzeln(5)">📨 An Frank senden</button>
+    </div>
+  </div>
+  <div class="schreib-actions">
+    <button class="schreib-btn schreib-btn-primary" id="sw-btn-all" onclick="schreibSendenAlleNochOffenen()">📨 Alle noch nicht gesendeten Antworten schicken</button>
+    <button class="schreib-btn schreib-btn-ghost" onclick="schreibKopieren()">📋 Alles kopieren</button>
+    <button class="schreib-btn schreib-btn-ghost" onclick="schreibLeeren()">🗑 Zurücksetzen</button>
+  </div>
+  <div class="schreib-status" id="sw-status"></div>
         </div>
 
         <div class="author-footer">
@@ -1724,5 +1858,371 @@ function initSprechTrainer(){
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSprechTrainer); else initSprechTrainer();
 </script>
+
+<script>/* FB-SCHREIB-KOLLOK-JS — Schreibwerkstatt mit Kollokations-Radar */
+window.lsGet = window.lsGet || function(k){try{return localStorage.getItem(k)}catch(e){return null}};
+window.lsSet = window.lsSet || function(k,v){try{localStorage.setItem(k,v)}catch(e){}};
+window.lsDel = window.lsDel || function(k){try{localStorage.removeItem(k)}catch(e){}};
+
+var SCHREIB_NAME_KEY      = 'schreibwerkstatt_B2_KOLLOK_T6_name';
+var SCHREIB_KEY_PREFIX    = 'schreibwerkstatt_B2_KOLLOK_T6_';
+var SCHREIB_SENT_PREFIX   = 'schreibwerkstatt_B2_KOLLOK_T6_sent_';
+var FORMSUBMIT_ENDPOINT   = 'https://api.web3forms.com/submit';
+var FORMSUBMIT_ACCESS_KEY = 'e96ea83f-67e2-4fff-81df-76fee86a09ff';
+var FORMSUBMIT_MAILTO     = 'unterricht@frankburkert-daf.de';
+var SCHREIB_LEKTION       = 'B2 – Kollokationen Teil 6 · Recht & Ordnung';
+var SCHREIB_CODE          = 'B2 Kollokationen T6';
+var SCHREIB_MIN_CHARS     = 14;
+
+// Kollokations-Radar (locker): Nomen-Stamm UND Verb-/Adjektiv-Stamm irgendwo im Text — flektionstolerant.
+// Nur Hilfe für den Lerner, blockiert den Versand nie. Korrektur macht Frank.
+var KOLL_RADAR = {
+  'Klage einreichen': { n: 'klage', v: '(einreich|eingereicht|einzureichen|\\breich(e|t|st|te|en|ten)\\b)' },
+  'Beweise vorlegen': { n: 'beweis', v: '(vorleg|vorgelegt|vorzulegen|\\bleg(e|t|st|te|en|ten)\\b)' },
+  'begründete Klage': { n: 'klage', v: 'begründet' },
+  'Verstoß aufdecken': { n: 'verst[oö]ß', v: '(aufdeck|aufgedeckt|aufzudecken|\\bdeck(e|t|st|te|en|ten)\\b)' },
+  'Verstoß ahnden': { n: 'verst[oö]ß', v: '(ahnd|geahndet)' },
+  'geltendes Gesetz': { n: 'gesetz', v: 'geltend' },
+  'Urteil fällen': { n: 'urteil', v: '(fäll|gefällt)' },
+  'Urteil anfechten': { n: 'urteil', v: '(anfecht|angefochten|anzufechten|\\bf[ei]cht)' },
+  'Schuld eingestehen': { n: 'schuld', v: '(gesteh|gestand)' },
+  'Gesetz verschärfen': { n: 'gesetz', v: 'verschärf' },
+  'Gesetz durchsetzen': { n: 'gesetz', v: '(durchsetz|durchgesetzt|durchzusetzen|\\bsetz(e|t|st|te|en|ten)\\b)' },
+  'Haft verhängen': { n: 'haft', v: '(verhäng|verhängt)' },
+  'Anklage erheben': { n: 'anklage', v: '(erheb|erhob)' },
+  'erdrückende Beweise': { n: 'beweis', v: 'erdrückend' },
+  'wegweisendes Urteil': { n: 'urteil', v: 'wegweisend' }
+};
+
+function schreibKollCheck(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  if (!ta) return { ok: 0, n: 0, list: [] };
+  var txt = ta.value;
+  var chips = document.querySelectorAll('.koll-chip[id^="kr-' + nr + '-"]');
+  var ok = 0, list = [];
+  chips.forEach(function (chip) {
+    var key = chip.dataset.koll, def = KOLL_RADAR[key], hit = false;
+    if (def) {
+      var nRe = new RegExp('(^|[^a-zäöüß])' + def.n, 'i');
+      var vRe = new RegExp(def.v, 'i');
+      hit = nRe.test(txt) && vRe.test(txt);
+    }
+    chip.classList.toggle('ok', hit);
+    if (hit) ok++;
+    list.push((hit ? '✓ ' : '✗ ') + key);
+  });
+  var kc = document.querySelector('.kc-' + nr);
+  if (kc) kc.textContent = ok + '/' + chips.length;
+  return { ok: ok, n: chips.length, list: list };
+}
+
+function initSchreibwerkstatt() {
+  var nameInp = document.getElementById('sw-name');
+  if (nameInp) {
+    var savedName = lsGet(SCHREIB_NAME_KEY);
+    if (savedName) nameInp.value = savedName;
+    nameInp.addEventListener('input', function () { lsSet(SCHREIB_NAME_KEY, nameInp.value); });
+  }
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe;
+    var saved = lsGet(SCHREIB_KEY_PREFIX + nr);
+    if (saved) ta.value = saved;
+    schreibUpdateCount(ta);
+    schreibKollCheck(nr);
+    var sentInfo = lsGet(SCHREIB_SENT_PREFIX + nr);
+    if (sentInfo) schreibKarteAlsGesendetMarkieren(nr, sentInfo, true);
+    ta.addEventListener('input', function () {
+      schreibUpdateCount(ta);
+      schreibKollCheck(nr);
+      lsSet(SCHREIB_KEY_PREFIX + nr, ta.value);
+      var btn = document.getElementById('sw-send-' + nr);
+      if (btn && btn.classList.contains('gesendet')) { btn.classList.remove('gesendet'); btn.innerHTML = '📨 Erneut senden'; }
+      var st = document.getElementById('sw-status-' + nr);
+      if (st && st.classList.contains('error')) { st.classList.remove('error'); st.textContent = ''; }
+    });
+  });
+}
+
+function schreibUpdateCount(ta) {
+  var nr = ta.dataset.aufgabe;
+  var text = ta.value.trim();
+  var words = text ? text.split(/\s+/).filter(function (w) { return w.length > 0; }).length : 0;
+  var wc = document.querySelector('.wc-' + nr);
+  if (wc) wc.textContent = words;
+}
+
+function schreibKarteAlsGesendetMarkieren(nr, info, beimLaden) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var karte = ta && ta.closest('.schreib-aufgabe-karte');
+  if (karte) karte.classList.add('gesendet');
+  var btn = document.getElementById('sw-send-' + nr);
+  if (btn) { btn.classList.add('gesendet'); btn.innerHTML = beimLaden ? '✓ schon gesendet · erneut senden' : '✓ gesendet · erneut senden'; }
+  var status = document.getElementById('sw-status-' + nr);
+  if (status) { status.classList.remove('error'); status.textContent = '✓ ' + info; }
+}
+
+function schreibStatusZeigen(typ, text) {
+  var box = document.getElementById('sw-status');
+  if (!box) return;
+  box.className = 'schreib-status ' + typ;
+  box.innerHTML = text;
+}
+
+function schreibAktuellerName() {
+  var nameInp = document.getElementById('sw-name');
+  return (nameInp && nameInp.value || '').trim();
+}
+
+function schreibNamePflicht() {
+  if (schreibAktuellerName().length < 2) {
+    var nameInp = document.getElementById('sw-name');
+    if (nameInp) {
+      nameInp.classList.add('schreib-name-error');
+      try { nameInp.focus(); nameInp.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+      setTimeout(function () { nameInp.classList.remove('schreib-name-error'); }, 3000);
+    }
+    return false;
+  }
+  return true;
+}
+
+function schreibToFormData(obj) {
+  var fd = new FormData();
+  Object.keys(obj).forEach(function (k) { fd.append(k, obj[k]); });
+  return fd;
+}
+
+function schreibPostFormsubmit(subject, message, onOk, onErr) {
+  return fetch(FORMSUBMIT_ENDPOINT, {
+    method: 'POST',
+    body: schreibToFormData({
+      access_key: FORMSUBMIT_ACCESS_KEY,
+      name: schreibAktuellerName(),
+      subject: subject,
+      from_name: 'fabDaF Schreibwerkstatt',
+      lektion: SCHREIB_LEKTION,
+      message: message
+    })
+  })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP_' + r.status); return r.json(); })
+    .then(function (data) {
+      var ok = data && (data.success === true || data.success === 'true');
+      if (!ok) {
+        var code = 'API_ERROR';
+        var apiMsg = (data && data.message) || '';
+        if (/[Aa]ctivat|domain|access[\s_-]?key/.test(apiMsg)) code = 'NOT_ACTIVATED';
+        var err = new Error(code);
+        err.apiMessage = apiMsg;
+        throw err;
+      }
+      onOk(data);
+    })
+    .catch(onErr);
+}
+
+function schreibFehlerErklaerung(err) {
+  var code = (err && err.message) || '';
+  if (code === 'NOT_ACTIVATED') return 'Der Versand-Endpunkt ist gerade nicht freigeschaltet (das passiert manchmal bei Adress-Wechsel auf Franks Seite).';
+  if (code.indexOf('HTTP_') === 0) return 'Der Server hat eine technische Antwort gegeben (' + code.replace('HTTP_', 'HTTP ') + '), die nicht „erfolgreich“ bedeutet.';
+  if (code === 'API_ERROR') return 'Der Versand-Dienst hat „nicht erfolgreich“ zurückgemeldet' + (err && err.apiMessage ? ' („' + err.apiMessage + '“)' : '') + '.';
+  return 'Es gab ein Netz- oder Browser-Problem beim Senden – keine Server-Antwort.';
+}
+
+function schreibBlock(nr, text) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var titel = (ta && ta.dataset.titel) || ('Aufgabe ' + nr);
+  var k = schreibKollCheck(nr);
+  return '=== Aufgabe ' + nr + ': ' + titel + ' ===\nKollokationen (' + k.ok + '/' + k.n + '): ' + k.list.join(' · ') + '\n\n' + text;
+}
+
+function schreibKopierenEinzeln(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  if (!ta) return;
+  var name = schreibAktuellerName() || '(kein Name eingetragen)';
+  var text = 'Lektion: ' + SCHREIB_LEKTION + '\nName: ' + name + '\n\n' + schreibBlock(nr, ta.value.trim());
+  var st = document.getElementById('sw-status-' + nr);
+  function fertig(ok) {
+    if (!st) return;
+    if (ok) { st.classList.remove('error'); st.innerHTML = '✓ In die Zwischenablage kopiert. Jetzt in deine Mail oder deinen Chat einfügen und an Frank schicken.'; }
+    else { st.classList.add('error'); st.innerHTML = '✗ Kopieren ging nicht – markier den Text in der Box selbst und nutz „Kopieren“ deines Browsers.'; }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { fertig(true); }, function () { fertig(false); });
+  } else {
+    try { var tmp = document.createElement('textarea'); tmp.value = text; document.body.appendChild(tmp); tmp.select(); document.execCommand('copy'); document.body.removeChild(tmp); fertig(true); }
+    catch (e) { fertig(false); }
+  }
+}
+
+function schreibZeigeFehler(nr, err, subject, message) {
+  var st = document.getElementById('sw-status-' + nr);
+  if (!st) return;
+  var mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+  st.classList.add('error');
+  st.innerHTML =
+    '<div class="schreib-fb">' +
+      '<div class="schreib-fb-titel">⚠ Online-Versand hat nicht geklappt — dein Text ist sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Du verlierst nichts – wähle einen der drei Wege, damit Frank deine Antwort trotzdem bekommt:</div>' +
+      '<div class="schreib-fb-actions">' +
+        '<a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 In Mail-Programm öffnen</a>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibKopierenEinzeln(\'' + nr + '\')">📋 In Zwischenablage</button>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibSendenEinzeln(\'' + nr + '\')">🔄 Nochmal versuchen</button>' +
+      '</div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div>' +
+    '</div>';
+}
+
+function schreibZeigeFehlerSammel(err, subject, message) {
+  var mailto = 'mailto:' + FORMSUBMIT_MAILTO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Name: ' + schreibAktuellerName() + '\n\n' + message);
+  schreibStatusZeigen('error',
+    '<div class="schreib-fb">' +
+      '<div class="schreib-fb-titel">⚠ Sammel-Versand hat nicht geklappt — alle Antworten sind sicher im Browser gespeichert.</div>' +
+      '<div class="schreib-fb-text"><strong>Was passiert ist:</strong> ' + schreibFehlerErklaerung(err) + ' Wähle einen Weg:</div>' +
+      '<div class="schreib-fb-actions">' +
+        '<a class="schreib-fb-btn schreib-fb-btn-prim" href="' + mailto + '">📧 Alle als eine Mail öffnen</a>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibKopieren()">📋 Alles in Zwischenablage</button>' +
+        '<button type="button" class="schreib-fb-btn" onclick="schreibSendenAlleNochOffenen()">🔄 Nochmal versuchen</button>' +
+      '</div>' +
+      '<div class="schreib-fb-hilfe">Wenn nichts klappt: sag Frank im Unterricht Bescheid — er muss den Versand auf seiner Seite einmal aktivieren.</div>' +
+    '</div>');
+}
+
+function schreibSendenEinzeln(nr) {
+  var ta = document.querySelector('.schreib-mini-textarea[data-aufgabe="' + nr + '"]');
+  var btn = document.getElementById('sw-send-' + nr);
+  if (!ta || !btn) return;
+  if (!schreibNamePflicht()) {
+    var stN = document.getElementById('sw-status-' + nr);
+    if (stN) { stN.classList.add('error'); stN.textContent = 'Bitte zuerst deinen Namen oben eintragen.'; }
+    return;
+  }
+  var text = ta.value.trim();
+  if (text.length < SCHREIB_MIN_CHARS) {
+    var st = document.getElementById('sw-status-' + nr);
+    if (st) { st.classList.add('error'); st.textContent = 'noch zu kurz – schreib bitte etwas mehr'; }
+    return;
+  }
+  var titel = ta.dataset.titel || ('Aufgabe ' + nr);
+  var subject = SCHREIB_CODE + ' · Aufgabe ' + nr + ' · ' + titel + ' · ' + schreibAktuellerName();
+  var message = schreibBlock(nr, text);
+  btn.disabled = true;
+  var origLabel = btn.innerHTML;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  schreibPostFormsubmit(subject, message,
+    function () {
+      btn.disabled = false;
+      var jetzt = new Date();
+      var info = 'gesendet um ' + String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0');
+      lsSet(SCHREIB_SENT_PREFIX + nr, info);
+      schreibKarteAlsGesendetMarkieren(nr, info, false);
+    },
+    function (err) { btn.disabled = false; btn.innerHTML = origLabel; schreibZeigeFehler(nr, err, subject, message); });
+}
+
+function schreibSendenAlleNochOffenen() {
+  var btn = document.getElementById('sw-btn-all');
+  if (!schreibNamePflicht()) { schreibStatusZeigen('error', '✗ Bitte zuerst deinen Namen oben eintragen.'); return; }
+  var offene = [];
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe, text = ta.value.trim();
+    if (text.length >= SCHREIB_MIN_CHARS && !lsGet(SCHREIB_SENT_PREFIX + nr)) offene.push({ nr: nr, text: text });
+  });
+  if (offene.length === 0) {
+    schreibStatusZeigen('info', 'ℹ Es gibt nichts Neues zu senden — alle Antworten sind entweder leer/sehr kurz oder bereits gesendet.');
+    return;
+  }
+  var subject = SCHREIB_CODE + ' · ' + offene.length + ' Antworten · ' + schreibAktuellerName();
+  var message = offene.map(function (o) { return schreibBlock(o.nr, o.text); }).join('\n\n');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  schreibStatusZeigen('info', '⏳ ' + offene.length + ' Antworten werden übermittelt …');
+  schreibPostFormsubmit(subject, message,
+    function () {
+      btn.disabled = false;
+      btn.innerHTML = '📨 Alle noch nicht gesendeten Antworten schicken';
+      var jetzt = new Date();
+      var info = 'gesendet um ' + String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0');
+      offene.forEach(function (o) { lsSet(SCHREIB_SENT_PREFIX + o.nr, info); schreibKarteAlsGesendetMarkieren(o.nr, info, false); });
+      schreibStatusZeigen('success', '✓ <strong>' + offene.length + ' Antworten übermittelt.</strong> Frank meldet sich.');
+    },
+    function (err) { btn.disabled = false; btn.innerHTML = '📨 Alle noch nicht gesendeten Antworten schicken'; schreibZeigeFehlerSammel(err, subject, message); });
+}
+
+function schreibKopieren() {
+  var teile = ['Lektion: ' + SCHREIB_LEKTION, 'Name: ' + (schreibAktuellerName() || '(kein Name)'), ''];
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var text = ta.value.trim();
+    if (text.length >= SCHREIB_MIN_CHARS) { teile.push(schreibBlock(ta.dataset.aufgabe, text)); teile.push(''); }
+  });
+  if (teile.length <= 3) { schreibStatusZeigen('info', 'ℹ Noch nichts zum Kopieren — schreib mindestens eine Antwort.'); return; }
+  var alles = teile.join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(alles).then(
+      function () { schreibStatusZeigen('success', '✓ In Zwischenablage kopiert. Du kannst es jetzt in deine Mail einfügen.'); },
+      function () { schreibStatusZeigen('error', '✗ Kopieren fehlgeschlagen. Bitte den Text manuell markieren.'); });
+  } else schreibStatusZeigen('error', '✗ Dein Browser unterstützt das automatische Kopieren nicht.');
+}
+
+function schreibLeeren() {
+  if (!confirm('Wirklich ALLE Antworten zurücksetzen? Auch die schon gesendeten Markierungen werden entfernt.')) return;
+  document.querySelectorAll('.schreib-mini-textarea').forEach(function (ta) {
+    var nr = ta.dataset.aufgabe;
+    ta.value = '';
+    lsDel(SCHREIB_KEY_PREFIX + nr); lsDel(SCHREIB_SENT_PREFIX + nr);
+    schreibUpdateCount(ta); schreibKollCheck(nr);
+    var karte = ta.closest('.schreib-aufgabe-karte');
+    if (karte) karte.classList.remove('gesendet');
+    var btn = document.getElementById('sw-send-' + nr);
+    if (btn) { btn.classList.remove('gesendet'); btn.disabled = false; btn.innerHTML = '📨 An Frank senden'; }
+    var st = document.getElementById('sw-status-' + nr);
+    if (st) { st.classList.remove('error'); st.textContent = ''; }
+  });
+  schreibStatusZeigen('info', 'ℹ Alle Antworten wurden zurückgesetzt.');
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSchreibwerkstatt);
+else initSchreibwerkstatt();
+</script>
+<!-- FB-NAME-REQUIRED: Namenspflicht beim Senden (2026-07-16) -->
+<script>
+(function(){
+  if (window.__fbNameRequired) return; window.__fbNameRequired = true;
+  function nameInput(){ return document.getElementById('schreib-name') || document.getElementById('sw-name') || document.querySelector('input.schreib-name'); }
+  function nameVal(){ var i = nameInput(); return i ? (i.value || '').trim() : ''; }
+  function blockUI(){
+    var inp = nameInput();
+    if (!inp) return;
+    try { inp.focus(); } catch(e){}
+    var box = (inp.closest && inp.closest('.schreib-name-box, .schreib-name-block')) || inp.parentNode;
+    if (box){ box.classList.add('shake'); setTimeout(function(){ box.classList.remove('shake'); }, 500); }
+    var hint = document.getElementById('fb-name-hint');
+    if (hint){ hint.textContent = '⚠️ Bitte trage oben deinen Namen ein — ohne Namen kann der Text nicht gesendet werden.'; hint.style.color = '#c0392b'; }
+    if (inp.scrollIntoView) inp.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  // Trigger umschließen (deckt ALLE Generationen ab, auch die ohne schreibPostFormsubmit):
+  ['schreibSendenEinzeln', 'schreibSendenAlleNochOffenen'].forEach(function(fn){
+    if (typeof window[fn] === 'function'){
+      var _o = window[fn];
+      window[fn] = function(){ if (nameVal().length < 2){ blockUI(); return; } return _o.apply(this, arguments); };
+    }
+  });
+  // Belt-and-suspenders: Choke-Point (falls ein Sende-Pfad nicht über die Trigger läuft):
+  if (typeof window.schreibPostFormsubmit === 'function') {
+    var _origPost = window.schreibPostFormsubmit;
+    window.schreibPostFormsubmit = function(subject, message, onOk, onErr){
+      if (nameVal().length < 2){ blockUI(); if (typeof onErr === 'function') onErr(new Error('NAME_MISSING')); return; }
+      return _origPost.apply(this, arguments);
+    };
+  }
+  if (typeof window.schreibFehlerErklaerung === 'function') {
+    var _origFehler = window.schreibFehlerErklaerung;
+    window.schreibFehlerErklaerung = function(err){
+      if (err && err.message === 'NAME_MISSING') return 'Bitte trage oben im Namensfeld deinen Namen ein — ohne Namen kann der Text nicht gesendet werden.';
+      return _origFehler.apply(this, arguments);
+    };
+  }
+})();
+</script>
+
 </body>
 </html>
