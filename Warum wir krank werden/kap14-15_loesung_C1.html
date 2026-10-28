@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
-<title>C1 · Warum wir krank werden – Kapitel 14–15: Die Lösung</title>
+<title>Warum wir krank werden – Kapitel 14–15: Die Lösung (C1)</title>
 <style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
 :root {
   --sw-paper: #f5eee0;
@@ -105,21 +105,22 @@ body {
   opacity:0.95; color:rgba(255,255,255,0.9); margin:0;
 }
 .header .big-emoji { font-size:2.6em; display:block; margin-top:8px; }
+/* ===== NAV (Variante C: Aktiv-Pille) ===== */
 .nav {
-  display:flex; flex-wrap:nowrap; background:var(--bg-f8f9fa);
-  border-top:1px solid var(--bd-ddd); border-left:1px solid var(--bd-ddd); border-right:1px solid var(--bd-ddd);
+  display: flex; flex-wrap: wrap; gap: 4px;
+  background: #eef0fb; padding: 6px;
+  border-bottom: 2px solid #e9ecef;
 }
 .nav-btn {
-  flex:1; padding:14px 10px; text-align:center; cursor:pointer;
-  border-right:1px solid var(--bd-ddd); border-bottom:1px solid var(--bd-ddd);
-  transition:all 0.3s; font-size:0.92em; font-weight:500; color:var(--tx-666);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  flex: 1 1 auto; min-width: 64px; padding: 12px 8px;
+  border: none; background: none; cursor: pointer;
+  font-weight: 500; color: #666; transition: all 0.2s; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.nav-btn:last-child { border-right:none; }
-.nav-btn:hover { background:var(--bg-e9ecef); color:var(--tx-495057); }
-.nav-btn.active { background:var(--sf-pill); color:var(--tx-667eea); font-weight:600; border-bottom:3px solid var(--bd-667eea); }
-.nav-emoji { font-size:1.3em; line-height:1.2; }
-.nav-label { font-size:0.78em; margin-top:2px; line-height:1.2; }
+.nav-btn:hover { background: #e1e5fb; color: #667eea; }
+.nav-btn.active { background: #fff; color: #667eea; font-weight: 700; box-shadow: 0 1px 4px rgba(102,126,234,.25); }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
 .section { display:none; }
 .section.active { display:block; }
 .sec-inner { padding:24px; }
@@ -130,10 +131,7 @@ body {
 }
 @media (max-width:600px) {
   .tab-banner { max-height:120px; }
-  .nav { flex-wrap:wrap; }
-  .nav-btn { flex:1 1 25%; min-width:0; font-size:0.75em; padding:10px 4px; border-right:1px solid var(--bd-ddd); }
-  .nav-btn:last-child { border-right:1px solid var(--bd-ddd); }
-  body { padding:8px; }
+        body { padding:8px; }
 }
 .section-title { font-size:1.4em; font-weight:700; color:var(--tx-667eea); margin-bottom:20px; }
 .section-sub { color:var(--tx-888); font-size:0.92em; margin-bottom:20px; }
@@ -522,6 +520,54 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .container { overflow: hidden; overflow: clip; }
 .wortbank { position: sticky; top: 0; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 @media (max-width: 600px) { .wortbank { padding: 8px; gap: 6px; } .wortbank-chip { padding: 3px 9px; font-size: 0.85em; } }
+
+/* ── INTERVIEW-FORMAT (Lesetext) ── */
+.lese-text .lead { font-style:italic; color:var(--tx-666); margin-bottom:22px; }
+.lese-text h2 { font-family:Georgia,serif; color:var(--tx-667eea); font-size:1.25em; margin:0 0 10px; text-align:left; }
+.lese-text .frage { font-weight:700; color:var(--tx-667eea); margin-top:1.4em; text-align:left; }
+.lese-text .antwort { margin-bottom:1.1em; }
+
+.genus-chip.gsel { outline:3px solid #667eea; outline-offset:2px; }
+
+/* ── GRAMMATIK-TAB ── */
+.gr-regel { display:grid; grid-template-columns:1fr; gap:10px; margin:4px 0 20px; }
+.gr-karte { background:var(--bg-f8f9ff); border:1px solid var(--bd-dde3ff); border-left:4px solid var(--bd-667eea);
+            border-radius:0 10px 10px 0; padding:12px 16px; }
+.gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
+.gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
+.gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+.gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
+           padding:12px; margin-bottom:14px; min-height:48px; }
+.gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
+           font-size:0.9em; color:var(--tx-667eea); font-weight:600; cursor:pointer; white-space:normal;
+           transition:all .15s; }
+.gr-chip:hover { background:var(--bg-eef0ff); }
+.gr-chip.sel { background:var(--bg-667eea); color:var(--tx-fff); border-color:var(--bd-667eea); }
+.gr-chip.ok { background:var(--bg-e8f8f0); border-color:var(--bd-27ae60); color:var(--tx-27ae60); }
+.gr-chip.wrong { background:var(--bg-fdeaea); border-color:var(--bd-e74c3c); color:var(--tx-e74c3c); }
+.gr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:22px; }
+.gr-col-title { font-size:0.82em; font-weight:700; color:var(--tx-667eea); text-align:center; margin-bottom:5px; }
+.gr-zone { background:var(--bg-faf8ff); border:2px dashed var(--bd-c3c9f5); border-radius:10px; padding:9px;
+           min-height:92px; display:flex; flex-wrap:wrap; gap:6px; align-content:flex-start; }
+.gr-zone.over { border-color:var(--bd-667eea); background:var(--bg-eef0ff); }
+.gr-kasten { background:var(--bg-f8f9fa); border-radius:10px; padding:11px 14px; margin-bottom:14px;
+             font-size:0.9em; color:var(--tx-667eea); font-weight:600; text-align:center; }
+.gr-item { background:var(--bg-f8f9ff); border:1px solid var(--bd-dde3ff); border-radius:10px;
+           padding:12px 15px; margin-bottom:11px; }
+.gr-vor { color:var(--tx-888); font-size:0.86em; font-style:italic; margin-bottom:7px; }
+.gr-ziel { display:flex; flex-wrap:wrap; align-items:flex-end; gap:6px; font-size:0.97em; color:var(--tx-333);
+           line-height:1.9; }
+.gr-feld { display:flex; flex-direction:column; align-items:center; }
+.gr-hint { font-size:0.66em; color:var(--tx-999); line-height:1.1; margin-bottom:1px; }
+.gr-in { border:none; border-bottom:2px solid var(--bd-b9a7f0); background:transparent; font-size:0.97em;
+         font-family:inherit; color:var(--tx-333); padding:1px 3px; text-align:center; min-width:96px;
+         max-width:190px; outline:none; }
+.gr-in.ok { border-bottom-color:var(--bd-27ae60); color:var(--tx-27ae60); font-weight:600; }
+.gr-in.wrong { border-bottom-color:var(--bd-e74c3c); color:var(--tx-e74c3c); }
+@media (max-width:600px) {
+  .gr-grid { grid-template-columns:1fr 1fr; }
+  .gr-in { min-width:76px; }
+}
 </style>
 <style>/* FB-SPRECH-WORTSCHATZ-CSS */
 /* ===== SPRECH-TRAINER GENERISCH (FB-SPRECH-GENERIC) ===== */
@@ -606,7 +652,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 <!-- HEADER -->
 <div class="header">
   <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
-  <h1>Die Lösung: Bewegung und Ernährung</h1>
+  <h1>Kapitel 14–15: Die Lösung</h1>
   <p>C1 – Warum wir krank werden · Kapitel 14–15</p>
   <div class="big-emoji">🥗</div>
 </div>
@@ -615,18 +661,17 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 <div class="nav">
   <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📖</span><span class="nav-label">Vorentlastung</span></div>
   <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">📄</span><span class="nav-label">Lesetext</span></div>
-  <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">🔤</span><span class="nav-label">Genus</span></div>
-  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
-  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">☑️</span><span class="nav-label">Verständnis</span></div>
-  <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
-  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
-  <div class="nav-btn" onclick="showSection(7)"><!-- FB-SPRECH-WORTSCHATZ --><span class="nav-emoji">🗣️</span><span class="nav-label">Sprechen</span></div>
-  <div class="nav-btn" onclick="showSection(8)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
+  <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">🔧</span><span class="nav-label">Grammatik</span></div>
+  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🔤</span><span class="nav-label">Genus</span></div>
+  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
+  <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">☑️</span><span class="nav-label">Verständnis</span></div>
+  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+  <div class="nav-btn" onclick="showSection(7)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+  <div class="nav-btn" onclick="showSection(8)"><!-- FB-SPRECH-WORTSCHATZ --><span class="nav-emoji">🗣️</span><span class="nav-label">Sprechen</span></div>
+  <div class="nav-btn" onclick="showSection(9)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 0: VORENTLASTUNG -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section active" id="sec-0">
   <img class="tab-banner" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23667eea%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23764ba2%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22200%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M400%2070%20q0%20-34%2034%20-34%20q34%200%2034%2034%20q0%2034%20-68%2074%20q-68%20-40%20-68%20-74%20q0%20-34%2034%20-34%20q34%200%2034%2034%22%20stroke-opacity%3D%220.9%22%2F%3E%3Cpolyline%20points%3D%22120%2C100%20330%2C100%20356%2C100%20378%2C64%20404%2C140%20430%2C100%20470%2C100%20680%2C100%22%20stroke-width%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Herz und Pulslinie – Gesundheit">
   <div class="sec-inner">
@@ -635,16 +680,13 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 1: LESETEXT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-1">
   <img class="tab-banner" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23667eea%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23764ba2%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22200%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M240%2C100%20L248%2C113%20L256%2C125%20L264%2C134%20L272%2C140%20L280%2C142%20L288%2C140%20L296%2C134%20L304%2C125%20L312%2C113%20L320%2C100%20L328%2C87%20L336%2C75%20L344%2C66%20L352%2C60%20L360%2C58%20L368%2C60%20L376%2C66%20L384%2C75%20L392%2C87%20L400%2C100%20L408%2C113%20L416%2C125%20L424%2C134%20L432%2C140%20L440%2C142%20L448%2C140%20L456%2C134%20L464%2C125%20L472%2C113%20L480%2C100%20L488%2C87%20L496%2C75%20L504%2C66%20L512%2C60%20L520%2C58%20L528%2C60%20L536%2C66%20L544%2C75%20L552%2C87%20L560%2C100%22%20stroke-opacity%3D%220.95%22%2F%3E%3Cpath%20d%3D%22M240%2C100%20L248%2C87%20L256%2C75%20L264%2C66%20L272%2C60%20L280%2C58%20L288%2C60%20L296%2C66%20L304%2C75%20L312%2C87%20L320%2C100%20L328%2C113%20L336%2C125%20L344%2C134%20L352%2C140%20L360%2C142%20L368%2C140%20L376%2C134%20L384%2C125%20L392%2C113%20L400%2C100%20L408%2C87%20L416%2C75%20L424%2C66%20L432%2C60%20L440%2C58%20L448%2C60%20L456%2C66%20L464%2C75%20L472%2C87%20L480%2C100%20L488%2C113%20L496%2C125%20L504%2C134%20L512%2C140%20L520%2C142%20L528%2C140%20L536%2C134%20L544%2C125%20L552%2C113%20L560%2C100%22%20stroke-opacity%3D%220.75%22%2F%3E%3Cline%20x1%3D%22255%22%20y1%3D%22123%22%20x2%3D%22255%22%20y2%3D%2277%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22281%22%20y1%3D%22142%22%20x2%3D%22281%22%20y2%3D%2258%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22307%22%20y1%3D%22121%22%20x2%3D%22307%22%20y2%3D%2279%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22333%22%20y1%3D%2279%22%20x2%3D%22333%22%20y2%3D%22121%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22359%22%20y1%3D%2258%22%20x2%3D%22359%22%20y2%3D%22142%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22385%22%20y1%3D%2277%22%20x2%3D%22385%22%20y2%3D%22123%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22411%22%20y1%3D%22118%22%20x2%3D%22411%22%20y2%3D%2282%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22437%22%20y1%3D%22142%22%20x2%3D%22437%22%20y2%3D%2258%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22463%22%20y1%3D%22126%22%20x2%3D%22463%22%20y2%3D%2274%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22489%22%20y1%3D%2285%22%20x2%3D%22489%22%20y2%3D%22115%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22515%22%20y1%3D%2259%22%20x2%3D%22515%22%20y2%3D%22141%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22541%22%20y1%3D%2271%22%20x2%3D%22541%22%20y2%3D%22129%22%20stroke-opacity%3D%220.55%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="DNA-Doppelhelix – Insulin und Stoffwechsel">
   <div class="sec-inner">
     <div class="section-title">📄 Die Lösung: Bewegung und Ernährung</div>
-    <div class="section-sub">Eine argumentative Verdichtung der Kapitel 14–15 aus „Warum wir krank werden“ von Benjamin Bikman.</div>
     <div class="lese-text" id="lesetext">
-      <p>Nachdem ich Ihnen das Problem und seine Ursachen dargelegt habe, komme ich nun zu dem Teil, der mir am meisten am Herzen liegt — der Lösung. So beunruhigend die Diagnose einer <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Insulinresistenz</span> auch klingen mag: Anders als viele chronische Leiden lässt sie sich in erheblichem Maße wieder umkehren. Zwei Stellschrauben entscheiden dabei fast alles, nämlich wie wir uns bewegen und was wir essen. Doch ich muss Sie vorwarnen — ein beträchtlicher Teil dessen, was uns jahrzehntelang als gesichertes Wissen über <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Ernährung</span> und <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Bewegung</span> verkauft wurde, hält einer nüchternen Prüfung nicht stand. Die eigentliche Medizin ist, davon bin ich überzeugt, kein Präparat, sondern eine Frage unserer täglichen Gewohnheiten.</p>
+<p>Nachdem ich Ihnen das Problem und seine Ursachen dargelegt habe, komme ich nun zu dem Teil, der mir am meisten am Herzen liegt — der Lösung. So beunruhigend die Diagnose einer <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Insulinresistenz</span> auch klingen mag: Anders als viele chronische Leiden lässt sie sich in erheblichem Maße wieder umkehren. Zwei Stellschrauben entscheiden dabei fast alles, nämlich wie wir uns bewegen und was wir essen. Doch ich muss Sie vorwarnen — ein beträchtlicher Teil dessen, was uns jahrzehntelang als gesichertes Wissen über <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Ernährung</span> und <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Bewegung</span> verkauft wurde, hält einer nüchternen Prüfung nicht stand. Die eigentliche Medizin ist, davon bin ich überzeugt, kein Präparat, sondern eine Frage unserer täglichen Gewohnheiten.</p>
 
       <h3>Warum Bewegung unmittelbar wirkt</h3>
       <p><span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Bewegung</span> gehört zu den wirksamsten Mitteln gegen die Insulinresistenz, und der Mechanismus dahinter ist bestechend einfach: Sobald ein <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Muskel</span> sich anspannt, entzieht er dem Blut Glukose — und zwar völlig ohne die Mithilfe von Insulin. Genau deshalb fällt der <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Insulinspiegel</span> während und unmittelbar nach körperlicher Anstrengung von allein. Dass dieser Effekt keineswegs gering ausfällt, belegt die <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Evidenz</span>: In kontrollierten Studien verloren insulinresistente Teilnehmer binnen weniger Monate einen messbaren Anteil ihres gefährlichen Bauchfetts und wurden spürbar insulinsensitiver — allein durch regelmäßige Spaziergänge. Was mich besonders überzeugt, ist der Umstand, dass dies in jedem Lebensalter gelingt; selbst wer die Sechzig überschritten hat, kann seine <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Insulinsensitivität</span> binnen weniger Wochen deutlich steigern, ohne auch nur die Ernährung umzustellen.</p>
@@ -667,61 +709,77 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       <h3>Die eigentliche Medizin</h3>
       <p>Die Lösung ist demnach weder eine Tablette noch ein Eingriff, sondern eine Handvoll Gewohnheiten: sich bewegen und Muskelmasse aufbauen, zu echtem Essen greifen, die Kohlenhydrate steuern und zuletzt verzehren, seltener essen. Das ist, ich gebe es offen zu, mühsamer als der Griff zum Rezeptblock — aber es setzt an der Wurzel an, statt bloß Symptome zu verwalten. Wie sich daraus ein konkreter, alltagstauglicher Plan schmieden lässt, zeige ich Ihnen zum Schluss.</p>
     </div>
-    <div class="story-source">Quelle: C1 · Warum wir krank werden, Kapitel 14–15 · frei zusammengefasst nach Benjamin Bikman, „Warum wir krank werden“ (riva 2021)</div>
+    <div class="story-source">Quelle: C1 · Warum wir krank werden · Kapitel 14–15 · frei zusammengefasst nach Benjamin Bikman, „Warum wir krank werden“ (riva 2021)</div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 2: GENUS -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="sec-gr">
+  <img class="tab-banner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDIwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJEcmVpIGluZWluYW5kZXJnZXNjaGFjaHRlbHRlIEtsYW1tZXJuIHVtIGVpbmVuIG1hc3NpdmVuIEtlcm4iPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRURGRSIvPjxwYXRoIGQ9Ik0wLDE0MiBDMTgwLDExOCAzMzAsMTU0IDUyMCwxMzYgQzcwMCwxMTkgODYwLDE1MCAxMDQwLDEzMCBDMTExMCwxMjIgMTE2MCwxMjggMTIwMCwxMjQgTDEyMDAsMjAwIEwwLDIwMCBaIiBmaWxsPSIjQUZBOUVDIi8+PHJlY3QgeD0iMzAwIiB5PSI1MCIgd2lkdGg9IjY0MCIgaGVpZ2h0PSIxMDgiIHJ4PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmM2M0NmEiIHN0cm9rZS13aWR0aD0iNiIvPjxyZWN0IHg9IjM5MCIgeT0iNjIiIHdpZHRoPSI1NDAiIGhlaWdodD0iODQiIHJ4PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiM1MzRBQjciIHN0cm9rZS13aWR0aD0iNiIvPjxyZWN0IHg9IjQ4MCIgeT0iNzQiIHdpZHRoPSI0NDAiIGhlaWdodD0iNjAiIHJ4PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiMyNjIxNUMiIHN0cm9rZS13aWR0aD0iNiIvPjxyZWN0IHg9IjgwMCIgeT0iODQiIHdpZHRoPSIxMTAiIGhlaWdodD0iNDAiIHJ4PSI2IiBmaWxsPSIjMjYyMTVDIi8+PHBhdGggZD0iTTAsMTY0IEMxNTAsMTQ2IDMwMCwxNzYgNDcwLDE2MCBDNjYwLDE0MiA4MjAsMTc0IDk5MCwxNTYgQzEwODAsMTQ3IDExNTAsMTYwIDEyMDAsMTUyIEwxMjAwLDIwMCBMMCwyMDAgWiIgZmlsbD0iIzUzNEFCNyIvPjxwYXRoIGQ9Ik0wLDE4NCBDMjAwLDE3MiAzNjAsMTkyIDU2MCwxODEgQzc2MCwxNzAgOTMwLDE5MCAxMTIwLDE3OSBDMTE2MCwxNzcgMTE4MCwxODAgMTIwMCwxNzkgTDEyMDAsMjAwIEwwLDIwMCBaIiBmaWxsPSIjMjYyMTVDIi8+PC9zdmc+" alt="Drei ineinandergeschachtelte Klammern um einen massiven Kern">
+  <div class="sec-inner">
+    <h2>🔧 Erweiterte Partizipialattribute</h2>
+    <div class="control-bar">
+      <div class="btn-row">
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showGrammatikLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetGrammatik(); resetTimer(9);">↺ Neustart</button>
+      </div>
+      <div class="timer-display">
+        <span>⏱ <span id="timer-9">00:00</span></span>
+        <span>🏆 <span id="best-9">--:--</span></span>
+      </div>
+    </div>
+    <div class="gr-regel">
+      <div class="gr-karte"><div class="gr-karte-kopf">Partizip I · aktiv, gleichzeitig</div><div class="gr-karte-bsp">der <b>sinkende</b> Insulinspiegel = der Spiegel, der sinkt</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Partizip II · passiv, abgeschlossen</div><div class="gr-karte-bsp">die <b>eingelegten</b> Pausen = die Pausen, die eingelegt wurden</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Erweitert · mit Angaben davor</div><div class="gr-karte-bsp">der <b>über Jahre gewachsene</b> Zustand = der Zustand, der über Jahre gewachsen ist</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Auflösung in den Relativsatz</div><div class="gr-karte-bsp">die <b>schnell verfügbaren</b> Kohlenhydrate = die Kohlenhydrate, die schnell verfügbar sind</div></div>
+    </div>
+    <div class="gr-bank" id="grBank"></div>
+    <div class="gr-grid" id="grZonen">
+        <div><div class="gr-col-title">Partizip I</div><div class="gr-zone" data-zone="gz-a"></div></div>
+        <div><div class="gr-col-title">Partizip II mit ge-</div><div class="gr-zone" data-zone="gz-b"></div></div>
+        <div><div class="gr-col-title">Partizip II ohne ge-</div><div class="gr-zone" data-zone="gz-c"></div></div>
+        <div><div class="gr-col-title">Adjektiv, kein Partizip</div><div class="gr-zone" data-zone="gz-d"></div></div>
+    </div>
+    <div class="gr-kasten">der · die · das · den · dem · über · seit · in</div>
+    <div id="grUmform"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-2">
   <img class="tab-banner" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23667eea%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23764ba2%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22200%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22100%22%20r%3D%2246%22%2F%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22100%22%20r%3D%2215%22%20stroke-opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%2272%22%20r%3D%2228%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%2272%22%20r%3D%229%22%20stroke-opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22512%22%20cy%3D%22140%22%20r%3D%2222%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22138%22%20r%3D%2226%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22138%22%20r%3D%229%22%20stroke-opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22308%22%20cy%3D%2266%22%20r%3D%2218%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Zellen und Moleküle">
   <div class="sec-inner">
     <h2>🔤 Genus-Training</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showGenusLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetGenus(); resetTimer(2);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showGenusLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetGenus(); resetTimer(2);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-2">00:00</span></span>
         <span>🏆 <span id="best-2">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Ziehe die Wörter in die richtige Spalte: <strong>der / die / das / Plural</strong>. Das Feedback erscheint sofort.</div>
     <div class="genus-bank" id="genusBank"></div>
     <div class="genus-grid">
-      <div class="genus-col">
-        <div class="genus-col-title">der</div>
-        <div class="drop-zone" id="dz-der" data-cat="der"></div>
-      </div>
-      <div class="genus-col">
-        <div class="genus-col-title">die</div>
-        <div class="drop-zone" id="dz-die" data-cat="die"></div>
-      </div>
-      <div class="genus-col">
-        <div class="genus-col-title">das</div>
-        <div class="drop-zone" id="dz-das" data-cat="das"></div>
-      </div>
-      <div class="genus-col">
-        <div class="genus-col-title">Plural</div>
-        <div class="drop-zone" id="dz-pl" data-cat="pl"></div>
-      </div>
+      <div class="genus-col"><div class="genus-col-title">der</div><div class="drop-zone" id="dz-der" data-cat="der"></div></div>
+      <div class="genus-col"><div class="genus-col-title">die</div><div class="drop-zone" id="dz-die" data-cat="die"></div></div>
+      <div class="genus-col"><div class="genus-col-title">das</div><div class="drop-zone" id="dz-das" data-cat="das"></div></div>
+      <div class="genus-col"><div class="genus-col-title">Plural</div><div class="drop-zone" id="dz-pl" data-cat="pl"></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 3: LÜCKENTEXT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-3">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/37860169/pexels-photo-37860169.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Notizbuch und Stifte">
   <div class="sec-inner">
     <h2>✏️ Lückentext</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showLueckenLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetLuecken(); resetTimer(3);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showLueckenLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetLuecken(); resetTimer(3);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-3">00:00</span></span>
@@ -730,89 +788,77 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     </div>
     <div class="wortbank" id="wortbank-luecken"></div>
     <div id="lueckenContainer" class="luecken-story">
-    <p>Karim schlägt den letzten Teil des Buches auf und atmet auf: Eine <input class="blank" data-answer="Insulinresistenz"> lässt sich, anders als er befürchtet hatte, sogar wieder umkehren.</p>
-    <p>Der erste Hebel, so liest er, ist die <input class="blank" data-answer="Bewegung">, denn ein arbeitender Muskel entzieht dem Blut Zucker ganz ohne Insulin.</p>
-    <p>Sobald sich die <input class="blank" data-answer="Muskeln"> anspannen, benötigen sie dafür keinerlei Insulin — das leuchtet ihm sofort ein.</p>
-    <p>Besonders lohnend ist bei knapper Zeit das <input class="blank" data-answer="Krafttraining">, weil es jene Masse aufbaut, die den Zucker aufnimmt.</p>
-    <p>Verblüfft stellt Karim fest, dass ausgerechnet das <input class="blank" data-answer="Nahrungsfett"> den Insulinspiegel so gut wie gar nicht erhöht.</p>
-    <p>Die eigentlichen Treiber, begreift er nun, sind die <input class="blank" data-answer="Kohlenhydrate">, allen voran Zucker und verarbeitetes Weißmehl.</p>
-    <p>Ein einfacher Trick besteht darin, ein festes <input class="blank" data-answer="Essfenster"> einzuhalten und zwischen den Mahlzeiten lange Pausen zu lassen.</p>
-    <p>Noch tiefer greift das <input class="blank" data-answer="Intervallfasten">, bei dem man zeitweise vollständig auf Nahrung verzichtet.</p>
-    <p>In diesen Pausen steigt das Hormon <input class="blank" data-answer="Glukagon">, das gespeichertes Fett wieder freisetzt.</p>
-    <p>Am Ende zieht Karim ein klares Fazit: Nicht ein Medikament, sondern sein <input class="blank" data-answer="Lebensstil"> ist die wirksamste Medizin.</p>
+    <p>Der über Jahre gewachsene Zustand, von dem die Ärztin spricht, lässt sich nicht in einem Quartal auflösen. Diesen Satz hört Bruno gleich im ersten Gespräch, und er nimmt ihm die <input class="blank" data-answer="Ungeduld">.</p>
+    <p>Zwei Hebel nennt sie. Der erste ist die regelmäßig wiederholte, kurze Anstrengung — arbeitende Muskeln holen sich Zucker aus dem Blut auch ohne <input class="blank" data-answer="Insulin">.</p>
+    <p>Besonders wirksam sei das über Monate aufgebaute <input class="blank" data-answer="Krafttraining">, weil die Muskelmasse der größte Abnehmer für Glukose im ganzen Körper ist.</p>
+    <p>Der zweite Hebel ist der Teller, und hier widerspricht die Ärztin fast allem, was Bruno zu wissen glaubte. Nicht das Fett sei der Treiber, sondern die schnell verfügbaren <input class="blank" data-answer="Kohlenhydrate">.</p>
+    <p>Er fragt nach dem als gesund geltenden Vollkornbrot. Entscheidend sei nicht das Etikett, antwortet sie, sondern die Geschwindigkeit, mit der etwas ins <input class="blank" data-answer="Blut"> übergeht.</p>
+    <p>Dann erklärt sie die Wirkung der zwischen den Mahlzeiten eingelegten Pausen. Der Fachbegriff dafür laute <input class="blank" data-answer="Intervallfasten">.</p>
+    <p>Bruno rechnet nach und stellt fest, dass er seit Jahren keine einzige wirklich nahrungsfreie <input class="blank" data-answer="Pause"> hatte: Immer lag etwas im Auto, immer stand etwas auf dem Tisch.</p>
+    <p>Die Ärztin warnt ihn vor dem häufigsten Fehler. Wer die über ein Jahrzehnt entstandene Störung in sechs Wochen beheben wolle, gebe nach der dritten Woche <input class="blank" data-answer="auf">.</p>
+    <p>Was Bruno schließlich überzeugt, ist kein Argument, sondern ein Bild: der langsam, aber stetig sinkende <input class="blank" data-answer="Insulinspiegel">, den sie ihm auf ein Blatt zeichnet.</p>
+    <p>Er geht mit einem einzigen, klar umrissenen Vorsatz nach Hause — und mit der ungewohnten Erfahrung, dass dieser Vorsatz kein einziges <input class="blank" data-answer="Verbot"> enthält.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 4: MULTIPLE-CHOICE -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-4">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/3747468/pexels-photo-3747468.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Frau liest ein Buch">
   <div class="sec-inner">
     <h2>☑️ Textverständnis</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showMcLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetMc(); resetTimer(4);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showMcLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetMc(); resetTimer(4);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-4">00:00</span></span>
         <span>🏆 <span id="best-4">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Klicke auf die richtige Antwort. Das Feedback erscheint sofort.</div>
     <div id="mcContainer"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 5: SATZBAU -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-5">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/278941/pexels-photo-278941.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Buchstaben-Bausteine">
   <div class="sec-inner">
     <h2>🧩 Satzbau</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="sbShowAllSolutions()">Alle lösen</button>
-        <button class="btn" onclick="sbResetAll(); resetTimer(5);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="sbShowAllSolutions()">💡 Alle lösen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="sbResetAll(); resetTimer(5);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-5">00:00</span></span>
         <span>🏆 <span id="best-5">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Ziehe die Wörter in die richtige Reihenfolge. Das Feedback erscheint, wenn alle Chips platziert sind.</div>
     <div id="satzbauContainer"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 7: WORTSCHATZ -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-7">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/1383379/pexels-photo-1383379.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bücherstapel">
   <div class="sec-inner">
     <h2>📚 Wortschatz</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showWortschatzLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetWortschatz(); resetTimer(7);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showWortschatzLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetWortschatz(); resetTimer(7);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-7">00:00</span></span>
         <span>🏆 <span id="best-7">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Tippe Artikel, Wort und Plural. Nomen werden großgeschrieben.</div>
     <div id="wortschatzContainer"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 6: SCHREIBWERKSTATT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
 <!-- TAB: Sprech-Trainer Wortschatz (FB-SPRECH-WORTSCHATZ) -->
 <div class="section" id="sec-sprechen">
   <img class="tab-banner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDIwMCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iMjAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNwcmVjaC1UcmFpbmVyIiB4bWxuczpjMnBhPSJodHRwOi8vYzJwYS5vcmcvbWFuaWZlc3QiPjxtZXRhZGF0YT48YzJwYTptYW5pZmVzdD5BQUFXZ21wMWJXSUFBQUFlYW5WdFpHTXljR0VBRVFBUWdBQUFxZ0E0bTNFRFl6SndZUUFBQUJaY2FuVnRZZ0FBQUVkcWRXMWtZekp0WVFBUkFCQ0FBQUNxQURpYmNRTjFjbTQ2WXpKd1lUbzJaak15WTJNeVpTMWlaalV3TFRRM1lUQXRZV1ZsTUMwd1lqQTNZamN3TW1GaFptRUFBQUFEbDJwMWJXSUFBQUFwYW5WdFpHTXlZWE1BRVFBUWdBQUFxZ0E0bTNFRFl6SndZUzVoYzNObGNuUnBiMjV6QUFBQUFMeHFkVzFpQUFBQVJHcDFiV1JqWW05eUFCRUFFSUFBQUtvQU9KdHhFMk15Y0dFdWFXNW5jbVZrYVdWdWRDNTJNd0FBQUFBWVl6SnphQTZJZEJpSm5kWEZqYmZ5VGVTVDN4Y0FBQUJ3WTJKdmNxTnBaR002Wm05eWJXRjBiV2x0WVdkbEwzTjJaeXQ0Yld4cWFXNXpkR0Z1WTJWSlJIZ3NlRzF3T21scFpEbzVabUV6TXpRME5TMHdaVFV3TFRRd1l6RXRPR0V6TmkxaU16aGpZalU0TWpBeE1ERnNjbVZzWVhScGIyNXphR2x3YUhCaGNtVnVkRTltQUFBQjRtcDFiV0lBQUFCQmFuVnRaR05pYjNJQUVRQVFnQUFBcWdBNG0zRVRZekp3WVM1aFkzUnBiMjV6TG5ZeUFBQUFBQmhqTW5Ob3E2c2krNmluSG5EOC9LTjBURnlidEFBQUFabGpZbTl5b21kaFkzUnBiMjV6Z3FKbVlXTjBhVzl1YTJNeWNHRXViM0JsYm1Wa2FuQmhjbUZ0WlhSbGNuT2hhMmx1WjNKbFpHbGxiblJ6Z2FKamRYSnNlQzF6Wld4bUkycDFiV0ptUFdNeWNHRXVZWE56WlhKMGFXOXVjeTlqTW5CaExtbHVaM0psWkdsbGJuUXVkak5rYUdGemFGZ2dqb2h2SXhLNVNBZnRTTHhlckhtVHg3QitxKzJKVDF1U1FlQjZxVVdpZUZDa1ptRmpkR2x2Ym5nZFkyOXRMbUZ1ZEdoeWIzQnBZeTVqYkdGMVpHVXVjSEp2ZG1sa1pXUnFjR0Z5WVcxbGRHVnljNkY0SDJOdmJTNWhiblJvY205d2FXTXViM0pwWjJsdUxXTnZibVpwWkdWdVkyVm5kVzVyYm05M2JtdGtaWE5qY21sd2RHbHZibmhtUTJ4aGRXUmxJSEJ5YjNacFpHVmtJSFJvYVhNZ1ptbHNaU0JoZENCMGFHVWdjbVZ4ZFdWemRDQnZaaUJoSUhWelpYSWdZVzVrSUcxaGVTQm9ZWFpsSUdOeVpXRjBaV1FnYjNJZ2JXOWthV1pwWldRZ2RHaGxJR1pwYkdVZ1kyOXVkR1Z1ZEhNdWJYTnZablIzWVhKbFFXZGxiblNoWkc1aGJXVm1RMnhoZFdSbGNtRnNiRUZqZEdsdmJuTkpibU5zZFdSbFpQVUFBQURJYW5WdFlnQUFBRUJxZFcxa1kySnZjZ0FSQUJDQUFBQ3FBRGliY1JOak1uQmhMbWhoYzJndVpHRjBZUUFBQUFBWVl6SnphQnV0RmFqaStEanhrUGU1dm5YcldpOEFBQUNBWTJKdmNxVmpZV3huWm5Ob1lUSTFObU53WVdSTkFBQUFBQUFBQUFBQUFBQUFBR1JvWVhOb1dDQ20rNUdZQnQ4c0RIb3R0ZTQwejF2TTlxOFQvd0JINzNwVW1Qd2g5UW40Q1dSdVlXMWxibXAxYldKbUlHMWhibWxtWlhOMGFtVjRZMngxYzJsdmJuT0JvbVZ6ZEdGeWRCaS9abXhsYm1kMGFCa2VCQUFBQWo1cWRXMWlBQUFBSjJwMWJXUmpNbU5zQUJFQUVJQUFBS29BT0p0eEEyTXljR0V1WTJ4aGFXMHVkaklBQUFBQ0QyTmliM0tsWTJGc1oyWnphR0V5TlRacGMybG5ibUYwZFhKbGVFMXpaV3htSTJwMWJXSm1QUzlqTW5CaEwzVnlianBqTW5CaE9qWm1NekpqWXpKbExXSm1OVEF0TkRkaE1DMWhaV1V3TFRCaU1EZGlOekF5WVdGbVlTOWpNbkJoTG5OcFoyNWhkSFZ5WldwcGJuTjBZVzVqWlVsRWVDeDRiWEE2YVdsa09qZzJaV0pqWlRRekxUTTRaREF0TkRKa1pDMWhZV0psTFdGbE56a3lOVGt3TWpjd05ISmpjbVZoZEdWa1gyRnpjMlZ5ZEdsdmJuT0RvbU4xY214NExYTmxiR1lqYW5WdFltWTlZekp3WVM1aGMzTmxjblJwYjI1ekwyTXljR0V1YVc1bmNtVmthV1Z1ZEM1Mk0yUm9ZWE5vV0NDT2lHOGpFcmxJQisxSXZGNnNlWlBIc0g2cjdZbFBXNUpCNEhxcFJhSjRVS0pqZFhKc2VDcHpaV3htSTJwMWJXSm1QV015Y0dFdVlYTnpaWEowYVc5dWN5OWpNbkJoTG1GamRHbHZibk11ZGpKa2FHRnphRmdnLzYrR3B3dXVtektNSVRXNjRlS0t2ZHRWQ2Zzb1Q0OGVobjUxb2JCeUpWcWlZM1Z5YkhncGMyVnNaaU5xZFcxaVpqMWpNbkJoTG1GemMyVnlkR2x2Ym5Ndll6SndZUzVvWVhOb0xtUmhkR0ZrYUdGemFGZ2czTXVWc2RaZEZ0VWVMdWtrMXc4SGNMRFlFdG1IWnViNEh2U1JPQ1lFSEsxMFkyeGhhVzFmWjJWdVpYSmhkRzl5WDJsdVptK2paRzVoYldWdlFXNTBhSEp2Y0dsaklFWnBiR1Z6WjNabGNuTnBiMjVsTVM0d0xqQnJjM0JsWTFabGNuTnBiMjVsTWk0MExqQUFBQkE0YW5WdFlnQUFBQ2hxZFcxa1l6Smpjd0FSQUJDQUFBQ3FBRGliY1FOak1uQmhMbk5wWjI1aGRIVnlaUUFBQUJBSVkySnZjdEtFV1FJU29nRW1HQ0ZaQWdvd2dnSUdNSUlCamFBREFnRUNBaFJBNWFBSzdzSTUwTDY0Zy9vR1FnVTlaMVVUQURBS0JnZ3Foa2pPUFFRREF6QkpNUmN3RlFZRFZRUUtFdzVCYm5Sb2NtOXdhV01zSUZCQ1F6RXVNQ3dHQTFVRUF4TWxRVzUwYUhKdmNHbGpJRU52Ym5SbGJuUWdRM0psWkdWdWRHbGhiSE1nVW05dmRDQkRRVEFlRncweU5qQTRNRGN4T0RRek5UWmFGdzB5T0RBNE1EWXhPVFF6TlRaYU1FUXhGekFWQmdOVkJBb1REa0Z1ZEdoeWIzQnBZeXdnVUVKRE1Ta3dKd1lEVlFRREV5QkJiblJvY205d2FXTWdRMnhoZFdSbElFTnZiblJsYm5RZ1UybG5ibWx1WnpCWk1CTUdCeXFHU000OUFnRUdDQ3FHU000OUF3RUhBMElBQkpoNkNtdkxVQmdGRk5VMHZVS2xPVnRFNmRqZDE3TDVTdXdYMExlbUZpc0JNM2RrZC8zY3lqeEZBM1FvNVM0NmZYMC9paFkwVlo3bWZiOUtGNzAzdDVPaldEQldNQTRHQTFVZER3RUIvd1FFQXdJSGdEQVZCZ05WSFNVRURqQU1CZ29yQmdFRUFZUG9YZ0lCTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwakJCZ3dGb0FVemxIaUJJRk9aRnNqK09QRXo1bytuTUhYWE1Jd0NnWUlLb1pJemowRUF3TURad0F3WkFJd01YTWRGSjRCZXRMTFZZN09SdUU5bm9xYmJBWk9abi9hQXJYeVR3RkFaZktyUHp4RjJ2UG9KTmYxK1VDZGcxWEdBakJ3WDF6ZDlXR3FZa3FtTDVTRnF3MVF5U2pyMXpKZnBKTTkrMXJkRHdTUExNT1BPakt1aVhqb1UvcFVVZUc5UndtaFkzQmhaRmtObmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFQWllRRElueEptNTNLSW9lVy9MSXF6bklFYmI4WkFLZkZTek13eWgxSzVGcXlFTCs0NnJWcWZlYVZGWEp4YTNjZnFydE00cW0xTWhieTk3b2RoV2ZMR1l6ZGs9PC9jMnBhOm1hbmlmZXN0PjwvbWV0YWRhdGE+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZ3NwIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzY0YmEyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2Jnc3ApIi8+PHBhdGggZD0iTTAgMTUwIFEgMjAwIDExMCA0MDAgMTQ4IFQgODAwIDE0NiBUIDEyMDAgMTMwIEwxMjAwIDIwMCBMMCAyMDAgWiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEwKSIvPjxyZWN0IHg9IjI1MCIgeT0iNDAiIHdpZHRoPSI1NiIgaGVpZ2h0PSI4OCIgcng9IjI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOTIpIi8+PHBhdGggZD0iTTIyOCAxMDAgYTUwIDUwIDAgMCAwIDEwMCAwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC45MikiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTI3OCAxNTAgdjIyIE0yNTAgMTcyIGg1NiIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOTIpIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zNzAgNzAgcTE4IDMwIDAgNjAgTTQwMCA1NSBxMzAgNDUgMCA5MCBNNDMwIDQwIHE0MiA2MCAwIDEyMCIgc3Ryb2tlPSIjZmZkNTRmIiBzdHJva2Utd2lkdGg9IjciIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxyZWN0IHg9IjUyMCIgeT0iODYiIHdpZHRoPSI1NjAiIGhlaWdodD0iMjYiIHJ4PSIxMyIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjI1KSIvPjxyZWN0IHg9IjUyMCIgeT0iODYiIHdpZHRoPSIzMzAiIGhlaWdodD0iMjYiIHJ4PSIxMyIgZmlsbD0iI2ZmZDU0ZiIvPjx0ZXh0IHg9IjEwODAiIHk9IjcwIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIzMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjk1KSIgdGV4dC1hbmNob3I9ImVuZCI+OCDCtyA1IMK3IDMgczwvdGV4dD48L3N2Zz4=" alt="Sprech-Trainer: Mikrofon und ablaufender Zeitbalken">
@@ -835,6 +881,8 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
   <div class="sp-tipp">Tipp: Leertaste zeigt die Lösung bzw. geht weiter. Mit Mikrofon hört die Seite mit und prüft, ob das richtige Wort mit Artikel gefallen ist (Chrome, Safari).</div>
 </div>
 <!-- /FB-SPRECH-WORTSCHATZ -->
+
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-6">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/5387233/pexels-photo-5387233.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Person schreibt">
   <div class="sec-inner">
@@ -908,7 +956,6 @@ var GENUS_DATA = [
   { word:"Gewohnheiten",        cat:"pl"  },
   { word:"Muskeln",             cat:"pl"  }
 ];
-
 
 var MC_DATA = [
   {
@@ -1047,11 +1094,45 @@ var AUFGABEN = [
     frage:"Schreibe einen Dialog (8 Sätze, 4 pro Person): Eine Person schwört auf striktes Kalorienzählen, die andere argumentiert hormonell. Lass beide ihre stärksten Argumente vorbringen und verwende mindestens vier Fachbegriffe." }
 ];
 
+var GR_CHIPS = [
+  { w:"sinkend", z:"gz-a" },
+  { w:"arbeitend", z:"gz-a" },
+  { w:"wachsend", z:"gz-a" },
+  { w:"steigend", z:"gz-a" },
+  { w:"geltend", z:"gz-a" },
+  { w:"gewachsen", z:"gz-b" },
+  { w:"gezeichnet", z:"gz-b" },
+  { w:"gestiegen", z:"gz-b" },
+  { w:"gelegt", z:"gz-b" },
+  { w:"eingelegt", z:"gz-c" },
+  { w:"aufgebaut", z:"gz-c" },
+  { w:"entstanden", z:"gz-c" },
+  { w:"verfügbar", z:"gz-c" },
+  { w:"umrissen", z:"gz-c" },
+  { w:"stetig", z:"gz-d" },
+  { w:"wirksam", z:"gz-d" },
+  { w:"ungewohnt", z:"gz-d" },
+  { w:"schnell", z:"gz-d" }
+];
+
+var GR_HINTS = ["Relativpronomen", "Verb am Ende"];
+
+var GR_UMFORM = [
+  { vor:"der über Jahre gewachsene Zustand", pre:"der Zustand,", a1:"der", mid:"über Jahre", a2:"gewachsen ist", post:"." },
+  { vor:"die zwischen den Mahlzeiten eingelegten Pausen", pre:"die Pausen,", a1:"die", mid:"zwischen den Mahlzeiten", a2:"eingelegt werden", post:"." },
+  { vor:"der langsam, aber stetig sinkende Insulinspiegel", pre:"der Insulinspiegel,", a1:"der", mid:"langsam, aber stetig", a2:"sinkt", post:"." },
+  { vor:"die schnell verfügbaren Kohlenhydrate", pre:"die Kohlenhydrate,", a1:"die", mid:"schnell", a2:"verfügbar sind", post:"." },
+  { vor:"das über Monate aufgebaute Krafttraining", pre:"das Krafttraining,", a1:"das", mid:"über Monate", a2:"aufgebaut wurde", post:"." },
+  { vor:"das als gesund geltende Vollkornbrot", pre:"das Vollkornbrot,", a1:"das", mid:"als gesund", a2:"gilt", post:"." },
+  { vor:"die über ein Jahrzehnt entstandene Störung", pre:"die Störung,", a1:"die", mid:"über ein Jahrzehnt", a2:"entstanden ist", post:"." },
+  { vor:"ein klar umrissener Vorsatz", pre:"ein Vorsatz,", a1:"der", mid:"klar", a2:"umrissen ist", post:"." }
+];
+
 /* ═══════════════════════════════════════════════════════
    SCHREIBWERKSTATT KONSTANTEN
 ═══════════════════════════════════════════════════════ */
 var SCHREIB_NIVEAU = 'C1';
-var SCHREIB_CODE   = 'KRANK1415C1';
+var SCHREIB_CODE   = 'BIKMAN1415C1';
 var SCHREIB_MIN_CHARS = 15;
 var FORMSUBMIT_ENDPOINT   = 'https://api.web3forms.com/submit';
 var FORMSUBMIT_ACCESS_KEY = 'e96ea83f-67e2-4fff-81df-76fee86a09ff';
@@ -1132,6 +1213,18 @@ function initGenus() {
     chip.textContent = item.word;
     chip.dataset.cat = item.cat;
     chip.draggable = true;
+    chip.addEventListener('click',function(e){
+      e.stopPropagation();
+      if (chip.parentNode && chip.parentNode.classList.contains('drop-zone')) {
+        chip.classList.remove('gsel','correct','wrong');
+        bank.appendChild(chip);
+        if (draggedChip === chip) draggedChip = null;
+        colorAllGenusChips(); return;
+      }
+      if (draggedChip && draggedChip !== chip) draggedChip.classList.remove('gsel');
+      if (draggedChip === chip) { chip.classList.remove('gsel'); draggedChip = null; return; }
+      draggedChip = chip; chip.classList.add('gsel'); timerAutoStart(2);
+    });
     chip.addEventListener('dragstart',function(e){
       e.dataTransfer.setData('text/plain','');
       draggedChip = chip;
@@ -1154,7 +1247,7 @@ function initGenus() {
       colorAllGenusChips();
     });
     zone.addEventListener('click',function(){
-      if(draggedChip){zone.appendChild(draggedChip);draggedChip=null;colorAllGenusChips();}
+      if(draggedChip){draggedChip.classList.remove('gsel');zone.appendChild(draggedChip);draggedChip=null;colorAllGenusChips();timerAutoStart(2);}
     });
   });
   bank.addEventListener('dragover',function(e){e.preventDefault();});
@@ -1600,8 +1693,108 @@ function resetWortschatz(){
 /* ═══════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════ */
+
+/* ═══ GRAMMATIK-TAB (Tab-Index 2, Timer-Slot 9) ═══ */
+var grSel = null;
+function grShuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+function grMakeChip(c){
+  var el = document.createElement('div');
+  el.className = 'gr-chip'; el.textContent = c.w; el.dataset.zone = c.z; el.draggable = true;
+  el.addEventListener('click', function(){
+    if (el.parentNode && el.parentNode.classList.contains('gr-zone')) { grToBank(el); return; }
+    if (grSel === el) { el.classList.remove('sel'); grSel = null; return; }
+    if (grSel) grSel.classList.remove('sel');
+    grSel = el; el.classList.add('sel');
+  });
+  el.addEventListener('dragstart', function(e){ window.grDrag = el; timerAutoStart(9); e.dataTransfer.effectAllowed='move'; });
+  return el;
+}
+function grToBank(el){
+  el.classList.remove('ok','wrong','sel');
+  document.getElementById('grBank').appendChild(el);
+  grSel = null; grPaint();
+}
+function grPlace(el, zone){
+  timerAutoStart(9);
+  zone.appendChild(el);
+  el.classList.remove('sel'); grSel = null;
+  grPaint(); grDone();
+}
+function grPaint(){
+  document.querySelectorAll('.gr-zone .gr-chip').forEach(function(ch){
+    var inZone = ch.parentNode.dataset.zone;
+    ch.classList.toggle('ok', ch.dataset.zone === inZone);
+    ch.classList.toggle('wrong', ch.dataset.zone !== inZone);
+  });
+}
+function grLive(inp){
+  var v = inp.value.trim(), a = inp.dataset.ans;
+  inp.classList.remove('ok','wrong');
+  if (!v) return;
+  timerAutoStart(9);
+  if (v === a) inp.classList.add('ok');
+  else if (a.indexOf(v) === 0) { /* Präfix: neutral lassen */ }
+  else inp.classList.add('wrong');
+  grDone();
+}
+function grDone(){
+  var chips = document.querySelectorAll('#grZonen .gr-chip');
+  if (chips.length !== GR_CHIPS.length) return;
+  var allChips = true;
+  chips.forEach(function(ch){ if (ch.dataset.zone !== ch.parentNode.dataset.zone) allChips = false; });
+  var allIn = true;
+  document.querySelectorAll('#grUmform .gr-in').forEach(function(i){ if (i.value.trim() !== i.dataset.ans) allIn = false; });
+  if (allChips && allIn) stopTimer(9);
+}
+function initGrammatik(){
+  var bank = document.getElementById('grBank'); if (!bank) return;
+  bank.innerHTML = '';
+  grShuffle(GR_CHIPS).forEach(function(c){ bank.appendChild(grMakeChip(c)); });
+  document.querySelectorAll('.gr-zone').forEach(function(z){
+    z.addEventListener('click', function(){ if (grSel) grPlace(grSel, z); });
+    z.addEventListener('dragover', function(e){ e.preventDefault(); z.classList.add('over'); });
+    z.addEventListener('dragleave', function(){ z.classList.remove('over'); });
+    z.addEventListener('drop', function(e){ e.preventDefault(); z.classList.remove('over'); if (window.grDrag) grPlace(window.grDrag, z); window.grDrag = null; });
+  });
+  bank.addEventListener('click', function(e){ if (e.target === bank && grSel) grToBank(grSel); });
+  bank.addEventListener('dragover', function(e){ e.preventDefault(); });
+  bank.addEventListener('drop', function(e){ e.preventDefault(); if (window.grDrag) grToBank(window.grDrag); window.grDrag = null; });
+
+  var wrap = document.getElementById('grUmform'); wrap.innerHTML = '';
+  GR_UMFORM.forEach(function(it){
+    var d = document.createElement('div'); d.className = 'gr-item';
+    var v = document.createElement('div'); v.className = 'gr-vor'; v.textContent = it.vor; d.appendChild(v);
+    var z = document.createElement('div'); z.className = 'gr-ziel';
+    function txt(s){ if (!s) return; var sp = document.createElement('span'); sp.textContent = s; z.appendChild(sp); }
+    function feld(ans, hint){
+      var f = document.createElement('div'); f.className = 'gr-feld';
+      var h = document.createElement('span'); h.className = 'gr-hint'; h.textContent = hint; f.appendChild(h);
+      var i = document.createElement('input'); i.className = 'gr-in'; i.type = 'text';
+      i.setAttribute('placeholder',''); i.dataset.ans = ans; i.size = Math.max(6, ans.length);
+      i.oninput = function(){ grLive(i); };
+      f.appendChild(i); z.appendChild(f);
+    }
+    txt(it.pre); feld(it.a1, GR_HINTS[0]); txt(it.mid); feld(it.a2, GR_HINTS[1]); txt(it.post);
+    d.appendChild(z); wrap.appendChild(d);
+  });
+}
+function resetGrammatik(){
+  initGrammatik();
+}
+function showGrammatikLoesung(){
+  var zones = {};
+  document.querySelectorAll('.gr-zone').forEach(function(z){ zones[z.dataset.zone] = z; z.innerHTML = ''; });
+  document.getElementById('grBank').innerHTML = '';
+  GR_CHIPS.forEach(function(c){ var el = grMakeChip(c); zones[c.z].appendChild(el); });
+  grPaint();
+  document.querySelectorAll('#grUmform .gr-in').forEach(function(i){ i.value = i.dataset.ans; i.classList.remove('wrong'); i.classList.add('ok'); });
+  stopTimer(9);
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   initVorentlastung();
+  initGrammatik();
   initGenus();
   initMc();
   initSatzbau();
@@ -1661,16 +1854,16 @@ document.head.appendChild(styleEl);
    Markup-Vertrag (vom Produzenten erzeugt, vom Gate check_lueckentext.py geprüft):
      <div class="wortbank" id="wortbank-luecken"></div>
      <div id="lueckenContainer" class="luecken-story">
-    <p>Karim schlägt den letzten Teil des Buches auf und atmet auf: Eine <input class="blank" data-answer="Insulinresistenz"> lässt sich, anders als er befürchtet hatte, sogar wieder umkehren.</p>
-    <p>Der erste Hebel, so liest er, ist die <input class="blank" data-answer="Bewegung">, denn ein arbeitender Muskel entzieht dem Blut Zucker ganz ohne Insulin.</p>
-    <p>Sobald sich die <input class="blank" data-answer="Muskeln"> anspannen, benötigen sie dafür keinerlei Insulin — das leuchtet ihm sofort ein.</p>
-    <p>Besonders lohnend ist bei knapper Zeit das <input class="blank" data-answer="Krafttraining">, weil es jene Masse aufbaut, die den Zucker aufnimmt.</p>
-    <p>Verblüfft stellt Karim fest, dass ausgerechnet das <input class="blank" data-answer="Nahrungsfett"> den Insulinspiegel so gut wie gar nicht erhöht.</p>
-    <p>Die eigentlichen Treiber, begreift er nun, sind die <input class="blank" data-answer="Kohlenhydrate">, allen voran Zucker und verarbeitetes Weißmehl.</p>
-    <p>Ein einfacher Trick besteht darin, ein festes <input class="blank" data-answer="Essfenster"> einzuhalten und zwischen den Mahlzeiten lange Pausen zu lassen.</p>
-    <p>Noch tiefer greift das <input class="blank" data-answer="Intervallfasten">, bei dem man zeitweise vollständig auf Nahrung verzichtet.</p>
-    <p>In diesen Pausen steigt das Hormon <input class="blank" data-answer="Glukagon">, das gespeichertes Fett wieder freisetzt.</p>
-    <p>Am Ende zieht Karim ein klares Fazit: Nicht ein Medikament, sondern sein <input class="blank" data-answer="Lebensstil"> ist die wirksamste Medizin.</p>
+    <p>Karim liest, dass Herzerkrankungen die weltweit führende <input class="blank" data-answer="Todesursache"> sind.</p>
+    <p>Meist beschuldigt man Rauchen und Cholesterin, doch der Autor nennt die <input class="blank" data-answer="Insulinresistenz"> als eigentlichen Kern.</p>
+    <p>Fast alle Menschen mit hohem <input class="blank" data-answer="Blutdruck"> sind zugleich insulinresistent.</p>
+    <p>Insulin erhöht das Hormon Aldosteron, das die Nieren anweist, <input class="blank" data-answer="Natrium"> zurückzuhalten.</p>
+    <p>Wo Natrium bleibt, folgt das <input class="blank" data-answer="Wasser"> — das Blutvolumen und der Druck steigen.</p>
+    <p>Der wichtigste Aspekt der Herzkrankheit ist die <input class="blank" data-answer="Atherosklerose">, das Verengen der Gefäße.</p>
+    <p>Gefährlich wird das Cholesterin erst, wenn oxidativer <input class="blank" data-answer="Stress"> die Fette oxidieren lässt.</p>
+    <p>Weiße Blutkörperchen, die <input class="blank" data-answer="Makrophagen">, verschlingen dann das oxidierte Fett.</p>
+    <p>Vollgefressen werden sie zu <input class="blank" data-answer="Schaumzellen">, die den Kern der Plaque bilden.</p>
+    <p>Bei insulinresistenten Menschen fördert Insulin sogar die <input class="blank" data-answer="Entzündung">.</p>
     </div>
 
    Timer-Anbindung: die Engine ruft generische Hooks window.fbLtTimerStart()/
@@ -1898,11 +2091,415 @@ function schreibToFormData(o){var fd=new FormData();Object.keys(o).forEach(funct
 
 
 
+
+<script>/* FB-SPRECH-WORTSCHATZ-JS */
+var SP_TEXTE = {"start": "Das englische Wort erscheint – dann laut das deutsche Wort mit Artikel sagen, bevor der Balken abgelaufen ist.", "kurz": "Laut das deutsche Wort mit Artikel sagen.", "satz": "Laut einen ganzen Satz mit dem deutschen Wort sprechen.", "frage": "Kam das Wort sofort?", "erkannt": "✓ richtiges Wort erkannt", "dabei": "✓ Richtig – Wort und Artikel waren dabei!", "nichtDabei": "– das richtige Wort (mit Artikel) war nicht dabei."};
+var SP_DATA = [
+ {
+  "cue": "🏃 movement / exercise",
+  "luecke": "",
+  "ok": [
+   "beweg|die"
+  ],
+  "loesung": "die Bewegung"
+ },
+ {
+  "cue": "🏋️ strength training",
+  "luecke": "",
+  "ok": [
+   "kraft|das"
+  ],
+  "loesung": "das Krafttraining"
+ },
+ {
+  "cue": "💪 muscle",
+  "luecke": "",
+  "ok": [
+   "muske|der"
+  ],
+  "loesung": "der Muskel"
+ },
+ {
+  "cue": "💪 muscle mass",
+  "luecke": "",
+  "ok": [
+   "muske|die"
+  ],
+  "loesung": "die Muskelmasse"
+ },
+ {
+  "cue": "🚴 endurance",
+  "luecke": "",
+  "ok": [
+   "ausda|die"
+  ],
+  "loesung": "die Ausdauer"
+ },
+ {
+  "cue": "🍽️ nutrition",
+  "luecke": "",
+  "ok": [
+   "ernäh|die"
+  ],
+  "loesung": "die Ernährung"
+ },
+ {
+  "cue": "🥑 dietary fat",
+  "luecke": "",
+  "ok": [
+   "nahru|das"
+  ],
+  "loesung": "das Nahrungsfett"
+ },
+ {
+  "cue": "🍞 carbohydrate",
+  "luecke": "",
+  "ok": [
+   "kohle|das"
+  ],
+  "loesung": "das Kohlenhydrat"
+ },
+ {
+  "cue": "🌾 dietary fibre",
+  "luecke": "",
+  "ok": [
+   "balla|der"
+  ],
+  "loesung": "der Ballaststoff"
+ },
+ {
+  "cue": "🔥 calorie",
+  "luecke": "",
+  "ok": [
+   "kalor|die"
+  ],
+  "loesung": "die Kalorie"
+ },
+ {
+  "cue": "⏱️ eating window",
+  "luecke": "",
+  "ok": [
+   "essfe|das"
+  ],
+  "loesung": "das Essfenster"
+ },
+ {
+  "cue": "⏳ intermittent fasting",
+  "luecke": "",
+  "ok": [
+   "inter|das"
+  ],
+  "loesung": "das Intervallfasten"
+ },
+ {
+  "cue": "🔄 glucagon",
+  "luecke": "",
+  "ok": [
+   "gluka|das"
+  ],
+  "loesung": "das Glukagon"
+ },
+ {
+  "cue": "🩸 insulin level",
+  "luecke": "",
+  "ok": [
+   "insul|der"
+  ],
+  "loesung": "der Insulinspiegel"
+ },
+ {
+  "cue": "⚙️ metabolism",
+  "luecke": "",
+  "ok": [
+   "stoff|der"
+  ],
+  "loesung": "der Stoffwechsel"
+ },
+ {
+  "cue": "🔬 evidence",
+  "luecke": "",
+  "ok": [
+   "evide|die"
+  ],
+  "loesung": "die Evidenz"
+ },
+ {
+  "cue": "📜 dogma",
+  "luecke": "",
+  "ok": [
+   "dogma|das"
+  ],
+  "loesung": "das Dogma"
+ },
+ {
+  "cue": "🚫 renunciation",
+  "luecke": "",
+  "ok": [
+   "verzi|der"
+  ],
+  "loesung": "der Verzicht"
+ },
+ {
+  "cue": "🔁 habit",
+  "luecke": "",
+  "ok": [
+   "gewoh|die"
+  ],
+  "loesung": "die Gewohnheit"
+ },
+ {
+  "cue": "🍽️ meal",
+  "luecke": "",
+  "ok": [
+   "mahlz|die"
+  ],
+  "loesung": "die Mahlzeit"
+ },
+ {
+  "cue": "🏗️ to build up",
+  "luecke": "",
+  "ok": [
+   "aufba"
+  ],
+  "loesung": "aufbauen"
+ },
+ {
+  "cue": "📉 to reduce",
+  "luecke": "",
+  "ok": [
+   "reduz"
+  ],
+  "loesung": "reduzieren"
+ },
+ {
+  "cue": "🎛️ to steer / control",
+  "luecke": "",
+  "ok": [
+   "steue"
+  ],
+  "loesung": "steuern"
+ },
+ {
+  "cue": "↩️ to reverse",
+  "luecke": "",
+  "ok": [
+   "umkeh"
+  ],
+  "loesung": "umkehren"
+ },
+ {
+  "cue": "🌿 real / unprocessed",
+  "luecke": "",
+  "ok": [
+   "echt"
+  ],
+  "loesung": "echt"
+ },
+ {
+  "cue": "⚠️ counterproductive",
+  "luecke": "",
+  "ok": [
+   "kontr"
+  ],
+  "loesung": "kontraproduktiv"
+ },
+ {
+  "cue": "🔁 reversible",
+  "luecke": "",
+  "ok": [
+   "umkeh"
+  ],
+  "loesung": "umkehrbar"
+ },
+ {
+  "cue": "🧊 sober / level-headed",
+  "luecke": "",
+  "ok": [
+   "nücht"
+  ],
+  "loesung": "nüchtern"
+ }
+];
+// ======== SPRECH-TRAINER GENERISCH (mündlicher Abruf unter Zeitdruck) — FB-SPRECH-GENERIC ========
+// Daten kommen aus SP_DATA (pro Lektion): { cue, luecke?, hint?, ok:[Wortanfänge], loesung, beispiel? }
+// Erkannt wird ein Treffer, wenn ein gesprochenes Wort mit einem der ok-Wortanfänge beginnt
+// (bei "stamm|partikel" muss zusätzlich die Partikel als eigenes Wort fallen).
+// Konkurrenz = die ok-Wortanfänge aller anderen Karten (→ „✗ X statt Y“).
+// SP_TEXTE (optional, pro Lektion vor der Engine definiert) ersetzt die Verb-Formulierungen — z. B. Wortschatz: Wort + Artikel.
+var SP_T = (function(){ var d = {start:'Das Nomen erscheint – dann laut das passende Verb sagen, bevor der Balken abgelaufen ist.', kurz:'Laut Nomen + passendes Verb sagen.', satz:'Laut einen ganzen Satz mit dem passenden Verb sprechen.', frage:'Kam das Verb sofort?', erkannt:'✓ richtiges Verb erkannt', dabei:'✓ Richtig – das passende Verb war dabei!', nichtDabei:'– das passende Verb war nicht dabei.'}; var u = window.SP_TEXTE || {}; for (var k in u) d[k] = u[k]; return d; })();
+var spQueue = [], spPos = 0, spTimer = null, spRunde = {ok:0, total:0, fehler:[], mic:false, micOk:0, micTotal:0}, spMic = false, spRec = null, spGehoert = '', spOffen = false, spBewertet = false;
+var SpRecCtor = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+function spEsc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function spMischen(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function spSek(){ return Number(document.getElementById('sp-zeit').value); }
+function spModus(){ return document.getElementById('sp-modus').value; }
+function spStart(mitMic){
+  if (mitMic === true && !spMic) spMicToggle();
+  if (mitMic === false && spMic) spMicToggle();
+  spQueue = spMischen(SP_DATA.slice());
+  spPos = 0; spRunde = {ok:0, total:0, fehler:[], mic:spMic, micOk:0, micTotal:0}; spZeige();
+}
+function spStopp(){ if (spTimer) clearInterval(spTimer); spTimer = null; spRecStop(); }
+function spZeige(){
+  spStopp(); spOffen = false;
+  var box = document.getElementById('sp-karte');
+  if (!spQueue.length || spPos >= spQueue.length){
+    var nochmal = spRunde.fehler.length ? '<div class="sp-wdh"><strong>Noch nicht automatisch:</strong> ' + spRunde.fehler.map(function(x){ return spEsc(x.loesung); }).join(' · ') + '</div>' : '';
+    var micBtn = SpRecCtor ? '<button class="sp-btn ok" onclick="spStart(true)">🎤 Mit Mikrofon starten</button>' : '';
+    box.innerHTML = '<div class="sp-leer">' + (spRunde.total ? '🎉 Runde fertig – <strong>' + spRunde.ok + ' von ' + spRunde.total + '</strong> sofort parat' + (spRunde.mic ? ' · Mikrofon: ' + spRunde.micOk + ' von ' + spRunde.micTotal + ' richtig erkannt' : '') + '.' : SP_T.start) +
+      nochmal + '<div class="sp-leer-btns">' + micBtn + '<button class="sp-btn" onclick="spStart(false)">' + (spRunde.total ? 'Noch eine Runde ohne Mikrofon' : 'Ohne Mikrofon starten') + '</button></div>' +
+      (SpRecCtor ? '' : '<div class="sp-hint">Dieser Browser hat keine Spracherkennung – mit Mikrofon geht es in Chrome oder Safari.</div>') + '</div>';
+    spStandZeigen();
+    return;
+  }
+  var e = spQueue[spPos], sek = spSek();
+  var aufgabe = spModus() === 'satz' ? SP_T.satz : SP_T.kurz;
+  box.innerHTML = '<div class="sp-meta">Karte ' + (spPos + 1) + ' von ' + spQueue.length + '</div>' +
+    '<div class="sp-cue">' + spEsc(e.cue) + ' <span class="sp-luecke">' + spEsc(e.luecke == null ? '___' : e.luecke) + '</span></div>' +
+    (e.hint ? '<div class="sp-hint">(' + spEsc(e.hint) + ')</div>' : '') +
+    '<div class="sp-aufgabe">🗣️ ' + aufgabe + '</div>' +
+    '<div class="sp-bar"><div id="sp-fill"></div></div><div class="sp-count" id="sp-count">' + sek + ' s</div>' +
+    '<div class="sp-gehoert" id="sp-gehoert"></div>' +
+    '<div class="sp-loesung" id="sp-loesung"></div>' +
+    '<div class="sp-aktion" id="sp-aktion"><button class="sp-btn" onclick="spAufloesen()">Lösung zeigen</button></div>';
+  var ende = Date.now() + sek * 1000; // Uhrzeit statt Tick-Zählung: robust gegen gedrosselte Timer
+  var fill = document.getElementById('sp-fill'), cnt = document.getElementById('sp-count');
+  spTimer = setInterval(function(){ var rest = Math.max(0, ende - Date.now()); fill.style.width = (rest / (sek * 1000) * 100) + '%'; cnt.textContent = Math.ceil(rest / 1000) + ' s'; if (rest <= 0) spAufloesen(); }, 100);
+  spGehoert = ''; spBewertet = false; spStandZeigen(); if (spMic) spRecStart(e);
+}
+function spAufloesen(){
+  if (spOffen) return; spOffen = true;
+  if (spTimer) clearInterval(spTimer); spTimer = null;
+  setTimeout(spRecStop, 800); // kurz nachhören, falls das letzte Wort noch kommt
+  var e = spQueue[spPos];
+  var cnt = document.getElementById('sp-count'); if (cnt) cnt.textContent = 'Lösung';
+  document.getElementById('sp-loesung').innerHTML = '<div class="sp-loesung-zeile"><strong>' + spEsc(e.loesung) + '</strong></div>' + (e.beispiel ? '<div class="sp-beispiel">' + spEsc(e.beispiel) + '</div>' : '');
+  document.getElementById('sp-aktion').innerHTML = '<span class="sp-frage">' + SP_T.frage + '</span><span><button class="sp-btn ok" onclick="spBewerten(true)">✓ Ja, sofort</button> <button class="sp-btn" onclick="spBewerten(false)">✗ Nein, überlegt</button></span>';
+  if (!spMic) spStatus('Vergleiche mit der Lösung: Hast du <strong>' + spEsc(e.loesung) + '</strong> gesagt? Dann „Ja, sofort“.', 'info');
+  setTimeout(function(){ if (spOffen && spQueue[spPos] === e) spMicFazit(e); }, 900);
+}
+function spBewerten(ok){
+  if (spBewertet) return; spBewertet = true;
+  var e = spQueue[spPos];
+  spRunde.total++; if (ok) spRunde.ok++; else spRunde.fehler.push(e);
+  var akt = document.getElementById('sp-aktion');
+  if (akt) akt.innerHTML = ok ? '<span class="sp-quittung gut">✓ Sofort gewusst – weiter so!</span>' : '<span class="sp-quittung schlecht">↺ Merk dir: <strong>' + spEsc(e.loesung) + '</strong> – kommt am Ende der Runde in die Wiederholungsliste.</span>';
+  spStandZeigen();
+  setTimeout(function(){ spPos++; spZeige(); }, ok ? 900 : 1800);
+}
+function spStandZeigen(){
+  var el = document.getElementById('sp-stand'); if (!el) return;
+  if (!spQueue.length){ el.innerHTML = ''; return; }
+  var karte = Math.min(spPos + 1, spQueue.length);
+  el.innerHTML = '<span>Karte <strong>' + karte + '</strong> von ' + spQueue.length + '</span><span class="sp-ok">✓ ' + spRunde.ok + ' sofort</span><span class="sp-no">✗ ' + (spRunde.total - spRunde.ok) + ' überlegt</span>' +
+    (spMic ? '<span>🎤 ' + spRunde.micOk + ' von ' + spRunde.micTotal + ' erkannt</span>' : '<span class="sp-ohne">ohne Mikrofon – du bewertest dich selbst</span>');
+}
+function spMicToggle(){
+  spMic = !spMic;
+  var b = document.getElementById('sp-mic'); b.textContent = spMic ? '🎤 Mikrofon ist an' : '🎤 Mikrofon ist aus'; b.classList.toggle('ok', spMic);
+  if (!spMic){ spRecStop(); spStatus(''); return; }
+  if (spTimer && spQueue[spPos]) spRecStart(spQueue[spPos]);
+  else spStatus('🎤 Mikrofon ist an – es hört ab der nächsten Karte zu.', 'info');
+}
+function spStatus(html, typ){
+  var el = document.getElementById('sp-gehoert'); if (!el) return;
+  el.className = 'sp-gehoert' + (typ ? ' sp-' + typ : '');
+  el.innerHTML = html;
+}
+var SP_FEHLER = {
+  'not-allowed': '🚫 Mikrofon blockiert. Bitte oben in der Adressleiste das Mikrofon für diese Seite erlauben und neu laden.',
+  'service-not-allowed': '🚫 Spracherkennung ist in diesem Browser gesperrt. Bitte Chrome oder Safari verwenden.',
+  'audio-capture': '🎤 Kein Mikrofon gefunden. Bitte ein Mikrofon anschließen oder in den Systemeinstellungen freigeben.',
+  'network': '📶 Die Spracherkennung braucht eine Internetverbindung (Chrome schickt die Aufnahme an Google).',
+  'language-not-supported': 'Deutsch wird von der Spracherkennung dieses Browsers nicht unterstützt.'
+};
+function spRecStart(e){
+  if (!SpRecCtor){ spStatus('Dieser Browser hat keine Spracherkennung. Bitte Chrome oder Safari verwenden.', 'warn'); return; }
+  spRecStop();
+  var karte = spPos;
+  try {
+    var rec = new SpRecCtor(); spRec = rec;
+    rec.lang = 'de-DE'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 3;
+    rec.onstart = function(){ if (spRec === rec && !spGehoert) spStatus('<span class="sp-puls">●</span> Ich höre zu … jetzt sprechen.', 'info'); };
+    rec.onresult = function(ev){
+      var t = ''; for (var i = 0; i < ev.results.length; i++) t += ev.results[i][0].transcript + ' ';
+      spGehoert = t.trim(); spGehoertZeigen(e);
+      // richtiges Verb sicher erkannt → Karte sofort auflösen (Belohnung ohne Warten)
+      var last = ev.results[ev.results.length - 1];
+      if (last && last.isFinal && !spOffen && spPos === karte && spUrteil(e).hat) spAufloesen();
+    };
+    rec.onerror = function(ev){
+      var msg = SP_FEHLER[ev.error];
+      if (msg){ spStatus(msg, 'warn'); if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed' || ev.error === 'audio-capture'){ spMic = false; var b = document.getElementById('sp-mic'); if (b){ b.textContent = '🎤 Mikrofon ist aus'; b.classList.remove('ok'); } } }
+      else if (ev.error === 'no-speech' && !spGehoert && !spOffen) spStatus('🤫 Noch nichts gehört – bitte lauter oder näher am Mikrofon sprechen.', 'warn');
+    };
+    // Chrome beendet die Erkennung nach Sprechpausen von selbst → solange die Karte läuft, neu starten
+    rec.onend = function(){ if (spRec === rec && spMic && !spOffen && spPos === karte && spTimer){ try { rec.start(); } catch (x){} } };
+    rec.start();
+  } catch (x){ spRec = null; spStatus('Die Spracherkennung konnte nicht gestartet werden.', 'warn'); }
+}
+function spRecStop(){ if (spRec){ var r = spRec; spRec = null; try { r.onend = null; r.onresult = null; r.stop(); } catch (x){} } }
+function spWoerter(){ return spGehoert.toLowerCase().replace(/[.,!?;:„“"–-]/g, ' ').split(/\s+/).filter(Boolean); }
+// ok-Eintrag: "stamm" = ein Wort beginnt so · "stamm|partikel" = trennbares Verb (legt … ab → "leg|ab");
+// bei "stamm|partikel" zählt auch der zu-Infinitiv als ein Wort (abzulegen → "ab"+"zu"+"leg").
+function spTreffer(w, eintrag){
+  var t = eintrag.toLowerCase().split('|'), st = t[0], pt = t[1];
+  var hit = null;
+  w.forEach(function(x){ if (!hit && x.indexOf(st) === 0) hit = x; });
+  if (hit && (!pt || w.indexOf(pt) !== -1)) return hit;
+  if (pt){ var zu = pt + 'zu' + st; for (var i = 0; i < w.length; i++) if (w[i].indexOf(zu) === 0) return w[i]; }
+  return null;
+}
+function spUrteil(e){
+  // Wörter, die schon auf der Karte stehen (der Lerner spricht sie mit), zählen nie als Verb
+  var cue = (e.cue + ' ' + (e.luecke || '')).toLowerCase().replace(/[.,!?;:„“"–-]/g, ' ').split(/\s+/).filter(Boolean);
+  var w = spWoerter().filter(function(x){ return cue.indexOf(x) === -1; });
+  var hat = e.ok.some(function(o){ return spTreffer(w, o); });
+  var eigen = e.ok.map(function(s){ return s.toLowerCase(); });
+  var falsch = [];
+  if (!hat) SP_DATA.forEach(function(x){ if (x === e) return; x.ok.forEach(function(o){ if (eigen.indexOf(o.toLowerCase()) !== -1) return; var t = spTreffer(w, o); if (t && falsch.indexOf(t) === -1) falsch.push(t); }); });
+  return {hat: hat, falsch: falsch};
+}
+function spGehoertZeigen(e){
+  if (!spGehoert) return;
+  var u = spUrteil(e);
+  var urteil = u.hat ? '<span class="sp-ok">' + SP_T.erkannt + '</span>' : u.falsch.length ? '<span class="sp-no">✗ „' + spEsc(u.falsch[0]) + '“ passt hier nicht</span>' : '';
+  spStatus('🎤 Gehört: „' + spEsc(spGehoert) + '“ ' + urteil, u.hat ? 'gut' : (u.falsch.length ? 'schlecht' : 'info'));
+}
+function spMicFazit(e){
+  if (!spMic) return;
+  var u = spUrteil(e), html, typ, empf = null;
+  if (!spGehoert){ html = '🎤 Das Mikrofon hat nichts verstanden. Bewerte dich bitte selbst.'; typ = 'warn'; }
+  else if (u.hat){ html = '🎤 Gehört: „' + spEsc(spGehoert) + '“ <span class="sp-ok">' + SP_T.dabei + '</span>'; typ = 'gut'; empf = true; }
+  else if (u.falsch.length){ html = '🎤 Gehört: „' + spEsc(spGehoert) + '“ <span class="sp-no">✗ Du hast „' + spEsc(u.falsch[0]) + '“ gesagt – richtig ist: ' + spEsc(e.loesung) + '.</span>'; typ = 'schlecht'; empf = false; }
+  else { html = '🎤 Gehört: „' + spEsc(spGehoert) + '“ <span class="sp-no">' + SP_T.nichtDabei + '</span>'; typ = 'schlecht'; empf = false; }
+  spStatus(html, typ);
+  if (empf !== null){ spRunde.micTotal++; if (empf) spRunde.micOk++; spStandZeigen(); }
+  if (empf !== null){ var btns = document.querySelectorAll('#sp-aktion .sp-btn'); if (btns.length === 2) btns[empf ? 0 : 1].classList.add('sp-empf'); }
+}
+function initSprechTrainer(){
+  ['sp-modus','sp-zeit'].forEach(function(id){ document.getElementById(id).addEventListener('change', function(){ spQueue = []; spZeige(); }); });
+  if (SpRecCtor) document.getElementById('sp-mic').hidden = false;
+  var sec = document.getElementById('sec-sprechen');
+  document.addEventListener('keydown', function(ev){
+    if (ev.code !== 'Space' || !sec.classList.contains('active')) return;
+    if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(ev.target.tagName)) return;
+    ev.preventDefault();
+    if (!spQueue.length || spPos >= spQueue.length) spStart(spMic); else if (!spOffen) spAufloesen(); else spBewerten(true);
+  });
+  // Mikrofon aus, sobald der Tab verlassen wird
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.addEventListener('click', function(){ if (!sec.classList.contains('active')) spStopp(); }); });
+  spZeige();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSprechTrainer); else initSprechTrainer();
+</script>
+
 <script>
 /* ── Gerüst-Modus Add-on (B1+) — additiv generiert. Mischt row/parts zur Laufzeit in satzbauData,
    hüllt Init/Lösung/Reset. Original-Logik für Sätze ohne row bleibt unberührt. */
 (function(){
   var CFG = {"bank":"sb-bank-","row":"sb-row-","fb":"sb-fb-","caps":true,"click":true,"tab":5};
+  /* FB-SB-TIMER-FALLBACK */ if (typeof sbCheckAllDone !== "function") window.sbCheckAllDone = function(){ var ok = satzbauData.every(function(_, i){ var r = document.getElementById(CFG.row + i); return r && r.classList.contains("correct"); }); if (ok && typeof stopTimer === "function") stopTimer(CFG.tab); };
   var SBGAP = [{"i":0,"row":["_","_","Muskel","_","_","_","Glukose","_","_","_","die","_","_","Insulin"],"parts":["ein","angespannter","entzieht","dem","Blut",",","ganz","ohne","Mithilfe","von"]},{"i":1,"row":["_","_","Spaziergänge","_","_","Insulinsensitivität","_","weniger","_","deutlich","_"],"parts":["schon","regelmäßige","können","die","binnen","Monate","verbessern"]},{"i":2,"row":["_","_","Muskelmasse","_","_","_","reiner","_","das","kaum","_"],"parts":["Krafttraining","baut","auf",",","während","Ausdauersport","vermag"]},{"i":3,"row":["_","_","_","den","_","kaum","_","_","_","der","_","Zucker"],"parts":["das","Nahrungsfett","erhöht","Insulinspiegel",",","anders","als","allgegenwärtige"]},{"i":4,"row":["_","_","Kalorienreduktion","_","auch","_","_","_","_","das","Cortisol","_"],"parts":["eine","strenge","baut","Muskeln","ab","und","lässt","steigen"]},{"i":5,"row":["_","_","Kohlenhydrate","zuletzt","_","_","_","_","spürbar","_","Insulinanstieg"],"parts":["wer","die","isst",",","bekommt","einen","kleineren"]},{"i":6,"row":["_","_","Snack","_","_","den","_","_","paar","_","_","_","oben"],"parts":["mit","jedem","treibt","man","Insulinspiegel","alle","Stunden","erneut","nach"]},{"i":7,"row":["_","_","_","das","Insulin","_","_","_","_","Glukagon","deutlich","_"],"parts":["beim","Intervallfasten","sinkt",",","während","sein","Gegenspieler","ansteigt"]},{"i":8,"row":["_","_","Medizin","_","_","Tablette","_","_","_","Frage","_","Gewohnheiten"],"parts":["die","eigentliche","ist","keine",",","sondern","eine","unserer"]}];
   SBGAP.forEach(function(g){ var ex = satzbauData[g.i]; if (!ex) return;
     ex.row = g.row; ex.parts = g.parts;
@@ -2102,399 +2699,6 @@ function schreibToFormData(o){var fd=new FormData();Object.keys(o).forEach(funct
   var pRow = rowEl(0), pBank = bankEl(0);
   if ((pRow && pRow.children.length) || (pBank && pBank.children.length)) rebuildAll();
 })();
-</script>
-<script>/* FB-SPRECH-WORTSCHATZ-JS */
-var SP_TEXTE = {"start": "Das englische Wort erscheint – dann laut das deutsche Wort mit Artikel sagen, bevor der Balken abgelaufen ist.", "kurz": "Laut das deutsche Wort mit Artikel sagen.", "satz": "Laut einen ganzen Satz mit dem deutschen Wort sprechen.", "frage": "Kam das Wort sofort?", "erkannt": "✓ richtiges Wort erkannt", "dabei": "✓ Richtig – Wort und Artikel waren dabei!", "nichtDabei": "– das richtige Wort (mit Artikel) war nicht dabei."};
-var SP_DATA = [
- {
-  "cue": "🏃 movement / exercise",
-  "luecke": "",
-  "ok": [
-   "beweg|die"
-  ],
-  "loesung": "die Bewegung"
- },
- {
-  "cue": "🏋️ strength training",
-  "luecke": "",
-  "ok": [
-   "kraft|das"
-  ],
-  "loesung": "das Krafttraining"
- },
- {
-  "cue": "💪 muscle",
-  "luecke": "",
-  "ok": [
-   "muske|der"
-  ],
-  "loesung": "der Muskel, Pl. Muskeln"
- },
- {
-  "cue": "💪 muscle mass",
-  "luecke": "",
-  "ok": [
-   "muske|die"
-  ],
-  "loesung": "die Muskelmasse"
- },
- {
-  "cue": "🚴 endurance",
-  "luecke": "",
-  "ok": [
-   "ausda|die"
-  ],
-  "loesung": "die Ausdauer"
- },
- {
-  "cue": "🍽️ nutrition",
-  "luecke": "",
-  "ok": [
-   "ernäh|die"
-  ],
-  "loesung": "die Ernährung"
- },
- {
-  "cue": "🥑 dietary fat",
-  "luecke": "",
-  "ok": [
-   "nahru|das"
-  ],
-  "loesung": "das Nahrungsfett, Pl. Nahrungsfette"
- },
- {
-  "cue": "🍞 carbohydrate",
-  "luecke": "",
-  "ok": [
-   "kohle|das"
-  ],
-  "loesung": "das Kohlenhydrat, Pl. Kohlenhydrate"
- },
- {
-  "cue": "🌾 dietary fibre",
-  "luecke": "",
-  "ok": [
-   "balla|der"
-  ],
-  "loesung": "der Ballaststoff, Pl. Ballaststoffe"
- },
- {
-  "cue": "🔥 calorie",
-  "luecke": "",
-  "ok": [
-   "kalor|die"
-  ],
-  "loesung": "die Kalorie, Pl. Kalorien"
- },
- {
-  "cue": "⏱️ eating window",
-  "luecke": "",
-  "ok": [
-   "essfe|das"
-  ],
-  "loesung": "das Essfenster"
- },
- {
-  "cue": "⏳ intermittent fasting",
-  "luecke": "",
-  "ok": [
-   "inter|das"
-  ],
-  "loesung": "das Intervallfasten"
- },
- {
-  "cue": "🔄 glucagon",
-  "luecke": "",
-  "ok": [
-   "gluka|das"
-  ],
-  "loesung": "das Glukagon"
- },
- {
-  "cue": "🩸 insulin level",
-  "luecke": "",
-  "ok": [
-   "insul|der"
-  ],
-  "loesung": "der Insulinspiegel"
- },
- {
-  "cue": "⚙️ metabolism",
-  "luecke": "",
-  "ok": [
-   "stoff|der"
-  ],
-  "loesung": "der Stoffwechsel"
- },
- {
-  "cue": "🔬 evidence",
-  "luecke": "",
-  "ok": [
-   "evide|die"
-  ],
-  "loesung": "die Evidenz"
- },
- {
-  "cue": "📜 dogma",
-  "luecke": "",
-  "ok": [
-   "dogma|das"
-  ],
-  "loesung": "das Dogma, Pl. Dogmen"
- },
- {
-  "cue": "🚫 renunciation",
-  "luecke": "",
-  "ok": [
-   "verzi|der"
-  ],
-  "loesung": "der Verzicht"
- },
- {
-  "cue": "🔁 habit",
-  "luecke": "",
-  "ok": [
-   "gewoh|die"
-  ],
-  "loesung": "die Gewohnheit, Pl. Gewohnheiten"
- },
- {
-  "cue": "🍽️ meal",
-  "luecke": "",
-  "ok": [
-   "mahlz|die"
-  ],
-  "loesung": "die Mahlzeit, Pl. Mahlzeiten"
- },
- {
-  "cue": "🏗️ to build up",
-  "luecke": "",
-  "ok": [
-   "aufba"
-  ],
-  "loesung": "aufbauen"
- },
- {
-  "cue": "📉 to reduce",
-  "luecke": "",
-  "ok": [
-   "reduz"
-  ],
-  "loesung": "reduzieren"
- },
- {
-  "cue": "🎛️ to steer / control",
-  "luecke": "",
-  "ok": [
-   "steue"
-  ],
-  "loesung": "steuern"
- },
- {
-  "cue": "↩️ to reverse",
-  "luecke": "",
-  "ok": [
-   "umkeh"
-  ],
-  "loesung": "umkehren"
- },
- {
-  "cue": "🌿 real / unprocessed",
-  "luecke": "",
-  "ok": [
-   "echt"
-  ],
-  "loesung": "echt"
- },
- {
-  "cue": "⚠️ counterproductive",
-  "luecke": "",
-  "ok": [
-   "kontr"
-  ],
-  "loesung": "kontraproduktiv"
- },
- {
-  "cue": "🧊 sober / level-headed",
-  "luecke": "",
-  "ok": [
-   "nücht"
-  ],
-  "loesung": "nüchtern"
- }
-];
-// ======== SPRECH-TRAINER GENERISCH (mündlicher Abruf unter Zeitdruck) — FB-SPRECH-GENERIC ========
-// Daten kommen aus SP_DATA (pro Lektion): { cue, luecke?, hint?, ok:[Wortanfänge], loesung, beispiel? }
-// Erkannt wird ein Treffer, wenn ein gesprochenes Wort mit einem der ok-Wortanfänge beginnt
-// (bei "stamm|partikel" muss zusätzlich die Partikel als eigenes Wort fallen).
-// Konkurrenz = die ok-Wortanfänge aller anderen Karten (→ „✗ X statt Y“).
-// SP_TEXTE (optional, pro Lektion vor der Engine definiert) ersetzt die Verb-Formulierungen — z. B. Wortschatz: Wort + Artikel.
-var SP_T = (function(){ var d = {start:'Das Nomen erscheint – dann laut das passende Verb sagen, bevor der Balken abgelaufen ist.', kurz:'Laut Nomen + passendes Verb sagen.', satz:'Laut einen ganzen Satz mit dem passenden Verb sprechen.', frage:'Kam das Verb sofort?', erkannt:'✓ richtiges Verb erkannt', dabei:'✓ Richtig – das passende Verb war dabei!', nichtDabei:'– das passende Verb war nicht dabei.'}; var u = window.SP_TEXTE || {}; for (var k in u) d[k] = u[k]; return d; })();
-var spQueue = [], spPos = 0, spTimer = null, spRunde = {ok:0, total:0, fehler:[], mic:false, micOk:0, micTotal:0}, spMic = false, spRec = null, spGehoert = '', spOffen = false, spBewertet = false;
-var SpRecCtor = window.SpeechRecognition || window.webkitSpeechRecognition || null;
-function spEsc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-function spMischen(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-function spSek(){ return Number(document.getElementById('sp-zeit').value); }
-function spModus(){ return document.getElementById('sp-modus').value; }
-function spStart(mitMic){
-  if (mitMic === true && !spMic) spMicToggle();
-  if (mitMic === false && spMic) spMicToggle();
-  spQueue = spMischen(SP_DATA.slice());
-  spPos = 0; spRunde = {ok:0, total:0, fehler:[], mic:spMic, micOk:0, micTotal:0}; spZeige();
-}
-function spStopp(){ if (spTimer) clearInterval(spTimer); spTimer = null; spRecStop(); }
-function spZeige(){
-  spStopp(); spOffen = false;
-  var box = document.getElementById('sp-karte');
-  if (!spQueue.length || spPos >= spQueue.length){
-    var nochmal = spRunde.fehler.length ? '<div class="sp-wdh"><strong>Noch nicht automatisch:</strong> ' + spRunde.fehler.map(function(x){ return spEsc(x.loesung); }).join(' · ') + '</div>' : '';
-    var micBtn = SpRecCtor ? '<button class="sp-btn ok" onclick="spStart(true)">🎤 Mit Mikrofon starten</button>' : '';
-    box.innerHTML = '<div class="sp-leer">' + (spRunde.total ? '🎉 Runde fertig – <strong>' + spRunde.ok + ' von ' + spRunde.total + '</strong> sofort parat' + (spRunde.mic ? ' · Mikrofon: ' + spRunde.micOk + ' von ' + spRunde.micTotal + ' richtig erkannt' : '') + '.' : SP_T.start) +
-      nochmal + '<div class="sp-leer-btns">' + micBtn + '<button class="sp-btn" onclick="spStart(false)">' + (spRunde.total ? 'Noch eine Runde ohne Mikrofon' : 'Ohne Mikrofon starten') + '</button></div>' +
-      (SpRecCtor ? '' : '<div class="sp-hint">Dieser Browser hat keine Spracherkennung – mit Mikrofon geht es in Chrome oder Safari.</div>') + '</div>';
-    spStandZeigen();
-    return;
-  }
-  var e = spQueue[spPos], sek = spSek();
-  var aufgabe = spModus() === 'satz' ? SP_T.satz : SP_T.kurz;
-  box.innerHTML = '<div class="sp-meta">Karte ' + (spPos + 1) + ' von ' + spQueue.length + '</div>' +
-    '<div class="sp-cue">' + spEsc(e.cue) + ' <span class="sp-luecke">' + spEsc(e.luecke == null ? '___' : e.luecke) + '</span></div>' +
-    (e.hint ? '<div class="sp-hint">(' + spEsc(e.hint) + ')</div>' : '') +
-    '<div class="sp-aufgabe">🗣️ ' + aufgabe + '</div>' +
-    '<div class="sp-bar"><div id="sp-fill"></div></div><div class="sp-count" id="sp-count">' + sek + ' s</div>' +
-    '<div class="sp-gehoert" id="sp-gehoert"></div>' +
-    '<div class="sp-loesung" id="sp-loesung"></div>' +
-    '<div class="sp-aktion" id="sp-aktion"><button class="sp-btn" onclick="spAufloesen()">Lösung zeigen</button></div>';
-  var ende = Date.now() + sek * 1000; // Uhrzeit statt Tick-Zählung: robust gegen gedrosselte Timer
-  var fill = document.getElementById('sp-fill'), cnt = document.getElementById('sp-count');
-  spTimer = setInterval(function(){ var rest = Math.max(0, ende - Date.now()); fill.style.width = (rest / (sek * 1000) * 100) + '%'; cnt.textContent = Math.ceil(rest / 1000) + ' s'; if (rest <= 0) spAufloesen(); }, 100);
-  spGehoert = ''; spBewertet = false; spStandZeigen(); if (spMic) spRecStart(e);
-}
-function spAufloesen(){
-  if (spOffen) return; spOffen = true;
-  if (spTimer) clearInterval(spTimer); spTimer = null;
-  setTimeout(spRecStop, 800); // kurz nachhören, falls das letzte Wort noch kommt
-  var e = spQueue[spPos];
-  var cnt = document.getElementById('sp-count'); if (cnt) cnt.textContent = 'Lösung';
-  document.getElementById('sp-loesung').innerHTML = '<div class="sp-loesung-zeile"><strong>' + spEsc(e.loesung) + '</strong></div>' + (e.beispiel ? '<div class="sp-beispiel">' + spEsc(e.beispiel) + '</div>' : '');
-  document.getElementById('sp-aktion').innerHTML = '<span class="sp-frage">' + SP_T.frage + '</span><span><button class="sp-btn ok" onclick="spBewerten(true)">✓ Ja, sofort</button> <button class="sp-btn" onclick="spBewerten(false)">✗ Nein, überlegt</button></span>';
-  if (!spMic) spStatus('Vergleiche mit der Lösung: Hast du <strong>' + spEsc(e.loesung) + '</strong> gesagt? Dann „Ja, sofort“.', 'info');
-  setTimeout(function(){ if (spOffen && spQueue[spPos] === e) spMicFazit(e); }, 900);
-}
-function spBewerten(ok){
-  if (spBewertet) return; spBewertet = true;
-  var e = spQueue[spPos];
-  spRunde.total++; if (ok) spRunde.ok++; else spRunde.fehler.push(e);
-  var akt = document.getElementById('sp-aktion');
-  if (akt) akt.innerHTML = ok ? '<span class="sp-quittung gut">✓ Sofort gewusst – weiter so!</span>' : '<span class="sp-quittung schlecht">↺ Merk dir: <strong>' + spEsc(e.loesung) + '</strong> – kommt am Ende der Runde in die Wiederholungsliste.</span>';
-  spStandZeigen();
-  setTimeout(function(){ spPos++; spZeige(); }, ok ? 900 : 1800);
-}
-function spStandZeigen(){
-  var el = document.getElementById('sp-stand'); if (!el) return;
-  if (!spQueue.length){ el.innerHTML = ''; return; }
-  var karte = Math.min(spPos + 1, spQueue.length);
-  el.innerHTML = '<span>Karte <strong>' + karte + '</strong> von ' + spQueue.length + '</span><span class="sp-ok">✓ ' + spRunde.ok + ' sofort</span><span class="sp-no">✗ ' + (spRunde.total - spRunde.ok) + ' überlegt</span>' +
-    (spMic ? '<span>🎤 ' + spRunde.micOk + ' von ' + spRunde.micTotal + ' erkannt</span>' : '<span class="sp-ohne">ohne Mikrofon – du bewertest dich selbst</span>');
-}
-function spMicToggle(){
-  spMic = !spMic;
-  var b = document.getElementById('sp-mic'); b.textContent = spMic ? '🎤 Mikrofon ist an' : '🎤 Mikrofon ist aus'; b.classList.toggle('ok', spMic);
-  if (!spMic){ spRecStop(); spStatus(''); return; }
-  if (spTimer && spQueue[spPos]) spRecStart(spQueue[spPos]);
-  else spStatus('🎤 Mikrofon ist an – es hört ab der nächsten Karte zu.', 'info');
-}
-function spStatus(html, typ){
-  var el = document.getElementById('sp-gehoert'); if (!el) return;
-  el.className = 'sp-gehoert' + (typ ? ' sp-' + typ : '');
-  el.innerHTML = html;
-}
-var SP_FEHLER = {
-  'not-allowed': '🚫 Mikrofon blockiert. Bitte oben in der Adressleiste das Mikrofon für diese Seite erlauben und neu laden.',
-  'service-not-allowed': '🚫 Spracherkennung ist in diesem Browser gesperrt. Bitte Chrome oder Safari verwenden.',
-  'audio-capture': '🎤 Kein Mikrofon gefunden. Bitte ein Mikrofon anschließen oder in den Systemeinstellungen freigeben.',
-  'network': '📶 Die Spracherkennung braucht eine Internetverbindung (Chrome schickt die Aufnahme an Google).',
-  'language-not-supported': 'Deutsch wird von der Spracherkennung dieses Browsers nicht unterstützt.'
-};
-function spRecStart(e){
-  if (!SpRecCtor){ spStatus('Dieser Browser hat keine Spracherkennung. Bitte Chrome oder Safari verwenden.', 'warn'); return; }
-  spRecStop();
-  var karte = spPos;
-  try {
-    var rec = new SpRecCtor(); spRec = rec;
-    rec.lang = 'de-DE'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 3;
-    rec.onstart = function(){ if (spRec === rec && !spGehoert) spStatus('<span class="sp-puls">●</span> Ich höre zu … jetzt sprechen.', 'info'); };
-    rec.onresult = function(ev){
-      var t = ''; for (var i = 0; i < ev.results.length; i++) t += ev.results[i][0].transcript + ' ';
-      spGehoert = t.trim(); spGehoertZeigen(e);
-      // richtiges Verb sicher erkannt → Karte sofort auflösen (Belohnung ohne Warten)
-      var last = ev.results[ev.results.length - 1];
-      if (last && last.isFinal && !spOffen && spPos === karte && spUrteil(e).hat) spAufloesen();
-    };
-    rec.onerror = function(ev){
-      var msg = SP_FEHLER[ev.error];
-      if (msg){ spStatus(msg, 'warn'); if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed' || ev.error === 'audio-capture'){ spMic = false; var b = document.getElementById('sp-mic'); if (b){ b.textContent = '🎤 Mikrofon ist aus'; b.classList.remove('ok'); } } }
-      else if (ev.error === 'no-speech' && !spGehoert && !spOffen) spStatus('🤫 Noch nichts gehört – bitte lauter oder näher am Mikrofon sprechen.', 'warn');
-    };
-    // Chrome beendet die Erkennung nach Sprechpausen von selbst → solange die Karte läuft, neu starten
-    rec.onend = function(){ if (spRec === rec && spMic && !spOffen && spPos === karte && spTimer){ try { rec.start(); } catch (x){} } };
-    rec.start();
-  } catch (x){ spRec = null; spStatus('Die Spracherkennung konnte nicht gestartet werden.', 'warn'); }
-}
-function spRecStop(){ if (spRec){ var r = spRec; spRec = null; try { r.onend = null; r.onresult = null; r.stop(); } catch (x){} } }
-function spWoerter(){ return spGehoert.toLowerCase().replace(/[.,!?;:„“"–-]/g, ' ').split(/\s+/).filter(Boolean); }
-// ok-Eintrag: "stamm" = ein Wort beginnt so · "stamm|partikel" = trennbares Verb (legt … ab → "leg|ab");
-// bei "stamm|partikel" zählt auch der zu-Infinitiv als ein Wort (abzulegen → "ab"+"zu"+"leg").
-function spTreffer(w, eintrag){
-  var t = eintrag.toLowerCase().split('|'), st = t[0], pt = t[1];
-  var hit = null;
-  w.forEach(function(x){ if (!hit && x.indexOf(st) === 0) hit = x; });
-  if (hit && (!pt || w.indexOf(pt) !== -1)) return hit;
-  if (pt){ var zu = pt + 'zu' + st; for (var i = 0; i < w.length; i++) if (w[i].indexOf(zu) === 0) return w[i]; }
-  return null;
-}
-function spUrteil(e){
-  // Wörter, die schon auf der Karte stehen (der Lerner spricht sie mit), zählen nie als Verb
-  var cue = (e.cue + ' ' + (e.luecke || '')).toLowerCase().replace(/[.,!?;:„“"–-]/g, ' ').split(/\s+/).filter(Boolean);
-  var w = spWoerter().filter(function(x){ return cue.indexOf(x) === -1; });
-  var hat = e.ok.some(function(o){ return spTreffer(w, o); });
-  var eigen = e.ok.map(function(s){ return s.toLowerCase(); });
-  var falsch = [];
-  if (!hat) SP_DATA.forEach(function(x){ if (x === e) return; x.ok.forEach(function(o){ if (eigen.indexOf(o.toLowerCase()) !== -1) return; var t = spTreffer(w, o); if (t && falsch.indexOf(t) === -1) falsch.push(t); }); });
-  return {hat: hat, falsch: falsch};
-}
-function spGehoertZeigen(e){
-  if (!spGehoert) return;
-  var u = spUrteil(e);
-  var urteil = u.hat ? '<span class="sp-ok">' + SP_T.erkannt + '</span>' : u.falsch.length ? '<span class="sp-no">✗ „' + spEsc(u.falsch[0]) + '“ passt hier nicht</span>' : '';
-  spStatus('🎤 Gehört: „' + spEsc(spGehoert) + '“ ' + urteil, u.hat ? 'gut' : (u.falsch.length ? 'schlecht' : 'info'));
-}
-function spMicFazit(e){
-  if (!spMic) return;
-  var u = spUrteil(e), html, typ, empf = null;
-  if (!spGehoert){ html = '🎤 Das Mikrofon hat nichts verstanden. Bewerte dich bitte selbst.'; typ = 'warn'; }
-  else if (u.hat){ html = '🎤 Gehört: „' + spEsc(spGehoert) + '“ <span class="sp-ok">' + SP_T.dabei + '</span>'; typ = 'gut'; empf = true; }
-  else if (u.falsch.length){ html = '🎤 Gehört: „' + spEsc(spGehoert) + '“ <span class="sp-no">✗ Du hast „' + spEsc(u.falsch[0]) + '“ gesagt – richtig ist: ' + spEsc(e.loesung) + '.</span>'; typ = 'schlecht'; empf = false; }
-  else { html = '🎤 Gehört: „' + spEsc(spGehoert) + '“ <span class="sp-no">' + SP_T.nichtDabei + '</span>'; typ = 'schlecht'; empf = false; }
-  spStatus(html, typ);
-  if (empf !== null){ spRunde.micTotal++; if (empf) spRunde.micOk++; spStandZeigen(); }
-  if (empf !== null){ var btns = document.querySelectorAll('#sp-aktion .sp-btn'); if (btns.length === 2) btns[empf ? 0 : 1].classList.add('sp-empf'); }
-}
-function initSprechTrainer(){
-  ['sp-modus','sp-zeit'].forEach(function(id){ document.getElementById(id).addEventListener('change', function(){ spQueue = []; spZeige(); }); });
-  if (SpRecCtor) document.getElementById('sp-mic').hidden = false;
-  var sec = document.getElementById('sec-sprechen');
-  document.addEventListener('keydown', function(ev){
-    if (ev.code !== 'Space' || !sec.classList.contains('active')) return;
-    if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(ev.target.tagName)) return;
-    ev.preventDefault();
-    if (!spQueue.length || spPos >= spQueue.length) spStart(spMic); else if (!spOffen) spAufloesen(); else spBewerten(true);
-  });
-  // Mikrofon aus, sobald der Tab verlassen wird
-  document.querySelectorAll('.nav-btn').forEach(function(b){ b.addEventListener('click', function(){ if (!sec.classList.contains('active')) spStopp(); }); });
-  spZeige();
-}
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSprechTrainer); else initSprechTrainer();
 </script>
 </body>
 </html>

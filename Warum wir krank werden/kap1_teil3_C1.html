@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
-<title>C1 · Warum wir krank werden – Kapitel 1 (Teil 3): Insulinresistenz</title>
+<title>Warum wir krank werden – Kapitel 1, Teil 3: Insulinresistenz (C1)</title>
 <style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
 :root {
   --sw-paper: #f5eee0;
@@ -105,21 +105,22 @@ body {
   opacity:0.95; color:rgba(255,255,255,0.9); margin:0;
 }
 .header .big-emoji { font-size:2.6em; display:block; margin-top:8px; }
+/* ===== NAV (Variante C: Aktiv-Pille) ===== */
 .nav {
-  display:flex; flex-wrap:nowrap; background:var(--bg-f8f9fa);
-  border-top:1px solid var(--bd-ddd); border-left:1px solid var(--bd-ddd); border-right:1px solid var(--bd-ddd);
+  display: flex; flex-wrap: wrap; gap: 4px;
+  background: #eef0fb; padding: 6px;
+  border-bottom: 2px solid #e9ecef;
 }
 .nav-btn {
-  flex:1; padding:14px 10px; text-align:center; cursor:pointer;
-  border-right:1px solid var(--bd-ddd); border-bottom:1px solid var(--bd-ddd);
-  transition:all 0.3s; font-size:0.92em; font-weight:500; color:var(--tx-666);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  flex: 1 1 auto; min-width: 64px; padding: 12px 8px;
+  border: none; background: none; cursor: pointer;
+  font-weight: 500; color: #666; transition: all 0.2s; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.nav-btn:last-child { border-right:none; }
-.nav-btn:hover { background:var(--bg-e9ecef); color:var(--tx-495057); }
-.nav-btn.active { background:var(--sf-pill); color:var(--tx-667eea); font-weight:600; border-bottom:3px solid var(--bd-667eea); }
-.nav-emoji { font-size:1.3em; line-height:1.2; }
-.nav-label { font-size:0.78em; margin-top:2px; line-height:1.2; }
+.nav-btn:hover { background: #e1e5fb; color: #667eea; }
+.nav-btn.active { background: #fff; color: #667eea; font-weight: 700; box-shadow: 0 1px 4px rgba(102,126,234,.25); }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
 .section { display:none; }
 .section.active { display:block; }
 .sec-inner { padding:24px; }
@@ -130,10 +131,7 @@ body {
 }
 @media (max-width:600px) {
   .tab-banner { max-height:120px; }
-  .nav { flex-wrap:wrap; }
-  .nav-btn { flex:1 1 25%; min-width:0; font-size:0.75em; padding:10px 4px; border-right:1px solid var(--bd-ddd); }
-  .nav-btn:last-child { border-right:1px solid var(--bd-ddd); }
-  body { padding:8px; }
+        body { padding:8px; }
 }
 .section-title { font-size:1.4em; font-weight:700; color:var(--tx-667eea); margin-bottom:20px; }
 .section-sub { color:var(--tx-888); font-size:0.92em; margin-bottom:20px; }
@@ -522,6 +520,54 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .container { overflow: hidden; overflow: clip; }
 .wortbank { position: sticky; top: 0; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 @media (max-width: 600px) { .wortbank { padding: 8px; gap: 6px; } .wortbank-chip { padding: 3px 9px; font-size: 0.85em; } }
+
+/* ── INTERVIEW-FORMAT (Lesetext) ── */
+.lese-text .lead { font-style:italic; color:var(--tx-666); margin-bottom:22px; }
+.lese-text h2 { font-family:Georgia,serif; color:var(--tx-667eea); font-size:1.25em; margin:0 0 10px; text-align:left; }
+.lese-text .frage { font-weight:700; color:var(--tx-667eea); margin-top:1.4em; text-align:left; }
+.lese-text .antwort { margin-bottom:1.1em; }
+
+.genus-chip.gsel { outline:3px solid #667eea; outline-offset:2px; }
+
+/* ── GRAMMATIK-TAB ── */
+.gr-regel { display:grid; grid-template-columns:1fr; gap:10px; margin:4px 0 20px; }
+.gr-karte { background:var(--bg-f8f9ff); border:1px solid var(--bd-dde3ff); border-left:4px solid var(--bd-667eea);
+            border-radius:0 10px 10px 0; padding:12px 16px; }
+.gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
+.gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
+.gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+.gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
+           padding:12px; margin-bottom:14px; min-height:48px; }
+.gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
+           font-size:0.9em; color:var(--tx-667eea); font-weight:600; cursor:pointer; white-space:normal;
+           transition:all .15s; }
+.gr-chip:hover { background:var(--bg-eef0ff); }
+.gr-chip.sel { background:var(--bg-667eea); color:var(--tx-fff); border-color:var(--bd-667eea); }
+.gr-chip.ok { background:var(--bg-e8f8f0); border-color:var(--bd-27ae60); color:var(--tx-27ae60); }
+.gr-chip.wrong { background:var(--bg-fdeaea); border-color:var(--bd-e74c3c); color:var(--tx-e74c3c); }
+.gr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:22px; }
+.gr-col-title { font-size:0.82em; font-weight:700; color:var(--tx-667eea); text-align:center; margin-bottom:5px; }
+.gr-zone { background:var(--bg-faf8ff); border:2px dashed var(--bd-c3c9f5); border-radius:10px; padding:9px;
+           min-height:92px; display:flex; flex-wrap:wrap; gap:6px; align-content:flex-start; }
+.gr-zone.over { border-color:var(--bd-667eea); background:var(--bg-eef0ff); }
+.gr-kasten { background:var(--bg-f8f9fa); border-radius:10px; padding:11px 14px; margin-bottom:14px;
+             font-size:0.9em; color:var(--tx-667eea); font-weight:600; text-align:center; }
+.gr-item { background:var(--bg-f8f9ff); border:1px solid var(--bd-dde3ff); border-radius:10px;
+           padding:12px 15px; margin-bottom:11px; }
+.gr-vor { color:var(--tx-888); font-size:0.86em; font-style:italic; margin-bottom:7px; }
+.gr-ziel { display:flex; flex-wrap:wrap; align-items:flex-end; gap:6px; font-size:0.97em; color:var(--tx-333);
+           line-height:1.9; }
+.gr-feld { display:flex; flex-direction:column; align-items:center; }
+.gr-hint { font-size:0.66em; color:var(--tx-999); line-height:1.1; margin-bottom:1px; }
+.gr-in { border:none; border-bottom:2px solid var(--bd-b9a7f0); background:transparent; font-size:0.97em;
+         font-family:inherit; color:var(--tx-333); padding:1px 3px; text-align:center; min-width:96px;
+         max-width:190px; outline:none; }
+.gr-in.ok { border-bottom-color:var(--bd-27ae60); color:var(--tx-27ae60); font-weight:600; }
+.gr-in.wrong { border-bottom-color:var(--bd-e74c3c); color:var(--tx-e74c3c); }
+@media (max-width:600px) {
+  .gr-grid { grid-template-columns:1fr 1fr; }
+  .gr-in { min-width:76px; }
+}
 </style>
 <style>/* FB-SPRECH-WORTSCHATZ-CSS */
 /* ===== SPRECH-TRAINER GENERISCH (FB-SPRECH-GENERIC) ===== */
@@ -606,27 +652,26 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 <!-- HEADER -->
 <div class="header">
   <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
-  <h1>Kapitel 1: Insulinresistenz — der Blick auf das falsche Molekül</h1>
+  <h1>Kapitel 1: Insulinresistenz — der Blick auf das Insulin</h1>
   <p>C1 – Warum wir krank werden · Kapitel 1, Teil 3</p>
-  <div class="big-emoji">🔬</div>
+  <div class="big-emoji">🧩</div>
 </div>
 
 <!-- NAV -->
 <div class="nav">
   <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📖</span><span class="nav-label">Vorentlastung</span></div>
   <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">📄</span><span class="nav-label">Lesetext</span></div>
-  <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">🔤</span><span class="nav-label">Genus</span></div>
-  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
-  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">☑️</span><span class="nav-label">Verständnis</span></div>
-  <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
-  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
-  <div class="nav-btn" onclick="showSection(7)"><!-- FB-SPRECH-WORTSCHATZ --><span class="nav-emoji">🗣️</span><span class="nav-label">Sprechen</span></div>
-  <div class="nav-btn" onclick="showSection(8)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
+  <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">🔧</span><span class="nav-label">Grammatik</span></div>
+  <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🔤</span><span class="nav-label">Genus</span></div>
+  <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
+  <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">☑️</span><span class="nav-label">Verständnis</span></div>
+  <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+  <div class="nav-btn" onclick="showSection(7)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+  <div class="nav-btn" onclick="showSection(8)"><!-- FB-SPRECH-WORTSCHATZ --><span class="nav-emoji">🗣️</span><span class="nav-label">Sprechen</span></div>
+  <div class="nav-btn" onclick="showSection(9)"><span class="nav-emoji">📨</span><span class="nav-label">Schreibwerkstatt</span></div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 0: VORENTLASTUNG -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section active" id="sec-0">
   <img class="tab-banner" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23667eea%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23764ba2%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22200%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M400%2070%20q0%20-34%2034%20-34%20q34%200%2034%2034%20q0%2034%20-68%2074%20q-68%20-40%20-68%20-74%20q0%20-34%2034%20-34%20q34%200%2034%2034%22%20stroke-opacity%3D%220.9%22%2F%3E%3Cpolyline%20points%3D%22120%2C100%20330%2C100%20356%2C100%20378%2C64%20404%2C140%20430%2C100%20470%2C100%20680%2C100%22%20stroke-width%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Herz und Pulslinie – Gesundheit">
   <div class="sec-inner">
@@ -635,16 +680,13 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 1: LESETEXT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-1">
   <img class="tab-banner" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23667eea%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23764ba2%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22200%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M240%2C100%20L248%2C113%20L256%2C125%20L264%2C134%20L272%2C140%20L280%2C142%20L288%2C140%20L296%2C134%20L304%2C125%20L312%2C113%20L320%2C100%20L328%2C87%20L336%2C75%20L344%2C66%20L352%2C60%20L360%2C58%20L368%2C60%20L376%2C66%20L384%2C75%20L392%2C87%20L400%2C100%20L408%2C113%20L416%2C125%20L424%2C134%20L432%2C140%20L440%2C142%20L448%2C140%20L456%2C134%20L464%2C125%20L472%2C113%20L480%2C100%20L488%2C87%20L496%2C75%20L504%2C66%20L512%2C60%20L520%2C58%20L528%2C60%20L536%2C66%20L544%2C75%20L552%2C87%20L560%2C100%22%20stroke-opacity%3D%220.95%22%2F%3E%3Cpath%20d%3D%22M240%2C100%20L248%2C87%20L256%2C75%20L264%2C66%20L272%2C60%20L280%2C58%20L288%2C60%20L296%2C66%20L304%2C75%20L312%2C87%20L320%2C100%20L328%2C113%20L336%2C125%20L344%2C134%20L352%2C140%20L360%2C142%20L368%2C140%20L376%2C134%20L384%2C125%20L392%2C113%20L400%2C100%20L408%2C87%20L416%2C75%20L424%2C66%20L432%2C60%20L440%2C58%20L448%2C60%20L456%2C66%20L464%2C75%20L472%2C87%20L480%2C100%20L488%2C113%20L496%2C125%20L504%2C134%20L512%2C140%20L520%2C142%20L528%2C140%20L536%2C134%20L544%2C125%20L552%2C113%20L560%2C100%22%20stroke-opacity%3D%220.75%22%2F%3E%3Cline%20x1%3D%22255%22%20y1%3D%22123%22%20x2%3D%22255%22%20y2%3D%2277%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22281%22%20y1%3D%22142%22%20x2%3D%22281%22%20y2%3D%2258%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22307%22%20y1%3D%22121%22%20x2%3D%22307%22%20y2%3D%2279%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22333%22%20y1%3D%2279%22%20x2%3D%22333%22%20y2%3D%22121%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22359%22%20y1%3D%2258%22%20x2%3D%22359%22%20y2%3D%22142%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22385%22%20y1%3D%2277%22%20x2%3D%22385%22%20y2%3D%22123%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22411%22%20y1%3D%22118%22%20x2%3D%22411%22%20y2%3D%2282%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22437%22%20y1%3D%22142%22%20x2%3D%22437%22%20y2%3D%2258%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22463%22%20y1%3D%22126%22%20x2%3D%22463%22%20y2%3D%2274%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22489%22%20y1%3D%2285%22%20x2%3D%22489%22%20y2%3D%22115%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22515%22%20y1%3D%2259%22%20x2%3D%22515%22%20y2%3D%22141%22%20stroke-opacity%3D%220.55%22%2F%3E%3Cline%20x1%3D%22541%22%20y1%3D%2271%22%20x2%3D%22541%22%20y2%3D%22129%22%20stroke-opacity%3D%220.55%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="DNA-Doppelhelix – Insulin und Stoffwechsel">
   <div class="sec-inner">
-    <div class="section-title">📄 Die Lösung: Bewegung und Ernährung</div>
-    <div class="section-sub">Kapitel 1 aus „Warum wir krank werden“ (Teil 3): die Definition der Insulinresistenz und warum alle auf die Glukose schauen — frei zusammengefasst.</div>
+    <div class="section-title">📄 Der falsche Hauptdarsteller</div>
     <div class="lese-text" id="lesetext">
-      <p>Nachdem wir nun wissen, was Insulin ist, können wir die <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Insulinresistenz</span> genau bestimmen. Ganz einfach gesagt handelt es sich um eine verminderte Reaktion auf das Hormon Insulin. Eine <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Zelle</span>, die nicht mehr richtig auf Insulin hört, ist insulinresistent; ignorieren immer mehr Zellen seinen Ruf, gilt schließlich der ganze Körper als resistent. Das Hauptmerkmal ist dabei fast paradox: Es liegt mehr Insulin im Blut, und trotzdem wirkt es schlechter.</p>
+<p>Nachdem wir nun wissen, was Insulin ist, können wir die <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Insulinresistenz</span> genau bestimmen. Ganz einfach gesagt handelt es sich um eine verminderte Reaktion auf das Hormon Insulin. Eine <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Zelle</span>, die nicht mehr richtig auf Insulin hört, ist insulinresistent; ignorieren immer mehr Zellen seinen Ruf, gilt schließlich der ganze Körper als resistent. Das Hauptmerkmal ist dabei fast paradox: Es liegt mehr Insulin im Blut, und trotzdem wirkt es schlechter.</p>
 
       <h3>Warum die Glukose gefährlich wird</h3>
       <p>Eine der wichtigsten Aufgaben des Insulins ist es, den <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Blutglukosespiegel</span> zu regulieren. Ein dauerhaft erhöhter Wert ist gefährlich, ja tödlich — deshalb braucht der Körper Insulin, um die <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Glukose</span> aus dem Blut zu entfernen und den Spiegel zu senken. Bei einer Insulinresistenz gerät dieser Vorgang ins Stocken, und es kann zum bekannten Diabeteszeichen kommen, dem hohen Blutzucker, den die Ärzte <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Hyperglykämie</span> nennen. Entscheidend ist jedoch: Eine Insulinresistenz kann lange bestehen, bevor jemand überhaupt an <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Typ-2-Diabetes</span> erkrankt.</p>
@@ -658,61 +700,77 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       <h3>Das übersehene Hormon</h3>
       <p>Weil man die Krankheit über ihr sichtbarstes Zeichen bestimmte — die übermäßige <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Urinausscheidung</span> und den vielen Zucker darin —, verloren wir den zweiten, wichtigeren Aspekt aus den Augen: das Insulin. <span class="vocab-hl" title="📖 Vokabel aus der Vorentlastung">Typ-1-Diabetes</span> und Typ-2-Diabetes haben zwar ein Zuviel an Glukose gemeinsam, doch beim Insulin sind sie Gegensätze. Beim Typ 1 ist zu wenig oder gar kein Insulin vorhanden; der Typ 2 dagegen ist die Folge von zu viel Insulin. Und zu viel Insulin ist nichts anderes als Insulinresistenz. Weil sie dem Typ-2-Diabetes so nahesteht, betrachtete man auch sie durch die Brille der Glukose — und übersah damit ihren wahren Kern.</p>
     </div>
-    <div class="story-source">Quelle: C1 · Warum wir krank werden · Kapitel 1 (Teil 3) · frei zusammengefasst nach Benjamin Bikman, „Warum wir krank werden“ (riva 2021)</div>
+    <div class="story-source">Quelle: C1 · Warum wir krank werden · Kapitel 1, Teil 3 · frei zusammengefasst nach Benjamin Bikman, „Warum wir krank werden“ (riva 2021)</div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 2: GENUS -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="sec-gr">
+  <img class="tab-banner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDIwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJGw7xuZiBGb3JtZW4sIGRpZSB2b20gUmVjaHRlY2sgenVtIEtyZWlzIMO8YmVyZ2VoZW4iPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRURGRSIvPjxwYXRoIGQ9Ik0wLDE0MiBDMTgwLDExOCAzMzAsMTU0IDUyMCwxMzYgQzcwMCwxMTkgODYwLDE1MCAxMDQwLDEzMCBDMTExMCwxMjIgMTE2MCwxMjggMTIwMCwxMjQgTDEyMDAsMjAwIEwwLDIwMCBaIiBmaWxsPSIjQ0VDQkY2Ii8+PHJlY3QgeD0iMjgwIiB5PSI2MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSI0IiBmaWxsPSIjMjYyMTVDIi8+PHJlY3QgeD0iNDIwIiB5PSI2MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iIzI2MjE1QyIvPjxyZWN0IHg9IjU2MCIgeT0iNjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iMjQiIGZpbGw9IiNmM2M0NmEiLz48cmVjdCB4PSI3MDAiIHk9IjYwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjM4IiBmaWxsPSIjMjYyMTVDIi8+PHJlY3QgeD0iODQwIiB5PSI2MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSI1MCIgZmlsbD0iIzI2MjE1QyIvPjxwYXRoIGQ9Ik0zMDAsMzQgQzUyMCw4IDc2MCw4IDk2MCwzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTM0QUI3IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWRhc2hhcnJheT0iNyA4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNOTQ0LDIyIGwyNiwxMCBsLTI0LDE0IHoiIGZpbGw9IiM1MzRBQjciLz48cGF0aCBkPSJNMCwxODQgQzIwMCwxNzIgMzYwLDE5MiA1NjAsMTgxIEM3NjAsMTcwIDkzMCwxOTAgMTEyMCwxNzkgQzExNjAsMTc3IDExODAsMTgwIDEyMDAsMTc5IEwxMjAwLDIwMCBMMCwyMDAgWiIgZmlsbD0iIzI2MjE1QyIvPjwvc3ZnPg==" alt="Fünf Formen, die vom Rechteck zum Kreis übergehen">
+  <div class="sec-inner">
+    <h2>🔧 Vom Hauptwort zur Handlung und zurück</h2>
+    <div class="control-bar">
+      <div class="btn-row">
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showGrammatikLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetGrammatik(); resetTimer(9);">↺ Neustart</button>
+      </div>
+      <div class="timer-display">
+        <span>⏱ <span id="timer-9">00:00</span></span>
+        <span>🏆 <span id="best-9">--:--</span></span>
+      </div>
+    </div>
+    <div class="gr-regel">
+      <div class="gr-karte"><div class="gr-karte-kopf">Nominalstil · Handlung als Nomen</div><div class="gr-karte-bsp">die <b>Verschiebung</b> der Prioritäten · die <b>Messung</b> des Blutzuckers</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Verbalstil · dieselbe Aussage als Satz</div><div class="gr-karte-bsp">Die Prioritäten <b>haben sich verschoben</b>. · Man <b>misst</b> den Blutzucker.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Typische Nominalendungen</div><div class="gr-karte-bsp">-ung · -heit · -keit · -nis · -tion — fast immer aus einem Verb gebildet</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Der Nominalstil braucht eine Präposition</div><div class="gr-karte-bsp"><b>nach</b> der Messung · <b>bei</b> der Verschiebung · <b>durch</b> die Reaktion</div></div>
+    </div>
+    <div class="gr-bank" id="grBank"></div>
+    <div class="gr-grid" id="grZonen">
+        <div><div class="gr-col-title">Nomen auf -ung</div><div class="gr-zone" data-zone="gz-a"></div></div>
+        <div><div class="gr-col-title">Nomen auf -heit oder -keit</div><div class="gr-zone" data-zone="gz-b"></div></div>
+        <div><div class="gr-col-title">Nomen auf -tion oder -nis</div><div class="gr-zone" data-zone="gz-c"></div></div>
+        <div><div class="gr-col-title">Verb</div><div class="gr-zone" data-zone="gz-d"></div></div>
+    </div>
+    <div class="gr-kasten">nach · bei · durch · wegen · trotz · vor · seit · mit</div>
+    <div id="grUmform"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-2">
   <img class="tab-banner" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23667eea%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23764ba2%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22200%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22100%22%20r%3D%2246%22%2F%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22100%22%20r%3D%2215%22%20stroke-opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%2272%22%20r%3D%2228%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%2272%22%20r%3D%229%22%20stroke-opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22512%22%20cy%3D%22140%22%20r%3D%2222%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22138%22%20r%3D%2226%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22138%22%20r%3D%229%22%20stroke-opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22308%22%20cy%3D%2266%22%20r%3D%2218%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Zellen und Moleküle">
   <div class="sec-inner">
     <h2>🔤 Genus-Training</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showGenusLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetGenus(); resetTimer(2);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showGenusLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetGenus(); resetTimer(2);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-2">00:00</span></span>
         <span>🏆 <span id="best-2">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Ziehe die Wörter in die richtige Spalte: <strong>der / die / das / Plural</strong>. Das Feedback erscheint sofort.</div>
     <div class="genus-bank" id="genusBank"></div>
     <div class="genus-grid">
-      <div class="genus-col">
-        <div class="genus-col-title">der</div>
-        <div class="drop-zone" id="dz-der" data-cat="der"></div>
-      </div>
-      <div class="genus-col">
-        <div class="genus-col-title">die</div>
-        <div class="drop-zone" id="dz-die" data-cat="die"></div>
-      </div>
-      <div class="genus-col">
-        <div class="genus-col-title">das</div>
-        <div class="drop-zone" id="dz-das" data-cat="das"></div>
-      </div>
-      <div class="genus-col">
-        <div class="genus-col-title">Plural</div>
-        <div class="drop-zone" id="dz-pl" data-cat="pl"></div>
-      </div>
+      <div class="genus-col"><div class="genus-col-title">der</div><div class="drop-zone" id="dz-der" data-cat="der"></div></div>
+      <div class="genus-col"><div class="genus-col-title">die</div><div class="drop-zone" id="dz-die" data-cat="die"></div></div>
+      <div class="genus-col"><div class="genus-col-title">das</div><div class="drop-zone" id="dz-das" data-cat="das"></div></div>
+      <div class="genus-col"><div class="genus-col-title">Plural</div><div class="drop-zone" id="dz-pl" data-cat="pl"></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 3: LÜCKENTEXT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-3">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/37860169/pexels-photo-37860169.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Notizbuch und Stifte">
   <div class="sec-inner">
     <h2>✏️ Lückentext</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showLueckenLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetLuecken(); resetTimer(3);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showLueckenLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetLuecken(); resetTimer(3);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-3">00:00</span></span>
@@ -721,89 +779,77 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     </div>
     <div class="wortbank" id="wortbank-luecken"></div>
     <div id="lueckenContainer" class="luecken-story">
-    <p>Karim liest weiter und lernt die Definition: Eine <input class="blank" data-answer="Insulinresistenz"> ist eine verminderte Reaktion auf Insulin.</p>
-    <p>Eine Zelle, die nicht mehr auf Insulin hört, nennt man <input class="blank" data-answer="insulinresistent">.</p>
-    <p>Das Hauptmerkmal ist paradox: Es liegt mehr <input class="blank" data-answer="Insulin"> im Blut, das dennoch schlechter wirkt.</p>
-    <p>Eigentlich soll Insulin die <input class="blank" data-answer="Glukose"> aus dem Blut entfernen und den Spiegel senken.</p>
-    <p>Gelingt das nicht, steigt der Blutzucker — man spricht dann von <input class="blank" data-answer="Hyperglykämie">.</p>
-    <p>Wichtig ist: Die Resistenz besteht oft lange vor dem eigentlichen <input class="blank" data-answer="Diabetes">.</p>
-    <p>Ärzte benutzen die Glukose als <input class="blank" data-answer="Marker">, obwohl sie nur eine Nebenrolle spielt.</p>
-    <p>Der lateinische Namensteil „mellitus“ bedeutet <input class="blank" data-answer="honigsüß">, weil der Urin süß schmeckte.</p>
-    <p>Beim Typ 1 ist zu wenig, beim <input class="blank" data-answer="Typ-2-Diabetes"> dagegen zu viel Insulin vorhanden.</p>
-    <p>Dieses Zuviel an Insulin übersah man lange, weil alle nur auf den <input class="blank" data-answer="Zucker"> schauten.</p>
+    <p>Die Redaktionskonferenz dauert schon vierzig Minuten, als Jarek den Entwurf auf den Tisch legt. Es ist ein Erklärstück über eine Störung, die fast niemand beim Namen nennen kann: die <input class="blank" data-answer="Insulinresistenz">.</p>
+    <p>Seine Chefin liest zwei Absätze und streicht den ersten Satz durch. Die Formulierung von der verminderten Reaktion der Zellen auf das Hormon sei korrekt, aber tot. Sie schreibt daneben, was im Körper tatsächlich geschieht: Die Zellen <input class="blank" data-answer="reagieren"> immer schwächer.</p>
+    <p>Jarek verteidigt sich. In der Fachliteratur stehe es genau so. Eben darin, antwortet sie, liege das <input class="blank" data-answer="Problem">: Was in einer Fachzeitschrift Präzision sei, werde in der Zeitung zur Mauer.</p>
+    <p>Trotzdem hält sie einen Begriff für unersetzlich. Für den dauerhaft erhöhten Blutzucker gebe es ein Wort, das der Leser lernen solle, weil er ihm im Arztbrief wieder begegne: <input class="blank" data-answer="Hyperglykämie">.</p>
+    <p>Die zweite Streichung trifft den Kern des Stücks. Jarek hatte geschrieben, die Verschiebung der Prioritäten sei historisch bedingt. Seine Chefin macht daraus eine Handlung: Über dreitausend Jahre hinweg habe man die Krankheit an ihrem sichtbarsten Zeichen <input class="blank" data-answer="gemessen">.</p>
+    <p>Und dieses Zeichen war nun einmal der süße Urin, aus dem die Griechen und die indischen Ärzte ihre Namen bildeten — daher der Namensteil <input class="blank" data-answer="mellitus">.</p>
+    <p>Weil man sich daran orientierte, geriet der zweite, wichtigere Teil aus dem Blick. Nicht die Glukose sei der Hauptdarsteller, schreibt Jarek in der dritten Fassung, sondern das <input class="blank" data-answer="Insulin">.</p>
+    <p>Seine Chefin nickt zum ersten Mal. Der Satz funktioniere, weil er eine <input class="blank" data-answer="Behauptung"> aufstelle und nicht bloß einen Zustand beschreibe.</p>
+    <p>Am Ende bleibt eine Regel, die Jarek sich an den Monitor klebt: Wer erklären wolle, müsse aus Hauptwörtern wieder <input class="blank" data-answer="Tätigkeiten"> machen.</p>
+    <p>Die Überschrift, auf die sie sich einigen, enthält kein einziges Fachwort. Sie lautet: Warum wir auf den falschen <input class="blank" data-answer="Wert"> schauen.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 4: MULTIPLE-CHOICE -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-4">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/3747468/pexels-photo-3747468.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Frau liest ein Buch">
   <div class="sec-inner">
     <h2>☑️ Textverständnis</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showMcLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetMc(); resetTimer(4);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showMcLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetMc(); resetTimer(4);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-4">00:00</span></span>
         <span>🏆 <span id="best-4">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Klicke auf die richtige Antwort. Das Feedback erscheint sofort.</div>
     <div id="mcContainer"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 5: SATZBAU -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-5">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/278941/pexels-photo-278941.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Buchstaben-Bausteine">
   <div class="sec-inner">
     <h2>🧩 Satzbau</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="sbShowAllSolutions()">Alle lösen</button>
-        <button class="btn" onclick="sbResetAll(); resetTimer(5);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="sbShowAllSolutions()">💡 Alle lösen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="sbResetAll(); resetTimer(5);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-5">00:00</span></span>
         <span>🏆 <span id="best-5">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Ziehe die Wörter in die richtige Reihenfolge. Das Feedback erscheint, wenn alle Chips platziert sind.</div>
     <div id="satzbauContainer"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 7: WORTSCHATZ -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-7">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/1383379/pexels-photo-1383379.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bücherstapel">
   <div class="sec-inner">
     <h2>📚 Wortschatz</h2>
     <div class="control-bar">
       <div class="btn-row">
-        <button class="btn" onclick="showWortschatzLoesung()">Lösungen</button>
-        <button class="btn" onclick="resetWortschatz(); resetTimer(7);">Neu starten</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="showWortschatzLoesung()">💡 Lösungen</button>
+        <button class="btn" style="background:#f5f7ff; border:1px solid #c5cff5; border-radius:8px; padding:6px 16px; font-size:0.85em; color:#667eea; font-weight:600;" onclick="resetWortschatz(); resetTimer(7);">↺ Neustart</button>
       </div>
       <div class="timer-display">
         <span>⏱ <span id="timer-7">00:00</span></span>
         <span>🏆 <span id="best-7">--:--</span></span>
       </div>
     </div>
-    <div class="hilfe-box">Tippe Artikel, Wort und Plural. Nomen werden großgeschrieben.</div>
     <div id="wortschatzContainer"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SEC 6: SCHREIBWERKSTATT -->
-<!-- ═══════════════════════════════════════════════════════════ -->
 <!-- TAB: Sprech-Trainer Wortschatz (FB-SPRECH-WORTSCHATZ) -->
 <div class="section" id="sec-sprechen">
   <img class="tab-banner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDIwMCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iMjAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNwcmVjaC1UcmFpbmVyIiB4bWxuczpjMnBhPSJodHRwOi8vYzJwYS5vcmcvbWFuaWZlc3QiPjxtZXRhZGF0YT48YzJwYTptYW5pZmVzdD5BQUFXZ21wMWJXSUFBQUFlYW5WdFpHTXljR0VBRVFBUWdBQUFxZ0E0bTNFRFl6SndZUUFBQUJaY2FuVnRZZ0FBQUVkcWRXMWtZekp0WVFBUkFCQ0FBQUNxQURpYmNRTjFjbTQ2WXpKd1lUbzJaak15WTJNeVpTMWlaalV3TFRRM1lUQXRZV1ZsTUMwd1lqQTNZamN3TW1GaFptRUFBQUFEbDJwMWJXSUFBQUFwYW5WdFpHTXlZWE1BRVFBUWdBQUFxZ0E0bTNFRFl6SndZUzVoYzNObGNuUnBiMjV6QUFBQUFMeHFkVzFpQUFBQVJHcDFiV1JqWW05eUFCRUFFSUFBQUtvQU9KdHhFMk15Y0dFdWFXNW5jbVZrYVdWdWRDNTJNd0FBQUFBWVl6SnphQTZJZEJpSm5kWEZqYmZ5VGVTVDN4Y0FBQUJ3WTJKdmNxTnBaR002Wm05eWJXRjBiV2x0WVdkbEwzTjJaeXQ0Yld4cWFXNXpkR0Z1WTJWSlJIZ3NlRzF3T21scFpEbzVabUV6TXpRME5TMHdaVFV3TFRRd1l6RXRPR0V6TmkxaU16aGpZalU0TWpBeE1ERnNjbVZzWVhScGIyNXphR2x3YUhCaGNtVnVkRTltQUFBQjRtcDFiV0lBQUFCQmFuVnRaR05pYjNJQUVRQVFnQUFBcWdBNG0zRVRZekp3WVM1aFkzUnBiMjV6TG5ZeUFBQUFBQmhqTW5Ob3E2c2krNmluSG5EOC9LTjBURnlidEFBQUFabGpZbTl5b21kaFkzUnBiMjV6Z3FKbVlXTjBhVzl1YTJNeWNHRXViM0JsYm1Wa2FuQmhjbUZ0WlhSbGNuT2hhMmx1WjNKbFpHbGxiblJ6Z2FKamRYSnNlQzF6Wld4bUkycDFiV0ptUFdNeWNHRXVZWE56WlhKMGFXOXVjeTlqTW5CaExtbHVaM0psWkdsbGJuUXVkak5rYUdGemFGZ2dqb2h2SXhLNVNBZnRTTHhlckhtVHg3QitxKzJKVDF1U1FlQjZxVVdpZUZDa1ptRmpkR2x2Ym5nZFkyOXRMbUZ1ZEdoeWIzQnBZeTVqYkdGMVpHVXVjSEp2ZG1sa1pXUnFjR0Z5WVcxbGRHVnljNkY0SDJOdmJTNWhiblJvY205d2FXTXViM0pwWjJsdUxXTnZibVpwWkdWdVkyVm5kVzVyYm05M2JtdGtaWE5qY21sd2RHbHZibmhtUTJ4aGRXUmxJSEJ5YjNacFpHVmtJSFJvYVhNZ1ptbHNaU0JoZENCMGFHVWdjbVZ4ZFdWemRDQnZaaUJoSUhWelpYSWdZVzVrSUcxaGVTQm9ZWFpsSUdOeVpXRjBaV1FnYjNJZ2JXOWthV1pwWldRZ2RHaGxJR1pwYkdVZ1kyOXVkR1Z1ZEhNdWJYTnZablIzWVhKbFFXZGxiblNoWkc1aGJXVm1RMnhoZFdSbGNtRnNiRUZqZEdsdmJuTkpibU5zZFdSbFpQVUFBQURJYW5WdFlnQUFBRUJxZFcxa1kySnZjZ0FSQUJDQUFBQ3FBRGliY1JOak1uQmhMbWhoYzJndVpHRjBZUUFBQUFBWVl6SnphQnV0RmFqaStEanhrUGU1dm5YcldpOEFBQUNBWTJKdmNxVmpZV3huWm5Ob1lUSTFObU53WVdSTkFBQUFBQUFBQUFBQUFBQUFBR1JvWVhOb1dDQ20rNUdZQnQ4c0RIb3R0ZTQwejF2TTlxOFQvd0JINzNwVW1Qd2g5UW40Q1dSdVlXMWxibXAxYldKbUlHMWhibWxtWlhOMGFtVjRZMngxYzJsdmJuT0JvbVZ6ZEdGeWRCaS9abXhsYm1kMGFCa2VCQUFBQWo1cWRXMWlBQUFBSjJwMWJXUmpNbU5zQUJFQUVJQUFBS29BT0p0eEEyTXljR0V1WTJ4aGFXMHVkaklBQUFBQ0QyTmliM0tsWTJGc1oyWnphR0V5TlRacGMybG5ibUYwZFhKbGVFMXpaV3htSTJwMWJXSm1QUzlqTW5CaEwzVnlianBqTW5CaE9qWm1NekpqWXpKbExXSm1OVEF0TkRkaE1DMWhaV1V3TFRCaU1EZGlOekF5WVdGbVlTOWpNbkJoTG5OcFoyNWhkSFZ5WldwcGJuTjBZVzVqWlVsRWVDeDRiWEE2YVdsa09qZzJaV0pqWlRRekxUTTRaREF0TkRKa1pDMWhZV0psTFdGbE56a3lOVGt3TWpjd05ISmpjbVZoZEdWa1gyRnpjMlZ5ZEdsdmJuT0RvbU4xY214NExYTmxiR1lqYW5WdFltWTlZekp3WVM1aGMzTmxjblJwYjI1ekwyTXljR0V1YVc1bmNtVmthV1Z1ZEM1Mk0yUm9ZWE5vV0NDT2lHOGpFcmxJQisxSXZGNnNlWlBIc0g2cjdZbFBXNUpCNEhxcFJhSjRVS0pqZFhKc2VDcHpaV3htSTJwMWJXSm1QV015Y0dFdVlYTnpaWEowYVc5dWN5OWpNbkJoTG1GamRHbHZibk11ZGpKa2FHRnphRmdnLzYrR3B3dXVtektNSVRXNjRlS0t2ZHRWQ2Zzb1Q0OGVobjUxb2JCeUpWcWlZM1Z5YkhncGMyVnNaaU5xZFcxaVpqMWpNbkJoTG1GemMyVnlkR2x2Ym5Ndll6SndZUzVvWVhOb0xtUmhkR0ZrYUdGemFGZ2czTXVWc2RaZEZ0VWVMdWtrMXc4SGNMRFlFdG1IWnViNEh2U1JPQ1lFSEsxMFkyeGhhVzFmWjJWdVpYSmhkRzl5WDJsdVptK2paRzVoYldWdlFXNTBhSEp2Y0dsaklFWnBiR1Z6WjNabGNuTnBiMjVsTVM0d0xqQnJjM0JsWTFabGNuTnBiMjVsTWk0MExqQUFBQkE0YW5WdFlnQUFBQ2hxZFcxa1l6Smpjd0FSQUJDQUFBQ3FBRGliY1FOak1uQmhMbk5wWjI1aGRIVnlaUUFBQUJBSVkySnZjdEtFV1FJU29nRW1HQ0ZaQWdvd2dnSUdNSUlCamFBREFnRUNBaFJBNWFBSzdzSTUwTDY0Zy9vR1FnVTlaMVVUQURBS0JnZ3Foa2pPUFFRREF6QkpNUmN3RlFZRFZRUUtFdzVCYm5Sb2NtOXdhV01zSUZCQ1F6RXVNQ3dHQTFVRUF4TWxRVzUwYUhKdmNHbGpJRU52Ym5SbGJuUWdRM0psWkdWdWRHbGhiSE1nVW05dmRDQkRRVEFlRncweU5qQTRNRGN4T0RRek5UWmFGdzB5T0RBNE1EWXhPVFF6TlRaYU1FUXhGekFWQmdOVkJBb1REa0Z1ZEdoeWIzQnBZeXdnVUVKRE1Ta3dKd1lEVlFRREV5QkJiblJvY205d2FXTWdRMnhoZFdSbElFTnZiblJsYm5RZ1UybG5ibWx1WnpCWk1CTUdCeXFHU000OUFnRUdDQ3FHU000OUF3RUhBMElBQkpoNkNtdkxVQmdGRk5VMHZVS2xPVnRFNmRqZDE3TDVTdXdYMExlbUZpc0JNM2RrZC8zY3lqeEZBM1FvNVM0NmZYMC9paFkwVlo3bWZiOUtGNzAzdDVPaldEQldNQTRHQTFVZER3RUIvd1FFQXdJSGdEQVZCZ05WSFNVRURqQU1CZ29yQmdFRUFZUG9YZ0lCTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwakJCZ3dGb0FVemxIaUJJRk9aRnNqK09QRXo1bytuTUhYWE1Jd0NnWUlLb1pJemowRUF3TURad0F3WkFJd01YTWRGSjRCZXRMTFZZN09SdUU5bm9xYmJBWk9abi9hQXJYeVR3RkFaZktyUHp4RjJ2UG9KTmYxK1VDZGcxWEdBakJ3WDF6ZDlXR3FZa3FtTDVTRnF3MVF5U2pyMXpKZnBKTTkrMXJkRHdTUExNT1BPakt1aVhqb1UvcFVVZUc5UndtaFkzQmhaRmtObmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFQWllRRElueEptNTNLSW9lVy9MSXF6bklFYmI4WkFLZkZTek13eWgxSzVGcXlFTCs0NnJWcWZlYVZGWEp4YTNjZnFydE00cW0xTWhieTk3b2RoV2ZMR1l6ZGs9PC9jMnBhOm1hbmlmZXN0PjwvbWV0YWRhdGE+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZ3NwIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzY0YmEyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2Jnc3ApIi8+PHBhdGggZD0iTTAgMTUwIFEgMjAwIDExMCA0MDAgMTQ4IFQgODAwIDE0NiBUIDEyMDAgMTMwIEwxMjAwIDIwMCBMMCAyMDAgWiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEwKSIvPjxyZWN0IHg9IjI1MCIgeT0iNDAiIHdpZHRoPSI1NiIgaGVpZ2h0PSI4OCIgcng9IjI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOTIpIi8+PHBhdGggZD0iTTIyOCAxMDAgYTUwIDUwIDAgMCAwIDEwMCAwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC45MikiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTI3OCAxNTAgdjIyIE0yNTAgMTcyIGg1NiIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOTIpIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zNzAgNzAgcTE4IDMwIDAgNjAgTTQwMCA1NSBxMzAgNDUgMCA5MCBNNDMwIDQwIHE0MiA2MCAwIDEyMCIgc3Ryb2tlPSIjZmZkNTRmIiBzdHJva2Utd2lkdGg9IjciIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxyZWN0IHg9IjUyMCIgeT0iODYiIHdpZHRoPSI1NjAiIGhlaWdodD0iMjYiIHJ4PSIxMyIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjI1KSIvPjxyZWN0IHg9IjUyMCIgeT0iODYiIHdpZHRoPSIzMzAiIGhlaWdodD0iMjYiIHJ4PSIxMyIgZmlsbD0iI2ZmZDU0ZiIvPjx0ZXh0IHg9IjEwODAiIHk9IjcwIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIzMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjk1KSIgdGV4dC1hbmNob3I9ImVuZCI+OCDCtyA1IMK3IDMgczwvdGV4dD48L3N2Zz4=" alt="Sprech-Trainer: Mikrofon und ablaufender Zeitbalken">
@@ -826,6 +872,8 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
   <div class="sp-tipp">Tipp: Leertaste zeigt die Lösung bzw. geht weiter. Mit Mikrofon hört die Seite mit und prüft, ob das richtige Wort mit Artikel gefallen ist (Chrome, Safari).</div>
 </div>
 <!-- /FB-SPRECH-WORTSCHATZ -->
+
+<!-- ══════════════════════════════════════════════════ -->
 <div class="section" id="sec-6">
   <img class="tab-banner" style="object-position:top" src="https://images.pexels.com/photos/5387233/pexels-photo-5387233.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Person schreibt">
   <div class="sec-inner">
@@ -897,7 +945,6 @@ var GENUS_DATA = [
   { word:"Zellen",             cat:"pl"  },
   { word:"Prioritäten",        cat:"pl"  }
 ];
-
 
 var MC_DATA = [
   { "frage": "Wie definiert der Autor die Insulinresistenz?", "opts": ["Als völliges Fehlen von Insulin","Als verminderte Reaktion der Zellen auf Insulin","Als zu wenig Glukose","Als eine Infektion"], "correct": 1 },
@@ -979,11 +1026,45 @@ var AUFGABEN = [
     frage:"Schreibe einen Dialog (8 Sätze, 4 pro Person): Eine Person glaubt, bei Diabetes gehe es nur um Zucker, die andere erklärt die Rolle des Insulins. Verwende mindestens drei Fachbegriffe." }
 ];
 
+var GR_CHIPS = [
+  { w:"Verschiebung", z:"gz-a" },
+  { w:"Messung", z:"gz-a" },
+  { w:"Senkung", z:"gz-a" },
+  { w:"Ausscheidung", z:"gz-a" },
+  { w:"Steigerung", z:"gz-a" },
+  { w:"Entstehung", z:"gz-a" },
+  { w:"Krankheit", z:"gz-b" },
+  { w:"Gesundheit", z:"gz-b" },
+  { w:"Häufigkeit", z:"gz-b" },
+  { w:"Genauigkeit", z:"gz-b" },
+  { w:"Reaktion", z:"gz-c" },
+  { w:"Funktion", z:"gz-c" },
+  { w:"Ergebnis", z:"gz-c" },
+  { w:"Verhältnis", z:"gz-c" },
+  { w:"messen", z:"gz-d" },
+  { w:"reagieren", z:"gz-d" },
+  { w:"entstehen", z:"gz-d" },
+  { w:"senken", z:"gz-d" }
+];
+
+var GR_HINTS = ["Präposition", "Nomen"];
+
+var GR_UMFORM = [
+  { vor:"Man hat den Blutzucker gemessen. Danach war alles klar.", pre:"Alles war klar", a1:"nach", mid:"der", a2:"Messung", post:"des Blutzuckers." },
+  { vor:"Die Zellen reagieren schwächer. Dadurch steigt der Insulinspiegel.", pre:"Der Insulinspiegel steigt", a1:"durch", mid:"die schwächere", a2:"Reaktion", post:"der Zellen." },
+  { vor:"Die Prioritäten haben sich verschoben. Deshalb schauen wir falsch hin.", pre:"Wir schauen falsch hin", a1:"wegen", mid:"der", a2:"Verschiebung", post:"der Prioritäten." },
+  { vor:"Der Urin wird übermäßig ausgeschieden. Daran erkannte man die Krankheit.", pre:"Man erkannte die Krankheit", a1:"an", mid:"der übermäßigen", a2:"Ausscheidung", post:"des Urins." },
+  { vor:"Die Störung entsteht langsam. Währenddessen bleibt der Zucker normal.", pre:"Der Zucker bleibt normal", a1:"während", mid:"der langsamen", a2:"Entstehung", post:"der Störung." },
+  { vor:"Der Wert wird gesenkt. Erst danach bessert sich der Zustand.", pre:"Der Zustand bessert sich erst", a1:"nach", mid:"der", a2:"Senkung", post:"des Wertes." },
+  { vor:"Die Krankheit ist häufig. Trotzdem kennt sie kaum jemand.", pre:"Kaum jemand kennt sie", a1:"trotz", mid:"ihrer", a2:"Häufigkeit", post:"." },
+  { vor:"Man hat die Glukose gemessen. Seitdem übersieht man das Insulin.", pre:"Man übersieht das Insulin", a1:"seit", mid:"der", a2:"Messung", post:"der Glukose." }
+];
+
 /* ═══════════════════════════════════════════════════════
    SCHREIBWERKSTATT KONSTANTEN
 ═══════════════════════════════════════════════════════ */
 var SCHREIB_NIVEAU = 'C1';
-var SCHREIB_CODE   = 'KAP1T3C1';
+var SCHREIB_CODE   = 'BIKMAN1T3C1';
 var SCHREIB_MIN_CHARS = 15;
 var FORMSUBMIT_ENDPOINT   = 'https://api.web3forms.com/submit';
 var FORMSUBMIT_ACCESS_KEY = 'e96ea83f-67e2-4fff-81df-76fee86a09ff';
@@ -1064,6 +1145,18 @@ function initGenus() {
     chip.textContent = item.word;
     chip.dataset.cat = item.cat;
     chip.draggable = true;
+    chip.addEventListener('click',function(e){
+      e.stopPropagation();
+      if (chip.parentNode && chip.parentNode.classList.contains('drop-zone')) {
+        chip.classList.remove('gsel','correct','wrong');
+        bank.appendChild(chip);
+        if (draggedChip === chip) draggedChip = null;
+        colorAllGenusChips(); return;
+      }
+      if (draggedChip && draggedChip !== chip) draggedChip.classList.remove('gsel');
+      if (draggedChip === chip) { chip.classList.remove('gsel'); draggedChip = null; return; }
+      draggedChip = chip; chip.classList.add('gsel'); timerAutoStart(2);
+    });
     chip.addEventListener('dragstart',function(e){
       e.dataTransfer.setData('text/plain','');
       draggedChip = chip;
@@ -1086,7 +1179,7 @@ function initGenus() {
       colorAllGenusChips();
     });
     zone.addEventListener('click',function(){
-      if(draggedChip){zone.appendChild(draggedChip);draggedChip=null;colorAllGenusChips();}
+      if(draggedChip){draggedChip.classList.remove('gsel');zone.appendChild(draggedChip);draggedChip=null;colorAllGenusChips();timerAutoStart(2);}
     });
   });
   bank.addEventListener('dragover',function(e){e.preventDefault();});
@@ -1532,8 +1625,108 @@ function resetWortschatz(){
 /* ═══════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════ */
+
+/* ═══ GRAMMATIK-TAB (Tab-Index 2, Timer-Slot 9) ═══ */
+var grSel = null;
+function grShuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+function grMakeChip(c){
+  var el = document.createElement('div');
+  el.className = 'gr-chip'; el.textContent = c.w; el.dataset.zone = c.z; el.draggable = true;
+  el.addEventListener('click', function(){
+    if (el.parentNode && el.parentNode.classList.contains('gr-zone')) { grToBank(el); return; }
+    if (grSel === el) { el.classList.remove('sel'); grSel = null; return; }
+    if (grSel) grSel.classList.remove('sel');
+    grSel = el; el.classList.add('sel');
+  });
+  el.addEventListener('dragstart', function(e){ window.grDrag = el; timerAutoStart(9); e.dataTransfer.effectAllowed='move'; });
+  return el;
+}
+function grToBank(el){
+  el.classList.remove('ok','wrong','sel');
+  document.getElementById('grBank').appendChild(el);
+  grSel = null; grPaint();
+}
+function grPlace(el, zone){
+  timerAutoStart(9);
+  zone.appendChild(el);
+  el.classList.remove('sel'); grSel = null;
+  grPaint(); grDone();
+}
+function grPaint(){
+  document.querySelectorAll('.gr-zone .gr-chip').forEach(function(ch){
+    var inZone = ch.parentNode.dataset.zone;
+    ch.classList.toggle('ok', ch.dataset.zone === inZone);
+    ch.classList.toggle('wrong', ch.dataset.zone !== inZone);
+  });
+}
+function grLive(inp){
+  var v = inp.value.trim(), a = inp.dataset.ans;
+  inp.classList.remove('ok','wrong');
+  if (!v) return;
+  timerAutoStart(9);
+  if (v === a) inp.classList.add('ok');
+  else if (a.indexOf(v) === 0) { /* Präfix: neutral lassen */ }
+  else inp.classList.add('wrong');
+  grDone();
+}
+function grDone(){
+  var chips = document.querySelectorAll('#grZonen .gr-chip');
+  if (chips.length !== GR_CHIPS.length) return;
+  var allChips = true;
+  chips.forEach(function(ch){ if (ch.dataset.zone !== ch.parentNode.dataset.zone) allChips = false; });
+  var allIn = true;
+  document.querySelectorAll('#grUmform .gr-in').forEach(function(i){ if (i.value.trim() !== i.dataset.ans) allIn = false; });
+  if (allChips && allIn) stopTimer(9);
+}
+function initGrammatik(){
+  var bank = document.getElementById('grBank'); if (!bank) return;
+  bank.innerHTML = '';
+  grShuffle(GR_CHIPS).forEach(function(c){ bank.appendChild(grMakeChip(c)); });
+  document.querySelectorAll('.gr-zone').forEach(function(z){
+    z.addEventListener('click', function(){ if (grSel) grPlace(grSel, z); });
+    z.addEventListener('dragover', function(e){ e.preventDefault(); z.classList.add('over'); });
+    z.addEventListener('dragleave', function(){ z.classList.remove('over'); });
+    z.addEventListener('drop', function(e){ e.preventDefault(); z.classList.remove('over'); if (window.grDrag) grPlace(window.grDrag, z); window.grDrag = null; });
+  });
+  bank.addEventListener('click', function(e){ if (e.target === bank && grSel) grToBank(grSel); });
+  bank.addEventListener('dragover', function(e){ e.preventDefault(); });
+  bank.addEventListener('drop', function(e){ e.preventDefault(); if (window.grDrag) grToBank(window.grDrag); window.grDrag = null; });
+
+  var wrap = document.getElementById('grUmform'); wrap.innerHTML = '';
+  GR_UMFORM.forEach(function(it){
+    var d = document.createElement('div'); d.className = 'gr-item';
+    var v = document.createElement('div'); v.className = 'gr-vor'; v.textContent = it.vor; d.appendChild(v);
+    var z = document.createElement('div'); z.className = 'gr-ziel';
+    function txt(s){ if (!s) return; var sp = document.createElement('span'); sp.textContent = s; z.appendChild(sp); }
+    function feld(ans, hint){
+      var f = document.createElement('div'); f.className = 'gr-feld';
+      var h = document.createElement('span'); h.className = 'gr-hint'; h.textContent = hint; f.appendChild(h);
+      var i = document.createElement('input'); i.className = 'gr-in'; i.type = 'text';
+      i.setAttribute('placeholder',''); i.dataset.ans = ans; i.size = Math.max(6, ans.length);
+      i.oninput = function(){ grLive(i); };
+      f.appendChild(i); z.appendChild(f);
+    }
+    txt(it.pre); feld(it.a1, GR_HINTS[0]); txt(it.mid); feld(it.a2, GR_HINTS[1]); txt(it.post);
+    d.appendChild(z); wrap.appendChild(d);
+  });
+}
+function resetGrammatik(){
+  initGrammatik();
+}
+function showGrammatikLoesung(){
+  var zones = {};
+  document.querySelectorAll('.gr-zone').forEach(function(z){ zones[z.dataset.zone] = z; z.innerHTML = ''; });
+  document.getElementById('grBank').innerHTML = '';
+  GR_CHIPS.forEach(function(c){ var el = grMakeChip(c); zones[c.z].appendChild(el); });
+  grPaint();
+  document.querySelectorAll('#grUmform .gr-in').forEach(function(i){ i.value = i.dataset.ans; i.classList.remove('wrong'); i.classList.add('ok'); });
+  stopTimer(9);
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   initVorentlastung();
+  initGrammatik();
   initGenus();
   initMc();
   initSatzbau();
@@ -1593,16 +1786,16 @@ document.head.appendChild(styleEl);
    Markup-Vertrag (vom Produzenten erzeugt, vom Gate check_lueckentext.py geprüft):
      <div class="wortbank" id="wortbank-luecken"></div>
      <div id="lueckenContainer" class="luecken-story">
-    <p>Karim liest weiter und lernt die Definition: Eine <input class="blank" data-answer="Insulinresistenz"> ist eine verminderte Reaktion auf Insulin.</p>
-    <p>Eine Zelle, die nicht mehr auf Insulin hört, nennt man <input class="blank" data-answer="insulinresistent">.</p>
-    <p>Das Hauptmerkmal ist paradox: Es liegt mehr <input class="blank" data-answer="Insulin"> im Blut, das dennoch schlechter wirkt.</p>
-    <p>Eigentlich soll Insulin die <input class="blank" data-answer="Glukose"> aus dem Blut entfernen und den Spiegel senken.</p>
-    <p>Gelingt das nicht, steigt der Blutzucker — man spricht dann von <input class="blank" data-answer="Hyperglykämie">.</p>
-    <p>Wichtig ist: Die Resistenz besteht oft lange vor dem eigentlichen <input class="blank" data-answer="Diabetes">.</p>
-    <p>Ärzte benutzen die Glukose als <input class="blank" data-answer="Marker">, obwohl sie nur eine Nebenrolle spielt.</p>
-    <p>Der lateinische Namensteil „mellitus“ bedeutet <input class="blank" data-answer="honigsüß">, weil der Urin süß schmeckte.</p>
-    <p>Beim Typ 1 ist zu wenig, beim <input class="blank" data-answer="Typ-2-Diabetes"> dagegen zu viel Insulin vorhanden.</p>
-    <p>Dieses Zuviel an Insulin übersah man lange, weil alle nur auf den <input class="blank" data-answer="Zucker"> schauten.</p>
+    <p>Karim liest, dass Herzerkrankungen die weltweit führende <input class="blank" data-answer="Todesursache"> sind.</p>
+    <p>Meist beschuldigt man Rauchen und Cholesterin, doch der Autor nennt die <input class="blank" data-answer="Insulinresistenz"> als eigentlichen Kern.</p>
+    <p>Fast alle Menschen mit hohem <input class="blank" data-answer="Blutdruck"> sind zugleich insulinresistent.</p>
+    <p>Insulin erhöht das Hormon Aldosteron, das die Nieren anweist, <input class="blank" data-answer="Natrium"> zurückzuhalten.</p>
+    <p>Wo Natrium bleibt, folgt das <input class="blank" data-answer="Wasser"> — das Blutvolumen und der Druck steigen.</p>
+    <p>Der wichtigste Aspekt der Herzkrankheit ist die <input class="blank" data-answer="Atherosklerose">, das Verengen der Gefäße.</p>
+    <p>Gefährlich wird das Cholesterin erst, wenn oxidativer <input class="blank" data-answer="Stress"> die Fette oxidieren lässt.</p>
+    <p>Weiße Blutkörperchen, die <input class="blank" data-answer="Makrophagen">, verschlingen dann das oxidierte Fett.</p>
+    <p>Vollgefressen werden sie zu <input class="blank" data-answer="Schaumzellen">, die den Kern der Plaque bilden.</p>
+    <p>Bei insulinresistenten Menschen fördert Insulin sogar die <input class="blank" data-answer="Entzündung">.</p>
     </div>
 
    Timer-Anbindung: die Engine ruft generische Hooks window.fbLtTimerStart()/
@@ -1831,211 +2024,6 @@ function schreibToFormData(o){var fd=new FormData();Object.keys(o).forEach(funct
 
 
 
-<script>
-/* ── Gerüst-Modus Add-on (B1+) — additiv generiert. Mischt row/parts zur Laufzeit in satzbauData,
-   hüllt Init/Lösung/Reset. Original-Logik für Sätze ohne row bleibt unberührt. */
-(function(){
-  var CFG = {"bank":"sb-bank-","row":"sb-row-","fb":"sb-fb-","caps":true,"click":true,"tab":5};
-  var SBGAP = [{"i":0,"row":["_","_","_","eine","_","_","_","das","Insulin"],"parts":["die","Insulinresistenz","ist","verminderte","Reaktion","auf"]},{"i":1,"row":["_","_","_","die","Insulin","_","_","_","_","_"],"parts":["eine","Zelle",",","ignoriert",",","gilt","als","insulinresistent"]},{"i":2,"row":["_","_","Insulin","_","_","_","das","_","_","schlechter"],"parts":["trotz","mehr","im","Blut","wirkt","Hormon","immer"]},{"i":3,"row":["_","_","_","überschüssige","_","_","dem","Blut"],"parts":["Insulin","entfernt","die","Glukose","aus"]},{"i":4,"row":["_","_","_","oft","_","_","dem","_","Diabetes"],"parts":["die","Resistenz","besteht","lange","vor","eigentlichen"]},{"i":5,"row":["_","_","_","Glukose","_","für","_","Hauptdarsteller"],"parts":["wir","halten","die","fälschlich","den"]},{"i":6,"row":["_","_","_","_","_","den","Insulinspiegel","_"],"parts":["eigentlich","müssten","wir","zuerst","auf","schauen"]},{"i":7,"row":["_","_","_","_","honigsüß","_","_","der","Urin","süß","_"],"parts":["der","Name","mellitus","bedeutet",",","weil","war"]},{"i":8,"row":["_","_","_","_","wenig","_","Typ","_","_","_","viel","Insulin"],"parts":["Typ","1","hat","zu",",","2","dagegen","zu"]}];
-  SBGAP.forEach(function(g){ var ex = satzbauData[g.i]; if (!ex) return;
-    ex.row = g.row; ex.parts = g.parts;
-    if (typeof ex.valid[0] === "string") ex.valid = [ex.valid];
-  });
-  if (typeof window.sbDragged === "undefined") window.sbDragged = null;
-  function bankEl(i){ return document.getElementById(CFG.bank + i); }
-  function rowEl(i){ return document.getElementById(CFG.row + i); }
-  function fbEl(i){ return document.getElementById(CFG.fb + i); }
-  function cap(w){ return w.charAt(0).toUpperCase() + w.slice(1); }
-  function positions(row){ return Array.from(row.children).filter(function(n){ return n.classList.contains("sb-gap") || n.classList.contains("chip"); }); }
-  function chipOf(pos){ return pos.classList.contains("sb-gap") ? pos.querySelector(".chip") : pos; }
-  function updateCaps(row){ if (!CFG.caps) return;
-    positions(row).forEach(function(pos,i){ var c = chipOf(pos); if (!c) return;
-      var o = c.dataset.orig;
-      var proper = o.charAt(0) === o.charAt(0).toUpperCase() && o.charAt(0) !== o.charAt(0).toLowerCase();
-      c.textContent = proper ? o : (i === 0 ? cap(o) : o); });
-  }
-  function sequence(i){ var row = rowEl(i), seq = [], complete = true;
-    positions(row).forEach(function(pos){ var c = chipOf(pos); if (c) seq.push(c.dataset.orig); else complete = false; });
-    return { seq: seq, complete: complete }; }
-  function clearMarks(i){ var row = rowEl(i);
-    row.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("correct","incorrect"); });
-    row.classList.remove("correct","incorrect");
-    var p = row.querySelector(".sb-punkt"); if (p) p.parentNode.removeChild(p); }
-  function afterChange(i){
-    var row = rowEl(i); updateCaps(row);
-    var fb = fbEl(i), info = sequence(i);
-    if (!info.complete){ clearMarks(i); if (fb){ fb.textContent=""; fb.className="satzbau-feedback"; } return; }
-    setTimeout(function(){
-      if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab);
-      var fresh = sequence(i);
-      var ok = satzbauData[i].valid.some(function(v){ return JSON.stringify(v) === JSON.stringify(fresh.seq); });
-      var p = row.querySelector(".sb-punkt"); if (p) p.parentNode.removeChild(p);
-      if (ok){
-        row.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("incorrect"); c.classList.add("correct"); });
-        var punkt = document.createElement("span"); punkt.className = "sb-punkt";
-        punkt.textContent = satzbauData[i].punct || "."; row.appendChild(punkt);
-        row.classList.add("correct"); row.classList.remove("incorrect");
-        if (fb){ fb.className = "satzbau-feedback correct"; fb.textContent = "✓ Korrekt!"; }
-        if (typeof sbCheckAllDone === "function") sbCheckAllDone();
-      } else {
-        row.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("correct","incorrect"); });
-        row.querySelectorAll(".sb-gap .chip").forEach(function(c){ c.classList.add("incorrect"); });
-        row.classList.add("incorrect"); row.classList.remove("correct");
-        if (fb){ fb.className = "satzbau-feedback incorrect"; fb.textContent = "✗ Noch nicht richtig – verschiebe die Wörter!"; }
-      }
-    }, 450);
-  }
-  /* Geführter Modus (B1, 2026-06-10): Sofort-Feedback pro Chip-Platzierung.
-     Richtig (konsistent mit mind. einer valid-Reihenfolge) -> grün + fixiert.
-     Falsch -> rot + Rücksprung in die Bank nach 800 ms. */
-  function toBank(i, chip){
-    chip.textContent = chip.dataset.orig;  // Kleinschreibung wiederherstellen — Bank darf den Satzanfang nicht verraten
-    bankEl(i).appendChild(chip);
-  }
-  function consistent(i){
-    var pos = positions(rowEl(i));
-    var v = satzbauData[i].valid;
-    return v.some(function(o){
-      for (var k = 0; k < pos.length; k++){ var c = chipOf(pos[k]); if (c && c.dataset.orig !== o[k]) return false; }
-      return true; });
-  }
-  function finishRow(i){
-    var row = rowEl(i), fb = fbEl(i);
-    var p = row.querySelector(".sb-punkt"); if (p) p.parentNode.removeChild(p);
-    var punkt = document.createElement("span"); punkt.className = "sb-punkt";
-    punkt.textContent = satzbauData[i].punct || "."; row.appendChild(punkt);
-    row.classList.add("correct"); row.classList.remove("incorrect");
-    if (fb){ fb.className = "satzbau-feedback correct"; fb.textContent = "✓ Korrekt!"; }
-    if (typeof sbCheckAllDone === "function") sbCheckAllDone();
-  }
-  function placeJudge(i, chip){
-    if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab);
-    var row = rowEl(i); updateCaps(row);
-    var fb = fbEl(i);
-    if (consistent(i)){
-      chip.classList.remove("incorrect"); chip.classList.add("correct");
-      chip.dataset.fixed = "1"; chip.draggable = false;
-      if (sequence(i).complete){ finishRow(i); }
-      else if (fb){ fb.className = "satzbau-feedback"; fb.textContent = ""; }
-    } else {
-      chip.classList.add("incorrect");
-      if (fb){ fb.className = "satzbau-feedback incorrect"; fb.textContent = "✗ Das passt hier nicht!"; }
-      setTimeout(function(){
-        chip.classList.remove("incorrect");
-        if (!chip.dataset.fixed && chip.closest(".sb-gap")) toBank(i, chip);
-        updateCaps(rowEl(i));
-        if (fb && /incorrect/.test(fb.className)){ fb.className = "satzbau-feedback"; fb.textContent = ""; }
-      }, 800);
-    }
-  }
-  function makeChip(word, i){
-    var chip = document.createElement("div");
-    var isPunct = [",",".","!","?",";",":"].indexOf(word) !== -1;
-    chip.className = "chip" + (isPunct ? " punct-chip" : ""); chip.textContent = word; chip.draggable = true;
-    chip.dataset.orig = word; chip.dataset.word = word; chip.dataset.sbIdx = String(i);
-    chip.addEventListener("dragstart", function(e){ if (chip.dataset.fixed){ e.preventDefault(); return; } window.sbDragged = chip; if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab); e.dataTransfer.effectAllowed = "move"; });
-    if (CFG.click) chip.addEventListener("click", function(){
-      if (chip.dataset.fixed) return;
-      if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab);
-      var inSlot = chip.closest(".sb-gap");
-      if (inSlot){ toBank(i, chip); updateCaps(rowEl(i)); return; }
-      var free = Array.from(rowEl(i).querySelectorAll(".sb-gap")).find(function(s){ return !s.querySelector(".chip"); });
-      if (free){ free.appendChild(chip); placeJudge(i, chip); }
-    });
-    return chip;
-  }
-  function makeLocked(word){
-    var chip = document.createElement("div");
-    chip.className = "chip sb-locked"; chip.textContent = word;
-    chip.dataset.orig = word; chip.dataset.word = word; chip.dataset.locked = "1";
-    return chip;
-  }
-  function makeSlot(i){
-    var slot = document.createElement("div"); slot.className = "sb-gap";
-    slot.addEventListener("dragover", function(e){ e.preventDefault(); if (window.sbDragged) slot.classList.add("drag-over"); });
-    slot.addEventListener("dragleave", function(){ slot.classList.remove("drag-over"); });
-    slot.addEventListener("drop", function(e){
-      e.preventDefault(); slot.classList.remove("drag-over");
-      var d = window.sbDragged; if (!d || d.dataset.sbIdx !== String(i) || d.dataset.locked || d.dataset.fixed) return;
-      if (slot.querySelector(".chip")) return;  // Lücke schon belegt
-      slot.appendChild(d); window.sbDragged = null; placeJudge(i, d);
-    });
-    return slot;
-  }
-  function registerBank(bank, i){
-    bank.addEventListener("dragover", function(e){ e.preventDefault(); });
-    bank.addEventListener("drop", function(e){
-      e.preventDefault(); var d = window.sbDragged;
-      if (!d || d.dataset.sbIdx !== String(i) || d.dataset.locked || d.dataset.fixed) return;
-      toBank(i, d); window.sbDragged = null; updateCaps(rowEl(i));
-    });
-  }
-  function freshEl(id){ var el = document.getElementById(id); if (!el) return null;
-    var c = el.cloneNode(false); el.parentNode.replaceChild(c, el); return c; }
-  function rebuild(i){
-    var ex = satzbauData[i]; if (!ex || !ex.row) return;
-    var bank = freshEl(CFG.bank + i), row = freshEl(CFG.row + i);
-    if (!bank || !row) return;
-    var fb = fbEl(i); if (fb){ fb.textContent = ""; fb.className = "satzbau-feedback"; }
-    var mov = ex.parts.slice();
-    for (var k = mov.length - 1; k > 0; k--){ var j = Math.floor(Math.random()*(k+1)); var t = mov[k]; mov[k] = mov[j]; mov[j] = t; }
-    mov.forEach(function(w){ bank.appendChild(makeChip(w, i)); });
-    ex.row.forEach(function(tok){ row.appendChild(tok === "_" ? makeSlot(i) : makeLocked(tok)); });
-    registerBank(bank, i);
-    ensureButtons(i);
-  }
-  function rebuildAll(){ satzbauData.forEach(function(ex,i){ if (ex.row) rebuild(i); }); }
-  function showSol(i){
-    rebuild(i);
-    var row = rowEl(i), bank = bankEl(i), sol = satzbauData[i].valid[0];
-    var pool = Array.from(bank.querySelectorAll(".chip"));
-    positions(row).forEach(function(pos,k){
-      if (!pos.classList.contains("sb-gap")) return;
-      var ix = pool.findIndex(function(c){ return c.dataset.orig === sol[k]; });
-      if (ix >= 0){ while (pos.firstChild) pos.removeChild(pos.firstChild); pos.appendChild(pool[ix]); pool.splice(ix,1); }
-    });
-    row.querySelectorAll(".sb-gap .chip").forEach(function(c){ c.classList.add("correct"); c.dataset.fixed = "1"; c.draggable = false; });
-    updateCaps(row);
-    finishRow(i);
-  }
-  function ensureButtons(i){
-    if (document.getElementById("sb-btns-" + i)) return;
-    var anchor = fbEl(i) || rowEl(i); if (!anchor) return;
-    var item = (anchor.closest ? anchor.closest(".satzbau-item") : null) || anchor.parentNode;
-    if (item && [].some.call(item.querySelectorAll("button"), function(b){
-      return /(Lösen|Lösung|Neustart)/.test(b.textContent); })) return;  // native Buttons vorhanden
-    var box = document.createElement("div");
-    box.id = "sb-btns-" + i;
-    box.style.cssText = "display:flex;gap:8px;margin:6px 0 14px 0;";
-    var b1 = document.createElement("button"); b1.type = "button"; b1.className = "btn"; b1.textContent = "Lösen";
-    b1.addEventListener("click", function(){ showSol(i); });
-    var b2 = document.createElement("button"); b2.type = "button"; b2.className = "btn"; b2.textContent = "↺ Neustart";
-    b2.addEventListener("click", function(){ rebuild(i); });
-    box.appendChild(b1); box.appendChild(b2);
-    anchor.parentNode.insertBefore(box, anchor.nextSibling);
-  }
-  ["initSatzbau","buildSatzbau"].forEach(function(fn){
-    if (typeof window[fn] === "function"){ var o = window[fn];
-      window[fn] = function(){ o.apply(this, arguments); rebuildAll(); }; }
-  });
-  if (typeof window.sbReset === "function" && window.sbReset.length === 0){
-    var orall = window.sbReset;
-    window.sbReset = function(){ orall.apply(this, arguments); rebuildAll(); };
-  }
-  if (typeof window.sbResetOne === "function"){
-    var orst = window.sbResetOne;
-    window.sbResetOne = function(i){ if (satzbauData[i] && satzbauData[i].row){ rebuild(i); return; } orst.apply(this, arguments); };
-  }
-  if (typeof window.sbShowSolution === "function"){
-    var osol = window.sbShowSolution;
-    window.sbShowSolution = function(i){ if (satzbauData[i] && satzbauData[i].row){ showSol(i); return; } osol.apply(this, arguments); };
-  }
-  /* Bugfix 2026-06-10: bei leerer Row (Free-Build) zusätzlich die Bank prüfen,
-     sonst baut sich das Gerüst beim Erstladen nie auf (nur nach Neustart). */
-  var pRow = rowEl(0), pBank = bankEl(0);
-  if ((pRow && pRow.children.length) || (pBank && pBank.children.length)) rebuildAll();
-})();
-</script>
 <script>/* FB-SPRECH-WORTSCHATZ-JS */
 var SP_TEXTE = {"start": "Das englische Wort erscheint – dann laut das deutsche Wort mit Artikel sagen, bevor der Balken abgelaufen ist.", "kurz": "Laut das deutsche Wort mit Artikel sagen.", "satz": "Laut einen ganzen Satz mit dem deutschen Wort sprechen.", "frage": "Kam das Wort sofort?", "erkannt": "✓ richtiges Wort erkannt", "dabei": "✓ Richtig – Wort und Artikel waren dabei!", "nichtDabei": "– das richtige Wort (mit Artikel) war nicht dabei."};
 var SP_DATA = [
@@ -2053,7 +2041,7 @@ var SP_DATA = [
   "ok": [
    "zelle|die"
   ],
-  "loesung": "die Zelle, Pl. Zellen"
+  "loesung": "die Zelle"
  },
  {
   "cue": "🩸 blood glucose level",
@@ -2091,9 +2079,17 @@ var SP_DATA = [
   "cue": "🍬 type-2 diabetes",
   "luecke": "",
   "ok": [
-   "typdi|der"
+   "typ-2|der"
   ],
   "loesung": "der Typ-2-Diabetes"
+ },
+ {
+  "cue": "💉 type-1 diabetes",
+  "luecke": "",
+  "ok": [
+   "typ-1|der"
+  ],
+  "loesung": "der Typ-1-Diabetes"
  },
  {
   "cue": "📍 marker",
@@ -2133,7 +2129,7 @@ var SP_DATA = [
   "ok": [
    "merkm|das"
   ],
-  "loesung": "das Merkmal, Pl. Merkmale"
+  "loesung": "das Merkmal"
  },
  {
   "cue": "🤕 symptom",
@@ -2141,7 +2137,7 @@ var SP_DATA = [
   "ok": [
    "sympt|das"
   ],
-  "loesung": "das Symptom, Pl. Symptome"
+  "loesung": "das Symptom"
  },
  {
   "cue": "↔️ opposite",
@@ -2149,7 +2145,7 @@ var SP_DATA = [
   "ok": [
    "gegen|der"
   ],
-  "loesung": "der Gegensatz, Pl. Gegensätze"
+  "loesung": "der Gegensatz"
  },
  {
   "cue": "🔄 reaction",
@@ -2157,7 +2153,7 @@ var SP_DATA = [
   "ok": [
    "reakt|die"
   ],
-  "loesung": "die Reaktion, Pl. Reaktionen"
+  "loesung": "die Reaktion"
  },
  {
   "cue": "🧪 molecule",
@@ -2165,7 +2161,7 @@ var SP_DATA = [
   "ok": [
    "molek|das"
   ],
-  "loesung": "das Molekül, Pl. Moleküle"
+  "loesung": "das Molekül"
  },
  {
   "cue": "🎭 leading role",
@@ -2173,7 +2169,7 @@ var SP_DATA = [
   "ok": [
    "haupt|die"
   ],
-  "loesung": "die Hauptrolle, Pl. Hauptrollen"
+  "loesung": "die Hauptrolle"
  },
  {
   "cue": "🎛 to regulate",
@@ -2203,7 +2199,7 @@ var SP_DATA = [
   "cue": "👁 to lose sight of",
   "luecke": "",
   "ok": [
-   "verli"
+   "aus d"
   ],
   "loesung": "aus den Augen verlieren"
  },
@@ -2428,6 +2424,213 @@ function initSprechTrainer(){
   spZeige();
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSprechTrainer); else initSprechTrainer();
+</script>
+
+<script>
+/* ── Gerüst-Modus Add-on (B1+) — additiv generiert. Mischt row/parts zur Laufzeit in satzbauData,
+   hüllt Init/Lösung/Reset. Original-Logik für Sätze ohne row bleibt unberührt. */
+(function(){
+  var CFG = {"bank":"sb-bank-","row":"sb-row-","fb":"sb-fb-","caps":true,"click":true,"tab":5};
+  /* FB-SB-TIMER-FALLBACK */ if (typeof sbCheckAllDone !== "function") window.sbCheckAllDone = function(){ var ok = satzbauData.every(function(_, i){ var r = document.getElementById(CFG.row + i); return r && r.classList.contains("correct"); }); if (ok && typeof stopTimer === "function") stopTimer(CFG.tab); };
+  var SBGAP = [{"i":0,"row":["_","_","_","eine","_","_","_","das","Insulin"],"parts":["die","Insulinresistenz","ist","verminderte","Reaktion","auf"]},{"i":1,"row":["_","_","_","die","Insulin","_","_","_","_","_"],"parts":["eine","Zelle",",","ignoriert",",","gilt","als","insulinresistent"]},{"i":2,"row":["_","_","Insulin","_","_","_","das","_","_","schlechter"],"parts":["trotz","mehr","im","Blut","wirkt","Hormon","immer"]},{"i":3,"row":["_","_","_","überschüssige","_","_","dem","Blut"],"parts":["Insulin","entfernt","die","Glukose","aus"]},{"i":4,"row":["_","_","_","oft","_","_","dem","_","Diabetes"],"parts":["die","Resistenz","besteht","lange","vor","eigentlichen"]},{"i":5,"row":["_","_","_","Glukose","_","für","_","Hauptdarsteller"],"parts":["wir","halten","die","fälschlich","den"]},{"i":6,"row":["_","_","_","_","_","den","Insulinspiegel","_"],"parts":["eigentlich","müssten","wir","zuerst","auf","schauen"]},{"i":7,"row":["_","_","_","_","honigsüß","_","_","der","Urin","süß","_"],"parts":["der","Name","mellitus","bedeutet",",","weil","war"]},{"i":8,"row":["_","_","_","_","wenig","_","Typ","_","_","_","viel","Insulin"],"parts":["Typ","1","hat","zu",",","2","dagegen","zu"]}];
+  SBGAP.forEach(function(g){ var ex = satzbauData[g.i]; if (!ex) return;
+    ex.row = g.row; ex.parts = g.parts;
+    if (typeof ex.valid[0] === "string") ex.valid = [ex.valid];
+  });
+  if (typeof window.sbDragged === "undefined") window.sbDragged = null;
+  function bankEl(i){ return document.getElementById(CFG.bank + i); }
+  function rowEl(i){ return document.getElementById(CFG.row + i); }
+  function fbEl(i){ return document.getElementById(CFG.fb + i); }
+  function cap(w){ return w.charAt(0).toUpperCase() + w.slice(1); }
+  function positions(row){ return Array.from(row.children).filter(function(n){ return n.classList.contains("sb-gap") || n.classList.contains("chip"); }); }
+  function chipOf(pos){ return pos.classList.contains("sb-gap") ? pos.querySelector(".chip") : pos; }
+  function updateCaps(row){ if (!CFG.caps) return;
+    positions(row).forEach(function(pos,i){ var c = chipOf(pos); if (!c) return;
+      var o = c.dataset.orig;
+      var proper = o.charAt(0) === o.charAt(0).toUpperCase() && o.charAt(0) !== o.charAt(0).toLowerCase();
+      c.textContent = proper ? o : (i === 0 ? cap(o) : o); });
+  }
+  function sequence(i){ var row = rowEl(i), seq = [], complete = true;
+    positions(row).forEach(function(pos){ var c = chipOf(pos); if (c) seq.push(c.dataset.orig); else complete = false; });
+    return { seq: seq, complete: complete }; }
+  function clearMarks(i){ var row = rowEl(i);
+    row.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("correct","incorrect"); });
+    row.classList.remove("correct","incorrect");
+    var p = row.querySelector(".sb-punkt"); if (p) p.parentNode.removeChild(p); }
+  function afterChange(i){
+    var row = rowEl(i); updateCaps(row);
+    var fb = fbEl(i), info = sequence(i);
+    if (!info.complete){ clearMarks(i); if (fb){ fb.textContent=""; fb.className="satzbau-feedback"; } return; }
+    setTimeout(function(){
+      if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab);
+      var fresh = sequence(i);
+      var ok = satzbauData[i].valid.some(function(v){ return JSON.stringify(v) === JSON.stringify(fresh.seq); });
+      var p = row.querySelector(".sb-punkt"); if (p) p.parentNode.removeChild(p);
+      if (ok){
+        row.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("incorrect"); c.classList.add("correct"); });
+        var punkt = document.createElement("span"); punkt.className = "sb-punkt";
+        punkt.textContent = satzbauData[i].punct || "."; row.appendChild(punkt);
+        row.classList.add("correct"); row.classList.remove("incorrect");
+        if (fb){ fb.className = "satzbau-feedback correct"; fb.textContent = "✓ Korrekt!"; }
+        if (typeof sbCheckAllDone === "function") sbCheckAllDone();
+      } else {
+        row.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("correct","incorrect"); });
+        row.querySelectorAll(".sb-gap .chip").forEach(function(c){ c.classList.add("incorrect"); });
+        row.classList.add("incorrect"); row.classList.remove("correct");
+        if (fb){ fb.className = "satzbau-feedback incorrect"; fb.textContent = "✗ Noch nicht richtig – verschiebe die Wörter!"; }
+      }
+    }, 450);
+  }
+  /* Geführter Modus (B1, 2026-06-10): Sofort-Feedback pro Chip-Platzierung.
+     Richtig (konsistent mit mind. einer valid-Reihenfolge) -> grün + fixiert.
+     Falsch -> rot + Rücksprung in die Bank nach 800 ms. */
+  function toBank(i, chip){
+    chip.textContent = chip.dataset.orig;  // Kleinschreibung wiederherstellen — Bank darf den Satzanfang nicht verraten
+    bankEl(i).appendChild(chip);
+  }
+  function consistent(i){
+    var pos = positions(rowEl(i));
+    var v = satzbauData[i].valid;
+    return v.some(function(o){
+      for (var k = 0; k < pos.length; k++){ var c = chipOf(pos[k]); if (c && c.dataset.orig !== o[k]) return false; }
+      return true; });
+  }
+  function finishRow(i){
+    var row = rowEl(i), fb = fbEl(i);
+    var p = row.querySelector(".sb-punkt"); if (p) p.parentNode.removeChild(p);
+    var punkt = document.createElement("span"); punkt.className = "sb-punkt";
+    punkt.textContent = satzbauData[i].punct || "."; row.appendChild(punkt);
+    row.classList.add("correct"); row.classList.remove("incorrect");
+    if (fb){ fb.className = "satzbau-feedback correct"; fb.textContent = "✓ Korrekt!"; }
+    if (typeof sbCheckAllDone === "function") sbCheckAllDone();
+  }
+  function placeJudge(i, chip){
+    if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab);
+    var row = rowEl(i); updateCaps(row);
+    var fb = fbEl(i);
+    if (consistent(i)){
+      chip.classList.remove("incorrect"); chip.classList.add("correct");
+      chip.dataset.fixed = "1"; chip.draggable = false;
+      if (sequence(i).complete){ finishRow(i); }
+      else if (fb){ fb.className = "satzbau-feedback"; fb.textContent = ""; }
+    } else {
+      chip.classList.add("incorrect");
+      if (fb){ fb.className = "satzbau-feedback incorrect"; fb.textContent = "✗ Das passt hier nicht!"; }
+      setTimeout(function(){
+        chip.classList.remove("incorrect");
+        if (!chip.dataset.fixed && chip.closest(".sb-gap")) toBank(i, chip);
+        updateCaps(rowEl(i));
+        if (fb && /incorrect/.test(fb.className)){ fb.className = "satzbau-feedback"; fb.textContent = ""; }
+      }, 800);
+    }
+  }
+  function makeChip(word, i){
+    var chip = document.createElement("div");
+    var isPunct = [",",".","!","?",";",":"].indexOf(word) !== -1;
+    chip.className = "chip" + (isPunct ? " punct-chip" : ""); chip.textContent = word; chip.draggable = true;
+    chip.dataset.orig = word; chip.dataset.word = word; chip.dataset.sbIdx = String(i);
+    chip.addEventListener("dragstart", function(e){ if (chip.dataset.fixed){ e.preventDefault(); return; } window.sbDragged = chip; if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab); e.dataTransfer.effectAllowed = "move"; });
+    if (CFG.click) chip.addEventListener("click", function(){
+      if (chip.dataset.fixed) return;
+      if (typeof timerAutoStart === "function") timerAutoStart(CFG.tab);
+      var inSlot = chip.closest(".sb-gap");
+      if (inSlot){ toBank(i, chip); updateCaps(rowEl(i)); return; }
+      var free = Array.from(rowEl(i).querySelectorAll(".sb-gap")).find(function(s){ return !s.querySelector(".chip"); });
+      if (free){ free.appendChild(chip); placeJudge(i, chip); }
+    });
+    return chip;
+  }
+  function makeLocked(word){
+    var chip = document.createElement("div");
+    chip.className = "chip sb-locked"; chip.textContent = word;
+    chip.dataset.orig = word; chip.dataset.word = word; chip.dataset.locked = "1";
+    return chip;
+  }
+  function makeSlot(i){
+    var slot = document.createElement("div"); slot.className = "sb-gap";
+    slot.addEventListener("dragover", function(e){ e.preventDefault(); if (window.sbDragged) slot.classList.add("drag-over"); });
+    slot.addEventListener("dragleave", function(){ slot.classList.remove("drag-over"); });
+    slot.addEventListener("drop", function(e){
+      e.preventDefault(); slot.classList.remove("drag-over");
+      var d = window.sbDragged; if (!d || d.dataset.sbIdx !== String(i) || d.dataset.locked || d.dataset.fixed) return;
+      if (slot.querySelector(".chip")) return;  // Lücke schon belegt
+      slot.appendChild(d); window.sbDragged = null; placeJudge(i, d);
+    });
+    return slot;
+  }
+  function registerBank(bank, i){
+    bank.addEventListener("dragover", function(e){ e.preventDefault(); });
+    bank.addEventListener("drop", function(e){
+      e.preventDefault(); var d = window.sbDragged;
+      if (!d || d.dataset.sbIdx !== String(i) || d.dataset.locked || d.dataset.fixed) return;
+      toBank(i, d); window.sbDragged = null; updateCaps(rowEl(i));
+    });
+  }
+  function freshEl(id){ var el = document.getElementById(id); if (!el) return null;
+    var c = el.cloneNode(false); el.parentNode.replaceChild(c, el); return c; }
+  function rebuild(i){
+    var ex = satzbauData[i]; if (!ex || !ex.row) return;
+    var bank = freshEl(CFG.bank + i), row = freshEl(CFG.row + i);
+    if (!bank || !row) return;
+    var fb = fbEl(i); if (fb){ fb.textContent = ""; fb.className = "satzbau-feedback"; }
+    var mov = ex.parts.slice();
+    for (var k = mov.length - 1; k > 0; k--){ var j = Math.floor(Math.random()*(k+1)); var t = mov[k]; mov[k] = mov[j]; mov[j] = t; }
+    mov.forEach(function(w){ bank.appendChild(makeChip(w, i)); });
+    ex.row.forEach(function(tok){ row.appendChild(tok === "_" ? makeSlot(i) : makeLocked(tok)); });
+    registerBank(bank, i);
+    ensureButtons(i);
+  }
+  function rebuildAll(){ satzbauData.forEach(function(ex,i){ if (ex.row) rebuild(i); }); }
+  function showSol(i){
+    rebuild(i);
+    var row = rowEl(i), bank = bankEl(i), sol = satzbauData[i].valid[0];
+    var pool = Array.from(bank.querySelectorAll(".chip"));
+    positions(row).forEach(function(pos,k){
+      if (!pos.classList.contains("sb-gap")) return;
+      var ix = pool.findIndex(function(c){ return c.dataset.orig === sol[k]; });
+      if (ix >= 0){ while (pos.firstChild) pos.removeChild(pos.firstChild); pos.appendChild(pool[ix]); pool.splice(ix,1); }
+    });
+    row.querySelectorAll(".sb-gap .chip").forEach(function(c){ c.classList.add("correct"); c.dataset.fixed = "1"; c.draggable = false; });
+    updateCaps(row);
+    finishRow(i);
+  }
+  function ensureButtons(i){
+    if (document.getElementById("sb-btns-" + i)) return;
+    var anchor = fbEl(i) || rowEl(i); if (!anchor) return;
+    var item = (anchor.closest ? anchor.closest(".satzbau-item") : null) || anchor.parentNode;
+    if (item && [].some.call(item.querySelectorAll("button"), function(b){
+      return /(Lösen|Lösung|Neustart)/.test(b.textContent); })) return;  // native Buttons vorhanden
+    var box = document.createElement("div");
+    box.id = "sb-btns-" + i;
+    box.style.cssText = "display:flex;gap:8px;margin:6px 0 14px 0;";
+    var b1 = document.createElement("button"); b1.type = "button"; b1.className = "btn"; b1.textContent = "Lösen";
+    b1.addEventListener("click", function(){ showSol(i); });
+    var b2 = document.createElement("button"); b2.type = "button"; b2.className = "btn"; b2.textContent = "↺ Neustart";
+    b2.addEventListener("click", function(){ rebuild(i); });
+    box.appendChild(b1); box.appendChild(b2);
+    anchor.parentNode.insertBefore(box, anchor.nextSibling);
+  }
+  ["initSatzbau","buildSatzbau"].forEach(function(fn){
+    if (typeof window[fn] === "function"){ var o = window[fn];
+      window[fn] = function(){ o.apply(this, arguments); rebuildAll(); }; }
+  });
+  if (typeof window.sbReset === "function" && window.sbReset.length === 0){
+    var orall = window.sbReset;
+    window.sbReset = function(){ orall.apply(this, arguments); rebuildAll(); };
+  }
+  if (typeof window.sbResetOne === "function"){
+    var orst = window.sbResetOne;
+    window.sbResetOne = function(i){ if (satzbauData[i] && satzbauData[i].row){ rebuild(i); return; } orst.apply(this, arguments); };
+  }
+  if (typeof window.sbShowSolution === "function"){
+    var osol = window.sbShowSolution;
+    window.sbShowSolution = function(i){ if (satzbauData[i] && satzbauData[i].row){ showSol(i); return; } osol.apply(this, arguments); };
+  }
+  /* Bugfix 2026-06-10: bei leerer Row (Free-Build) zusätzlich die Bank prüfen,
+     sonst baut sich das Gerüst beim Erstladen nie auf (nur nach Neustart). */
+  var pRow = rowEl(0), pBank = bankEl(0);
+  if ((pRow && pRow.children.length) || (pBank && pBank.children.length)) rebuildAll();
+})();
 </script>
 </body>
 </html>
