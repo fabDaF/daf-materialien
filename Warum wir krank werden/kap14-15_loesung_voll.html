@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -729,10 +733,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf">Notwendigkeit</div><div class="gr-karte-bsp">Du <b>musst</b> den Rhythmus ändern. <i>(es geht nicht anders)</i></div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Möglichkeit</div><div class="gr-karte-bsp">Du <b>kannst</b> mit zwei Einheiten pro Woche anfangen. <i>(es ist möglich)</i></div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Höflicher Rat · Konjunktiv II</div><div class="gr-karte-bsp">Du <b>solltest</b> längere Pausen machen. <i>(Empfehlung)</i></div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Vorsichtiger Vorschlag · Konjunktiv II</div><div class="gr-karte-bsp">Es <b>wäre</b> sinnvoll, abends früher zu essen. <i>(noch zurückhaltender)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Notwendigkeit</div><div class="gr-karte-bsp">Du <b class="gr-verb">musst</b> den Rhythmus ändern. <i>(es geht nicht anders)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Möglichkeit</div><div class="gr-karte-bsp">Du <b class="gr-verb">kannst</b> mit zwei Einheiten pro Woche anfangen. <i>(es ist möglich)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Höflicher Rat · Konjunktiv II</div><div class="gr-karte-bsp">Du <b class="gr-verb">solltest</b> längere Pausen machen. <i>(Empfehlung)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Vorsichtiger Vorschlag · Konjunktiv II</div><div class="gr-karte-bsp">Es <b class="gr-verb">wäre</b> sinnvoll, abends früher zu essen. <i>(noch zurückhaltender)</i></div></div>
     </div>
     <div class="gr-bank" id="grBank"></div>
     <div class="gr-grid" id="grZonen">

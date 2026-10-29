@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -719,8 +723,8 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf">Relativpronomen · Person oder Sache</div><div class="gr-karte-bsp">Insulin ist ein Hormon, <b>das</b> der Körper selbst <b>bildet</b>.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Genitiv · zeigt Zugehörigkeit</div><div class="gr-karte-bsp">Ein Botenstoff, <b>dessen</b> Stimme überall gehört <b>wird</b>.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Relativpronomen · Person oder Sache</div><div class="gr-karte-bsp">Insulin ist ein Hormon, <b>das</b> der Körper selbst <b class="gr-verb">bildet</b>.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Genitiv · zeigt Zugehörigkeit</div><div class="gr-karte-bsp">Ein Botenstoff, <b>dessen</b> Stimme überall gehört <b class="gr-verb">wird</b>.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Relativadverb · Ort, Richtung, Sache</div><div class="gr-karte-bsp">Das Organ, <b>wo</b> das Hormon entsteht, liegt hinter dem Magen.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Ohne Bezugswort · verallgemeinernd</div><div class="gr-karte-bsp"><b>Wer</b> das verstehen will, muss beim Insulin anfangen.</div></div>
     </div>

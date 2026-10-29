@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -721,7 +725,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     </div>
     <div class="gr-regel">
       <div class="gr-karte"><div class="gr-karte-kopf">Nominalstil · Handlung als Nomen</div><div class="gr-karte-bsp">die <b>Verschiebung</b> der Prioritäten · die <b>Messung</b> des Blutzuckers</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Verbalstil · dieselbe Aussage als Satz</div><div class="gr-karte-bsp">Die Prioritäten <b>haben sich verschoben</b>. · Man <b>misst</b> den Blutzucker.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Verbalstil · dieselbe Aussage als Satz</div><div class="gr-karte-bsp">Die Prioritäten <b class="gr-verb">haben sich verschoben</b>. · Man <b class="gr-verb">misst</b> den Blutzucker.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Typische Nominalendungen</div><div class="gr-karte-bsp">-ung · -heit · -keit · -nis · -tion — fast immer aus einem Verb gebildet</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Der Nominalstil braucht eine Präposition</div><div class="gr-karte-bsp"><b>nach</b> der Messung · <b>bei</b> der Verschiebung · <b>durch</b> die Reaktion</div></div>
     </div>

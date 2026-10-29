@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -723,8 +727,8 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf">Nebensatz · Verb am Ende</div><div class="gr-karte-bsp"><b>Obwohl</b> sie Beraterin <b>ist</b>, kannte sie den Begriff nicht.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Verbindungsadverb · Verb folgt sofort</div><div class="gr-karte-bsp">Sie kannte alle Studien, <b>dennoch fiel</b> ihr der Zusammenhang nicht auf.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Nebensatz · Verb am Ende</div><div class="gr-karte-bsp"><b>Obwohl</b> sie Beraterin <b class="gr-verb">ist</b>, kannte sie den Begriff nicht.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Verbindungsadverb · Verb folgt sofort</div><div class="gr-karte-bsp">Sie kannte alle Studien, <b>dennoch</b> <b class="gr-verb">fiel</b> ihr der Zusammenhang nicht auf.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Doppelstruktur · <i>zwar … aber</i></div><div class="gr-karte-bsp"><b>Zwar</b> hatte sie die Daten, <b>aber</b> sie hat sie nie verknüpft.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Präposition · meist mit Genitiv</div><div class="gr-karte-bsp"><b>Ungeachtet</b> aller Lehrbücher stieß sie auf etwas Neues.</div></div>
     </div>

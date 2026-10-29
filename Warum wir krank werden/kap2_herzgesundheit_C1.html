@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -720,9 +724,9 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf">Einfaches Verb</div><div class="gr-karte-bsp">Der Insulinspiegel <b>beeinflusst</b> das Hormon.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Einfaches Verb</div><div class="gr-karte-bsp">Der Insulinspiegel <b class="gr-verb">beeinflusst</b> das Hormon.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Funktionsverbgefüge · dieselbe Aussage, gehobener Stil</div><div class="gr-karte-bsp">Der Insulinspiegel <b>übt Einfluss auf</b> das Hormon <b>aus</b>.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Der Inhalt steckt im Nomen</div><div class="gr-karte-bsp">in Verbindung <b>stehen</b> · zur Folge <b>haben</b> · in Gang <b>kommen</b></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Der Inhalt steckt im Nomen</div><div class="gr-karte-bsp">in Verbindung <b class="gr-verb">stehen</b> · zur Folge <b class="gr-verb">haben</b> · in Gang <b class="gr-verb">kommen</b></div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Die Präposition gehört fest dazu</div><div class="gr-karte-bsp">Einfluss <b>auf</b> etwas nehmen · in Verbindung <b>mit</b> etwas stehen</div></div>
     </div>
     <div class="gr-bank" id="grBank"></div>

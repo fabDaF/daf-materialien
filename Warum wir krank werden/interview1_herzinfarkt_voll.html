@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -727,10 +731,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf">Grund · Verb am Ende</div><div class="gr-karte-bsp">Er kam ins Krankenhaus, <b>weil</b> eine Arterie verschlossen <b>war</b>.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Grund · Verb bleibt auf Platz 2</div><div class="gr-karte-bsp">Er kam ins Krankenhaus, <b>denn</b> eine Arterie <b>war</b> verschlossen.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Folge · Verb folgt sofort</div><div class="gr-karte-bsp">Eine Arterie war verschlossen, <b>deshalb kam</b> er ins Krankenhaus.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Folge · Verb am Ende</div><div class="gr-karte-bsp">Eine Arterie war verschlossen, <b>sodass</b> er ins Krankenhaus <b>kam</b>.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Grund · Verb am Ende</div><div class="gr-karte-bsp">Er kam ins Krankenhaus, <b>weil</b> eine Arterie verschlossen <b class="gr-verb">war</b>.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Grund · Verb bleibt auf Platz 2</div><div class="gr-karte-bsp">Er kam ins Krankenhaus, <b>denn</b> eine Arterie <b class="gr-verb">war</b> verschlossen.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Folge · Verb folgt sofort</div><div class="gr-karte-bsp">Eine Arterie war verschlossen, <b>deshalb</b> <b class="gr-verb">kam</b> er ins Krankenhaus.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Folge · Verb am Ende</div><div class="gr-karte-bsp">Eine Arterie war verschlossen, <b>sodass</b> er ins Krankenhaus <b class="gr-verb">kam</b>.</div></div>
     </div>
     <div class="gr-bank" id="grBank"></div>
     <div class="gr-grid" id="grZonen">

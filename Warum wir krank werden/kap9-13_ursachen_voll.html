@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -729,9 +733,9 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf">Bedingungssatz · Verb am Ende</div><div class="gr-karte-bsp"><b>Wenn</b> der Insulinspiegel dauernd hoch <b>bleibt</b>, entsteht Resistenz.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Hauptsatz danach · Verb zuerst</div><div class="gr-karte-bsp">Wenn du besser schläfst, <b>sinkt</b> dein Insulin.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Irreale Bedingung · Konjunktiv II</div><div class="gr-karte-bsp"><b>Hätte</b> er früher gefragt, <b>wäre</b> es nie so weit gekommen.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Bedingungssatz · Verb am Ende</div><div class="gr-karte-bsp"><b>Wenn</b> der Insulinspiegel dauernd hoch <b class="gr-verb">bleibt</b>, entsteht Resistenz.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Hauptsatz danach · Verb zuerst</div><div class="gr-karte-bsp">Wenn du besser schläfst, <b class="gr-verb">sinkt</b> dein Insulin.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Irreale Bedingung · Konjunktiv II</div><div class="gr-karte-bsp"><b class="gr-verb">Hätte</b> er früher gefragt, <b class="gr-verb">wäre</b> es nie so weit gekommen.</div></div>
       <div class="gr-karte"><div class="gr-karte-kopf">Ausnahme · schränkt die Bedingung ein</div><div class="gr-karte-bsp">Der Wert bleibt hoch, <b>es sei denn</b>, du änderst den Rhythmus.</div></div>
     </div>
     <div class="gr-bank" id="grBank"></div>

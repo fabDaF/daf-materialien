@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -729,10 +733,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
       </div>
     </div>
     <div class="gr-regel">
-      <div class="gr-karte"><div class="gr-karte-kopf"><i>dürfte</i> · begründete Annahme</div><div class="gr-karte-bsp">Eine durchwachte Nacht <b>dürfte</b> bereits etwas verändern. <i>(ziemlich sicher)</i></div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf"><i>mag</i> · Einräumung</div><div class="gr-karte-bsp">Die Veranlagung <b>mag</b> eine Rolle spielen. <i>(zugestanden, aber nebensächlich)</i></div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf"><i>soll</i> · fremde Behauptung</div><div class="gr-karte-bsp">Alles Übrige <b>soll</b> sie selbst in der Hand haben. <i>(so sagt man)</i></div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf"><i>will</i> · Eigenbehauptung</div><div class="gr-karte-bsp">Er <b>will</b> nie etwas davon gewusst haben. <i>(so behauptet er selbst)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf"><i>dürfte</i> · begründete Annahme</div><div class="gr-karte-bsp">Eine durchwachte Nacht <b class="gr-verb">dürfte</b> bereits etwas verändern. <i>(ziemlich sicher)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf"><i>mag</i> · Einräumung</div><div class="gr-karte-bsp">Die Veranlagung <b class="gr-verb">mag</b> eine Rolle spielen. <i>(zugestanden, aber nebensächlich)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf"><i>soll</i> · fremde Behauptung</div><div class="gr-karte-bsp">Alles Übrige <b class="gr-verb">soll</b> sie selbst in der Hand haben. <i>(so sagt man)</i></div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf"><i>will</i> · Eigenbehauptung</div><div class="gr-karte-bsp">Er <b class="gr-verb">will</b> nie etwas davon gewusst haben. <i>(so behauptet er selbst)</i></div></div>
     </div>
     <div class="gr-bank" id="grBank"></div>
     <div class="gr-grid" id="grZonen">

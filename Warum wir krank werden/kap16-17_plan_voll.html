@@ -536,6 +536,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .gr-karte-kopf { font-weight:700; color:var(--tx-667eea); font-size:0.95em; margin-bottom:3px; }
 .gr-karte-woerter { color:var(--tx-555); font-size:0.88em; margin-bottom:6px; }
 .gr-karte-bsp { color:var(--tx-444); font-size:0.9em; font-family:Georgia,serif; }
+/* FB-GR-VERB — Verb farblich vom Konnektor absetzen (Lernziel: Verbposition) */
+.gr-karte-bsp .gr-verb { color:#9a6700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gr-karte-bsp .gr-verb { color:#f3c46a; } }
+html[data-theme="dark"] .gr-karte-bsp .gr-verb { color:#f3c46a; }
 .gr-bank { display:flex; flex-wrap:wrap; gap:7px; background:var(--bg-f8f9fa); border-radius:10px;
            padding:12px; margin-bottom:14px; min-height:48px; }
 .gr-chip { background:var(--bg-fff); border:1px solid var(--bd-c5cff5); border-radius:8px; padding:6px 13px;
@@ -727,9 +731,9 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     </div>
     <div class="gr-regel">
       <div class="gr-karte"><div class="gr-karte-kopf">Gleichzeitig · Nebensatz</div><div class="gr-karte-bsp"><b>Während</b> sie trainiert, sinkt ihr Blutzucker.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Vorzeitig · der Nebensatz kommt zuerst</div><div class="gr-karte-bsp"><b>Nachdem</b> der Schlaf gesessen <b>hatte</b>, nahm sie sich den Rhythmus vor.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Nachzeitig · der Nebensatz kommt später</div><div class="gr-karte-bsp">Sie geht ins Bett, <b>bevor</b> sie an etwas anderes <b>denkt</b>.</div></div>
-      <div class="gr-karte"><div class="gr-karte-kopf">Abfolge im Hauptsatz · Verb folgt sofort</div><div class="gr-karte-bsp"><b>Zuerst kam</b> der Schlaf, <b>danach folgte</b> der Sport.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Vorzeitig · der Nebensatz kommt zuerst</div><div class="gr-karte-bsp"><b>Nachdem</b> der Schlaf gesessen <b class="gr-verb">hatte</b>, nahm sie sich den Rhythmus vor.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Nachzeitig · der Nebensatz kommt später</div><div class="gr-karte-bsp">Sie geht ins Bett, <b>bevor</b> sie an etwas anderes <b class="gr-verb">denkt</b>.</div></div>
+      <div class="gr-karte"><div class="gr-karte-kopf">Abfolge im Hauptsatz · Verb folgt sofort</div><div class="gr-karte-bsp"><b>Zuerst</b> <b class="gr-verb">kam</b> der Schlaf, <b>danach</b> <b class="gr-verb">folgte</b> der Sport.</div></div>
     </div>
     <div class="gr-bank" id="grBank"></div>
     <div class="gr-grid" id="grZonen">
