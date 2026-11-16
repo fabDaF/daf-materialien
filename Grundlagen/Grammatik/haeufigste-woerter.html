@@ -269,6 +269,9 @@ html[data-theme="dark"] body { color: #c6cade; }
 .zw-tablebox { max-height: 560px; overflow-y: auto; }
 .zw-table thead th { position: sticky; top: 0; background: var(--surface); z-index: 2; }
 .zw-table tr.zero td { opacity: 0.45; }
+.zw-table .th-sub { display: block; font-weight: 400; font-size: 0.9em; opacity: 0.75; }
+.zw-table td.pos { font-weight: 700; }
+.zw-table { min-width: 680px; }
 .zw-table td.fold { color: var(--muted); font-size: 0.9em; font-style: italic; }
 @media (max-width: 820px) { .zw-groups { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media (max-width: 600px) { .zw-groups { grid-template-columns: 1fr; } .zw-verbdetail { grid-template-columns: 1fr; } .zw-seg-big .seg-btn { padding: 9px 16px; font-size: 0.92em; } }
@@ -370,11 +373,11 @@ html[data-theme="dark"] body { color: #c6cade; }
     </div>
     <div class="zw-tablebox">
       <table class="zw-table">
-        <thead><tr><th class="n">Rang</th><th>Wort</th><th>Formen in deinem Text</th><th class="n">Anzahl</th><th class="n">Anteil</th><th></th></tr></thead>
+        <thead><tr><th class="n">Rang<span class="th-sub">im Buch</span></th><th class="n">Platz<span class="th-sub">in deinem Text</span></th><th>Wort</th><th>Formen in deinem Text</th><th class="n">Anzahl</th><th class="n">Anteil</th><th></th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
-    <div class="zw-hint" style="margin-top:10px">Alle Formen eines Wortes zählen zusammen: <em>bin, ist, war, gewesen</em> gehören zu <em>sein</em>. Wörter wie <em>im</em>, <em>zum</em> oder <em>vom</em> zählen doppelt, für die Präposition und für den Artikel, denn <em>im</em> = <em>in dem</em>.</div>
+    <div class="zw-hint" style="margin-top:10px"><b>Rang</b> ist der Platz in der Häufigkeitsliste des Buches, <b>Platz</b> der Platz in deinem Text. Weichen beide stark voneinander ab, hat dein Text eine eigene Handschrift. Alle Formen eines Wortes zählen zusammen: <em>bin, ist, war, gewesen</em> gehören zu <em>sein</em>. Wörter wie <em>im</em>, <em>zum</em> oder <em>vom</em> zählen doppelt, für die Präposition und für den Artikel, denn <em>im</em> = <em>in dem</em>.</div>
   </div>
 
   <div id="readerCard" hidden>
@@ -511,6 +514,20 @@ function buildGroups() {
   }
 }
 
+function positions() {
+  var p = {};
+  if (!res) return p;
+  var arr = LEM.filter(function(l){ return inLimit(l) && !l.fold && res.counts[l.id] > 0; })
+               .sort(function(a, b){ return res.counts[b.id] - res.counts[a.id]; });
+  var pos = 0, lastC = null;
+  arr.forEach(function(l, i){
+    var c = res.counts[l.id];
+    if (c !== lastC) { pos = i + 1; lastC = c; }
+    p[l.id] = pos;
+  });
+  return p;
+}
+
 function renderRows() {
   var list = LEM.filter(inLimit);
   if (sortMode === 'anzahl' && res) {
@@ -520,10 +537,11 @@ function renderRows() {
   }
   var max = 0;
   if (res) list.forEach(function(l){ if (res.counts[l.id] > max) max = res.counts[l.id]; });
+  var POS = positions();
   $('rows').innerHTML = list.map(function(l){
     if (l.fold) {
       var z = BY[l.fold];
-      return '<tr class="' + l.g + ' zero"><td class="n">' + l.r + '</td><td class="w"><i class="chip"></i>' + l.label +
+      return '<tr class="' + l.g + ' zero"><td class="n">' + l.r + '</td><td class="n">–</td><td class="w"><i class="chip"></i>' + l.label +
              '</td><td class="fold" colspan="4">zählt bei Rang ' + z.r + ' (' + z.label + ') mit</td></tr>';
     }
     var c = res ? res.counts[l.id] : 0;
@@ -533,6 +551,7 @@ function renderRows() {
     if (keys.length > 3) txt += ' · …';
     if (!res) txt = '–'; else if (!keys.length) txt = 'kommt nicht vor';
     return '<tr class="' + l.g + (res && !c ? ' zero' : '') + '"><td class="n">' + l.r + '</td>' +
+           '<td class="n pos">' + (POS[l.id] || '–') + '</td>' +
            '<td class="w"><i class="chip"></i>' + l.label + '</td><td class="f">' + txt + '</td>' +
            '<td class="n">' + (res ? nf(c) : '–') + '</td>' +
            '<td class="n">' + (res ? pf(c / res.total * 100) : '–') + '</td>' +
