@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
+<title>Die häufigsten Wörter</title>
+<style>/* ===== FB-DESIGN-TOKENS (auto) ===== */
+:root {
+  --grad-head-a: #667eea;
+  --grad-head-b: #764ba2;
+  --page-a: #667eea;
+  --page-b: #764ba2;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card-soft: #f8f9ff;
+  --nav-band: #eef0fb;
+  --nav-hover: #e1e5fb;
+  --line: #e9ecef;
+  --line-soft: #e0e4ff;
+  --text: #1a1a2e;
+  --text-2: #444;
+  --muted: #666;
+  --muted-2: #888;
+  --faint: #aaa;
+  --accent: #667eea;
+  --accent-2: #764ba2;
+  --accent-soft: #f0f4ff;
+  --accent-soft-2: #f5f7ff;
+  --accent-line: #c5cff5;
+  --ok-bd: #22c55e;
+  --ok-bg: #f0fdf4;
+  --ok-tx: #166534;
+  --ok-strong: #16a34a;
+  --err-bd: #ef4444;
+  --err-bg: #fef2f2;
+  --err-tx: #991b1b;
+  --akk: #2563eb;
+  --akk-bg: #e8efff;
+  --dat: #dc2626;
+  --dat-bg: #fdeaea;
+  --warn-bg: #fffaf0;
+  --warn-bd: #ffd699;
+  --warn-tx: #b15c00;
+  --ug-bg: #fff4e0;
+  --ug-tx: #a35a00;
+  --info-bg: #e3f2fd;
+  --info-bd: #2196f3;
+  --info-tx: #0d47a1;
+  --sent-bg: #f1f8e9;
+  --sent-bd: #689f38;
+  --sent-tx: #33691e;
+  --tx-34206b: #34206b;
+  --tx-241048: #241048;
+}
+
+/* ===== ZW-MARKER (Wortklassen-Farben) ===== */
+:root { --zw-art:#f6cf6a; --zw-verb:#f4a3a7; --zw-prep:#86d6c3; --zw-pron:#c7b6f6; --zw-rest:#cfd4e2; --zw-mark-tx:#1a1a2e; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--page-a) 0%, var(--page-b) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 1000px; margin: 0 auto; background: var(--surface);
+  border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.header {
+  background: linear-gradient(135deg, var(--grad-head-a) 0%, var(--grad-head-b) 100%);
+  color: #fff; padding: 30px; text-align: center; position: relative;
+}
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: #fff; margin-bottom: 8px; border: none; padding: 0; }
+.header p { font-size: 1.1em; font-family: Georgia, 'Times New Roman', serif; color: rgba(255,255,255,0.9); margin: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+
+.sec-inner { padding: 30px; display: flex; flex-direction: column; gap: 26px; }
+h2 { font-size: 1.3em; color: var(--text); margin-bottom: 12px; }
+.zw-desk { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: 22px; align-items: start; }
+.zw-card { background: var(--card-soft); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.zw-card label { font-weight: 600; color: var(--text); }
+#txt {
+  width: 100%; min-height: 320px; resize: vertical;
+  font-family: Georgia, 'Times New Roman', serif; font-size: 1.05em; line-height: 1.6;
+  color: var(--text); background: var(--surface); border: 1px solid var(--accent-line); border-radius: 8px; padding: 12px;
+}
+#txt:focus, #guess:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.zw-guess { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--text-2); }
+#guess { width: 5em; font: inherit; padding: 6px 8px; border: 1px solid var(--accent-line); border-radius: 8px; background: var(--surface); color: var(--text); font-variant-numeric: tabular-nums; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { background: var(--accent-soft-2); border: 1px solid var(--accent-line); border-radius: 8px; padding: 8px 18px; font-size: 0.92em; color: var(--accent); cursor: pointer; transition: all 0.15s; font-weight: 500; font-family: inherit; }
+.btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-main { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; padding: 10px 26px; font-size: 1em; }
+.btn-main:hover { filter: brightness(1.08); }
+.zw-hint { font-size: 0.85em; color: var(--muted); line-height: 1.5; }
+.zw-warn { font-size: 0.9em; background: var(--warn-bg); border: 1px solid var(--warn-bd); color: var(--warn-tx); border-radius: 8px; padding: 8px 12px; }
+.zw-num { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 4.6em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.zw-say { font-size: 1.08em; color: var(--text); line-height: 1.5; }
+.zw-split { height: 20px; border-radius: 6px; background: var(--line); overflow: hidden; display: flex; }
+.zw-split span { display: block; height: 100%; background: var(--c); }
+.zw-facts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+.zw-facts dt { font-size: 0.82em; color: var(--muted); }
+.zw-facts dd { font-weight: 700; font-size: 1.1em; font-variant-numeric: tabular-nums; color: var(--text); }
+.zw-groups { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; }
+.zw-grp { background: var(--card); border: 1px solid var(--line); border-top: 8px solid var(--c); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.zw-grp h3 { font-size: 1em; color: var(--text); }
+.zw-grp .pct { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 1.8em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text); }
+.zw-grp .words { font-family: Georgia, 'Times New Roman', serif; color: var(--text); font-size: 0.95em; }
+.zw-grp p { font-size: 0.85em; color: var(--muted); line-height: 1.45; }
+.zw-tablebox { overflow-x: auto; }
+.zw-table { border-collapse: collapse; width: 100%; min-width: 600px; font-variant-numeric: tabular-nums; }
+.zw-table th, .zw-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--text); }
+.zw-table th { font-size: 0.82em; color: var(--muted); font-weight: 600; }
+.zw-table .n { text-align: right; white-space: nowrap; }
+.zw-table td.w { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; white-space: nowrap; }
+.zw-table td.f { color: var(--muted); font-size: 0.9em; }
+.zw-table td.b { width: 24%; }
+.chip { display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: var(--c); margin-right: 8px; }
+.bar { height: 10px; border-radius: 5px; background: var(--c); min-width: 2px; }
+.zw-readhead { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.zw-readhead h2 { margin: 0; }
+.zw-seg { display: inline-flex; border: 1px solid var(--accent-line); border-radius: 8px; overflow: hidden; }
+.zw-seg .seg-btn { border: 0; background: var(--accent-soft-2); color: var(--accent); padding: 7px 14px; font: inherit; font-size: 0.9em; font-weight: 500; cursor: pointer; }
+.zw-seg .seg-btn[aria-pressed="true"] { background: var(--accent); color: #fff; font-weight: 700; }
+.zw-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.88em; color: var(--muted); margin-bottom: 12px; }
+.reader { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1em; line-height: 1.9; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; text-align: left; }
+.reader mark { background: var(--c); color: var(--zw-mark-tx); border-radius: 4px; padding: 1px 3px; }
+.reader.only .o { opacity: 0.16; }
+.reader.without mark { color: transparent; background: var(--line); user-select: none; }
+.art { --c: var(--zw-art); } .verb { --c: var(--zw-verb); } .prep { --c: var(--zw-prep); } .pron { --c: var(--zw-pron); } .rest { --c: var(--zw-rest); }
+[hidden] { display: none !important; }
+.author-footer { text-align: center; margin-top: 10px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: var(--faint); }
+.author-footer a { color: var(--faint); }
+.author-name { font-weight: 700; }
+@media (max-width: 820px) { .zw-desk { grid-template-columns: 1fr; } .zw-groups { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 600px) { body { padding: 8px; } .sec-inner { padding: 16px; } .header { padding: 22px 14px; } .header h1 { font-size: 1.7em; } .zw-groups { grid-template-columns: 1fr; } .zw-facts { grid-template-columns: 1fr; } .zw-num { font-size: 3.6em; } }
+
+/* FB-THEME-TOGGLE */
+.theme-toggle {
+  position: absolute; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+  color: white; font-size: 1.05em; cursor: pointer; line-height: 1;
+  transition: background 0.2s; z-index: 5;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.3); }
+
+/* ===== FB-DARK-MODE (System-Default + manueller Schalter) ===== */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --grad-head-a: #4a52a8;
+  --grad-head-b: #5c4585;
+  --page-a: #1b1e33;
+  --page-b: #2a1f3d;
+  --surface: #20243a;
+  --card: #262a44;
+  --card-soft: #2a2f4c;
+  --nav-band: #1a1d30;
+  --nav-hover: #2c3152;
+  --line: #3a3e58;
+  --line-soft: #3a3e58;
+  --text: #dcdff0;
+  --text-2: #c6cade;
+  --muted: #9ba0bd;
+  --muted-2: #8e93b0;
+  --faint: #6f7390;
+  --accent: #93a0f2;
+  --accent-2: #b592d8;
+  --accent-soft: #2b3052;
+  --accent-soft-2: #2b3052;
+  --accent-line: #4a5080;
+  --ok-bd: #2c6d44;
+  --ok-bg: #153920;
+  --ok-tx: #9ae9b8;
+  --ok-strong: #7ae8a2;
+  --err-bd: #b04444;
+  --err-bg: #3b1313;
+  --err-tx: #ea8787;
+  --akk: #8fb2ff;
+  --akk-bg: #1f2c52;
+  --dat: #ff9a9a;
+  --dat-bg: #4a1f24;
+  --warn-bg: #3a2e1a;
+  --warn-bd: #7a5a20;
+  --warn-tx: #f0c070;
+  --ug-bg: #45331a;
+  --ug-tx: #f3c27a;
+  --info-bg: #142a44;
+  --info-bd: #2f6fb0;
+  --info-tx: #9fcaf5;
+  --sent-bg: #1f3320;
+  --sent-bd: #7cbf4a;
+  --sent-tx: #b5e08f;
+  --tx-34206b: #cbbcf6;
+  --tx-241048: #d9cef8;
+}
+:root:not([data-theme="light"]) body { color: #c6cade; }
+}
+:root[data-theme="dark"] {
+  --grad-head-a: #4a52a8;
+  --grad-head-b: #5c4585;
+  --page-a: #1b1e33;
+  --page-b: #2a1f3d;
+  --surface: #20243a;
+  --card: #262a44;
+  --card-soft: #2a2f4c;
+  --nav-band: #1a1d30;
+  --nav-hover: #2c3152;
+  --line: #3a3e58;
+  --line-soft: #3a3e58;
+  --text: #dcdff0;
+  --text-2: #c6cade;
+  --muted: #9ba0bd;
+  --muted-2: #8e93b0;
+  --faint: #6f7390;
+  --accent: #93a0f2;
+  --accent-2: #b592d8;
+  --accent-soft: #2b3052;
+  --accent-soft-2: #2b3052;
+  --accent-line: #4a5080;
+  --ok-bd: #2c6d44;
+  --ok-bg: #153920;
+  --ok-tx: #9ae9b8;
+  --ok-strong: #7ae8a2;
+  --err-bd: #b04444;
+  --err-bg: #3b1313;
+  --err-tx: #ea8787;
+  --akk: #8fb2ff;
+  --akk-bg: #1f2c52;
+  --dat: #ff9a9a;
+  --dat-bg: #4a1f24;
+  --warn-bg: #3a2e1a;
+  --warn-bd: #7a5a20;
+  --warn-tx: #f0c070;
+  --ug-bg: #45331a;
+  --ug-tx: #f3c27a;
+  --info-bg: #142a44;
+  --info-bd: #2f6fb0;
+  --info-tx: #9fcaf5;
+  --sent-bg: #1f3320;
+  --sent-bd: #7cbf4a;
+  --sent-tx: #b5e08f;
+  --tx-34206b: #cbbcf6;
+  --tx-241048: #d9cef8;
+}
+html[data-theme="dark"] body { color: #c6cade; }
+
+/* ZW-MARKER dunkel */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --zw-art:#d9a82f; --zw-verb:#e0747a; --zw-prep:#4fb39c; --zw-pron:#9f87ea; --zw-rest:#7d8399; --zw-mark-tx:#14151f; } }
+:root[data-theme="dark"] { --zw-art:#d9a82f; --zw-verb:#e0747a; --zw-prep:#4fb39c; --zw-pron:#9f87ea; --zw-rest:#7d8399; --zw-mark-tx:#14151f; }
+.zw-modebar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center;
+  background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 10px; padding: 14px; }
+.zw-modebar .lbl { font-weight: 600; color: var(--text); }
+.zw-seg-big .seg-btn { padding: 10px 24px; font-size: 1em; }
+.zw-sub { font-size: 0.95em; color: var(--muted); }
+.zw-sub b { color: var(--text); font-variant-numeric: tabular-nums; }
+.zw-groups { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.zw-verbdetail { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px;
+  background: var(--card-soft); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.zw-vd { display: flex; flex-direction: column; gap: 2px; }
+.zw-vd .pct { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 1.5em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text); }
+.zw-vd .nm { font-size: 0.92em; color: var(--text); font-weight: 600; }
+.zw-vd .wd { font-size: 0.85em; color: var(--muted); line-height: 1.4; }
+.zw-tablebox { max-height: 560px; overflow-y: auto; }
+.zw-table thead th { position: sticky; top: 0; background: var(--surface); z-index: 2; }
+.zw-table tr.zero td { opacity: 0.45; }
+.zw-table td.fold { color: var(--muted); font-size: 0.9em; font-style: italic; }
+@media (max-width: 820px) { .zw-groups { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 600px) { .zw-groups { grid-template-columns: 1fr; } .zw-verbdetail { grid-template-columns: 1fr; } .zw-seg-big .seg-btn { padding: 9px 16px; font-size: 0.92em; } }
+
+</style>
+<script>/* FB-THEME-INIT */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('fb-theme'); } catch(e) {}
+  if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  function effDark() {
+    var t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = effDark() ? '☀️' : '🌙';
+  }
+  window.fbToggleTheme = function() {
+    var next = effDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('fb-theme', next); } catch(e) {}
+    paint();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
+  <h1>Die häufigsten Wörter</h1>
+  <p>A2–C1 – Grammatik · Wie viel von deinem Text machen sie aus?</p>
+  <div class="big-emoji">🔢</div>
+</div>
+
+<div class="sec-inner">
+
+  <div class="zw-modebar">
+    <span class="lbl">Ich vergleiche meinen Text mit:</span>
+    <div class="zw-seg zw-seg-big" role="group" aria-label="Wie viele Wörter">
+      <button type="button" class="seg-btn" data-limit="20" aria-pressed="true">den ersten 20</button>
+      <button type="button" class="seg-btn" data-limit="100" aria-pressed="false">den ersten 100</button>
+    </div>
+  </div>
+
+  <div class="zw-desk">
+    <div class="zw-card">
+      <label for="txt">Dein Text</label>
+      <textarea id="txt" spellcheck="false"></textarea>
+      <div class="zw-guess">
+        <label for="guess">Meine Schätzung:</label>
+        <input id="guess" type="number" min="0" max="100" step="1" inputmode="numeric">
+        <span>% meines Textes sind diese <b id="guessN">20</b> Wörter.</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-main" id="go" type="button">Auszählen</button>
+        <button class="btn" id="sample" type="button">Beispieltext</button>
+        <button class="btn" id="clear" type="button">Neu starten</button>
+      </div>
+      <div class="zw-warn" id="warn" hidden></div>
+      <div class="zw-hint">Der Text bleibt in deinem Browser. Er wird nicht gespeichert und nicht verschickt.</div>
+    </div>
+
+    <div class="zw-card" aria-live="polite">
+      <div class="zw-num" id="pct">? %</div>
+      <div class="zw-say" id="say">So viel von deinem Text besteht aus nur <b id="sayN">20</b> Wörtern.</div>
+      <div class="zw-split" id="split" aria-hidden="true"></div>
+      <div class="zw-sub" id="sub">&nbsp;</div>
+      <dl class="zw-facts">
+        <div><dt>Wörter im Text</dt><dd id="total">–</dd></div>
+        <div><dt id="hitsLbl">davon die 20</dt><dd id="hits">–</dd></div>
+        <div><dt>meine Schätzung</dt><dd id="guessOut">–</dd></div>
+      </dl>
+      <div class="zw-hint">Das Buch nennt für die ersten 10 Wörter etwa 27 % und für die ersten 20 etwa 35 % – gemittelt über eine Sammlung von 20 Millionen Wörtern.</div>
+    </div>
+  </div>
+
+  <div class="zw-groups" id="groups"></div>
+
+  <div id="verbBlock">
+    <h2>🔧 Die Verben genauer</h2>
+    <div class="zw-verbdetail" id="verbdetail"></div>
+    <div class="zw-hint" style="margin-top:10px">Siebzehn der hundert Wörter sind Verben. Drei davon bilden Perfekt, Passiv und Futur, vier sind Modalverben. Wer diese sieben konjugieren kann, deckt den größten Teil ab.</div>
+  </div>
+
+  <div>
+    <div class="zw-readhead">
+      <h2>📊 Die Wörter einzeln</h2>
+      <div class="zw-seg" role="group" aria-label="Sortierung">
+        <button type="button" class="seg-btn" data-sort="rang" aria-pressed="true">nach Rang</button>
+        <button type="button" class="seg-btn" data-sort="anzahl" aria-pressed="false">nach Anzahl</button>
+      </div>
+    </div>
+    <div class="zw-tablebox">
+      <table class="zw-table">
+        <thead><tr><th class="n">Rang</th><th>Wort</th><th>Formen in deinem Text</th><th class="n">Anzahl</th><th class="n">Anteil</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="zw-hint" style="margin-top:10px">Alle Formen eines Wortes zählen zusammen: <em>bin, ist, war, gewesen</em> gehören zu <em>sein</em>. Wörter wie <em>im</em>, <em>zum</em> oder <em>vom</em> zählen doppelt, für die Präposition und für den Artikel, denn <em>im</em> = <em>in dem</em>.</div>
+  </div>
+
+  <div id="readerCard" hidden>
+    <div class="zw-readhead">
+      <h2>🖍️ Dein Text, markiert</h2>
+      <div class="zw-seg" role="group" aria-label="Ansicht">
+        <button type="button" class="seg-btn" data-mode="mark" aria-pressed="true">Markiert</button>
+        <button type="button" class="seg-btn" data-mode="only" aria-pressed="false">Nur die häufigsten</button>
+        <button type="button" class="seg-btn" data-mode="without" aria-pressed="false">Ohne die häufigsten</button>
+      </div>
+    </div>
+    <div class="zw-legend" id="legend"></div>
+    <div class="reader" id="reader"></div>
+  </div>
+
+  <div class="zw-hint">Rangliste nach: Tschirner/Möhring, <em>A Frequency Dictionary of German</em>, 2. Auflage, Routledge 2020. Die Zählung ist eine gute Näherung: Getrennte Verbteile am Satzende (<em>Er ruft an.</em>) zählen nicht mit, ebenso wenig Zahlen. Rang 80 (<em>einer</em>) steht im Buch neben Rang 5 (<em>ein</em>); hier zählt beides zusammen bei Rang 5.</div>
+
+</div>
+
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:unterricht@frankburkert-daf.de">unterricht@frankburkert-daf.de</a>
+</div>
+</div><!-- /container -->
+
+<script>
+
+/* ===== DATEN: die 100 häufigsten Wörter (Tschirner/Möhring 2020) ===== */
+var DATA = {"LEM": [{"r": 1, "id": "der", "label": "der, die, das", "g": "art", "sub": "", "fold": "", "noun": false, "w": "der"}, {"r": 2, "id": "und", "label": "und", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "und"}, {"r": 3, "id": "in", "label": "in", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "in"}, {"r": 4, "id": "sein", "label": "sein", "g": "verb", "sub": "h", "fold": "", "noun": false, "w": "sein"}, {"r": 5, "id": "ein", "label": "ein, eine", "g": "art", "sub": "", "fold": "", "noun": false, "w": "ein"}, {"r": 6, "id": "haben", "label": "haben", "g": "verb", "sub": "h", "fold": "", "noun": false, "w": "haben"}, {"r": 7, "id": "sie", "label": "sie, Sie", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "sie"}, {"r": 8, "id": "werden", "label": "werden", "g": "verb", "sub": "h", "fold": "", "noun": false, "w": "werden"}, {"r": 9, "id": "von", "label": "von", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "von"}, {"r": 10, "id": "ich", "label": "ich", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "ich"}, {"r": 11, "id": "nicht", "label": "nicht", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "nicht"}, {"r": 12, "id": "es", "label": "es", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "es"}, {"r": 13, "id": "mit", "label": "mit", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "mit"}, {"r": 14, "id": "sich", "label": "sich", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "sich"}, {"r": 15, "id": "er", "label": "er", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "er"}, {"r": 16, "id": "auf", "label": "auf", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "auf"}, {"r": 17, "id": "für", "label": "für", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "für"}, {"r": 18, "id": "auch", "label": "auch", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "auch"}, {"r": 19, "id": "an", "label": "an", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "an"}, {"r": 20, "id": "dass", "label": "dass", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "dass"}, {"r": 21, "id": "zu", "label": "zu", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "zu"}, {"r": 22, "id": "als", "label": "als", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "als"}, {"r": 23, "id": "koennen", "label": "können", "g": "verb", "sub": "m", "fold": "", "noun": false, "w": "können"}, {"r": 24, "id": "dies", "label": "dies, dieser", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "dies"}, {"r": 25, "id": "wie", "label": "wie", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "wie"}, {"r": 26, "id": "wir", "label": "wir", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "wir"}, {"r": 27, "id": "ihr", "label": "ihr, Ihr", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "ihr"}, {"r": 28, "id": "so", "label": "so", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "so"}, {"r": 29, "id": "bei", "label": "bei", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "bei"}, {"r": 30, "id": "seinposs", "label": "sein (seine)", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "sein"}, {"r": 31, "id": "aber", "label": "aber", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "aber"}, {"r": 32, "id": "man", "label": "man", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "man"}, {"r": 33, "id": "noch", "label": "noch", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "noch"}, {"r": 34, "id": "nach", "label": "nach", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "nach"}, {"r": 35, "id": "oder", "label": "oder", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "oder"}, {"r": 36, "id": "all", "label": "all, alle", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "all"}, {"r": 37, "id": "aus", "label": "aus", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "aus"}, {"r": 38, "id": "was", "label": "was", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "was"}, {"r": 39, "id": "nur", "label": "nur", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "nur"}, {"r": 40, "id": "sagen", "label": "sagen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "sagen"}, {"r": 41, "id": "dann", "label": "dann", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "dann"}, {"r": 42, "id": "wenn", "label": "wenn", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "wenn"}, {"r": 43, "id": "muessen", "label": "müssen", "g": "verb", "sub": "m", "fold": "", "noun": false, "w": "müssen"}, {"r": 44, "id": "um", "label": "um", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "um"}, {"r": 45, "id": "ja", "label": "ja", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "ja"}, {"r": 46, "id": "kein", "label": "kein", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "kein"}, {"r": 47, "id": "ueber", "label": "über", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "über"}, {"r": 48, "id": "da", "label": "da", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "da"}, {"r": 49, "id": "geben", "label": "geben", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "geben"}, {"r": 50, "id": "vor", "label": "vor", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "vor"}, {"r": 51, "id": "mein", "label": "mein", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "mein"}, {"r": 52, "id": "mehr", "label": "mehr", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "mehr"}, {"r": 53, "id": "Jahr", "label": "das Jahr", "g": "nomadj", "sub": "", "fold": "", "noun": true, "w": "Jahr"}, {"r": 54, "id": "du", "label": "du", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "du"}, {"r": 55, "id": "durch", "label": "durch", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "durch"}, {"r": 56, "id": "viel", "label": "viel, viele", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "viel"}, {"r": 57, "id": "wollen", "label": "wollen", "g": "verb", "sub": "m", "fold": "", "noun": false, "w": "wollen"}, {"r": 58, "id": "machen", "label": "machen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "machen"}, {"r": 59, "id": "andere", "label": "andere(r, s)", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "andere(r, s)"}, {"r": 60, "id": "sollen", "label": "sollen", "g": "verb", "sub": "m", "fold": "", "noun": false, "w": "sollen"}, {"r": 61, "id": "schon", "label": "schon", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "schon"}, {"r": 62, "id": "kommen", "label": "kommen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "kommen"}, {"r": 63, "id": "mir", "label": "mir", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "mir"}, {"r": 64, "id": "immer", "label": "immer", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "immer"}, {"r": 65, "id": "mich", "label": "mich", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "mich"}, {"r": 66, "id": "gehen", "label": "gehen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "gehen"}, {"r": 67, "id": "gross", "label": "groß", "g": "nomadj", "sub": "", "fold": "", "noun": false, "w": "groß"}, {"r": 68, "id": "hier", "label": "hier", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "hier"}, {"r": 69, "id": "ganz", "label": "ganz", "g": "nomadj", "sub": "", "fold": "", "noun": false, "w": "ganz"}, {"r": 70, "id": "zwei", "label": "zwei", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "zwei"}, {"r": 71, "id": "also", "label": "also", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "also"}, {"r": 72, "id": "jetzt", "label": "jetzt", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "jetzt"}, {"r": 73, "id": "doch", "label": "doch", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "doch"}, {"r": 74, "id": "wieder", "label": "wieder", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "wieder"}, {"r": 75, "id": "uns", "label": "uns", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "uns"}, {"r": 76, "id": "gut", "label": "gut", "g": "nomadj", "sub": "", "fold": "", "noun": false, "w": "gut"}, {"r": 77, "id": "bis", "label": "bis", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "bis"}, {"r": 78, "id": "wissen", "label": "wissen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "wissen"}, {"r": 79, "id": "sehen", "label": "sehen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "sehen"}, {"r": 80, "id": "einer", "label": "einer", "g": "pron", "sub": "", "fold": "ein", "noun": false, "w": "einer"}, {"r": 81, "id": "sehr", "label": "sehr", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "sehr"}, {"r": 82, "id": "Mal", "label": "das Mal", "g": "nomadj", "sub": "", "fold": "", "noun": true, "w": "Mal"}, {"r": 83, "id": "lassen", "label": "lassen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "lassen"}, {"r": 84, "id": "neu", "label": "neu", "g": "nomadj", "sub": "", "fold": "", "noun": false, "w": "neu"}, {"r": 85, "id": "stehen", "label": "stehen", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "stehen"}, {"r": 86, "id": "unser", "label": "unser", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "unser"}, {"r": 87, "id": "jede", "label": "jede(r, s)", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "jede(r, s)"}, {"r": 88, "id": "weil", "label": "weil", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "weil"}, {"r": 89, "id": "unter", "label": "unter", "g": "prep", "sub": "", "fold": "", "noun": false, "w": "unter"}, {"r": 90, "id": "Mensch", "label": "der Mensch", "g": "nomadj", "sub": "", "fold": "", "noun": true, "w": "Mensch"}, {"r": 91, "id": "ihm", "label": "ihm", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "ihm"}, {"r": 92, "id": "ihn", "label": "ihn", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "ihn"}, {"r": 93, "id": "denn", "label": "denn", "g": "rest", "sub": "", "fold": "", "noun": false, "w": "denn"}, {"r": 94, "id": "Beispiel", "label": "das Beispiel", "g": "nomadj", "sub": "", "fold": "", "noun": true, "w": "Beispiel"}, {"r": 95, "id": "erste", "label": "erste(r, s)", "g": "nomadj", "sub": "", "fold": "", "noun": false, "w": "erste(r, s)"}, {"r": 96, "id": "Zeit", "label": "die Zeit", "g": "nomadj", "sub": "", "fold": "", "noun": true, "w": "Zeit"}, {"r": 97, "id": "lang", "label": "lang", "g": "nomadj", "sub": "", "fold": "", "noun": false, "w": "lang"}, {"r": 98, "id": "leben", "label": "leben", "g": "verb", "sub": "v", "fold": "", "noun": false, "w": "leben"}, {"r": 99, "id": "Frau", "label": "die Frau", "g": "nomadj", "sub": "", "fold": "", "noun": true, "w": "Frau"}, {"r": 100, "id": "etwas", "label": "etwas", "g": "pron", "sub": "", "fold": "", "noun": false, "w": "etwas"}], "FORMS": {"der": "der", "die": "der", "das": "der", "den": "der", "dem": "der", "des": "der", "dessen": "der", "deren": "der", "und": "und", "in": "in", "bin": "sein", "bist": "sein", "ist": "sein", "sind": "sein", "seid": "sein", "war": "sein", "warst": "sein", "waren": "sein", "wart": "sein", "gewesen": "sein", "sei": "sein", "seist": "sein", "seiest": "sein", "seien": "sein", "seiet": "sein", "wäre": "sein", "wärst": "sein", "wärest": "sein", "wären": "sein", "wärt": "sein", "wäret": "sein", "wär": "sein", "ein": "ein", "eine": "ein", "einen": "ein", "einem": "ein", "einer": "ein", "eines": "ein", "habe": "haben", "hab": "haben", "hast": "haben", "hat": "haben", "haben": "haben", "habt": "haben", "hatte": "haben", "hattest": "haben", "hatten": "haben", "hattet": "haben", "gehabt": "haben", "hätte": "haben", "hättest": "haben", "hätten": "haben", "hättet": "haben", "sie": "sie", "werde": "werden", "wirst": "werden", "wird": "werden", "werden": "werden", "werdet": "werden", "wurde": "werden", "wurdest": "werden", "wurden": "werden", "wurdet": "werden", "geworden": "werden", "worden": "werden", "würde": "werden", "würdest": "werden", "würden": "werden", "würdet": "werden", "von": "von", "ich": "ich", "nicht": "nicht", "es": "es", "mit": "mit", "sich": "sich", "er": "er", "auf": "auf", "für": "für", "auch": "auch", "an": "an", "dass": "dass", "daß": "dass", "zu": "zu", "als": "als", "kann": "koennen", "kannst": "koennen", "können": "koennen", "könnt": "koennen", "konnte": "koennen", "konntest": "koennen", "konnten": "koennen", "konntet": "koennen", "gekonnt": "koennen", "könne": "koennen", "könnte": "koennen", "könntest": "koennen", "könnten": "koennen", "könntet": "koennen", "dies": "dies", "diese": "dies", "diesen": "dies", "diesem": "dies", "dieser": "dies", "dieses": "dies", "wie": "wie", "wir": "wir", "ihr": "ihr", "ihre": "ihr", "ihren": "ihr", "ihrem": "ihr", "ihrer": "ihr", "ihres": "ihr", "so": "so", "bei": "bei", "seine": "seinposs", "seinen": "seinposs", "seinem": "seinposs", "seiner": "seinposs", "seines": "seinposs", "aber": "aber", "man": "man", "noch": "noch", "nach": "nach", "oder": "oder", "all": "all", "alle": "all", "allen": "all", "allem": "all", "aller": "all", "alles": "all", "aus": "aus", "was": "was", "nur": "nur", "sage": "sagen", "sag": "sagen", "sagst": "sagen", "sagt": "sagen", "sagen": "sagen", "sagte": "sagen", "sagtest": "sagen", "sagten": "sagen", "sagtet": "sagen", "gesagt": "sagen", "dann": "dann", "wenn": "wenn", "muss": "muessen", "muß": "muessen", "musst": "muessen", "müssen": "muessen", "müsst": "muessen", "musste": "muessen", "musstest": "muessen", "mussten": "muessen", "musstet": "muessen", "gemusst": "muessen", "müsste": "muessen", "müsstest": "muessen", "müssten": "muessen", "müsstet": "muessen", "um": "um", "ja": "ja", "kein": "kein", "keine": "kein", "keinen": "kein", "keinem": "kein", "keiner": "kein", "keines": "kein", "über": "ueber", "da": "da", "gebe": "geben", "gib": "geben", "gibst": "geben", "gibt": "geben", "geben": "geben", "gebt": "geben", "gab": "geben", "gabst": "geben", "gaben": "geben", "gabt": "geben", "gegeben": "geben", "gäbe": "geben", "gäben": "geben", "vor": "vor", "mein": "mein", "meine": "mein", "meinen": "mein", "meinem": "mein", "meiner": "mein", "meines": "mein", "mehr": "mehr", "Jahr": "Jahr", "Jahre": "Jahr", "Jahren": "Jahr", "Jahres": "Jahr", "Jahrs": "Jahr", "du": "du", "durch": "durch", "viel": "viel", "viele": "viel", "vielen": "viel", "vielem": "viel", "vieler": "viel", "vieles": "viel", "will": "wollen", "willst": "wollen", "wollen": "wollen", "wollt": "wollen", "wollte": "wollen", "wolltest": "wollen", "wollten": "wollen", "wolltet": "wollen", "gewollt": "wollen", "wolle": "wollen", "mache": "machen", "mach": "machen", "machst": "machen", "macht": "machen", "machen": "machen", "machte": "machen", "machtest": "machen", "machten": "machen", "machtet": "machen", "gemacht": "machen", "andere": "andere", "anderen": "andere", "anderem": "andere", "anderer": "andere", "anderes": "andere", "andern": "andere", "soll": "sollen", "sollst": "sollen", "sollen": "sollen", "sollt": "sollen", "sollte": "sollen", "solltest": "sollen", "sollten": "sollen", "solltet": "sollen", "gesollt": "sollen", "schon": "schon", "komme": "kommen", "komm": "kommen", "kommst": "kommen", "kommt": "kommen", "kommen": "kommen", "kam": "kommen", "kamst": "kommen", "kamen": "kommen", "kamt": "kommen", "gekommen": "kommen", "käme": "kommen", "kämen": "kommen", "mir": "mir", "immer": "immer", "mich": "mich", "gehe": "gehen", "geh": "gehen", "gehst": "gehen", "geht": "gehen", "gehen": "gehen", "ging": "gehen", "gingst": "gehen", "gingen": "gehen", "gingt": "gehen", "gegangen": "gehen", "ginge": "gehen", "groß": "gross", "große": "gross", "großen": "gross", "großem": "gross", "großer": "gross", "großes": "gross", "größer": "gross", "größere": "gross", "größeren": "gross", "größerem": "gross", "größerer": "gross", "größeres": "gross", "größte": "gross", "größten": "gross", "größtem": "gross", "größter": "gross", "größtes": "gross", "hier": "hier", "ganz": "ganz", "ganze": "ganz", "ganzen": "ganz", "ganzem": "ganz", "ganzer": "ganz", "ganzes": "ganz", "zwei": "zwei", "also": "also", "jetzt": "jetzt", "doch": "doch", "wieder": "wieder", "uns": "uns", "gut": "gut", "gute": "gut", "guten": "gut", "gutem": "gut", "guter": "gut", "gutes": "gut", "besser": "gut", "bessere": "gut", "besseren": "gut", "besserem": "gut", "besserer": "gut", "besseres": "gut", "beste": "gut", "besten": "gut", "bestem": "gut", "bester": "gut", "bestes": "gut", "bis": "bis", "weiß": "wissen", "weiss": "wissen", "weißt": "wissen", "wissen": "wissen", "wisst": "wissen", "wusste": "wissen", "wusstest": "wissen", "wussten": "wissen", "wusstet": "wissen", "gewusst": "wissen", "wüsste": "wissen", "wüssten": "wissen", "sehe": "sehen", "sieh": "sehen", "siehst": "sehen", "sieht": "sehen", "sehen": "sehen", "seht": "sehen", "sah": "sehen", "sahst": "sehen", "sahen": "sehen", "saht": "sehen", "gesehen": "sehen", "sähe": "sehen", "sähen": "sehen", "sehr": "sehr", "Mal": "Mal", "Male": "Mal", "Malen": "Mal", "Mals": "Mal", "lasse": "lassen", "lass": "lassen", "lässt": "lassen", "läßt": "lassen", "lassen": "lassen", "lasst": "lassen", "ließ": "lassen", "ließt": "lassen", "ließen": "lassen", "ließe": "lassen", "gelassen": "lassen", "neu": "neu", "neue": "neu", "neuen": "neu", "neuem": "neu", "neuer": "neu", "neues": "neu", "neuere": "neu", "neueren": "neu", "neueste": "neu", "neuesten": "neu", "neuester": "neu", "stehe": "stehen", "steh": "stehen", "stehst": "stehen", "steht": "stehen", "stehen": "stehen", "stand": "stehen", "standst": "stehen", "standen": "stehen", "standet": "stehen", "gestanden": "stehen", "stünde": "stehen", "stände": "stehen", "unser": "unser", "unsere": "unser", "unseren": "unser", "unserem": "unser", "unserer": "unser", "unseres": "unser", "jede": "jede", "jeden": "jede", "jedem": "jede", "jeder": "jede", "jedes": "jede", "weil": "weil", "unter": "unter", "Mensch": "Mensch", "Menschen": "Mensch", "ihm": "ihm", "ihn": "ihn", "denn": "denn", "Beispiel": "Beispiel", "Beispiele": "Beispiel", "Beispielen": "Beispiel", "Beispiels": "Beispiel", "erste": "erste", "ersten": "erste", "erstem": "erste", "erster": "erste", "erstes": "erste", "Zeit": "Zeit", "Zeiten": "Zeit", "lang": "lang", "lange": "lang", "langen": "lang", "langem": "lang", "langer": "lang", "langes": "lang", "länger": "lang", "längere": "lang", "längeren": "lang", "längste": "lang", "längsten": "lang", "lebe": "leben", "leb": "leben", "lebst": "leben", "lebt": "leben", "leben": "leben", "lebte": "leben", "lebtest": "leben", "lebten": "leben", "lebtet": "leben", "gelebt": "leben", "Frau": "Frau", "Frauen": "Frau", "etwas": "etwas"}, "INF": {"Sein": "sein", "Haben": "haben", "Werden": "werden", "Können": "koennen", "Sagen": "sagen", "Müssen": "muessen", "Geben": "geben", "Wollen": "wollen", "Machen": "machen", "Sollen": "sollen", "Kommen": "kommen", "Gehen": "gehen", "Wissen": "wissen", "Sehen": "sehen", "Lassen": "lassen", "Stehen": "stehen", "Leben": "leben"}, "PREFIX": ["in", "mit", "auf", "an", "zu", "nach", "aus", "um", "ueber", "da", "vor", "durch", "unter"]};
+var LEM = DATA.LEM, FORMS = DATA.FORMS, INF = DATA.INF;
+var PREFIX = {}; DATA.PREFIX.forEach(function(x){ PREFIX[x] = 1; });
+var BY = {}; LEM.forEach(function(l){ BY[l.id] = l; });
+var CONTR = {
+  im:['in','der'], ins:['in','der'], am:['an','der'], ans:['an','der'], vom:['von','der'],
+  aufs:['auf','der'], 'fürs':['für','der'], zum:['zu','der'], zur:['zu','der'], beim:['bei','der'],
+  durchs:['durch','der'], ums:['um','der'], 'übers':['über','der'], unters:['unter','der'],
+  unterm:['unter','der'], vors:['vor','der'], vorm:['vor','der'], hinterm:['der'], hinters:['der']
+};
+var MODAL = {};
+'kann kannst können könnt konnte konnten könnte könnten muss musst müssen müsst musste mussten müsste müssten soll sollst sollen sollt sollte sollten will willst wollen wollt wollte wollten darf darfst dürfen dürft durfte durften dürfte dürften mag möchte möchten wird werden würde würden wirst werde'.split(' ').forEach(function(w){ MODAL[w] = 1; });
+var WORD = /[A-Za-zÀ-ÖØ-öø-ÿẞ]+(?:[-'’][A-Za-zÀ-ÖØ-öø-ÿẞ]+)*/g;
+
+/* Zerlegt den Text einmal und merkt sich zu jedem Treffer die Wörterbuch-Einträge. */
+function analyze(text) {
+  var words = [], m; WORD.lastIndex = 0;
+  while ((m = WORD.exec(text))) words.push({ s: m[0], i: m.index, e: m.index + m[0].length });
+  var parts = [], pos = 0;
+  for (var k = 0; k < words.length; k++) {
+    var w = words[k], low = w.s.toLowerCase();
+    var prevSep = k === 0 ? '' : text.slice(words[k-1].e, w.i);
+    var nextSep = k === words.length - 1 ? null : text.slice(w.e, words[k+1].i);
+    var start = k === 0 || /[.!?:…\n»«„“”\x22(–—]\s*$/.test(prevSep);
+    var cap = w.s.charAt(0) !== w.s.charAt(0).toLowerCase();
+    var punctAfter = nextSep === null || /^\s*[.!?;:,)“”\x22«»]/.test(nextSep) || /\n/.test(nextSep);
+    var prevLow = k > 0 ? words[k-1].s.toLowerCase() : '';
+    var nextLow = k < words.length - 1 ? words[k+1].s.toLowerCase() : '';
+    var lem = [];
+    if (CONTR[low]) {
+      lem = CONTR[low];
+    } else if (low === 'sein') {
+      /* Verb oder Possessivwort? */
+      if (cap && !start) lem = ['sein'];
+      else if (prevLow === 'zu' || punctAfter || MODAL[nextLow]) lem = ['sein'];
+      else lem = ['seinposs'];
+    } else if (FORMS[low]) {
+      var id = FORMS[low], L = BY[id];
+      if (L.noun) lem = cap ? [id] : [];
+      else if (L.g === 'verb') lem = (cap && !start && INF[w.s] !== id) ? [] : [id];
+      else if (PREFIX[id] && punctAfter) lem = [];   /* abgetrennter Verbteil: Er ruft an. */
+      else lem = [id];
+    }
+    if (w.i > pos) parts.push({ t: text.slice(pos, w.i) });
+    parts.push(lem.length ? { t: w.s, l: lem, low: low } : { t: w.s });
+    pos = w.e;
+  }
+  if (pos < text.length) parts.push({ t: text.slice(pos) });
+  return { total: words.length, parts: parts };
+}
+
+/* Wertet eine fertige Zerlegung für die ersten N Wörter aus. */
+function view(a, limit) {
+  var counts = {}, forms = {}, groups = {}, subs = { h:0, m:0, v:0 }, covered = 0;
+  LEM.forEach(function(l){ counts[l.id] = 0; forms[l.id] = {}; });
+  GORDER.forEach(function(g){ groups[g] = 0; });
+  a.parts.forEach(function(p){
+    p.g = undefined;
+    if (!p.l) return;
+    var f = p.l.filter(function(id){ return BY[id].r <= limit; });
+    if (!f.length) return;
+    covered++;
+    var g = BY[f[0]].g;
+    groups[g]++;
+    if (g === 'verb') subs[BY[f[0]].sub]++;
+    f.forEach(function(id){ counts[id]++; forms[id][p.low] = (forms[id][p.low] || 0) + 1; });
+    p.g = g;
+  });
+  return { total: a.total, covered: covered, counts: counts, forms: forms, groups: groups, subs: subs };
+}
+
+/* ===== Anzeige ===== */
+var GNAMES = {"art": "Artikel", "verb": "Verben", "prep": "Präpositionen", "pron": "Pronomen", "nomadj": "Nomen & Adjektive", "rest": "Kleine Wörter"}, GORDER = ["art", "verb", "prep", "pron", "nomadj", "rest"], DESC = {"20": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Nur drei Verben – und mit ihnen bildet man Perfekt, Passiv und Futur.", "prep": "Sechs Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Fünf Wörter, die für Personen und Dinge stehen.", "nomadj": "", "rest": "Sie verbinden und verneinen."}, "100": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Siebzehn Verben, davon sieben Hilfs- und Modalverben.", "prep": "Sechzehn Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Siebenundzwanzig Wörter, die für Personen und Dinge stehen.", "nomadj": "Nur zwölf von hundert tragen eine konkrete Bedeutung.", "rest": "Sie verbinden, verneinen und färben den Satz."}}, VD = [["h", "Hilfsverben", "sein · haben · werden"], ["m", "Modalverben", "können · müssen · wollen · sollen"], ["v", "Vollverben", "sagen · geben · machen · kommen · gehen · wissen · sehen · lassen · stehen · leben"]];
+var SAMPLE = "Beispieltext\\n\\nAm Montag ist Jana zum ersten Mal in das neue Büro gefahren. Sie hat lange auf diesen Tag gewartet, und sie war ein bisschen nervös. Das Gebäude steht an einer großen Straße, nicht weit von dem Bahnhof. Im Eingang hat ein Mann mit einer roten Mappe auf sie gewartet. Er hat sich vorgestellt und gesagt, dass er für die neuen Kollegen zuständig ist.\\n\\nZuerst haben sie eine Runde durch die Abteilung gemacht. Jana hat viele Namen gehört, aber sie konnte sich nicht alle merken. „Das ist ganz normal“, hat der Mann gesagt, „ich habe am Anfang auch drei Wochen gebraucht. Man muss sich einfach Zeit lassen.“ Dann hat er ihr den Schreibtisch gezeigt. Es war ein Platz am Fenster, und von dort konnte man den Fluss sehen.\\n\\nAm Nachmittag ist sie in eine Besprechung gegangen. Dort wurde viel über ein Projekt gesprochen, das im Herbst fertig werden soll. Jana hat sich Notizen gemacht, denn sie wollte nichts vergessen. Ein Kollege hat gefragt, ob sie schon etwas über die neuen Kunden weiß. Sie musste zugeben, dass sie es noch nicht wusste.\\n\\nAm Abend war sie müde, aber sie hat sich auch gefreut. Sie hat gedacht: Ich werde mich an die neue Arbeit gewöhnen, und es wird eine gute Zeit. Vor einem Jahr hätte sie das noch nicht geglaubt.";
+var limit = 20, sortMode = 'rang', ana = null, res = null;
+
+function $(id) { return document.getElementById(id); }
+function nf(n) { return n.toLocaleString('de-DE'); }
+function pf(x) { return x.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %'; }
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function inLimit(l) { return l.r <= limit; }
+
+function groupWords(g) {
+  var ws = LEM.filter(function(l){ return l.g === g && inLimit(l) && !l.fold; }).map(function(l){ return l.w; });
+  if (ws.length > 12) return ws.slice(0, 12).join(' · ') + ' …';
+  return ws.join(' · ');
+}
+
+function buildGroups() {
+  var gs = GORDER.filter(function(g){ return LEM.some(function(l){ return l.g === g && inLimit(l); }); });
+  $('groups').innerHTML = gs.map(function(g){
+    return '<div class="zw-grp ' + g + '"><h3>' + GNAMES[g] + '</h3><div class="pct" id="g-' + g + '">–</div>' +
+           '<p class="words">' + groupWords(g) + '</p><p>' + DESC[String(limit)][g] + '</p></div>';
+  }).join('');
+  $('legend').innerHTML = gs.map(function(g){ return '<span><i class="chip ' + g + '"></i>' + GNAMES[g] + '</span>'; }).join('');
+  $('verbBlock').hidden = (limit === 20);
+  if (limit !== 20) {
+    $('verbdetail').innerHTML = VD.map(function(x){
+      return '<div class="zw-vd"><div class="pct" id="v-' + x[0] + '">–</div><div class="nm">' + x[1] + '</div><div class="wd">' + x[2] + '</div></div>';
+    }).join('');
+  }
+}
+
+function renderRows() {
+  var list = LEM.filter(inLimit);
+  if (sortMode === 'anzahl' && res) {
+    list.sort(function(a, b){ var d = (res.counts[b.id]||0) - (res.counts[a.id]||0); return d !== 0 ? d : a.r - b.r; });
+  } else {
+    list.sort(function(a, b){ return a.r - b.r; });
+  }
+  var max = 0;
+  if (res) list.forEach(function(l){ if (res.counts[l.id] > max) max = res.counts[l.id]; });
+  $('rows').innerHTML = list.map(function(l){
+    if (l.fold) {
+      var z = BY[l.fold];
+      return '<tr class="' + l.g + ' zero"><td class="n">' + l.r + '</td><td class="w"><i class="chip"></i>' + l.label +
+             '</td><td class="fold" colspan="4">zählt bei Rang ' + z.r + ' (' + z.label + ') mit</td></tr>';
+    }
+    var c = res ? res.counts[l.id] : 0;
+    var f = res ? res.forms[l.id] : {};
+    var keys = Object.keys(f).sort(function(a, b){ return f[b] - f[a]; });
+    var txt = keys.slice(0, 3).map(function(k){ return k + ' ' + f[k]; }).join(' · ');
+    if (keys.length > 3) txt += ' · …';
+    if (!res) txt = '–'; else if (!keys.length) txt = 'kommt nicht vor';
+    return '<tr class="' + l.g + (res && !c ? ' zero' : '') + '"><td class="n">' + l.r + '</td>' +
+           '<td class="w"><i class="chip"></i>' + l.label + '</td><td class="f">' + txt + '</td>' +
+           '<td class="n">' + (res ? nf(c) : '–') + '</td>' +
+           '<td class="n">' + (res ? pf(c / res.total * 100) : '–') + '</td>' +
+           '<td class="b"><div class="bar" style="width:' + (max ? c / max * 100 : 0) + '%"></div></td></tr>';
+  }).join('');
+}
+
+function countUp(el, target) {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { el.textContent = pf(target); return; }
+  var t0 = null, dur = 900, from = parseFloat(String(el.textContent).replace('%','').replace(',','.')) || 0;
+  function step(t) {
+    if (!t0) t0 = t;
+    var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = pf(from + (target - from) * e);
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function labels() {
+  /* sayN lebt im Satz, der bei jeder Auswertung neu geschrieben wird - kann fehlen. */
+  ['guessN', 'sayN'].forEach(function(id){ var e = $(id); if (e) e.textContent = limit; });
+  $('hitsLbl').textContent = 'davon die ' + limit;
+}
+
+function show() {
+  if (!ana) { renderRows(); return; }
+  /* Erst den Vergleichswert, dann die aktuelle Sicht: view() markiert den Text,
+     und die zuletzt berechnete Sicht ist die, die der Leser sehen soll. */
+  var other = limit === 20 ? 100 : 20;
+  var o = view(ana, other);
+  res = view(ana, limit);
+  var r = res, pct = r.covered / r.total * 100;
+  countUp($('pct'), pct);
+  var every = Math.max(1, Math.round(r.total / Math.max(1, r.covered)));
+  $('say').innerHTML = r.covered === 0
+    ? 'Keines dieser Wörter steht in deinem Text. Ist der Text auf Deutsch?'
+    : 'Ungefähr jedes ' + every + '. Wort in deinem Text ist eines dieser <b>' + limit + '</b> Wörter.';
+  $('sub').innerHTML = (other === 100 ? 'Mit den ersten 100 Wörtern wären es ' : 'Davon die ersten 20 Wörter: ') +
+                       '<b>' + pf(o.covered / o.total * 100) + '</b>';
+  $('total').textContent = nf(r.total);
+  $('hits').textContent = nf(r.covered);
+  var gv = $('guess').value;
+  $('guessOut').textContent = gv === '' ? 'keine' : nf(Number(gv)) + ' %';
+  var gs = GORDER.filter(function(g){ return LEM.some(function(l){ return l.g === g && inLimit(l); }); });
+  $('split').innerHTML = gs.map(function(g){ return '<span class="' + g + '" style="width:' + (r.groups[g] / r.total * 100) + '%"></span>'; }).join('');
+  gs.forEach(function(g){ var e = $('g-' + g); if (e) e.textContent = pf(r.groups[g] / r.total * 100); });
+  if (limit !== 20) VD.forEach(function(x){ var e = $('v-' + x[0]); if (e) e.textContent = pf(r.subs[x[0]] / r.total * 100); });
+  renderRows();
+  $('reader').innerHTML = ana.parts.map(function(p){
+    return p.g ? '<mark class="' + p.g + '">' + esc(p.t) + '</mark>' : '<span class="o">' + esc(p.t) + '</span>';
+  }).join('');
+  $('readerCard').hidden = false;
+}
+
+function run() {
+  var text = $('txt').value, warn = $('warn');
+  var a = analyze(text);
+  if (a.total === 0) { warn.hidden = false; warn.textContent = 'Das Feld ist leer. Füge zuerst einen Text ein.'; return; }
+  if (a.total < 150) { warn.hidden = false; warn.textContent = 'Der Text hat nur ' + nf(a.total) + ' Wörter. Mit zwei Seiten wird das Ergebnis genauer.'; }
+  else warn.hidden = true;
+  ana = a;
+  show();
+}
+
+labels();
+buildGroups();
+renderRows();
+$('go').addEventListener('click', run);
+$('sample').addEventListener('click', function(){ $('txt').value = SAMPLE; $('txt').focus(); });
+$('clear').addEventListener('click', function(){
+  $('txt').value = ''; $('guess').value = ''; $('warn').hidden = true;
+  ana = null; res = null; $('pct').textContent = '? %'; $('sub').innerHTML = '&nbsp;';
+  $('total').textContent = '–'; $('hits').textContent = '–'; $('guessOut').textContent = '–';
+  $('split').innerHTML = ''; $('reader').innerHTML = ''; buildGroups(); renderRows();
+  $('readerCard').hidden = true; $('txt').focus();
+});
+Array.prototype.forEach.call(document.querySelectorAll('.zw-seg .seg-btn'), function(b){
+  b.addEventListener('click', function(){
+    Array.prototype.forEach.call(b.parentNode.querySelectorAll('.seg-btn'), function(x){
+      x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+    });
+    if (b.dataset.limit) { limit = Number(b.dataset.limit); labels(); buildGroups(); show(); }
+    else if (b.dataset.sort) { sortMode = b.dataset.sort; renderRows(); }
+    else { $('reader').className = 'reader' + (b.dataset.mode === 'mark' ? '' : ' ' + b.dataset.mode); }
+  });
+});
+</script>
+</body>
+</html>
