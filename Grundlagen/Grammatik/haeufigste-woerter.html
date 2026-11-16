@@ -314,7 +314,8 @@ html[data-theme="dark"] body { color: #c6cade; }
   <div class="zw-modebar">
     <span class="lbl">Ich vergleiche meinen Text mit:</span>
     <div class="zw-seg zw-seg-big" role="group" aria-label="Wie viele Wörter">
-      <button type="button" class="seg-btn" data-limit="20" aria-pressed="true">den ersten 20</button>
+      <button type="button" class="seg-btn" data-limit="10" aria-pressed="true">den ersten 10</button>
+      <button type="button" class="seg-btn" data-limit="20" aria-pressed="false">den ersten 20</button>
       <button type="button" class="seg-btn" data-limit="100" aria-pressed="false">den ersten 100</button>
     </div>
   </div>
@@ -326,7 +327,7 @@ html[data-theme="dark"] body { color: #c6cade; }
       <div class="zw-guess">
         <label for="guess">Meine Schätzung:</label>
         <input id="guess" type="number" min="0" max="100" step="1" inputmode="numeric">
-        <span>% meines Textes sind diese <b id="guessN">20</b> Wörter.</span>
+        <span>% meines Textes sind diese <b id="guessN">10</b> Wörter.</span>
       </div>
       <div class="btn-row">
         <button class="btn btn-main" id="go" type="button">Auszählen</button>
@@ -339,12 +340,12 @@ html[data-theme="dark"] body { color: #c6cade; }
 
     <div class="zw-card" aria-live="polite">
       <div class="zw-num" id="pct">? %</div>
-      <div class="zw-say" id="say">So viel von deinem Text besteht aus nur <b id="sayN">20</b> Wörtern.</div>
+      <div class="zw-say" id="say">So viel von deinem Text besteht aus nur <b id="sayN">10</b> Wörtern.</div>
       <div class="zw-split" id="split" aria-hidden="true"></div>
       <div class="zw-sub" id="sub">&nbsp;</div>
       <dl class="zw-facts">
         <div><dt>Wörter im Text</dt><dd id="total">–</dd></div>
-        <div><dt id="hitsLbl">davon die 20</dt><dd id="hits">–</dd></div>
+        <div><dt id="hitsLbl">davon die 10</dt><dd id="hits">–</dd></div>
         <div><dt>meine Schätzung</dt><dd id="guessOut">–</dd></div>
       </dl>
       <div class="zw-hint">Das Buch nennt für die ersten 10 Wörter etwa 27 % und für die ersten 20 etwa 35 % – gemittelt über eine Sammlung von 20 Millionen Wörtern.</div>
@@ -474,9 +475,9 @@ function view(a, limit) {
 }
 
 /* ===== Anzeige ===== */
-var GNAMES = {"art": "Artikel", "verb": "Verben", "prep": "Präpositionen", "pron": "Pronomen", "nomadj": "Nomen & Adjektive", "rest": "Kleine Wörter"}, GORDER = ["art", "verb", "prep", "pron", "nomadj", "rest"], DESC = {"20": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Nur drei Verben – und mit ihnen bildet man Perfekt, Passiv und Futur.", "prep": "Sechs Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Fünf Wörter, die für Personen und Dinge stehen.", "nomadj": "", "rest": "Sie verbinden und verneinen."}, "100": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Siebzehn Verben, davon sieben Hilfs- und Modalverben.", "prep": "Sechzehn Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Siebenundzwanzig Wörter, die für Personen und Dinge stehen.", "nomadj": "Nur zwölf von hundert tragen eine konkrete Bedeutung.", "rest": "Sie verbinden, verneinen und färben den Satz."}}, VD = [["h", "Hilfsverben", "sein · haben · werden"], ["m", "Modalverben", "können · müssen · wollen · sollen"], ["v", "Vollverben", "sagen · geben · machen · kommen · gehen · wissen · sehen · lassen · stehen · leben"]];
+var GNAMES = {"art": "Artikel", "verb": "Verben", "prep": "Präpositionen", "pron": "Pronomen", "nomadj": "Nomen & Adjektive", "rest": "Kleine Wörter"}, GORDER = ["art", "verb", "prep", "pron", "nomadj", "rest"], DESC = {"10": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Drei Verben – und mit ihnen bildet man Perfekt, Passiv und Futur.", "prep": "Zwei Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Zwei Wörter, die für Personen stehen.", "nomadj": "", "rest": "Ein einziges Wort: und."}, "20": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Nur drei Verben – und mit ihnen bildet man Perfekt, Passiv und Futur.", "prep": "Sechs Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Fünf Wörter, die für Personen und Dinge stehen.", "nomadj": "", "rest": "Sie verbinden und verneinen."}, "100": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Siebzehn Verben, davon sieben Hilfs- und Modalverben.", "prep": "Sechzehn Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Siebenundzwanzig Wörter, die für Personen und Dinge stehen.", "nomadj": "Nur zwölf von hundert tragen eine konkrete Bedeutung.", "rest": "Sie verbinden, verneinen und färben den Satz."}}, VD = [["h", "Hilfsverben", "sein · haben · werden"], ["m", "Modalverben", "können · müssen · wollen · sollen"], ["v", "Vollverben", "sagen · geben · machen · kommen · gehen · wissen · sehen · lassen · stehen · leben"]];
 var SAMPLE = "Beispieltext\\n\\nAm Montag ist Jana zum ersten Mal in das neue Büro gefahren. Sie hat lange auf diesen Tag gewartet, und sie war ein bisschen nervös. Das Gebäude steht an einer großen Straße, nicht weit von dem Bahnhof. Im Eingang hat ein Mann mit einer roten Mappe auf sie gewartet. Er hat sich vorgestellt und gesagt, dass er für die neuen Kollegen zuständig ist.\\n\\nZuerst haben sie eine Runde durch die Abteilung gemacht. Jana hat viele Namen gehört, aber sie konnte sich nicht alle merken. „Das ist ganz normal“, hat der Mann gesagt, „ich habe am Anfang auch drei Wochen gebraucht. Man muss sich einfach Zeit lassen.“ Dann hat er ihr den Schreibtisch gezeigt. Es war ein Platz am Fenster, und von dort konnte man den Fluss sehen.\\n\\nAm Nachmittag ist sie in eine Besprechung gegangen. Dort wurde viel über ein Projekt gesprochen, das im Herbst fertig werden soll. Jana hat sich Notizen gemacht, denn sie wollte nichts vergessen. Ein Kollege hat gefragt, ob sie schon etwas über die neuen Kunden weiß. Sie musste zugeben, dass sie es noch nicht wusste.\\n\\nAm Abend war sie müde, aber sie hat sich auch gefreut. Sie hat gedacht: Ich werde mich an die neue Arbeit gewöhnen, und es wird eine gute Zeit. Vor einem Jahr hätte sie das noch nicht geglaubt.";
-var limit = 20, sortMode = 'rang', ana = null, res = null;
+var limit = 10, sortMode = 'rang', ana = null, res = null;
 
 function $(id) { return document.getElementById(id); }
 function nf(n) { return n.toLocaleString('de-DE'); }
@@ -497,8 +498,8 @@ function buildGroups() {
            '<p class="words">' + groupWords(g) + '</p><p>' + DESC[String(limit)][g] + '</p></div>';
   }).join('');
   $('legend').innerHTML = gs.map(function(g){ return '<span><i class="chip ' + g + '"></i>' + GNAMES[g] + '</span>'; }).join('');
-  $('verbBlock').hidden = (limit === 20);
-  if (limit !== 20) {
+  $('verbBlock').hidden = (limit < 100);
+  if (limit === 100) {
     $('verbdetail').innerHTML = VD.map(function(x){
       return '<div class="zw-vd"><div class="pct" id="v-' + x[0] + '">–</div><div class="nm">' + x[1] + '</div><div class="wd">' + x[2] + '</div></div>';
     }).join('');
@@ -557,7 +558,7 @@ function show() {
   if (!ana) { renderRows(); return; }
   /* Erst den Vergleichswert, dann die aktuelle Sicht: view() markiert den Text,
      und die zuletzt berechnete Sicht ist die, die der Leser sehen soll. */
-  var other = limit === 20 ? 100 : 20;
+  var other = limit === 10 ? 20 : (limit === 20 ? 100 : 20);
   var o = view(ana, other);
   res = view(ana, limit);
   var r = res, pct = r.covered / r.total * 100;
@@ -566,7 +567,7 @@ function show() {
   $('say').innerHTML = r.covered === 0
     ? 'Keines dieser Wörter steht in deinem Text. Ist der Text auf Deutsch?'
     : 'Ungefähr jedes ' + every + '. Wort in deinem Text ist eines dieser <b>' + limit + '</b> Wörter.';
-  $('sub').innerHTML = (other === 100 ? 'Mit den ersten 100 Wörtern wären es ' : 'Davon die ersten 20 Wörter: ') +
+  $('sub').innerHTML = (limit === 100 ? 'Davon die ersten 20 Wörter: ' : 'Mit den ersten ' + other + ' Wörtern wären es ') +
                        '<b>' + pf(o.covered / o.total * 100) + '</b>';
   $('total').textContent = nf(r.total);
   $('hits').textContent = nf(r.covered);
@@ -575,7 +576,7 @@ function show() {
   var gs = GORDER.filter(function(g){ return LEM.some(function(l){ return l.g === g && inLimit(l); }); });
   $('split').innerHTML = gs.map(function(g){ return '<span class="' + g + '" style="width:' + (r.groups[g] / r.total * 100) + '%"></span>'; }).join('');
   gs.forEach(function(g){ var e = $('g-' + g); if (e) e.textContent = pf(r.groups[g] / r.total * 100); });
-  if (limit !== 20) VD.forEach(function(x){ var e = $('v-' + x[0]); if (e) e.textContent = pf(r.subs[x[0]] / r.total * 100); });
+  if (limit === 100) VD.forEach(function(x){ var e = $('v-' + x[0]); if (e) e.textContent = pf(r.subs[x[0]] / r.total * 100); });
   renderRows();
   $('reader').innerHTML = ana.parts.map(function(p){
     return p.g ? '<mark class="' + p.g + '">' + esc(p.t) + '</mark>' : '<span class="o">' + esc(p.t) + '</span>';
