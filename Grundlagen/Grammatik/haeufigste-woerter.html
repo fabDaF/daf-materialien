@@ -348,7 +348,7 @@ html[data-theme="dark"] body { color: #c6cade; }
         <div><dt id="hitsLbl">davon die 10</dt><dd id="hits">–</dd></div>
         <div><dt>meine Schätzung</dt><dd id="guessOut">–</dd></div>
       </dl>
-      <div class="zw-hint">Das Buch nennt für die ersten 10 Wörter etwa 27 % und für die ersten 20 etwa 35 % – gemittelt über eine Sammlung von 20 Millionen Wörtern.</div>
+      <div class="zw-hint" id="bookhint" hidden></div>
     </div>
   </div>
 
@@ -477,6 +477,11 @@ function view(a, limit) {
 /* ===== Anzeige ===== */
 var GNAMES = {"art": "Artikel", "verb": "Verben", "prep": "Präpositionen", "pron": "Pronomen", "nomadj": "Nomen & Adjektive", "rest": "Kleine Wörter"}, GORDER = ["art", "verb", "prep", "pron", "nomadj", "rest"], DESC = {"10": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Drei Verben – und mit ihnen bildet man Perfekt, Passiv und Futur.", "prep": "Zwei Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Zwei Wörter, die für Personen stehen.", "nomadj": "", "rest": "Ein einziges Wort: und."}, "20": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Nur drei Verben – und mit ihnen bildet man Perfekt, Passiv und Futur.", "prep": "Sechs Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Fünf Wörter, die für Personen und Dinge stehen.", "nomadj": "", "rest": "Sie verbinden und verneinen."}, "100": {"art": "Zwei Wörter mit vielen Formen. Dafür lernt man die Deklination.", "verb": "Siebzehn Verben, davon sieben Hilfs- und Modalverben.", "prep": "Sechzehn Präpositionen. Jede verlangt einen bestimmten Kasus.", "pron": "Siebenundzwanzig Wörter, die für Personen und Dinge stehen.", "nomadj": "Nur zwölf von hundert tragen eine konkrete Bedeutung.", "rest": "Sie verbinden, verneinen und färben den Satz."}}, VD = [["h", "Hilfsverben", "sein · haben · werden"], ["m", "Modalverben", "können · müssen · wollen · sollen"], ["v", "Vollverben", "sagen · geben · machen · kommen · gehen · wissen · sehen · lassen · stehen · leben"]];
 var SAMPLE = "Beispieltext\\n\\nAm Montag ist Jana zum ersten Mal in das neue Büro gefahren. Sie hat lange auf diesen Tag gewartet, und sie war ein bisschen nervös. Das Gebäude steht an einer großen Straße, nicht weit von dem Bahnhof. Im Eingang hat ein Mann mit einer roten Mappe auf sie gewartet. Er hat sich vorgestellt und gesagt, dass er für die neuen Kollegen zuständig ist.\\n\\nZuerst haben sie eine Runde durch die Abteilung gemacht. Jana hat viele Namen gehört, aber sie konnte sich nicht alle merken. „Das ist ganz normal“, hat der Mann gesagt, „ich habe am Anfang auch drei Wochen gebraucht. Man muss sich einfach Zeit lassen.“ Dann hat er ihr den Schreibtisch gezeigt. Es war ein Platz am Fenster, und von dort konnte man den Fluss sehen.\\n\\nAm Nachmittag ist sie in eine Besprechung gegangen. Dort wurde viel über ein Projekt gesprochen, das im Herbst fertig werden soll. Jana hat sich Notizen gemacht, denn sie wollte nichts vergessen. Ein Kollege hat gefragt, ob sie schon etwas über die neuen Kunden weiß. Sie musste zugeben, dass sie es noch nicht wusste.\\n\\nAm Abend war sie müde, aber sie hat sich auch gefreut. Sie hat gedacht: Ich werde mich an die neue Arbeit gewöhnen, und es wird eine gute Zeit. Vor einem Jahr hätte sie das noch nicht geglaubt.";
+var BOOK = {
+  '10': 'Das Buch nennt für die ersten 10 Wörter etwa 27 % – gemittelt über eine Sammlung von 20 Millionen Wörtern.',
+  '20': 'Das Buch nennt für die ersten 20 Wörter etwa 35 % – gemittelt über eine Sammlung von 20 Millionen Wörtern.',
+  '100': 'Für die ersten 100 Wörter nennt das Buch keinen eigenen Wert. Für die ersten 10 sind es etwa 27 %, für die ersten 20 etwa 35 %.'
+};
 var limit = 10, sortMode = 'rang', ana = null, res = null;
 
 function $(id) { return document.getElementById(id); }
@@ -558,8 +563,9 @@ function show() {
   if (!ana) { renderRows(); return; }
   /* Erst den Vergleichswert, dann die aktuelle Sicht: view() markiert den Text,
      und die zuletzt berechnete Sicht ist die, die der Leser sehen soll. */
-  var other = limit === 10 ? 20 : (limit === 20 ? 100 : 20);
-  var o = view(ana, other);
+  /* Nur zurueckblicken: die naechste Stufe wird nie vorab verraten. */
+  var prev = limit === 10 ? 0 : (limit === 20 ? 10 : 20);
+  var o = prev ? view(ana, prev) : null;
   res = view(ana, limit);
   var r = res, pct = r.covered / r.total * 100;
   countUp($('pct'), pct);
@@ -567,8 +573,9 @@ function show() {
   $('say').innerHTML = r.covered === 0
     ? 'Keines dieser Wörter steht in deinem Text. Ist der Text auf Deutsch?'
     : 'Ungefähr jedes ' + every + '. Wort in deinem Text ist eines dieser <b>' + limit + '</b> Wörter.';
-  $('sub').innerHTML = (limit === 100 ? 'Davon die ersten 20 Wörter: ' : 'Mit den ersten ' + other + ' Wörtern wären es ') +
-                       '<b>' + pf(o.covered / o.total * 100) + '</b>';
+  $('sub').innerHTML = o ? ('Die ersten ' + prev + ' Wörter waren <b>' + pf(o.covered / o.total * 100) + '</b>') : '&nbsp;';
+  $('bookhint').textContent = BOOK[String(limit)];
+  $('bookhint').hidden = false;
   $('total').textContent = nf(r.total);
   $('hits').textContent = nf(r.covered);
   var gv = $('guess').value;
@@ -603,7 +610,7 @@ $('clear').addEventListener('click', function(){
   $('txt').value = ''; $('guess').value = ''; $('warn').hidden = true;
   ana = null; res = null; $('pct').textContent = '? %'; $('sub').innerHTML = '&nbsp;';
   $('total').textContent = '–'; $('hits').textContent = '–'; $('guessOut').textContent = '–';
-  $('split').innerHTML = ''; $('reader').innerHTML = ''; buildGroups(); renderRows();
+  $('split').innerHTML = ''; $('reader').innerHTML = ''; $('bookhint').hidden = true; buildGroups(); renderRows();
   $('readerCard').hidden = true; $('txt').focus();
 });
 Array.prototype.forEach.call(document.querySelectorAll('.zw-seg .seg-btn'), function(b){
@@ -611,7 +618,7 @@ Array.prototype.forEach.call(document.querySelectorAll('.zw-seg .seg-btn'), func
     Array.prototype.forEach.call(b.parentNode.querySelectorAll('.seg-btn'), function(x){
       x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
     });
-    if (b.dataset.limit) { limit = Number(b.dataset.limit); labels(); buildGroups(); show(); }
+    if (b.dataset.limit) { limit = Number(b.dataset.limit); labels(); buildGroups(); if (!ana) { $('bookhint').hidden = true; $('hits').textContent = '–'; } show(); }
     else if (b.dataset.sort) { sortMode = b.dataset.sort; renderRows(); }
     else { $('reader').className = 'reader' + (b.dataset.mode === 'mark' ? '' : ' ' + b.dataset.mode); }
   });
