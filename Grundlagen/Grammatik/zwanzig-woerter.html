@@ -253,6 +253,10 @@ html[data-theme="dark"] body { color: #c6cade; }
 /* ZW-MARKER dunkel */
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --zw-art:#d9a82f; --zw-verb:#e0747a; --zw-prep:#4fb39c; --zw-pron:#9f87ea; --zw-rest:#7d8399; --zw-mark-tx:#14151f; } }
 :root[data-theme="dark"] { --zw-art:#d9a82f; --zw-verb:#e0747a; --zw-prep:#4fb39c; --zw-pron:#9f87ea; --zw-rest:#7d8399; --zw-mark-tx:#14151f; }
+.serie { margin-top: 10px; font-size: 0.85em; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.serie a, .serie span { color: rgba(255,255,255,0.9); text-decoration: none; padding: 2px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.35); }
+.serie a:hover { background: rgba(255,255,255,0.18); }
+.serie .serie-akt { background: rgba(255,255,255,0.25); font-weight: 700; }
 </style>
 <script>/* FB-THEME-INIT */
 (function(){
@@ -286,6 +290,7 @@ html[data-theme="dark"] body { color: #c6cade; }
   <button class="theme-toggle" id="themeToggle" onclick="fbToggleTheme()" aria-label="Hell/Dunkel umschalten">🌙</button>
   <h1>Zwanzig Wörter</h1>
   <p>A2–C1 – Grammatik · Wie viel von deinem Text sind nur 20 Wörter?</p>
+  <div class="serie"><span class="serie-akt">20 Wörter</span> <a href="hundert-woerter.html">100 Wörter</a></div>
   <div class="big-emoji">🔢</div>
 </div>
 
