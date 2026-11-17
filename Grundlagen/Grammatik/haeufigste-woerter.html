@@ -259,6 +259,9 @@ html[data-theme="dark"] body { color: #c6cade; }
 .zw-seg-big .seg-btn { padding: 10px 24px; font-size: 1em; }
 .zw-sub { font-size: 0.95em; color: var(--muted); }
 .zw-sub b { color: var(--text); font-variant-numeric: tabular-nums; }
+.zw-facts { grid-template-columns: repeat(4, minmax(0,1fr)); }
+@media (max-width: 820px) { .zw-facts { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 600px) { .zw-facts { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 .zw-groups { grid-template-columns: repeat(3, minmax(0,1fr)); }
 .zw-verbdetail { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px;
   background: var(--card-soft); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
@@ -365,7 +368,8 @@ html[data-theme="dark"] body { color: #c6cade; }
       <div class="zw-sub" id="sub">&nbsp;</div>
       <dl class="zw-facts">
         <div><dt>Wörter im Text</dt><dd id="total">–</dd></div>
-        <div><dt id="hitsLbl">davon die 10</dt><dd id="hits">–</dd></div>
+        <div><dt>Treffer im Text</dt><dd id="hits">–</dd></div>
+        <div><dt id="usedLbl">von den 10 benutzt</dt><dd id="used">–</dd></div>
         <div><dt>meine Schätzung</dt><dd id="guessOut">–</dd></div>
       </dl>
       <div class="zw-hint" id="bookhint" hidden></div>
@@ -624,7 +628,7 @@ function countUp(el, target) {
 function labels() {
   /* sayN lebt im Satz, der bei jeder Auswertung neu geschrieben wird - kann fehlen. */
   ['guessN', 'sayN'].forEach(function(id){ var e = $(id); if (e) e.textContent = limit; });
-  $('hitsLbl').textContent = 'davon die ' + limit;
+  $('usedLbl').textContent = 'von den ' + limit + ' benutzt';
 }
 
 function show() {
@@ -646,6 +650,10 @@ function show() {
   $('bookhint').hidden = false;
   $('total').textContent = nf(r.total);
   $('hits').textContent = nf(r.covered);
+  /* Nur zaehlen, was wirklich messbar ist: Rang 80 (einer) ist von Rang 5 (ein)
+     nicht zu unterscheiden und wird deshalb nie als benutzt gezaehlt. */
+  var benutzt = LEM.filter(inLimit).filter(function(l){ return r.counts[l.id] > 0; }).length;
+  $('used').textContent = nf(benutzt) + ' von ' + limit;
   var gv = $('guess').value;
   $('guessOut').textContent = gv === '' ? 'keine' : nf(Number(gv)) + ' %';
   var gs = GORDER.filter(function(g){ return LEM.some(function(l){ return l.g === g && inLimit(l); }); });
@@ -686,7 +694,7 @@ $('sample').addEventListener('click', function(){ $('txt').value = SAMPLE; $('tx
 $('clear').addEventListener('click', function(){
   $('txt').value = ''; $('guess').value = ''; $('warn').hidden = true;
   ana = null; res = null; $('pct').textContent = '? %'; $('sub').innerHTML = '&nbsp;';
-  $('total').textContent = '–'; $('hits').textContent = '–'; $('guessOut').textContent = '–';
+  $('total').textContent = '–'; $('hits').textContent = '–'; $('used').textContent = '–'; $('guessOut').textContent = '–';
   $('split').innerHTML = ''; $('reader').innerHTML = ''; $('bookhint').hidden = true; buildGroups(); renderRows();
   $('readerCard').hidden = true; $('txt').focus();
 });
@@ -695,7 +703,7 @@ Array.prototype.forEach.call(document.querySelectorAll('.zw-seg .seg-btn'), func
     Array.prototype.forEach.call(b.parentNode.querySelectorAll('.seg-btn'), function(x){
       x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
     });
-    if (b.dataset.limit) { limit = Number(b.dataset.limit); labels(); buildGroups(); if (!ana) { $('bookhint').hidden = true; $('hits').textContent = '–'; } show(); }
+    if (b.dataset.limit) { limit = Number(b.dataset.limit); labels(); buildGroups(); if (!ana) { $('bookhint').hidden = true; $('hits').textContent = '–'; $('used').textContent = '–'; } show(); }
     else if (b.dataset.sort) { sortMode = b.dataset.sort; renderRows(); }
     else { $('reader').className = 'reader' + (b.dataset.mode === 'mark' ? '' : ' ' + b.dataset.mode); }
   });
