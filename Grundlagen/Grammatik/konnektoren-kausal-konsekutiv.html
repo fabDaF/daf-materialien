@@ -632,7 +632,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
                     <div class="schema-box box-praep">
                         <div class="box-title">Präposition</div>
                         <div class="box-syntax">+ Genitiv</div>
-                        <div class="box-items">wegen<br>aufgrund</div>
+                        <div class="box-items">wegen<br>aufgrund<br>infolge</div>
                         <div class="box-model"><strong>Wegen</strong> + Gen. <strong>V</strong> S …</div>
                     </div>
                 </div>
@@ -669,11 +669,10 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
                         <div class="box-items">sodass</div>
                         <div class="box-model">HS, <strong>sodass</strong> S … <strong>V</strong></div>
                     </div>
-                    <div class="schema-box box-praep">
+                    <div class="schema-box box-praep empty">
                         <div class="box-title">Präposition</div>
                         <div class="box-syntax">+ Genitiv</div>
-                        <div class="box-items">infolge</div>
-                        <div class="box-model"><strong>Infolge</strong> + Gen. <strong>V</strong> S …</div>
+                        <span class="empty-marker">—</span>
                     </div>
                 </div>
             </div>
@@ -686,7 +685,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
                     <li><strong>denn</strong> (kausal, Konjunktion): Ich bleibe zu Hause, <strong>denn</strong> ich bin krank. <em>(normale HS-Wortstellung)</em></li>
                     <li><strong>sodass</strong> (konsekutiv, Subjunktion): Er war so müde, <strong>sodass</strong> er sofort eingeschlafen ist. <em>(Verb am Ende)</em></li>
                     <li><strong>wegen</strong> (kausal, Präposition): <strong>Wegen</strong> meiner Krankheit bleibe ich zu Hause. <em>(+ Genitiv)</em></li>
-                    <li><strong>infolge</strong> (konsekutiv, Präposition): <strong>Infolge</strong> des Unfalls war die Straße gesperrt. <em>(+ Genitiv)</em></li>
+                    <li><strong>infolge</strong> (kausal, Präposition): <strong>Infolge</strong> des Unfalls war die Straße gesperrt. <em>(+ Genitiv)</em></li>
                 </ul>
                 <p style="font-size: 0.85em; color: #999; margin-top: 10px;">
                     * <strong>nämlich</strong> steht NICHT auf Position 1, sondern im Mittelfeld: <em>Er spricht gut Deutsch. Er hat <strong>nämlich</strong> drei Jahre in Berlin gelebt.</em>
@@ -921,6 +920,7 @@ var ZUO_ITEMS = [
     { word: 'denn', cat: 'kausal' },
     { word: 'wegen + Gen.', cat: 'kausal' },
     { word: 'aufgrund + Gen.', cat: 'kausal' },
+    { word: 'infolge + Gen.', cat: 'kausal' },
     { word: 'nämlich', cat: 'kausal' },
     { word: 'deshalb', cat: 'konsekutiv' },
     { word: 'deswegen', cat: 'konsekutiv' },
@@ -928,8 +928,7 @@ var ZUO_ITEMS = [
     { word: 'daher', cat: 'konsekutiv' },
     { word: 'folglich', cat: 'konsekutiv' },
     { word: 'infolgedessen', cat: 'konsekutiv' },
-    { word: 'sodass', cat: 'konsekutiv' },
-    { word: 'infolge + Gen.', cat: 'konsekutiv' }
+    { word: 'sodass', cat: 'konsekutiv' }
 ];
 
 var draggedChip = null;
