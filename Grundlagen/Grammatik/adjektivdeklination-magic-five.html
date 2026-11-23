@@ -258,6 +258,23 @@ h1 { text-align: center; font-size: 1.5rem;
     margin-top: 8px; font-weight: 600;
 }
 
+/* FB-PFANNE-STICKY — die Tabelle bleibt beim Scrollen oben stehen,
+   der Lueckentext laeuft darunter durch (wie die Wortbank im Lueckentext). */
+.pfanne-sticky {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; justify-content: center;
+    background: var(--bg-fff);
+    margin: -24px -22px 22px;
+    padding: 14px 22px 12px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.10);
+}
+@media (max-width: 600px) {
+    .pfanne-sticky { margin: -24px -16px 18px; padding: 10px 16px 8px; }
+    .pfanne-sticky .pfanne-table { font-size: 0.74rem; }
+    .pfanne-sticky .pfanne-label-top { font-size: 0.82rem; margin-bottom: 4px; }
+    .pfanne-sticky .pfanne-legende { margin-top: 5px; }
+}
+
 /* Entdeckungs-MC */
 .ent-ex {
     background: var(--bg-fff); border-radius: 12px; padding: 18px 20px;
@@ -959,7 +976,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     Begleiter hat ein Magic Five → Adjektiv schwach → nur <strong style="color:var(--tx-2980b9);">-e</strong> oder <strong style="color:#7a6040;">-en</strong>
   </div>
 
-  <div style="display:flex; justify-content:center; margin-bottom:22px;">
+  <div class="pfanne-sticky">
     <div class="pfanne-wrap">
       <div class="pfanne-label-top">Schwache Adjektivendungen</div>
       <div class="pfanne-table-wrap">
@@ -1009,7 +1026,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
     Erst fragen: Hat <em>dieser</em> Begleiter hier ein Magic Five? → Dann ableiten.
   </div>
 
-  <div style="display:flex; justify-content:center; margin-bottom:22px;">
+  <div class="pfanne-sticky">
     <div class="pfanne-wrap">
       <div class="pfanne-label-top">Schwache Adjektivendungen — Ausnahmen rot</div>
       <div class="pfanne-table-wrap">
