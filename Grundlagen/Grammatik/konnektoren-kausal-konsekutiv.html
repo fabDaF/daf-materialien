@@ -235,6 +235,12 @@ input.blank.wrong { border-bottom-color: var(--bd-e74c3c); background: var(--bg-
 
 /* FB-WORTBANK — universelle Lueckentext-Wortbank */
 .fb-wortbank-wrap{margin:14px 0 18px;}
+/* FB-WORTBANK-STICKY — die Wortbank bleibt beim Scrollen oben stehen,
+   der Lueckentext laeuft darunter durch. overflow:clip statt hidden,
+   weil hidden position:sticky ausser Kraft setzt. */
+.container { overflow: hidden; overflow: clip; }
+.fb-wortbank-wrap { position: sticky; top: 0; z-index: 20; }
+.fb-wortbank-wrap .fb-wortbank { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 .fb-wortbank-label{display:none;}
 .fb-wortbank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:var(--bg-f0f0f8);border-radius:10px;min-height:48px;border:1px dashed var(--bd-bbb);}
 .fb-wortbank-chip{background:var(--bg-fff);border:2px solid var(--bd-667eea);color:var(--tx-667eea);padding:5px 12px;border-radius:14px;font-weight:500;font-size:0.9em;user-select:none;}
