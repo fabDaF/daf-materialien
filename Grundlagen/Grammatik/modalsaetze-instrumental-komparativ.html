@@ -506,6 +506,13 @@ input.blank.wrong   { border-color: var(--bd-e74c3c); background: var(--bg-ffebe
 html[data-theme="dark"] .tab-banner { box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
 html[data-theme="dark"] body { color: #c6cade; }
 html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { color: inherit; }
+
+/* FB-WORTBANK-STICKY — die Wortbank bleibt beim Scrollen oben stehen,
+   der Lueckentext laeuft darunter durch. overflow:clip statt hidden,
+   weil hidden position:sticky ausser Kraft setzt. */
+.container { overflow: hidden; overflow: clip; }
+.wordbank { position: sticky; top: 0; z-index: 20; }
+.wordbank { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 </style>
 <script>/* FB-THEME-INIT */
 (function(){
