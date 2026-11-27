@@ -512,6 +512,9 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 .container { overflow: hidden; overflow: clip; }
 .wordbank { position: sticky; top: 0; z-index: 20; }
 .wordbank { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+/* FB-ENTDECK-STICKY — die Beispielsaetze im Entdecken-Teil bleiben beim Scrollen
+   oben stehen, die Schritte laufen darunter durch (wie die Wortbank im Lueckentext). */
+.fb-entdeck-sticky { position: sticky; top: 0; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 </style>
 <script>/* FB-THEME-INIT */
 (function(){
@@ -559,7 +562,7 @@ html[data-theme="dark"] button, html[data-theme="dark"] input, html[data-theme="
 <div class="section-inner">
   <h2 class="section-title">Entdecke die Regel</h2>
 
-  <div class="entdeck-intro">
+  <div class="entdeck-intro fb-entdeck-sticky">
     <p>1. Die Maßnahme gilt als erfolgreich, <span class="hl">sofern</span> die Qualität der Ergebnisse <span class="hl">gesichert wird</span>.</p>
     <p>2. Das Projekt kann fortgesetzt werden, <span class="hl">insofern</span> ausreichend Erfahrung im Team <span class="hl">vorhanden ist</span>.</p>
     <p>3. Der Plan funktioniert, <span class="hl">soweit</span> alle Beteiligten ihre Aufgaben zuverlässig <span class="hl">erledigen</span>.</p>
