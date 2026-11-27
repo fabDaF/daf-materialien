@@ -126,6 +126,9 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 /* Entdeckungs-Tab */
 .entdeck-intro { background: var(--bg-f3e5f5); border-radius: 12px; padding: 18px 22px; margin-bottom: 20px; border-left: 5px solid var(--bd-9c27b0); font-size: 0.97rem; line-height: 1.75; }
+/* ENTDECK-STICKY — die Beispielsaetze bleiben beim Scrollen oben stehen,
+   die Schritte laufen darunter durch (wie die Wortbank im Lueckentext). */
+#sec-0 .entdeck-intro { position: sticky; top: 0; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 .entdeck-intro h3 { color: var(--tx-6a1b9a); margin-bottom: 10px; font-size: 1.05rem; }
 .hl { background: var(--bg-e1bee7); border-radius: 4px; padding: 0 4px; color: var(--tx-4a148c); font-weight: 700; }
 .mc-step { display: none; background: var(--bg-fafbff); border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; border: 1px solid var(--bd-c5cae9); }
